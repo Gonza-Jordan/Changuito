@@ -1,4 +1,4 @@
-package ChangoMain;
+package com.tallerwebi.ChangoMain;
 
 public class Producto {
     private Integer idProducto;

@@ -1,4 +1,4 @@
-package ChangoMain;
+package com.tallerwebi.ChangoMain;
 
 import java.util.ArrayList;
 import java.util.List;

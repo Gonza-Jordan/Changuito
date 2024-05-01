@@ -1,9 +1,9 @@
-package testChango;
+package com.tallerwebi.testChango;
 
-import ChangoMain.Producto;
-import ChangoMain.Supermercado;
+import com.tallerwebi.ChangoMain.Producto;
+import com.tallerwebi.ChangoMain.Supermercado;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SupermercadoTest {

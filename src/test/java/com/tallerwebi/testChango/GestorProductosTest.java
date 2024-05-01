@@ -1,9 +1,9 @@
-package testChango;
+package com.tallerwebi.testChango;
 
-import ChangoMain.GestorProductos;
-import ChangoMain.Producto;
+import com.tallerwebi.ChangoMain.GestorProductos;
+import com.tallerwebi.ChangoMain.Producto;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GestorProductosTest {
