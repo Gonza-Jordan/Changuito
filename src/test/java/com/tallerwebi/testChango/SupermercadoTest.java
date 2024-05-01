@@ -1,5 +1,10 @@
-import org.junit.Test;
-import static org.junit.Assert.*;
+package com.tallerwebi.testChango;
+
+import com.tallerwebi.ChangoMain.Producto;
+import com.tallerwebi.ChangoMain.Supermercado;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SupermercadoTest {
 

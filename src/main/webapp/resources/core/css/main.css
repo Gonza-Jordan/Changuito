@@ -1,23 +1,117 @@
-body {
-  padding-top: 5rem;
-}
-.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
+*{
+    padding: 0;
+    margin: 0;
 }
 
-h1{
-	color:#0000FF;
+html{
+    font-family: sans-serif;
 }
 
-h2{
-	color:#FF0000;
+/* ********************************************** ESTILOS BUSCADOR ************************************************** */
+
+.form-buscador{
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
 
-.navbar-brand{
-    margin:0 2rem;
+.buscador{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    padding: 1em;
+    background-color: grey;
 }
-.boton{
-    width :100px;
-    height: 100px;
+
+.buscador button{
+    background-color: #BDFF00;
+    font-size: 1em;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
 }
+
+.buscador button:hover{
+    cursor: pointer;
+    transform: scale(120%);
+}
+
+.buscador img{
+    display: block;
+}
+
+.buscador input{
+    font-family: inherit;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    outline: none;
+    padding: 0.5em;
+    /*padding-bottom: 0.6em;*/
+    width: 30em;
+}
+
+/* ****************************************************************************************************************** */
+
+/* ******************************************* ESTILOS VISTA CATEGORIA ********************************************** */
+
+.hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkslategrey;
+    /*background-image: url('../Images/hero.jpg');*/
+    height: 40vh;
+}
+
+.hero div{
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    background-color: rgb(255, 255, 255, 90%);
+    width: 100%;
+    padding: 0.5em;
+}
+
+.productosDestacados{
+    margin-top: 3em;
+    margin-bottom: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+}
+
+.filaProducto{
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+}
+
+.contenedorProducto a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10em;
+    height: 10em;
+    gap: 2em;
+    border: 2px solid #333333;
+    border-radius: 1em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.productosDestacados a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.contenedorMarca a{
+    height: 5em;
+}
+
+

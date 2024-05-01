@@ -1,3 +1,5 @@
+package com.tallerwebi.ChangoMain;
+
 public class Producto {
     private Integer idProducto;
     private String nombre;
