@@ -74,7 +74,29 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/home");
     }
+
+    @RequestMapping(path = "/buscador", method = RequestMethod.GET)
+    public ModelAndView iralbuscador() {
+        return new ModelAndView("buscador");
+    }
+
+    @RequestMapping(path ="/categorias", method = RequestMethod.GET)
+    public ModelAndView irAcategorias() { return new ModelAndView("categorias"); }
+
+    @RequestMapping(path ="/header", method = RequestMethod.GET)
+    public ModelAndView irAheader() { return new ModelAndView("header"); }
+
+    @RequestMapping(path ="/miCuenta", method = RequestMethod.GET)
+    public ModelAndView irAmiCuenta() { return new ModelAndView("miCuenta"); }
+
+    @RequestMapping(path ="/ofertas", method = RequestMethod.GET)
+    public ModelAndView irAofertas() { return new ModelAndView("ofertas"); }
+
+    @RequestMapping(path ="/supermercado", method = RequestMethod.GET)
+    public ModelAndView irAsupermercado() { return new ModelAndView("supermercado"); }
+
+
 }
 
