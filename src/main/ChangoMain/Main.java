@@ -1,25 +1,58 @@
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        // Creo una lista de productos
-        GestorProductos gestor = new GestorProductos();
+        // Crear un supermercado
+        Supermercado supermercado = new Supermercado("Mi Supermercado");
 
-        // Agrego productos
-        gestor.agregarProducto(new Producto(1, "Arroz", 2.5, "123456789"));
-        gestor.agregarProducto(new Producto(2, "Pan", 1.0, "987654321"));
+        // Agregar productos al supermercado
+        supermercado.agregarProducto(new Producto(1, "Leche", 2.5, "123456789"));
+        supermercado.agregarProducto(new Producto(2, "Pan", 1.0, "987654321"));
 
-        // Listo un producto agregado
-        System.out.println("Productos agregados:");
-        for (Producto producto : gestor.getListaProductos()) {
+        // Mostrar los productos del supermercado
+        List<Producto> productos = supermercado.getProductos();
+        System.out.println("Productos en " + supermercado.getNombre() + ":");
+        for (Producto producto : productos) {
             System.out.println("ID: " + producto.getIdProducto() + ", Nombre: " + producto.getNombre() + ", Precio: " + producto.getPrecio() + ", Código de Barras: " + producto.getCodigoBarras());
         }
 
-        //Edito un producto
-        Producto nuevoProducto = new Producto(2, "Pan Integral", 1.2, "987654321");
-        gestor.editarProducto(2, nuevoProducto);
+        // Buscar un producto por su ID
+        int idProductoABuscar = 1;
+        Producto productoEncontrado = null;
+        for (Producto producto : productos) {
+            if (producto.getIdProducto() == idProductoABuscar) {
+                productoEncontrado = producto;
+                break;
+            }
+        }
 
-        // Mostrar los productos después de la edición
-        System.out.println("Productos después de la edición:");
-        for (Producto producto : gestor.getListaProductos()) {
+        if (productoEncontrado != null) {
+            System.out.println("\nProducto encontrado:");
+            System.out.println("ID: " + productoEncontrado.getIdProducto() + ", Nombre: " + productoEncontrado.getNombre() + ", Precio: " + productoEncontrado.getPrecio() + ", Código de Barras: " + productoEncontrado.getCodigoBarras());
+        } else {
+            System.out.println("\nProducto no encontrado.");
+        }
+
+        // Editar un producto existente
+        Producto productoEditado = new Producto(2, "Pan Integral", 1.2, "987654321");
+        supermercado.eliminarProducto(2); // Eliminar el producto existente
+        supermercado.agregarProducto(productoEditado); // Agregar el producto editado
+
+        // Mostrar los productos del supermercado después de la edición
+        System.out.println("\nProductos en " + supermercado.getNombre() + " después de la edición:");
+        productos = supermercado.getProductos();
+        for (Producto producto : productos) {
+            System.out.println("ID: " + producto.getIdProducto() + ", Nombre: " + producto.getNombre() + ", Precio: " + producto.getPrecio() + ", Código de Barras: " + producto.getCodigoBarras());
+        }
+
+        // Eliminar un producto del supermercado
+        int idProductoAEliminar = 1;
+        supermercado.eliminarProducto(idProductoAEliminar);
+
+        // Mostrar los productos del supermercado después de la eliminación
+        List<Producto> productosDespues = supermercado.getProductos();
+        System.out.println("\nProductos en " + supermercado.getNombre() + " después de la eliminación:");
+        for (Producto producto : productosDespues) {
             System.out.println("ID: " + producto.getIdProducto() + ", Nombre: " + producto.getNombre() + ", Precio: " + producto.getPrecio() + ", Código de Barras: " + producto.getCodigoBarras());
         }
     }
