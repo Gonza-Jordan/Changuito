@@ -82,8 +82,8 @@ public class ControladorLogin {
         return new ModelAndView("buscador");
     }
 
-    @RequestMapping(path ="/categorias", method = RequestMethod.GET)
-    public ModelAndView irAcategorias() { return new ModelAndView("categorias"); }
+    @RequestMapping(path ="/categoria", method = RequestMethod.GET)
+    public ModelAndView irAcategoria() { return new ModelAndView("categoria"); }
 
     @RequestMapping(path ="/header", method = RequestMethod.GET)
     public ModelAndView irAheader() { return new ModelAndView("header"); }
