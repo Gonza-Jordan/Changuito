@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Taller Web I</title>
+    <title>Tu changuito</title>
 
     <!-- Boostrap core css -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
@@ -15,10 +15,29 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">UNLAM</a>
+<header class="cabecera">
+    <nav class="logo">
+        <a class="navbar-brand" href="index.html">Tu Changuito</a>
+    </nav>
+<nav>
+    <ul>
+        <li><a href="supermercado.html">Supermercados</a></li>
+        <li><a href="ofertas.html">Ofertas</a></li>
+        <li><a href="categorias.html"> Categorias</a></li>
+        <li><a href="miCuenta.html">Mi cuenta</a></li>
+    </ul>
 </nav>
+    <div class="contenedor-carrito-contador">
+        <a href="carrito.html" id="carrito">
+            <span class="icon-carrito_de_compras_negro"></span>
+            <p class="contadorCarrito" id="contadorCarrito"></p>
+        </a>
+    </div>
+    <a href="login.html" id="login-usuario"
+    ><span class="icon-usuario"></span
+    ></a>
+</header>
+
 
 <main role="main" class="container">
 
