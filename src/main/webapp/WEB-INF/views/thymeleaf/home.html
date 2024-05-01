@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Taller Web I</title>
+  <title>Changuito</title>
 
   <!-- Boostrap core css -->
   <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
@@ -21,10 +21,22 @@
     <h1>Bienvenidos a changuito</h1>
     <p> Compara el precio del mismo producto en diferentes supermercados</p>
     <form action="buscador.html" method="post" >
-      <input >
-
+      <label for="buscar"></label>
+      <input type="search" id="buscar" name="buscar" th:placeholder="Producto" >
+      <input type="submit"  th:value="Buscar">
     </form>
   </div>
+  <section class="categorias">
+<h2>Categorias</h2>
+      <input type="button" value="Almacen" href="categoria.html" class="boton" >
+    <input type="button" value="Perfumeria" href="categoria.html" class="boton" >
+    <input type="button" value="Bebidas" href="categoria.html" class="boton" >
+    <input type="button" value="Verduleria" href="categoria.html" class="boton" >
+    <input type="button" value="Lacteos" href="categoria.html" class="boton" >
+    <input type="button" value="Carnes" href="categoria.html" class="boton" >
+
+
+  </section>
 </main>
 <!-- /.container -->
 
