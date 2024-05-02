@@ -1,4 +1,4 @@
-package com.tallerwebi.ChangoMain;
+package com.tallerwebi.dominio;
 
 import java.util.ArrayList;
 import java.util.List;

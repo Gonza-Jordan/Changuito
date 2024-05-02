@@ -1,7 +1,5 @@
-package com.tallerwebi.testChango;
+package com.tallerwebi.dominio;
 
-import com.tallerwebi.ChangoMain.Producto;
-import com.tallerwebi.ChangoMain.Supermercado;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

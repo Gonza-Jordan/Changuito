@@ -1,4 +1,7 @@
-package com.tallerwebi.ChangoMain;
+package com.tallerwebi.presentacion;
+
+import com.tallerwebi.dominio.Producto;
+import com.tallerwebi.dominio.Supermercado;
 
 import java.util.List;
 
