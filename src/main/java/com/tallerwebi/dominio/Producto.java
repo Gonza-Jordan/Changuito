@@ -1,4 +1,4 @@
-package com.tallerwebi.ChangoMain;
+package com.tallerwebi.dominio;
 
 public class Producto {
     private Integer idProducto;
