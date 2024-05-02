@@ -1,61 +1,242 @@
-*{
+* {
     padding: 0;
     margin: 0;
 }
 
-html{
+html {
     font-family: sans-serif;
 }
 
+
+/* *********************************************** ESTILOS HEADER *************************************************** */
+
+.navbar-brand {
+    font-size: 2em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5em;
+    width: 90%;
+    margin: auto;
+    height: 5em;
+
+}
+
+.cabecera ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2em;
+}
+
+.cabecera li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ****************************************************************************************************************** */
+
 /* ********************************************** ESTILOS BUSCADOR ************************************************** */
 
-.form-buscador{
+.form-buscador {
     display: flex;
     align-items: center;
     gap: 1em;
 }
 
-.buscador{
+.buscador {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5em;
     padding: 1em;
     background-color: grey;
+    font-size: 1.2em;
 }
 
-.buscador button{
+.buscadorHome {
+    background-color: rgb(0, 0, 0, 0%);
+}
+
+.buscador button {
     background-color: #BDFF00;
     font-size: 1em;
     padding: 0.5em;
     border: none;
     border-radius: 5px;
+    transition-duration: 1s;
 }
 
-.buscador button:hover{
+.buscador button:hover {
     cursor: pointer;
     transform: scale(120%);
+    transition-duration: 1s;
 }
 
-.buscador img{
+.buscador img {
     display: block;
 }
 
-.buscador input{
+.buscador input {
     font-family: inherit;
-    border: 1px solid #333333;
+    border: none;
     border-radius: 5px;
     outline: none;
     padding: 0.5em;
-    /*padding-bottom: 0.6em;*/
     width: 30em;
+}
+
+/* ****************************************************************************************************************** */
+
+/* ********************************************* ESTILOS VISTA HOME ************************************************* */
+
+.heroHome {
+    background-color: darkslategrey;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0, 50%);
+    color: white;
+    width: 100%;
+    padding: 2em;
+    gap: 1em;
+}
+
+.container p {
+    font-size: 2.5em;
+    width: 50%;
+    text-align: center;
+}
+
+.categoriasContenedor {
+    background-color: lightgray;
+    border-radius: 1em;
+    padding: 2em 1em 2em 1em;
+    width: 35em;
+    margin: auto;
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.categoriasContenedor h2 {
+    font-size: 1.4em;
+    padding-left: 1.5em;
+}
+
+.categoriasContenedor div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.categorias {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.filaCategoria {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+.contenedorCategoria a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 1em;
+    width: 10em;
+    height: 10em;
+    gap: 2em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.frase{
+    background-color: #99CE00;
+    height: 20vh;
+    font-size: 2em;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 4em 0 2em 0;
+    padding: 2em;
+    position:relative;
+}
+
+.frase p{
+    width: 40%;
+    margin-top: 2em;
+}
+
+.peso{
+    background-color: white;
+    border: 10px solid #BDFF00;
+    border-radius: 50%;
+    color: #BDFF00;
+    font-size: 3em;
+    display: block;
+    padding: 0.2em;
+    width: 111px;
+    position: absolute;
+    bottom: 2.3em;
+}
+
+.supermercado{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    font-size: 1.5em;
+    margin-bottom: 3em;
+}
+
+.contenedorSupermercado{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+}
+
+.contenedorSupermercado a{
+    text-decoration: none;
+    color: inherit;
+    height: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ****************************************************************************************************************** */
 
 /* ******************************************* ESTILOS VISTA CATEGORIA ********************************************** */
 
-.hero{
+.hero {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +245,7 @@ html{
     height: 40vh;
 }
 
-.hero div{
+.hero div {
     font-size: 3em;
     display: flex;
     justify-content: center;
@@ -75,7 +256,7 @@ html{
     padding: 0.5em;
 }
 
-.productosDestacados{
+.productosDestacados {
     margin-top: 3em;
     margin-bottom: 3em;
     display: flex;
@@ -85,13 +266,13 @@ html{
     gap: 3em;
 }
 
-.filaProducto{
+.filaProducto {
     display: flex;
     justify-content: center;
     gap: 3em;
 }
 
-.contenedorProducto a{
+.contenedorProducto a {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,12 +286,12 @@ html{
     color: inherit;
 }
 
-.productosDestacados a{
+.productosDestacados a {
     text-decoration: none;
     color: inherit;
 }
 
-.contenedorMarca a{
+.contenedorMarca a {
     height: 5em;
 }
 

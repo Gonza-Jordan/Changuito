@@ -1,39 +1,81 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Changuito</title>
+    <title>Changuito</title>
 
-  <!-- custom style -->
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
 
 <body>
-<div th:include="header.html"></div>
-<main role="main" class="container">
-  <div class = "container">
-    <h1>Bienvenidos a changuito</h1>
-    <p> Compara el precio del mismo producto en diferentes supermercados</p>
-    <form action="buscador.html" method="post" >
-      <label for="buscar"></label>
-      <input type="search" id="buscar" name="buscar" th:placeholder="Producto" >
-      <input type="submit"  th:value="Buscar">
-    </form>
-  </div>
-  <section class="categorias">
-<h2>Categorias</h2>
-      <input type="button" value="Almacen" href="categoria.html" class="boton" >
-    <input type="button" value="Perfumeria" href="categoria.html" class="boton" >
-    <input type="button" value="Bebidas" href="categoria.html" class="boton" >
-    <input type="button" value="Verduleria" href="categoria.html" class="boton" >
-    <input type="button" value="Lacteos" href="categoria.html" class="boton" >
-    <input type="button" value="Carnes" href="categoria.html" class="boton" >
+<header th:include="header.html" class="cabecera"></header>
+<main>
+    <div class="heroHome">
+        <div class="container">
+            <p> Compará el precio del mismo producto en diferentes supermercados</p>
+            <section th:include="buscador.html" class="buscador buscadorHome"></section>
+        </div>
+    </div>
 
-
-  </section>
+    <section class="categoriasContenedor">
+        <h2>Categorías</h2>
+        <div>
+            <div class="flecha">
+                <img src="" alt="<">
+            </div>
+            <div class="categorias">
+                <div class="filaCategoria">
+                    <div class="contenedorCategoria">
+                        <a href="#"><img src="" alt="Icono categoria">
+                            <p>Almacen</p></a>
+                    </div>
+                    <div class="contenedorCategoria">
+                        <a href="#"><img src="" alt="Icono categoria">
+                            <p>Perfumería</p></a>
+                    </div>
+                    <div class="contenedorCategoria">
+                        <a href="#"><img src="" alt="Icono categoria">
+                            <p>Bebidas</p></a>
+                    </div>
+                </div>
+                <div class="filaCategoria">
+                    <div class="contenedorCategoria">
+                        <a href="#"><img src="" alt="Icono categoria">
+                            <p>Verdulería</p></a>
+                    </div>
+                    <div class="contenedorCategoria">
+                        <a href="#"><img src="" alt="Icono categoria">
+                            <p>Limpieza</p></a>
+                    </div>
+                    <div class="contenedorCategoria">
+                        <a href="#"><img src="" alt="Icono categoria">
+                            <p>Lacteos</p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flecha">
+                <img src="" alt=">">
+            </div>
+        </div>
+    </section>
+    <section class="frase">
+        <div class="peso"><img src="" alt="$"></div>
+        <p>Analizamos diariamente los precios de los supermercados más grandes de Argentina para traerte los precios más
+            baratos del mercado.</p>
+    </section>
+    <section class="supermercado">
+        <h2>Supermercados relevados</h2>
+        <div class="contenedorSupermercado">
+            <a href=""><img src="" alt="Supermercado 1"></a>
+            <a href=""><img src="" alt="Supermercado 2"></a>
+            <a href=""><img src="" alt="Supermercado 3"></a>
+            <a href=""><img src="" alt="Supermercado 4"></a>
+        </div>
+    </section>
 </main>
 
 </body>
