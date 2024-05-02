@@ -10,14 +10,8 @@
 </head>
 
 <body>
-<div th:include="header.html"></div>
-<section class="buscador">
-    <img src="" alt="Lupa">
-    <form action="resultadoDeBusqueda.html" method="post" class="form-buscador">
-        <input type="text" name="buscador" required autocomplete="off" placeholder="Producto">
-        <button type="submit">BUSCAR</button>
-    </form>
-</section>
+<header th:include="header.html" class="cabecera"></header>
+<section th:include="buscador.html" class="buscador"></section>
 
 <section class="hero">
     <div>
