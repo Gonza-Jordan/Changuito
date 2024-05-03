@@ -1,9 +1,7 @@
-package testChango;
+package com.tallerwebi.dominio;
 
-import ChangoMain.Producto;
-import ChangoMain.Supermercado;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SupermercadoTest {
