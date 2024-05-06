@@ -23,38 +23,16 @@
 
     <section class="categoriasContenedor">
         <h2>Categorías</h2>
-        <div>
+        <div class="contenedorFlechas">
             <div class="flecha">
                 <img src="" alt="<">
             </div>
             <div class="categorias">
-                <div class="filaCategoria">
-                    <div class="contenedorCategoria">
-                        <a href="#"><img src="" alt="Icono categoria">
-                            <p>Almacen</p></a>
-                    </div>
-                    <div class="contenedorCategoria">
-                        <a href="#"><img src="" alt="Icono categoria">
-                            <p>Perfumería</p></a>
-                    </div>
-                    <div class="contenedorCategoria">
-                        <a href="#"><img src="" alt="Icono categoria">
-                            <p>Bebidas</p></a>
-                    </div>
-                </div>
-                <div class="filaCategoria">
-                    <div class="contenedorCategoria">
-                        <a href="#"><img src="" alt="Icono categoria">
-                            <p>Verdulería</p></a>
-                    </div>
-                    <div class="contenedorCategoria">
-                        <a href="#"><img src="" alt="Icono categoria">
-                            <p>Limpieza</p></a>
-                    </div>
-                    <div class="contenedorCategoria">
-                        <a href="#"><img src="" alt="Icono categoria">
-                            <p>Lacteos</p></a>
-                    </div>
+                <div class="contenedorCategoria" th:each="categoria : ${categorias}">
+                    <a th:href="@{/categoria(categoria=${categoria})}">
+                        <img src="" alt="Icono categoria">
+                        <p th:text="${categoria}"></p>
+                    </a>
                 </div>
             </div>
             <div class="flecha">

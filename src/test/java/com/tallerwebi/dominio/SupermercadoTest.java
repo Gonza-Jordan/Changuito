@@ -9,7 +9,7 @@ public class SupermercadoTest {
     @Test
     public void testAgregarProductoSupermercado() {
         Supermercado supermercado = new Supermercado("Mi Supermercado");
-        Producto producto = new Producto(1, "Arroz", 2.5, "123456789");
+        Producto producto = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen);
         supermercado.agregarProducto(producto);
         assertTrue(supermercado.getProductos().contains(producto));
     }
@@ -17,7 +17,7 @@ public class SupermercadoTest {
     @Test
     public void testEliminarProductoSupermercado() {
         Supermercado supermercado = new Supermercado("Mi Supermercado");
-        Producto producto = new Producto(1, "Arroz", 2.5, "123456789");
+        Producto producto = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen);
         supermercado.agregarProducto(producto);
         supermercado.eliminarProducto(1);
         assertFalse(supermercado.getProductos().contains(producto));
@@ -26,7 +26,7 @@ public class SupermercadoTest {
     @Test
     public void testBuscarProductoExistenteSupermercado() {
         Supermercado supermercado = new Supermercado("Mi Supermercado");
-        Producto producto = new Producto(1, "Arroz", 2.5, "123456789");
+        Producto producto = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen);
         supermercado.agregarProducto(producto);
         Producto productoEncontrado = supermercado.buscarProducto(1);
         assertNotNull(productoEncontrado);
@@ -36,7 +36,7 @@ public class SupermercadoTest {
     @Test
     public void testBuscarProductoNoExistenteSupermercado() {
         Supermercado supermercado = new Supermercado("Mi Supermercado");
-        Producto producto = new Producto(1, "Arroz", 2.5, "123456789");
+        Producto producto = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen);
         supermercado.agregarProducto(producto);
         Producto productoEncontrado = supermercado.buscarProducto(2);
         assertNull(productoEncontrado);

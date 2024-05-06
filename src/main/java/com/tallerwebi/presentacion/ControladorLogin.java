@@ -67,10 +67,10 @@ public class ControladorLogin {
         return new ModelAndView("nuevo-usuario", model);
     }
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
-        return new ModelAndView("home");
-    }
+//    @RequestMapping(path = "/home", method = RequestMethod.GET)
+//    public ModelAndView irAHome() {
+//        return new ModelAndView("home");
+//    }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
@@ -81,9 +81,6 @@ public class ControladorLogin {
     public ModelAndView iralbuscador() {
         return new ModelAndView("buscador");
     }
-
-    @RequestMapping(path ="/categoria", method = RequestMethod.GET)
-    public ModelAndView irAcategoria() { return new ModelAndView("categoria"); }
 
     @RequestMapping(path ="/header", method = RequestMethod.GET)
     public ModelAndView irAheader() { return new ModelAndView("header"); }
