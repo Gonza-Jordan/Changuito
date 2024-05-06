@@ -5,12 +5,14 @@ public class Producto {
     private String nombre;
     private double precio;
     private String codigoBarras;
+    private Categoria categoria;
 
-    public Producto(Integer idProducto ,String nombre, double precio, String codigoBarras) {
+    public Producto(Integer idProducto ,String nombre, double precio, String codigoBarras, Categoria categoria) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.precio = precio;
         this.codigoBarras = codigoBarras;
+        this.categoria = categoria;
     }
 
     //Getters y Setters de producto

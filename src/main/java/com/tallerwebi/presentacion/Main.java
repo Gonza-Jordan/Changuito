@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.Categoria;
 import com.tallerwebi.dominio.Producto;
 import com.tallerwebi.dominio.Supermercado;
 
@@ -11,8 +12,8 @@ public class Main {
         Supermercado supermercado = new Supermercado("Mi Supermercado");
 
         // Agregar productos al supermercado
-        supermercado.agregarProducto(new Producto(1, "Leche", 2.5, "123456789"));
-        supermercado.agregarProducto(new Producto(2, "Pan", 1.0, "987654321"));
+        supermercado.agregarProducto(new Producto(1, "Leche", 2.5, "123456789", Categoria.Lacteos));
+        supermercado.agregarProducto(new Producto(2, "Pan", 1.0, "987654321", Categoria.Almacen));
 
         // Mostrar los productos del supermercado
         List<Producto> productos = supermercado.getProductos();
@@ -39,7 +40,7 @@ public class Main {
         }
 
         // Editar un producto existente
-        Producto productoEditado = new Producto(2, "Pan Integral", 1.2, "987654321");
+        Producto productoEditado = new Producto(2, "Pan Integral", 1.2, "987654321", Categoria.Almacen);
         supermercado.eliminarProducto(2); // Eliminar el producto existente
         supermercado.agregarProducto(productoEditado); // Agregar el producto editado
 

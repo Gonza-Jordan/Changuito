@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Categoría</title>
+    <title th:text="${categoria}"></title>
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -16,7 +16,7 @@
 <section class="hero">
     <div>
         <img src="" alt="Icono">
-        <h2>Categoría</h2>
+        <h2 th:text="${categoria}">Categoría</h2>
     </div>
 </section>
 

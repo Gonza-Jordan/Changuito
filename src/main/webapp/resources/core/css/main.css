@@ -125,12 +125,16 @@ html {
     background-color: lightgray;
     border-radius: 1em;
     padding: 2em 1em 2em 1em;
-    width: 35em;
+    width: 70em;
     margin: auto;
     margin-top: 2em;
     display: flex;
     flex-direction: column;
     gap: 1em;
+}
+
+.contenedorFlechas{
+    display: flex;
 }
 
 .categoriasContenedor h2 {
@@ -143,12 +147,15 @@ html {
     justify-content: center;
     align-items: center;
     gap: 1em;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .categorias {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 2em;
+    flex-wrap: wrap;
 }
 
 .filaCategoria {
