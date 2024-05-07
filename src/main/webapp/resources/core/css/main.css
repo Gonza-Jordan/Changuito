@@ -125,7 +125,7 @@ html {
     background-color: lightgray;
     border-radius: 1em;
     padding: 2em 1em 2em 1em;
-    width: 70em;
+    width: fit-content;
     margin: auto;
     margin-top: 2em;
     display: flex;
@@ -135,6 +135,9 @@ html {
 
 .contenedorFlechas{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 }
 
 .categoriasContenedor h2 {
@@ -448,4 +451,5 @@ html {
 input[type="checkbox"] {
     margin-right: 5px;
 }
+
 

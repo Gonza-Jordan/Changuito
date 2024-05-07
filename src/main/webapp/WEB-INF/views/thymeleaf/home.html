@@ -6,8 +6,57 @@
 
     <title>Changuito</title>
 
+    <!--    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>-->
+
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <style>
+        /* Estilos para el contenedor del carrusel */
+        .carousel-container {
+            overflow: hidden;
+            width: fit-content;
+            /*margin: 0 auto;*/
+            /*margin-top: 2em;*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*background-color: lightgray;*/
+            /*border-radius: 1em;*/
+            /*padding: 2em 1em 2em 1em;*/
+            gap: 1em;
+
+
+        }
+
+        /* Estilos para los elementos del carrusel */
+        .carousel-item a {
+            /*display: inline-block;*/
+            /*width: calc(100% / 3); !* Cada elemento ocupa el 33.33% del ancho *!*/
+            box-sizing: border-box;
+            text-align: center;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 1em;
+            width: 10em;
+            height: 10em;
+            gap: 2em;
+            text-decoration: none;
+            color: inherit;
+
+            scroll-snap-align: start;
+
+        }
+
+        /* Estilos para los botones de navegación */
+        .carousel-btn {
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 <body>
@@ -19,6 +68,68 @@
             <section th:include="buscador.html" class="buscador buscadorHome"></section>
         </div>
     </div>
+
+    <section class="categoriasContenedor">
+
+        <h2>Categorías</h2>
+
+        <div class="contenedorFlechas">
+
+            <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094; Anterior</button>
+
+            <div class="carousel-container">
+
+                <!-- Contenido del carrusel -->
+                <div class="carousel-item" th:each="categoria : ${categorias}">
+                    <a th:href="@{/categoria(categoria=${categoria})}">
+                        <img src="" alt="Icono categoria">
+                        <p th:text="${categoria}"></p>
+                    </a>
+                </div>
+                <!-- Agrega más elementos según sea necesario -->
+            </div>
+
+            <!-- Botones de navegación -->
+
+            <button class="carousel-btn next" onclick="moveSlide(1)">Siguiente &#10095;</button>
+
+        </div>
+    </section>
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const totalSlides = slides.length;
+
+        // Deshabilita o habilita el botón "Anterior" según corresponda
+        document.querySelector('.prev').disabled = slideIndex <= 0;
+
+        function moveSlide(n) {
+            slideIndex += n * 4;
+            showSlides();
+
+            // Deshabilita o habilita el botón "Anterior" según corresponda
+            document.querySelector('.prev').disabled = slideIndex <= 0;
+
+            // Deshabilita o habilita el botón "Siguiente" según corresponda
+            document.querySelector('.next').disabled = slideIndex >= totalSlides - 4;
+        }
+
+        function showSlides() {
+            let startIndex = Math.max(0, slideIndex);
+            let endIndex = Math.min(totalSlides, startIndex + 4);
+            for (let i = 0; i < totalSlides; i++) {
+                if (i >= startIndex && i < endIndex) {
+                    slides[i].style.display = 'inline-block';
+                } else {
+                    slides[i].style.display = 'none';
+                }
+            }
+        }
+
+        showSlides();
+
+    </script>
+
 
     <section class="categoriasContenedor">
         <h2>Categorías</h2>
@@ -55,5 +166,6 @@
     </section>
 </main>
 
+<!--<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>-->
 </body>
 </html>
