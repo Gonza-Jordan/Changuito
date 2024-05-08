@@ -32,11 +32,20 @@ html {
     justify-content: center;
     list-style: none;
     gap: 2em;
+    align-items: center;
 }
 
 .cabecera li a {
     text-decoration: none;
     color: inherit;
+}
+
+.contenedor-carrito-contador{
+    background-color: grey;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    font-size: 1.5em;
+    color: #BDFF00;
 }
 
 /* ****************************************************************************************************************** */
@@ -63,7 +72,7 @@ html {
     background-color: rgb(0, 0, 0, 0%);
 }
 
-.buscador button {
+.boton-buscar {
     background-color: #BDFF00;
     font-size: 1em;
     padding: 0.5em;
@@ -72,10 +81,21 @@ html {
     transition-duration: 1s;
 }
 
-.buscador button:hover {
+.boton-buscar:hover {
     cursor: pointer;
     transform: scale(120%);
     transition-duration: 1s;
+}
+
+.lupa{
+    background: none;
+    border: none;
+    color: whitesmoke;
+    font-size: 1.4em;
+}
+
+.lupa:hover{
+    cursor: pointer;
 }
 
 .buscador img {
@@ -154,14 +174,23 @@ html {
     border-radius: 1em;
     width: 10em;
     height: 10em;
-    gap: 2em;
+    gap: 1em;
     text-decoration: none;
     color: inherit;
+    padding: 1em;
 
 }
 
 .carousel-btn {
     cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 2em;
+    color: #333;
+}
+
+.carousel-item p{
+    font-size: 1.5em;
 }
 
 .contenedorFlechas{
@@ -177,9 +206,16 @@ html {
 }
 
 .icono{
-    width: 30px;
-    height: 30px;
+    width: 4em;
+    height: 4em;
 }
+
+.icono-categoria{
+    width: 2em;
+    height: 2em;
+}
+
+
 
 /*.categoriasContenedor div {*/
 /*    display: flex;*/

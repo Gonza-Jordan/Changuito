@@ -4,14 +4,20 @@ import com.tallerwebi.dominio.Categoria;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class ControladorCategoriaTest {
@@ -36,6 +42,7 @@ public class ControladorCategoriaTest {
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
 		assertThat(categoria, equalTo(nombreDeLaCategoria));
+
 	}
 
 	@Test
