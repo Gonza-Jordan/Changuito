@@ -35,40 +35,6 @@
             <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
         </div>
     </section>
-<!--    <script>-->
-<!--        let slideIndex = 0;-->
-<!--        const slides = document.querySelectorAll('.carousel-item');-->
-<!--        const totalSlides = slides.length;-->
-
-<!--        // Deshabilita o habilita el botón "Anterior" según corresponda-->
-<!--        document.querySelector('.prev').disabled = slideIndex <= 0;-->
-
-<!--        function moveSlide(n) {-->
-<!--            slideIndex += n * 4;-->
-<!--            showSlides();-->
-
-<!--            // Deshabilita o habilita el botón "Anterior" según corresponda-->
-<!--            document.querySelector('.prev').disabled = slideIndex <= 0;-->
-
-<!--            // Deshabilita o habilita el botón "Siguiente" según corresponda-->
-<!--            document.querySelector('.next').disabled = slideIndex >= totalSlides - 4;-->
-<!--        }-->
-
-<!--        function showSlides() {-->
-<!--            let startIndex = Math.max(0, slideIndex);-->
-<!--            let endIndex = Math.min(totalSlides, startIndex + 4);-->
-<!--            for (let i = 0; i < totalSlides; i++) {-->
-<!--                if (i >= startIndex && i < endIndex) {-->
-<!--                    slides[i].style.display = 'inline-block';-->
-<!--                } else {-->
-<!--                    slides[i].style.display = 'none';-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-
-<!--        showSlides();-->
-
-<!--    </script>-->
     <section class="frase">
         <div class="peso"><img src="" alt="$"></div>
         <p>Analizamos diariamente los precios de los supermercados más grandes de Argentina para traerte los precios más
@@ -84,7 +50,7 @@
         </div>
     </section>
 </main>
-
 <script th:src="@{/js/main.js}"></script>
+<footer th:include="footer.html"></footer>
 </body>
 </html>

@@ -41,11 +41,11 @@ html {
 }
 
 .contenedor-carrito-contador{
-    background-color: grey;
+    background-color: #BDFF00;
     border-radius: 0.5em;
     padding: 0.5em;
     font-size: 1.5em;
-    color: #BDFF00;
+    color: #333333;
 }
 
 /* ****************************************************************************************************************** */
@@ -215,43 +215,6 @@ html {
     height: 2em;
 }
 
-
-
-/*.categoriasContenedor div {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    gap: 1em;*/
-/*    flex-direction: row;*/
-/*    flex-wrap: wrap;*/
-/*}*/
-
-/*.categorias {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    gap: 2em;*/
-/*    flex-wrap: wrap;*/
-/*}*/
-
-/*.filaCategoria {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    gap: 2em;*/
-/*}*/
-
-/*.contenedorCategoria a {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    background-color: white;*/
-/*    border-radius: 1em;*/
-/*    width: 10em;*/
-/*    height: 10em;*/
-/*    gap: 2em;*/
-/*    text-decoration: none;*/
-/*    color: inherit;*/
-/*}*/
 
 .frase{
     background-color: #99CE00;
@@ -524,4 +487,14 @@ input[type="checkbox"] {
     margin-right: 5px;
 }
 
+/* ******************************************* ESTILOS FOOTER ********************************************* */
+
+.footer{
+    height: 6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333333;
+    color: whitesmoke;
+}
 

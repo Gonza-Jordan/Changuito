@@ -46,6 +46,21 @@ public class ControladorCategoriaTest {
 	}
 
 	@Test
+	public void queAlHacerClickEnAlmacenDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElIconoAlmacen(){
+		// preparacion
+		String nombreDeLaCategoria = "Almacen";
+		String rutaDelIcono = "img/" + nombreDeLaCategoria + ".svg";
+
+		// ejecucion
+		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		String icono = (String) mav.getModel().get("icono");
+
+		// verificacion
+		assertThat(rutaDelIcono, equalTo(icono));
+
+	}
+
+	@Test
 	public void queAlHacerClickEnPerfumeriaDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombrePerfumeria(){
 		// preparacion
 		String nombreDeLaCategoria = "Perfumeria";
