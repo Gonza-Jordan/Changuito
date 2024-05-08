@@ -133,6 +133,37 @@ html {
     gap: 1em;
 }
 
+ .carousel-container {
+     overflow: hidden;
+     width: fit-content;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 1em;
+ }
+
+.carousel-item a {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 1em;
+    width: 10em;
+    height: 10em;
+    gap: 2em;
+    text-decoration: none;
+    color: inherit;
+
+}
+
+.carousel-btn {
+    cursor: pointer;
+}
+
 .contenedorFlechas{
     display: flex;
     justify-content: center;
@@ -145,41 +176,41 @@ html {
     padding-left: 1.5em;
 }
 
-.categoriasContenedor div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
+/*.categoriasContenedor div {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    gap: 1em;*/
+/*    flex-direction: row;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.categorias {
-    display: flex;
-    flex-direction: row;
-    gap: 2em;
-    flex-wrap: wrap;
-}
+/*.categorias {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    gap: 2em;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.filaCategoria {
-    display: flex;
-    justify-content: center;
-    gap: 2em;
-}
+/*.filaCategoria {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 2em;*/
+/*}*/
 
-.contenedorCategoria a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 1em;
-    width: 10em;
-    height: 10em;
-    gap: 2em;
-    text-decoration: none;
-    color: inherit;
-}
+/*.contenedorCategoria a {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background-color: white;*/
+/*    border-radius: 1em;*/
+/*    width: 10em;*/
+/*    height: 10em;*/
+/*    gap: 2em;*/
+/*    text-decoration: none;*/
+/*    color: inherit;*/
+/*}*/
 
 .frase{
     background-color: #99CE00;
