@@ -20,7 +20,7 @@ public class ControladorCategoriaTest {
 
 	@BeforeEach
 	public void init(){
-		this.controladorCategoria = new ControladorCategoria(this.controladorCategoria);
+		this.controladorCategoria = new ControladorCategoria();
 	}
 
 	@Test

@@ -37,7 +37,7 @@ public class ControladorHomeTest {
 
 	@BeforeEach
 	public void init(){
-		this.controladorHome = new ControladorHome(this.controladorHome);
+		this.controladorHome = new ControladorHome();
 	}
 
 	@Test

@@ -9,7 +9,7 @@ public enum Categoria {
     Perfumeria(Subcategoria.Toallitas, Subcategoria.Acondicionador, Subcategoria.Shampoo, Subcategoria.Dentifricos),
     Bebidas(Subcategoria.Agua, Subcategoria.Gaseosa, Subcategoria.Jugos, Subcategoria.Vino),
     Verduleria(),
-    limpieza(),
+    Limpieza(),
     Lacteos();
 
     private final Subcategoria[] subcategorias;

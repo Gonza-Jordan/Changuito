@@ -6,8 +6,6 @@
 
     <title>Changuito</title>
 
-    <!--    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>-->
-
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -20,7 +18,6 @@
             <section th:include="buscador.html" class="buscador buscadorHome"></section>
         </div>
     </div>
-
     <section class="categoriasContenedor">
         <h2>Categorías</h2>
         <div class="contenedorFlechas">
@@ -28,10 +25,11 @@
             <div class="carousel-container">
                 <div class="carousel-item" th:each="categoria : ${categorias}">
                     <a th:href="@{/categoria(categoria=${categoria})}">
-                        <img src="" alt="Icono categoria">
+                        <img th:src="${iconos[__${categoria}__]}" alt="" class="icono">
                         <p th:text="${categoria}"></p>
                     </a>
                 </div>
+
             </div>
             <button class="carousel-btn next" onclick="moveSlide(1)">Siguiente &#10095;</button>
         </div>
@@ -86,6 +84,5 @@
     </section>
 </main>
 
-<!--<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>-->
 </body>
 </html>

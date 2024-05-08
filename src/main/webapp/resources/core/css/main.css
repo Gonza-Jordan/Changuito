@@ -176,6 +176,11 @@ html {
     padding-left: 1.5em;
 }
 
+.icono{
+    width: 30px;
+    height: 30px;
+}
+
 /*.categoriasContenedor div {*/
 /*    display: flex;*/
 /*    justify-content: center;*/
