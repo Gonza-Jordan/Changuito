@@ -1,16 +1,13 @@
 package com.tallerwebi.dominio;
-import com.tallerwebi.dominio.Subcategoria;
 
 public enum Categoria {
 
-//    Almacen, Perfumeria, Bebidas, Verduleria, Limpieza, Lacteos;
-
-    Almacen(Subcategoria.Arroz, Subcategoria.Aceite, Subcategoria.Harina, Subcategoria.Pasta),
+    Almacen(Subcategoria.Arroz, Subcategoria.Aceite, Subcategoria.Harina, Subcategoria.Pastas),
     Perfumeria(Subcategoria.Toallitas, Subcategoria.Acondicionador, Subcategoria.Shampoo, Subcategoria.Dentifricos),
-    Bebidas(Subcategoria.Agua, Subcategoria.Gaseosa, Subcategoria.Jugos, Subcategoria.Vino),
-    Verduleria(),
-    Limpieza(),
-    Lacteos();
+    Bebidas(Subcategoria.Agua, Subcategoria.Gaseosas, Subcategoria.Jugos, Subcategoria.Vinos),
+    Verduleria(Subcategoria.Tomate, Subcategoria.Manzana, Subcategoria.Lechuga, Subcategoria.Zanahoria),
+    Limpieza(Subcategoria.Guantes, Subcategoria.Servilletas, Subcategoria.Escobas, Subcategoria.Lavandina),
+    Lacteos(Subcategoria.Leche, Subcategoria.Manteca, Subcategoria.Quesos, Subcategoria.Yogures);
 
     private final Subcategoria[] subcategorias;
 

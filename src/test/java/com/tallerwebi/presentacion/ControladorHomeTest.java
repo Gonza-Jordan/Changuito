@@ -49,7 +49,7 @@ public class ControladorHomeTest {
 		String viewName = mav.getViewName();
 
 		// verificacion
-		assertThat(viewName, equalToIgnoringCase("home")); // Vista correcta
+		assertThat(viewName, equalToIgnoringCase("home"));
 	}
 
 	@Test
