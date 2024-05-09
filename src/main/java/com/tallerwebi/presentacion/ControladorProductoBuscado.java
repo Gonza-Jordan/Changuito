@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorProductoBuscado {
-    @RequestMapping(path = "/productobuscado", method = RequestMethod.POST)
+    @RequestMapping(path = "/productoBuscado", method = RequestMethod.POST)
     public ModelAndView irAproductoBuscado() {
         ModelAndView modelAndView = new ModelAndView("productoBuscado");
         return modelAndView;

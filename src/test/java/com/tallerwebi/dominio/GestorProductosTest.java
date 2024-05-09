@@ -10,7 +10,7 @@ public class GestorProductosTest {
     public void testBuscarProductoExistente() {
         GestorProductos gestor = new GestorProductos();
         Producto producto1 = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen ,Subcategoria.Arroz);
-        Producto producto2 = new Producto(2, "Coca Cola", 1.0, "987654321", Categoria.Almacen, Subcategoria.Gaseosa);
+        Producto producto2 = new Producto(2, "Coca Cola", 1.0, "987654321", Categoria.Almacen, Subcategoria.Gaseosas);
         gestor.agregarProducto(producto1);
         gestor.agregarProducto(producto2);
 
@@ -23,7 +23,7 @@ public class GestorProductosTest {
     public void testBuscarProductoNoExistente() {
         GestorProductos gestor = new GestorProductos();
         Producto producto1 = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen, Subcategoria.Arroz);
-        Producto producto2 = new Producto(2, "Coca Cola", 1.0, "987654321", Categoria.Almacen, Subcategoria.Gaseosa);
+        Producto producto2 = new Producto(2, "Coca Cola", 1.0, "987654321", Categoria.Almacen, Subcategoria.Gaseosas);
         gestor.agregarProducto(producto1);
         gestor.agregarProducto(producto2);
 
@@ -43,7 +43,7 @@ public class GestorProductosTest {
     public void testEditarProducto() {
         GestorProductos gestor = new GestorProductos();
         Producto productoOriginal = new Producto(1, "Arroz", 2.5, "123456789", Categoria.Almacen, Subcategoria.Arroz);
-        Producto productoEditado = new Producto(1, "Arroz fino", 2.3, "123456789", Categoria.Almacen, Subcategoria.Gaseosa);
+        Producto productoEditado = new Producto(1, "Arroz fino", 2.3, "123456789", Categoria.Almacen, Subcategoria.Gaseosas);
         gestor.agregarProducto(productoOriginal);
         gestor.editarProducto(1, productoEditado);
         assertTrue(gestor.getListaProductos().contains(productoEditado));
@@ -54,7 +54,7 @@ public class GestorProductosTest {
     public void testEliminarProducto() {
         GestorProductos gestor = new GestorProductos();
         Producto producto1 = new Producto(1, "arroz", 2.5, "123456789", Categoria.Almacen, Subcategoria.Arroz);
-        Producto producto2 = new Producto(2, "Coca cola", 1.0, "987654321", Categoria.Bebidas, Subcategoria.Gaseosa);
+        Producto producto2 = new Producto(2, "Coca cola", 1.0, "987654321", Categoria.Bebidas, Subcategoria.Gaseosas);
         gestor.agregarProducto(producto1);
         gestor.agregarProducto(producto2);
 

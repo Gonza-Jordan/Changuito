@@ -14,7 +14,7 @@ public class Main {
 
         // Agregar productos al supermercado
         supermercado.agregarProducto(new Producto(1, "Marolio", 2.5, "123456789", Categoria.Almacen, Subcategoria.Harina));
-        supermercado.agregarProducto(new Producto(2, "Coca", 1.0, "987654321", Categoria.Bebidas, Subcategoria.Gaseosa));
+        supermercado.agregarProducto(new Producto(2, "Coca", 1.0, "987654321", Categoria.Bebidas, Subcategoria.Gaseosas));
 
         // Mostrar los productos del supermercado
         List<Producto> productos = supermercado.getProductos();
@@ -41,7 +41,7 @@ public class Main {
         }
 
         // Editar un producto existente
-        Producto productoEditado = new Producto(2, "Coca cola", 1.25, "987654321", Categoria.Bebidas, Subcategoria.Gaseosa);
+        Producto productoEditado = new Producto(2, "Coca cola", 1.25, "987654321", Categoria.Bebidas, Subcategoria.Gaseosas);
         supermercado.eliminarProducto(2); // Eliminar el producto existente
         supermercado.agregarProducto(productoEditado); // Agregar el producto editado
 
