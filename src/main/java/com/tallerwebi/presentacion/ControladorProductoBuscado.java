@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,26 +23,26 @@ public class ControladorProductoBuscado {
     public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
     }
-    @RequestMapping(path = "/productoBuscado", method = RequestMethod.POST)
 
-    public ModelAndView irAproductoBuscado(@ModelAttribute("producto")Producto producto,HttpServletRequest request ) {
+    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
+
+    public ModelAndView irAproductoBuscado(@ModelAttribute("producto") Producto producto) {
         ModelMap model = new ModelMap();
+        Producto productoBuscado = servicioBusqueda.consultarProducto(producto.getNombre());
+        if (productoBuscado != null) {
 
-        ModelAndView modelAndView = new ModelAndView("productoBuscado");
-
-        return modelAndView;
+            model.put("producto", productoBuscado);
+            return new ModelAndView("productoBuscado", model);
+        }
+        return null;
     }
+
 }
 
-@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
 
 
-    Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
-    if (usuarioBuscado != null) {
-        request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-        return new ModelAndView("redirect:/home");
-    } else {
-        model.put("error", "Usuario o clave incorrecta");
-    }
-    return new ModelAndView("login", model);
+
+
+
+
+
