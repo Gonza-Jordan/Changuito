@@ -17,7 +17,9 @@ public class Producto {
     private Categoria categoria;
     private Subcategoria subcategoria;
 
+    public Producto() {
 
+    }
 
     public Producto(int idProducto ,String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria) {
         this.idProducto = idProducto;
@@ -27,6 +29,7 @@ public class Producto {
         this.categoria = categoria;
         this.subcategoria = subcategoria;
     }
+
 
 
 
