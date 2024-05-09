@@ -1,4 +1,5 @@
-<form action="productoBuscado.html" method="post" class="form-buscador">
+<form action="#"  th:action ="@{/productoBuscado.html}" th:object ="${producto}"  method="post" class="form-buscador">
+
     <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
     <input type="text" name="buscador" required autocomplete="off" placeholder="Producto">
     <button type="submit" class="boton-buscar">BUSCAR</button>
