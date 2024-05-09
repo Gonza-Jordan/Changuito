@@ -1,6 +1,6 @@
-<!--<form action="/productoBuscado.html"  th:action="@{/productoBuscado.html}" th:object="${producto}" method="get" class="form-buscador">-->
+<form action="/productoBuscado.html"  th:action="@{/productoBuscado}" th:object="${producto}" method="get" class="form-buscador">
 
-<!--    <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>-->
-<!--    <input  th:field="*{nombre}" type="text" name="buscador" required autocomplete="off" placeholder="Producto">-->
-<!--    <button type="submit" class="boton-buscar">BUSCAR</button>-->
-<!--</form>-->
+    <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <input  th:field="*{nombre}" type="text" name="buscador" required autocomplete="off" placeholder="Producto">
+    <button type="submit" class="boton-buscar">BUSCAR</button>
+</form>

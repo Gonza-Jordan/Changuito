@@ -26,11 +26,10 @@ public class ControladorProductoBuscado {
 
     @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
 
-    public ModelAndView irAproductoBuscado(@ModelAttribute("producto") Producto producto) {
+    public ModelAndView irAproductoBuscado(@RequestParam("nombre") String nombre) {
         ModelMap model = new ModelMap();
-        Producto productoBuscado = servicioBusqueda.consultarProducto(producto.getNombre());
+        Producto productoBuscado = servicioBusqueda.consultarProducto(nombre);
         if (productoBuscado != null) {
-
             model.put("producto", productoBuscado);
             return new ModelAndView("productoBuscado", model);
         }
