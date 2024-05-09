@@ -25,7 +25,7 @@ public class ControladorHome {
         for (i= 0; i < categorias.size(); i++){
             iconos.put(String.valueOf(categorias.get(i)), "img/" + categorias.get(i) + ".svg");
         }
-        modelAndView.addObject("iconos", iconos); // Agregar el mapa al modelo
+        modelAndView.addObject("iconos", iconos);
         return modelAndView;
 
 

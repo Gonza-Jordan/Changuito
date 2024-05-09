@@ -116,11 +116,14 @@ html {
 /* ********************************************* ESTILOS VISTA HOME ************************************************* */
 
 .heroHome {
-    background-color: darkslategrey;
-    height: 40vh;
+    background-image: url("../img/hero-home.jpg");
+    height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-repeat: no-repeat;
+    background-size: 210vh;
+    background-position: center;
 }
 
 .container {
@@ -165,7 +168,6 @@ html {
 .carousel-item a {
     box-sizing: border-box;
     text-align: center;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -190,7 +192,7 @@ html {
 }
 
 .carousel-item p{
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .contenedorFlechas{
@@ -282,12 +284,15 @@ html {
 /* ******************************************* ESTILOS VISTA CATEGORIA ********************************************** */
 
 .hero {
+    /*background-image: url("../img/hero-categoria.jpg");*/
+    background-color: darkslategrey;
+    height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: darkslategrey;
-    /*background-image: url('../Images/hero.jpg');*/
-    height: 40vh;
+    background-repeat: no-repeat;
+    background-size: 210vh;
+    background-position: center;
 }
 
 .hero div {

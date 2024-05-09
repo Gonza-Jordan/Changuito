@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.Categoria;
+import com.tallerwebi.dominio.Subcategoria;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,6 @@ public class ControladorCategoriaTest {
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
 		assertThat(categoria, equalTo(nombreDeLaCategoria));
-
 	}
 
 	@Test
@@ -57,7 +57,20 @@ public class ControladorCategoriaTest {
 
 		// verificacion
 		assertThat(rutaDelIcono, equalTo(icono));
+	}
 
+	@Test
+	public void queAlIngresarALaPantallaDeCategoriaAlmacenSeMuestrenTodasLasSubcategoriasDeLaMisma(){
+		// preparacion
+		Categoria categoria = Categoria.Almacen;
+		List<Subcategoria> subcategoriasEsperadas = Arrays.asList(categoria.getSubcategorias());
+		String nombreDeLaCategoria = "Almacen";
+
+		// ejecucion
+		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		// verificacion
+		List<Subcategoria> subcategoriasObtenidas = (List<Subcategoria>) mav.getModel().get("subcategorias");
+		assertThat(subcategoriasObtenidas, equalTo(subcategoriasEsperadas));
 	}
 
 	@Test
@@ -134,4 +147,5 @@ public class ControladorCategoriaTest {
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
 		assertThat(categoria, equalTo(nombreDeLaCategoria));
 	}
+
 }

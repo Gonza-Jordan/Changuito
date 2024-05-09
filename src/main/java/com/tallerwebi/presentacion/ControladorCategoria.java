@@ -1,5 +1,7 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.Categoria;
+import com.tallerwebi.dominio.Subcategoria;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ControladorCategoria {
@@ -23,7 +24,13 @@ public class ControladorCategoria {
         String icono = "img/" + categoria + ".svg";
         modelAndView.addObject("icono", icono);
 
+        Categoria categoriaEnum = Categoria.valueOf(categoria);
+
+        List<Subcategoria> subcategorias = Arrays.asList(categoriaEnum.getSubcategorias());
+        modelAndView.addObject("subcategorias", subcategorias);
+
         return modelAndView;
+
     }
 
 }
