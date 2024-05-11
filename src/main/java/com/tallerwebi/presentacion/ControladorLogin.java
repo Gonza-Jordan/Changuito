@@ -94,6 +94,12 @@ public class ControladorLogin {
 //    @RequestMapping(path ="/supermercado", method = RequestMethod.GET)
 //    public ModelAndView irAsupermercado() { return new ModelAndView("supermercado"); }
 
+    @RequestMapping(path ="/supermercado", method = RequestMethod.GET)
+    public ModelAndView irAsupermercado() { return new ModelAndView("supermercado"); }
+
+
+
+
 
 }
 
