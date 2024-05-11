@@ -1,1 +1,2 @@
 INSERT INTO Usuario(id, email, password, rol, activo) VALUES(null, 'test@unlam.edu.ar', 'test', 'ADMIN', true);
+INSERT INTO Producto(nombre, precio, codigoBarras, categoria,subcategoria) VALUES('Coca Cola', '1000.50', '1236544458582', null, null);

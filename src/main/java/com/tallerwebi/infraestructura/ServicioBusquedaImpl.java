@@ -1,12 +1,8 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.Producto;
-import com.tallerwebi.dominio.RepositorioUsuario;
-import com.tallerwebi.dominio.ServicioLogin;
-import com.tallerwebi.dominio.Usuario;
-import com.tallerwebi.dominio.excepcion.RepositorioProducto;
-import com.tallerwebi.dominio.excepcion.ServicioBusqueda;
-import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import com.tallerwebi.dominio.RepositorioProducto;
+import com.tallerwebi.dominio.ServicioBusqueda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +20,6 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
 
     @Override
     public Producto consultarProducto(String nombre) {
-
-        return repositorioProducto.buscarProducto(nombre);
+        return repositorioProducto.buscarProductoPorNombre(nombre);
     }
 }

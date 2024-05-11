@@ -4,6 +4,13 @@ const totalSlides = slides.length;
 
 // Deshabilita o habilita el botón "Anterior" según corresponda
 document.querySelector('.prev').disabled = slideIndex <= 0;
+if (totalSlides <= 4) {
+    // Si la cantidad total de slides es menor o igual a 4, deshabilita el botón "Siguiente"
+    document.querySelector('.next').disabled = true;
+} else {
+    // De lo contrario, habilita o deshabilita el botón "Siguiente" según corresponda
+    document.querySelector('.next').disabled = slideIndex >= totalSlides - 4;
+}
 
 function moveSlide(n) {
     slideIndex += n * 4;
