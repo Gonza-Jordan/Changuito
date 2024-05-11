@@ -17,11 +17,12 @@ import java.util.List;
 
 @Controller
 public class ControladorProductoBuscado {
-    private ServicioBusqueda servicioBusqueda;
 
-    @Autowired
-    public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
-        this.servicioBusqueda = servicioBusqueda;
+    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
+    public ModelAndView irAHome() {
+        ModelAndView modelAndView = new ModelAndView("productoBuscado");
+        return modelAndView;
+
     }
 
     @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
