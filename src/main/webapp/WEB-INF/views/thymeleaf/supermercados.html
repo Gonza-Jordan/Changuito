@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Supermercados</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <script th:src="@{/js/main.js}"></script>
+
+<!--    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"-->
+<!--          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="-->
+<!--          crossorigin=""/>-->
+<!--    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"-->
+<!--            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="-->
+<!--            crossorigin=""></script>-->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
+</head>
+<body>
+<header th:include="header.html" class="cabecera"></header>
+<main>
+    <section th:include="buscador.html" class="buscador"></section>
+
+    <section class="vistaSupermercados">
+        <h2>Supermercados cercanos a tu zona:</h2>
+
+        <div id="map"></div>
+        <form th:action="@{/search}" method="post">
+            <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="query" placeholder="Buscá una dirección" required autocomplete="off">
+            <button type="submit" class="boton-buscar">BUSCAR</button>
+        </form>
+
+<!--        <div th:each="supermercado : ${supermercados}">-->
+<!--            <div>-->
+<!--                <h3 th:text="${supermercado.sucursalNombre}"></h3>-->
+<!--                <p th:text="${supermercado.comercioRazonSocial}"></p>-->
+<!--                <p th:text="${supermercado.localidad}"></p>-->
+<!--            </div>-->
+
+<!--        </div>-->
+    </section>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var latitud = [[${latitud}]];
+        var longitud = [[${longitud}]];
+        var map = L.map('map').setView([latitud, longitud], 13);
+
+        var iconoUbicacion = L.icon({
+            iconUrl: [[${iconoUbicacion}]],
+            iconSize: [25, 40], // Reduciendo la altura del icono
+            iconAnchor: [12, 40], // Ajuste para centrarlo verticalmente
+            popupAnchor: [0, -20] // Ajuste para el popup
+        });
+
+        var iconoSupermercados = L.icon({
+            iconUrl: [[${iconoSupermercados}]],
+            iconSize: [25, 40], // Reducción del tamaño del icono
+            iconAnchor: [13, 40], // Ajuste para centrarlo verticalmente
+            popupAnchor: [0, -20] // Ajuste para el popup
+        });
+
+        var marker = L.marker([latitud, longitud], {icon: iconoUbicacion}).addTo(map);
+        marker.bindPopup("<b>TU UBICACIÓN</b>");
+
+        var supermercados = /*[[${supermercados}]]*/ [];
+        supermercados.forEach(function (supermercado) {
+            var marker = L.marker([supermercado.lat, supermercado.lng], {icon: iconoSupermercados}).addTo(map);
+            marker.bindPopup("<b>" + supermercado.banderaDescripcion + "</b><br><b>" + supermercado.comercioRazonSocial + "</b><br><b>" + supermercado.direccion + "</b>");
+        });
+
+
+        var ultimoSupermercado = supermercados[supermercados.length - 1];
+        var radius = (ultimoSupermercado.distanciaNumero) * 1000 + 100;
+        var circle = L.circle([latitud, longitud], {
+            color: 'green',
+            fillColor: '#BDFF00',
+            fillOpacity: 0.1,
+            radius: radius,
+        }).addTo(map);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+        /*]]>*/
+    </script>
+</main>
+<footer th:include="footer.html"></footer>
+</body>
+</html>
