@@ -5,13 +5,13 @@
     <ul>
         <li><a href="supermercados.html">Supermercados</a></li>
         <li><a href="#">Ofertas</a></li>
-        <li><a href="#"> Categorias</a></li>
+        <li><a href="#"> Categorías</a></li>
         <li><a href="#">Mi cuenta</a></li>
         <li>
             <div class="contenedor-carrito-contador">
-                <a href="#" id="carrito">
+                <a href="carritoCompras.html" id="carrito">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <p class="contadorCarrito" id="contadorCarrito"></p>
+                    <p class="contadorCarrito" id="contadorCarrito" th:text="${cantidadProductos}"></p>
                 </a>
             </div>
         </li>

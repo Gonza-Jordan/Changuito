@@ -24,11 +24,31 @@ function obtenerContenedores(){
     });
 }
 
+function incrementarCantidad(index, precio) {
+    var inputCantidad = document.getElementById('cantidad-' + index);
+    var cantidad = parseInt(inputCantidad.value);
+    cantidad++;
+    inputCantidad.value = cantidad;
+    actualizarPrecio(index, cantidad, precio);
+}
 
+function decrementarCantidad(index, precio) {
+    var inputCantidad = document.getElementById('cantidad-' + index);
+    var cantidad = parseInt(inputCantidad.value);
+    if (cantidad > 1) {
+        cantidad--;
+        inputCantidad.value = cantidad;
+        actualizarPrecio(index, cantidad, precio);
+    }
+}
 
+function actualizarPrecio(index, precioUnitario) {
+    var inputCantidad = document.getElementById('cantidad-' + index);
+    var cantidad = parseInt(inputCantidad.value);
 
+    var precioTotal = cantidad * precioUnitario;
+    var precioElemento = document.getElementById('precio-' + index);
+    precioElemento.innerText = precioTotal.toFixed(2);
+}
 
-
-
-
-
+showSlides();
