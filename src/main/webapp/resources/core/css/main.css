@@ -503,3 +503,74 @@ input[type="checkbox"] {
     color: whitesmoke;
 }
 
+/* ********************************************** ESTILOS CARRITO DE COMPRAS **************************************** */
+
+/* Estilos para el contenedor principal */
+.carrito-container {
+    margin: 20px;
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilos para el título del carrito */
+.carrito-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333333; /* Color del texto */
+    text-align: center;
+}
+
+/* Estilos para la tabla del carrito */
+.carrito-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.carrito-table th, .carrito-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.carrito-table th {
+    background-color: #f2f2f2;
+    font-size: 18px;
+}
+
+.carrito-table td {
+    font-size: 16px;
+}
+
+/* Estilos para los botones en la tabla */
+.carrito-table button {
+    background-color: #007bff; /* Color de fondo */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.carrito-table button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilos para el total final */
+#total-final {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Estilos para el enlace en el total */
+#total-final a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#total-final a:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+}
