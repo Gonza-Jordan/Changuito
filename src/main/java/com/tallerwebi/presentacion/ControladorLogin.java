@@ -67,17 +67,10 @@ public class ControladorLogin {
         return new ModelAndView("nuevo-usuario", model);
     }
 
-
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/home");
     }
-
-
-    @RequestMapping(path ="/supermercado", method = RequestMethod.GET)
-    public ModelAndView irAsupermercado() { return new ModelAndView("supermercado"); }
-
-
 
 
 
