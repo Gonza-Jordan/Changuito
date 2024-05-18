@@ -59,7 +59,7 @@ function actualizarPrecio(index, precioUnitario) {
 
     var precioTotal = cantidad * precioUnitario;
     var precioElemento = document.getElementById('precio-' + index);
-    precioElemento.innerText = precioTotal.toFixed(2); // Actualizar el precio mostrado en la interfaz
+    precioElemento.innerText = precioTotal.toFixed(2);
 }
 
 showSlides();

@@ -16,7 +16,6 @@ public class ControladorCarritoCompras {
     private List<Producto> carrito = new ArrayList<>();
 
     public ControladorCarritoCompras() {
-        // Ejemplo de productos pre-cargados en el carrito
         carrito.add(new Producto("Manzanas", 2.00, "123456789012", null, null));
         carrito.add(new Producto("Leche", 3.00, "987654321098", null, null));
         carrito.add(new Producto("Pan", 4.00, "192837465091", null, null));
