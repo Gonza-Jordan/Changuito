@@ -11,14 +11,14 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <script th:src="@{/js/main.js}"></script>
 
-<!--    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"-->
-<!--          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="-->
-<!--          crossorigin=""/>-->
-<!--    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"-->
-<!--            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="-->
-<!--            crossorigin=""></script>-->
+    <!--    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"-->
+    <!--          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="-->
+    <!--          crossorigin=""/>-->
+    <!--    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"-->
+    <!--            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="-->
+    <!--            crossorigin=""></script>-->
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 
@@ -28,24 +28,31 @@
 <main>
     <section th:include="buscador.html" class="buscador"></section>
 
-    <section class="vistaSupermercados">
-        <h2>Supermercados cercanos a tu zona:</h2>
-
-        <div id="map"></div>
-        <form th:action="@{/search}" method="post">
-            <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <input type="text" name="query" placeholder="Buscá una dirección" required autocomplete="off">
-            <button type="submit" class="boton-buscar">BUSCAR</button>
-        </form>
-
-<!--        <div th:each="supermercado : ${supermercados}">-->
-<!--            <div>-->
-<!--                <h3 th:text="${supermercado.sucursalNombre}"></h3>-->
-<!--                <p th:text="${supermercado.comercioRazonSocial}"></p>-->
-<!--                <p th:text="${supermercado.localidad}"></p>-->
-<!--            </div>-->
-
-<!--        </div>-->
+    <section class="contenedorVistaSupermercados">
+        <article class="vistaSupermercados">
+            <h2>Supermercados cercanos a tu zona:</h2>
+            <div id="map"></div>
+            <form th:action="@{/search}" method="post">
+                <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" name="query" placeholder="Buscá una dirección" required autocomplete="off">
+                <button type="submit" class="boton-direccion">BUSCAR DIRECCIÓN</button>
+            </form>
+        </article>
+        <article>
+            <div class="contenedorFlechas-vertical">
+                <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+                <div class="carousel-container-vertical">
+                    <div class="carousel-item" th:each="supermercado : ${supermercados}">
+                        <div class="carousel-item-vertical">
+                            <h3 th:text="${supermercado.sucursalNombre}"></h3>
+                            <p th:text="${supermercado.comercioRazonSocial}"></p>
+                            <p th:text="${supermercado.localidad}"></p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </article>
     </section>
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -92,6 +99,7 @@
         /*]]>*/
     </script>
 </main>
+<script th:src="@{/js/carusel.js}"></script>
 <footer th:include="footer.html"></footer>
 </body>
 </html>
