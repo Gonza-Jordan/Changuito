@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Producto Buscado</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<header th:include="header.html" class="cabecera"></header>
+<section th:include="buscador.html" class="buscador"></section>
+<br>
+<div class="contenedor_producto_seleccionado">
+<div class="contenedor_producto">
+    <div class="columna_izquierda_producto">
+        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del producto" class="product-image">
+    </div>
+    <div class="columna_derecha_producto">
+        <h1 class="product-title">Gaseosa Coca-cola Sabor Original 2.25 L</h1>
+        <ul class="product-features">
+            <li>Tipo de Producto: Gaseosas</li>
+            <li>Contenido: 2.2L</li>
+            <li>Envase: Botella</li>
+            <li>Origen: Argentina</li>
+            <li>Pack-unitario: Unitario</li>
+            <li>Sabor: Cola</li>
+        </ul>
+        <div class="store-info">
+            <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo">
+            <p class="store-location">Ubicación del supermercado</p>
+        </div>
+        <div class="product-price">Precio regular: $1.280,82</div>
+        <div class="boton-conteiner"><button class="add-to-cart-btn">Agregar</button></div>
+
+    </div>
+    <br>
+</div>
+</div>
+<div class="contenedor-cards">
+    <div class="card-producto">
+        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
+        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
+        <p class="precio-producto-card">$10.00</p>
+        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
+        <button class="boton-agregar-card">Agregar</button>
+    </div>
+
+    <div class="card-producto">
+        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
+        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
+        <p class="precio-producto-card">$10.00</p>
+        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
+        <button class="boton-agregar-card">Agregar</button>
+    </div>
+
+    <div class="card-producto">
+        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
+        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
+        <p class="precio-producto-card">$10.00</p>
+        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
+        <button class="boton-agregar-card">Agregar</button>
+    </div>
+
+    <div class="card-producto">
+        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
+        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
+        <p class="precio-producto-card">$10.00</p>
+        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
+        <button class="boton-agregar-card">Agregar</button>
+    </div>
+</div>
+<hr class="divisoria">
+
+<div class="contenedor-ubicacion-mediospago">
+    <div class="columna-ubicacion-mediospago">
+        <h2 class="titulo">Ubicación</h2>
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1381.7315522169952!2d-58.44942423667233!3d-34.54519949633227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1716331773336!5m2!1ses-419!2sar" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <div class="columna-ubicacion-mediospago">
+        <h2 class="titulo">Medios de Pago</h2>
+        <div class="medios-pago">
+            <ul>
+                <li>Tarjeta de crédito</li>
+                <li>Tarjeta de débito</li>
+                <li>Transferencia bancaria</li>
+                <li>Pago en efectivo</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br>
+<footer th:include="footer.html"></footer>
+</body>
+</html>
