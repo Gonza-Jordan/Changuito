@@ -570,17 +570,17 @@ input[type="checkbox"] {
 }
 /* ******************************************* ESTILOS VISTA SUPERMERCADOS ********************************************* */
 
+.vistaSupermercados{
+    width: 60%;
+}
+
 .vistaSupermercados h2 {
-    display: flex;
-    justify-content: center;
     margin: 1em 0em 1em 0em;
     text-transform: uppercase;
 }
 
 #map {
     height: 60vh;
-    width: 60%;
-    margin: auto;
     border-radius: 1em;
     box-shadow: 0em 0em 2em #333333;
 }
@@ -593,11 +593,25 @@ input[type="checkbox"] {
     background-color: grey;
     width: fit-content;
     padding: 1em;
-    margin: auto;
-    margin-bottom: 1em;
-    margin-top: 1em;
-
+    margin-bottom: 2em;
+    margin-top: 2em;
     border-radius: 1em;
+}
+
+.boton-direccion{
+    background-color: royalblue;
+    font-size: 1em;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
+}
+
+
+.boton-direccion:hover {
+    cursor: pointer;
+    background-color: darkslateblue;
+
 }
 
 .vistaSupermercados input {
@@ -608,6 +622,50 @@ input[type="checkbox"] {
     padding: 0.5em;
     width: 30em;
 }
+
+=======
+.contenedorVistaSupermercados{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contenedorFlechas-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.contenedorFlechas-vertical button{
+    transform: rotate(90deg);
+}
+
+.carousel-container-vertical {
+    background-color: lightgray;
+    border-radius: 1em;
+    padding: 2em 1em 2em 1em;
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    box-shadow: 0em 0em 1em #333333;
+}
+
+.carousel-item-vertical{
+    background-color: white;
+    border-radius: 1em;
+    width: 25rem;
+    gap: 1em;
+    padding: 1em;
+}
+
+.carousel-item-vertical:hover{
+    background-color: grey;
+    color: whitesmoke;
 
 /*.form-buscador {*/
 /*    display: flex;*/
