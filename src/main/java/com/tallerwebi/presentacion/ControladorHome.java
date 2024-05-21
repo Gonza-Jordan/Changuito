@@ -31,13 +31,6 @@ public class ControladorHome {
         modelAndView.addObject("producto", new Producto());
         return modelAndView;
 
-
     }
-//    @RequestMapping("/home")
-//    public ModelAndView irAbuscar() {
-//
-//        ModelMap modelo = new ModelMap();
-//        modelo.put("producto", new Producto());
-//        return new ModelAndView("home", modelo);
-//    }
+
 }

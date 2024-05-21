@@ -21,8 +21,7 @@ public class Producto {
 
     }
 
-    public Producto(int idProducto ,String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria) {
-        this.idProducto = idProducto;
+    public Producto(String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria) {
         this.nombre = nombre;
         this.precio = precio;
         this.codigoBarras = codigoBarras;
@@ -34,14 +33,6 @@ public class Producto {
 
 
     //Getters y Setters de producto
-    public Integer getIdProducto() {
-        return idProducto;
-    }
-
-    public void SetIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -73,4 +64,8 @@ public class Producto {
     public Subcategoria getSubcategoria() { return subcategoria; }
 
     public void setSubcategoria(Subcategoria subcategoria) { this.subcategoria = subcategoria; }
+
+    public Integer getIdProducto() {return idProducto;}
+
+    public void setIdProducto(Integer idProducto) {this.idProducto = idProducto;}
 }

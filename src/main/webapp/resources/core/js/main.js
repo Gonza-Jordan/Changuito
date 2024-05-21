@@ -1,32 +1,37 @@
-let slideIndex = 0;
-const slides = document.querySelectorAll('.carousel-item');
-const totalSlides = slides.length;
+function crearMapa(contenedor, latitud, longitud) {
+    var map = L.map(contenedor).setView([latitud, longitud], 13);
 
-// Deshabilita o habilita el botón "Anterior" según corresponda
-document.querySelector('.prev').disabled = slideIndex <= 0;
-
-function moveSlide(n) {
-    slideIndex += n * 4;
-    showSlides();
-
-    // Deshabilita o habilita el botón "Anterior" según corresponda
-    document.querySelector('.prev').disabled = slideIndex <= 0;
-
-    // Deshabilita o habilita el botón "Siguiente" según corresponda
-    document.querySelector('.next').disabled = slideIndex >= totalSlides - 4;
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 }
 
-function showSlides() {
-    let startIndex = Math.max(0, slideIndex);
-    let endIndex = Math.min(totalSlides, startIndex + 4);
-    for (let i = 0; i < totalSlides; i++) {
-        if (i >= startIndex && i < endIndex) {
-            slides[i].style.display = 'inline-block';
-        } else {
-            slides[i].style.display = 'none';
-        }
+function incrementarCantidad(index, precio) {
+    var inputCantidad = document.getElementById('cantidad-' + index);
+    var cantidad = parseInt(inputCantidad.value);
+    cantidad++;
+    inputCantidad.value = cantidad;
+    actualizarPrecio(index, cantidad, precio);
+}
+
+function decrementarCantidad(index, precio) {
+    var inputCantidad = document.getElementById('cantidad-' + index);
+    var cantidad = parseInt(inputCantidad.value);
+    if (cantidad > 1) {
+        cantidad--;
+        inputCantidad.value = cantidad;
+        actualizarPrecio(index, cantidad, precio);
     }
 }
 
-showSlides();
+function actualizarPrecio(index, precioUnitario) {
+    var inputCantidad = document.getElementById('cantidad-' + index);
+    var cantidad = parseInt(inputCantidad.value);
 
+    var precioTotal = cantidad * precioUnitario;
+    var precioElemento = document.getElementById('precio-' + index);
+    precioElemento.innerText = precioTotal.toFixed(2);
+}
+
+// showSlides();

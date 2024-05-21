@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" type="text/css" href="/spring/css/main.css">
+</head>
+<body>
+<header th:include="header.html" class="cabecera"></header>
+
+<div class="carrito-container">
+    <h1 class="carrito-title">Tu Carrito de Compras</h1>
+    <table class="carrito-table">
+        <thead>
+        <tr>
+            <th>Foto</th> <!-- foto del producto -->
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto, row : ${carrito}">
+            <td><!-- Aquí iría la foto del producto --></td>
+            <td th:text="${producto.nombre}">Nombre del Producto</td>
+            <td th:text="${producto.precio}" id="precio-${producto.idProducto}">Precio</td>
+            <td>
+                <input type="number" min="0" value="1" id="cantidad-${producto.idProducto}" onchange="actualizarPrecio('${producto.idProducto}', ${producto.precio})">
+                <button type="button" onclick="decrementarCantidad('${producto.idProducto}', '${producto.precio}')">-</button>
+                <button type="button" onclick="incrementarCantidad('${producto.idProducto}', '${producto.precio}')">+</button>
+            </td>
+            <td>
+                <span>Categoría Fija</span>
+            </td>
+            <td>
+                <form action="/eliminar-del-carrito" method="post">
+                    <input type="hidden" name="codigoBarras" th:value="${producto.codigoBarras}">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4"></td>
+            <td style="text-align: right;">Total:</td>
+            <td id="total-final" colspan="2"><!-- total final --></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<footer th:include="footer.html"></footer>
+
+<script type="text/javascript" src="/spring/js/main.js"></script>
+
+</body>
+</html>

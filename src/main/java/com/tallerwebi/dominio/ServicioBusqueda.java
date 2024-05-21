@@ -1,6 +1,4 @@
-package com.tallerwebi.dominio.excepcion;
-
-import com.tallerwebi.dominio.Producto;
+package com.tallerwebi.dominio;
 
 public interface ServicioBusqueda {
     Producto consultarProducto(String nombre);

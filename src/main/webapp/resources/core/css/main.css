@@ -40,7 +40,7 @@ html {
     color: inherit;
 }
 
-.contenedor-carrito-contador{
+.contenedor-carrito-contador {
     background-color: #BDFF00;
     border-radius: 0.5em;
     padding: 0.5em;
@@ -87,14 +87,14 @@ html {
     transition-duration: 1s;
 }
 
-.lupa{
+.lupa {
     background: none;
     border: none;
     color: whitesmoke;
     font-size: 1.4em;
 }
 
-.lupa:hover{
+.lupa:hover {
     cursor: pointer;
 }
 
@@ -156,14 +156,14 @@ html {
     gap: 1em;
 }
 
- .carousel-container {
-     overflow: hidden;
-     width: fit-content;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     gap: 1em;
- }
+.carousel-container {
+    overflow: hidden;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
 
 .carousel-item a {
     box-sizing: border-box;
@@ -191,11 +191,11 @@ html {
     color: #333;
 }
 
-.carousel-item p{
+.carousel-item p {
     font-size: 1.2em;
 }
 
-.contenedorFlechas{
+.contenedorFlechas {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,18 +207,18 @@ html {
     padding-left: 1.5em;
 }
 
-.icono{
+.icono {
     width: 4em;
     height: 4em;
 }
 
-.icono-categoria{
+.icono-categoria {
     width: 2em;
     height: 2em;
 }
 
 
-.frase{
+.frase {
     background-color: #99CE00;
     height: 20vh;
     font-size: 2em;
@@ -230,15 +230,15 @@ html {
     text-align: center;
     margin: 4em 0 2em 0;
     padding: 2em;
-    position:relative;
+    position: relative;
 }
 
-.frase p{
+.frase p {
     width: 40%;
     margin-top: 2em;
 }
 
-.peso{
+.peso {
     background-color: white;
     border: 10px solid #BDFF00;
     border-radius: 50%;
@@ -251,7 +251,7 @@ html {
     bottom: 2.3em;
 }
 
-.supermercado{
+.supermercado {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -261,7 +261,7 @@ html {
     margin-bottom: 3em;
 }
 
-.contenedorSupermercado{
+.contenedorSupermercado {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -270,7 +270,7 @@ html {
 
 }
 
-.contenedorSupermercado a{
+.contenedorSupermercado a {
     text-decoration: none;
     color: inherit;
     height: 4em;
@@ -494,7 +494,7 @@ input[type="checkbox"] {
 
 /* ******************************************* ESTILOS FOOTER ********************************************* */
 
-.footer{
+.footer {
     height: 6em;
     display: flex;
     justify-content: center;
@@ -503,3 +503,166 @@ input[type="checkbox"] {
     color: whitesmoke;
 }
 
+/* ********************************************** ESTILOS CARRITO DE COMPRAS **************************************** */
+
+.carrito-container {
+    margin: 20px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.carrito-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333333;
+    text-align: center;
+}
+
+.carrito-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.carrito-table th, .carrito-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.carrito-table th {
+    background-color: #f2f2f2;
+    font-size: 18px;
+}
+
+.carrito-table td {
+    font-size: 16px;
+}
+
+.carrito-table button {
+    background-color: #007bff; /* Color de fondo */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.carrito-table button:hover {
+    background-color: #0056b3;
+}
+
+#total-final {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#total-final a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#total-final a:hover {
+    text-decoration: underline;
+}
+/* ******************************************* ESTILOS VISTA SUPERMERCADOS ********************************************* */
+
+.vistaSupermercados{
+    width: 60%;
+}
+
+.vistaSupermercados h2 {
+    margin: 1em 0em 1em 0em;
+    text-transform: uppercase;
+}
+
+#map {
+    height: 60vh;
+    border-radius: 1em;
+    box-shadow: 0em 0em 2em #333333;
+}
+
+.vistaSupermercados form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    background-color: grey;
+    width: fit-content;
+    padding: 1em;
+    margin-bottom: 2em;
+    margin-top: 2em;
+    border-radius: 1em;
+}
+
+.boton-direccion{
+    background-color: royalblue;
+    font-size: 1em;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
+}
+
+
+.boton-direccion:hover {
+    cursor: pointer;
+    background-color: darkslateblue;
+
+}
+
+.vistaSupermercados input {
+    font-family: inherit;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    padding: 0.5em;
+    width: 30em;
+}
+
+.contenedorVistaSupermercados{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contenedorFlechas-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.contenedorFlechas-vertical button{
+    transform: rotate(90deg);
+}
+
+.carousel-container-vertical {
+    background-color: lightgray;
+    border-radius: 1em;
+    padding: 2em 1em 2em 1em;
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    box-shadow: 0em 0em 1em #333333;
+}
+
+.carousel-item-vertical{
+    background-color: white;
+    border-radius: 1em;
+    width: 25rem;
+    gap: 1em;
+    padding: 1em;
+}
+
+.carousel-item-vertical:hover{
+    background-color: grey;
+    color: whitesmoke;
+}
