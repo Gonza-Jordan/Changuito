@@ -7,23 +7,6 @@ function crearMapa(contenedor, latitud, longitud) {
     }).addTo(map);
 }
 
-
-function obtenerContenedores(){
-    document.addEventListener("DOMContentLoaded", function() {
-        // Iterar sobre cada contenedor de mapa
-        var containers = document.querySelectorAll("[id^='contenedor¿']");
-        containers.forEach(function(container) {
-            // Obtener el índice del contenedor
-            var coords = container.id.split("¿")[1].split("/");
-            var lat = parseFloat(coords[0]);
-            var long = parseFloat(coords[1]);
-            // Crear el mapa en el contenedor actual
-            // console.log(coords);
-                crearMapa(container, lat, long);
-        });
-    });
-}
-
 function incrementarCantidad(index, precio) {
     var inputCantidad = document.getElementById('cantidad-' + index);
     var cantidad = parseInt(inputCantidad.value);
@@ -51,4 +34,4 @@ function actualizarPrecio(index, precioUnitario) {
     precioElemento.innerText = precioTotal.toFixed(2);
 }
 
-showSlides();
+// showSlides();

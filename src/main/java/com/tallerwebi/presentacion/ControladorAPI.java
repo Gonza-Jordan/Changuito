@@ -44,17 +44,11 @@ public class ControladorAPI {
             // Procesar la respuesta JSON y retornar la lista de sucursales
             List<Supermercado> supermercados = procesarDatosDeApi(response.body());
 
-            // Imprimir los supermercados por consola
-            System.out.println("Supermercados obtenidos:");
-            for (Supermercado supermercado : supermercados) {
-                System.out.println(supermercado.getComercioRazonSocial());
-            }
-
             return supermercados;
+
         } catch (IOException | InterruptedException e) {
-            // Manejar la excepción apropiadamente
             e.printStackTrace();
-            return new ArrayList<>(); // o lanzar una excepción
+            return new ArrayList<>();
         }
     }
 
@@ -73,9 +67,8 @@ public class ControladorAPI {
 
             return sucursales;
         } catch (Exception e) {
-            // Manejar la excepción apropiadamente
             e.printStackTrace();
-            return new ArrayList<>(); // o lanzar una excepción
+            return new ArrayList<>();
         }
     }
 }
