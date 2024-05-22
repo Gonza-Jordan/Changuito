@@ -41,11 +41,9 @@
         <article>
             <div class="contenedorFlechas-vertical">
                 <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-                <div class="carousel-item-vertical"
-                     data-latitud="${supermercado.latitud}"
-                     data-longitud="${supermercado.longitud}">
+                <div class="carousel-container-vertical">
                     <div class="carousel-item" th:each="supermercado : ${supermercados}">
-                        <div class="carousel-item-vertical">
+                        <div class="carousel-item-vertical"  th:attr="data-latitud=${supermercado.lat},data-longitud=${supermercado.lng}">
                             <h3 th:text="${supermercado.sucursalNombre}"></h3>
                             <p th:text="${supermercado.comercioRazonSocial}"></p>
                             <p th:text="${supermercado.localidad}"></p>
@@ -98,11 +96,10 @@
             maxZoom: 19,
         }).addTo(map);
 
-        // Number.parseFloat()
         document.querySelectorAll('.carousel-item-vertical').forEach(function(div) {
             div.addEventListener('click', function() {
-                var latitud = parseFloat(div.getAttribute('data-latitud'));
-                var longitud = parseFloat(div.getAttribute('data-longitud'));
+                var latitud = Number.parseFloat(div.getAttribute('data-latitud'));
+                var longitud = Number.parseFloat(div.getAttribute('data-longitud'));
                 map.setView([latitud, longitud], 15);
             });
         });
