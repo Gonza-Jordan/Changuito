@@ -19,9 +19,9 @@ public class ControladorCarritoCompras {
     private List<Producto> carrito = new ArrayList<>();
 
     public ControladorCarritoCompras() {
-        carrito.add(new Producto("Manzanas", 2.0, "123456789012", Categoria.Verduleria, Subcategoria.Manzana));
-        carrito.add(new Producto("Leche", 3.0, "987654321098", Categoria.Lacteos, Subcategoria.Leche));
-        carrito.add(new Producto("Pan", 4.0, "192837465091", Categoria.Almacen, Subcategoria.Harina));
+        carrito.add(new Producto("Manzanas", 2.00, "123456789012", Categoria.Verduleria, Subcategoria.Manzana));
+        carrito.add(new Producto("Leche", 3.00, "987654321098", Categoria.Lacteos, Subcategoria.Leche));
+        carrito.add(new Producto("Pan", 4.00, "192837465091", Categoria.Almacen, Subcategoria.Harina));
     }
 
     @RequestMapping(path = "/carritoCompras", method = RequestMethod.GET)

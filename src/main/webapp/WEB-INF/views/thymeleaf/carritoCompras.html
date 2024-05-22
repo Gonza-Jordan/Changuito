@@ -31,7 +31,7 @@
             <td><!-- Columna vacía para futura imagen --></td>
             <td th:text="${producto.nombre}">Nombre del Producto</td>
             <td>
-                <span id="precio-unitario-[[${producto.idProducto}]]" class="precio-unitario" data-precio="[[${producto.precio}]]" th:text="${producto.precio}">Precio</span>
+                <span id="precio-unitario-[[${producto.idProducto}]]" class="precio-unitario" th:text="${producto.precio}">Precio</span>
             </td>
             <td>
                 <input type="number" min="1" id="cantidad-[[${producto.idProducto}]]" value="1" onchange="actualizarPrecio('[[${producto.idProducto}]]')">
@@ -39,7 +39,7 @@
                 <button type="button" onclick="incrementarCantidad('[[${producto.idProducto}]]')">+</button>
             </td>
             <td>
-                <span id="precio-total-[[${producto.idProducto}]]">Precio Total</span>
+                <span id="precio-total-[[${producto.idProducto}]]" class="precio-total" th:text="${producto.precio * 1}">Precio Total</span>
             </td>
             <td th:text="${producto.categoria}">Categoría</td>
             <td th:text="${producto.subcategoria}">Subcategoría</td>
@@ -73,12 +73,8 @@
         var inputCantidad = document.getElementById('cantidad-' + index);
         var cantidad = parseInt(inputCantidad.value);
         var precioUnitarioElemento = document.getElementById('precio-unitario-' + index);
-        var precioUnitarioText = precioUnitarioElemento.innerText.trim(); // Obtener el texto del precio unitario y eliminar espacios en blanco
-        var precioUnitario = parseFloat(precioUnitarioText); // Convertir el texto del precio unitario a un número
-        console.log('Cantidad:', cantidad);
-        console.log('Precio Unitario:', precioUnitario);
+        var precioUnitario = parseFloat(precioUnitarioElemento.innerText);
         var precioTotal = cantidad * precioUnitario;
-        console.log('Precio Total:', precioTotal);
         var precioTotalElemento = document.getElementById('precio-total-' + index);
         if (precioTotalElemento) {
             precioTotalElemento.innerText = formatCurrency(precioTotal);
@@ -107,15 +103,14 @@
     }
 
     function actualizarTotal() {
-    var total = 0;
-    var precios = document.querySelectorAll('td span[id^="precio-total-"]');
-    precios.forEach(function(precioElemento) {
-        var precio = parseFloat(precioElemento.innerText.replace(/[^\d.-]/g, '')); // Eliminar cualquier carácter que no sea número, punto o signo menos
-        total += isNaN(precio) ? 0 : precio; // Si el precio no es un número válido, añadir 0
-    });
-    document.getElementById('total-final').innerText = formatCurrency(total);
-}
-
+        var total = 0;
+        var precios = document.querySelectorAll('td span[id^="precio-total-"]');
+        precios.forEach(function(precioElemento) {
+            var precio = parseFloat(precioElemento.innerText.replace(/[^\d.-]/g, '')); // Eliminar cualquier carácter que no sea número, punto o signo menos
+            total += isNaN(precio) ? 0 : precio; // Si el precio no es un número válido, añadir 0
+        });
+        document.getElementById('total-final').innerText = formatCurrency(total);
+    }
 </script>
 </body>
 </html>
