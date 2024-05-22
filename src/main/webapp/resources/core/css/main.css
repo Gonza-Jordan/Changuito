@@ -665,7 +665,9 @@ input[type="checkbox"] {
 .carousel-item-vertical:hover {
     background-color: grey;
     color: whitesmoke;
+    cursor: pointer;
 }
+
 
 /* ******************************************* ESTILOS PRODUCTO SELECCIONADO ********************************************* */
 
@@ -775,7 +777,7 @@ input[type="checkbox"] {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 5px; /* Optional: Adds space between cards */
+    gap: 5px;
     padding: 20px;
 }
 
@@ -835,7 +837,7 @@ input[type="checkbox"] {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    gap: 20px; /* Optional: Adds space between columns */
+    gap: 20px;
 }
 
 .columna-ubicacion-mediospago {
