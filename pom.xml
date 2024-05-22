@@ -115,6 +115,19 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!-- Spring Boot Starter Test
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+
+        <!-- Jackson Databind (for JSON processing) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <!-- compile only, deployed container will provide this -->
         <!--
         <dependency>
