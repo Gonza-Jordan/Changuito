@@ -41,7 +41,9 @@
         <article>
             <div class="contenedorFlechas-vertical">
                 <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-                <div class="carousel-container-vertical">
+                <div class="carousel-item-vertical"
+                     data-latitud="${supermercado.latitud}"
+                     data-longitud="${supermercado.longitud}">
                     <div class="carousel-item" th:each="supermercado : ${supermercados}">
                         <div class="carousel-item-vertical">
                             <h3 th:text="${supermercado.sucursalNombre}"></h3>
@@ -83,7 +85,6 @@
             marker.bindPopup("<b>" + supermercado.banderaDescripcion + "</b><br><b>" + supermercado.comercioRazonSocial + "</b><br><b>" + supermercado.direccion + "</b>");
         });
 
-
         var ultimoSupermercado = supermercados[supermercados.length - 1];
         var radius = (ultimoSupermercado.distanciaNumero) * 1000 + 100;
         var circle = L.circle([latitud, longitud], {
@@ -96,6 +97,15 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
         }).addTo(map);
+
+        // Number.parseFloat()
+        document.querySelectorAll('.carousel-item-vertical').forEach(function(div) {
+            div.addEventListener('click', function() {
+                var latitud = parseFloat(div.getAttribute('data-latitud'));
+                var longitud = parseFloat(div.getAttribute('data-longitud'));
+                map.setView([latitud, longitud], 15);
+            });
+        });
         /*]]>*/
     </script>
 </main>

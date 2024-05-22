@@ -623,7 +623,7 @@ input[type="checkbox"] {
     width: 30em;
 }
 
-=======
+
 .contenedorVistaSupermercados{
     display: flex;
     flex-direction: row;
@@ -663,68 +663,11 @@ input[type="checkbox"] {
     padding: 1em;
 }
 
-.carousel-item-vertical:hover{
+.carousel-item-vertical:hover {
     background-color: grey;
     color: whitesmoke;
+}
 
-/*.form-buscador {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    gap: 1em;*/
-/*}*/
-
-/*.buscador {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    gap: 0.5em;*/
-/*    padding: 1em;*/
-/*    background-color: grey;*/
-/*    font-size: 1.2em;*/
-/*}*/
-
-/*.buscadorHome {*/
-/*    background-color: rgb(0, 0, 0, 0%);*/
-/*}*/
-
-/*.boton-buscar {*/
-/*    background-color: #BDFF00;*/
-/*    font-size: 1em;*/
-/*    padding: 0.5em;*/
-/*    border: none;*/
-/*    border-radius: 5px;*/
-/*    transition-duration: 1s;*/
-/*}*/
-
-/*.boton-buscar:hover {*/
-/*    cursor: pointer;*/
-/*    transform: scale(120%);*/
-/*    transition-duration: 1s;*/
-/*}*/
-
-/*.lupa{*/
-/*    background: none;*/
-/*    border: none;*/
-/*    color: whitesmoke;*/
-/*    font-size: 1.4em;*/
-/*}*/
-
-/*.lupa:hover{*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.buscador img {*/
-/*    display: block;*/
-/*}*/
-
-/*.buscador input {*/
-/*    font-family: inherit;*/
-/*    border: none;*/
-/*    border-radius: 5px;*/
-/*    outline: none;*/
-/*    padding: 0.5em;*/
-/*    width: 30em;*/
-/*}*/
 
 /* ******************************************* ESTILOS PRODUCTO SELECCIONADO ********************************************* */
 
