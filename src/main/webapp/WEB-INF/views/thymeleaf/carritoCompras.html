@@ -10,30 +10,39 @@
 
 <div class="carrito-container">
     <h1 class="carrito-title">Tu Carrito de Compras</h1>
+    <div class="cantidad-productos">
+        <p class="cantidad-texto" th:text="'Cantidad de productos en el carrito: ' + ${cantidadProductos}">Cantidad de productos en el carrito: 0</p>
+    </div>
     <table class="carrito-table">
         <thead>
         <tr>
-            <th>Foto</th> <!-- foto del producto -->
+            <th>Foto</th> <!-- columna de la foto, actualmente vacía -->
             <th>Producto</th>
-            <th>Precio</th>
+            <th>Precio Unitario</th>
             <th>Cantidad</th>
+            <th>Precio producto total</th>
             <th>Categoría</th>
+            <th>Subcategoría</th>
             <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="producto, row : ${carrito}">
-            <td><!-- Aquí iría la foto del producto --></td>
+            <td><!-- Columna vacía para futura imagen --></td>
             <td th:text="${producto.nombre}">Nombre del Producto</td>
-            <td th:text="${producto.precio}" id="precio-${producto.idProducto}">Precio</td>
             <td>
-                <input type="number" min="0" value="1" id="cantidad-${producto.idProducto}" onchange="actualizarPrecio('${producto.idProducto}', ${producto.precio})">
-                <button type="button" onclick="decrementarCantidad('${producto.idProducto}', '${producto.precio}')">-</button>
-                <button type="button" onclick="incrementarCantidad('${producto.idProducto}', '${producto.precio}')">+</button>
+                <span id="precio-unitario-[[${producto.idProducto}]]" class="precio-unitario" data-precio="[[${producto.precio}]]" th:text="${producto.precio}">Precio</span>
             </td>
             <td>
-                <span>Categoría Fija</span>
+                <input type="number" min="1" id="cantidad-[[${producto.idProducto}]]" value="1" onchange="actualizarPrecio('[[${producto.idProducto}]]')">
+                <button type="button" onclick="decrementarCantidad('[[${producto.idProducto}]]')">-</button>
+                <button type="button" onclick="incrementarCantidad('[[${producto.idProducto}]]')">+</button>
             </td>
+            <td>
+                <span id="precio-total-[[${producto.idProducto}]]">Precio Total</span>
+            </td>
+            <td th:text="${producto.categoria}">Categoría</td>
+            <td th:text="${producto.subcategoria}">Subcategoría</td>
             <td>
                 <form action="/eliminar-del-carrito" method="post">
                     <input type="hidden" name="codigoBarras" th:value="${producto.codigoBarras}">
@@ -44,9 +53,9 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="4"></td>
+            <td colspan="6"></td>
             <td style="text-align: right;">Total:</td>
-            <td id="total-final" colspan="2"><!-- total final --></td>
+            <td id="total-final" colspan="2">0.00</td>
         </tr>
         </tfoot>
     </table>
@@ -55,6 +64,58 @@
 <footer th:include="footer.html"></footer>
 
 <script type="text/javascript" src="/spring/js/main.js"></script>
+<script>
+    function formatCurrency(value) {
+        return value.toFixed(2);
+    }
 
+    function actualizarPrecio(index) {
+        var inputCantidad = document.getElementById('cantidad-' + index);
+        var cantidad = parseInt(inputCantidad.value);
+        var precioUnitarioElemento = document.getElementById('precio-unitario-' + index);
+        var precioUnitarioText = precioUnitarioElemento.innerText.trim(); // Obtener el texto del precio unitario y eliminar espacios en blanco
+        var precioUnitario = parseFloat(precioUnitarioText); // Convertir el texto del precio unitario a un número
+        console.log('Cantidad:', cantidad);
+        console.log('Precio Unitario:', precioUnitario);
+        var precioTotal = cantidad * precioUnitario;
+        console.log('Precio Total:', precioTotal);
+        var precioTotalElemento = document.getElementById('precio-total-' + index);
+        if (precioTotalElemento) {
+            precioTotalElemento.innerText = formatCurrency(precioTotal);
+            actualizarTotal();
+        } else {
+            console.error('Elemento de precio total no encontrado para el índice:', index);
+        }
+    }
+
+    function incrementarCantidad(index) {
+        var inputCantidad = document.getElementById('cantidad-' + index);
+        var cantidad = parseInt(inputCantidad.value);
+        cantidad++;
+        inputCantidad.value = cantidad;
+        actualizarPrecio(index);
+    }
+
+    function decrementarCantidad(index) {
+        var inputCantidad = document.getElementById('cantidad-' + index);
+        var cantidad = parseInt(inputCantidad.value);
+        if (cantidad > 1) {
+            cantidad--;
+            inputCantidad.value = cantidad;
+            actualizarPrecio(index);
+        }
+    }
+
+    function actualizarTotal() {
+    var total = 0;
+    var precios = document.querySelectorAll('td span[id^="precio-total-"]');
+    precios.forEach(function(precioElemento) {
+        var precio = parseFloat(precioElemento.innerText.replace(/[^\d.-]/g, '')); // Eliminar cualquier carácter que no sea número, punto o signo menos
+        total += isNaN(precio) ? 0 : precio; // Si el precio no es un número válido, añadir 0
+    });
+    document.getElementById('total-final').innerText = formatCurrency(total);
+}
+
+</script>
 </body>
 </html>

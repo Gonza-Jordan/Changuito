@@ -29,9 +29,6 @@ public class Producto {
         this.subcategoria = subcategoria;
     }
 
-
-
-
     //Getters y Setters de producto
     public String getNombre() {
         return nombre;
@@ -68,4 +65,7 @@ public class Producto {
     public Integer getIdProducto() {return idProducto;}
 
     public void setIdProducto(Integer idProducto) {this.idProducto = idProducto;}
+
+    public void setPrecioFormateado(String precioFormateado) {
+    }
 }

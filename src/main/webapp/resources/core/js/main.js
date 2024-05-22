@@ -7,6 +7,8 @@ function crearMapa(contenedor, latitud, longitud) {
     }).addTo(map);
 }
 
+/* ******************************************* FUNCIONES CHANGUITO ********************************************* */
+
 function incrementarCantidad(index, precio) {
     var inputCantidad = document.getElementById('cantidad-' + index);
     var cantidad = parseInt(inputCantidad.value);
@@ -25,13 +27,28 @@ function decrementarCantidad(index, precio) {
     }
 }
 
-function actualizarPrecio(index, precioUnitario) {
+function actualizarPrecio(index, cantidad, precioUnitario) {
     var inputCantidad = document.getElementById('cantidad-' + index);
     var cantidad = parseInt(inputCantidad.value);
 
     var precioTotal = cantidad * precioUnitario;
-    var precioElemento = document.getElementById('precio-' + index);
+    var precioElemento = document.getElementById('precio-unitario-' + index);
     precioElemento.innerText = precioTotal.toFixed(2);
+
+    // Recalcular el total
+    recalcularTotal();
+}
+
+function recalcularTotal() {
+    var preciosUnitarios = document.querySelectorAll('[id^="precio-unitario-"]');
+    var total = 0;
+    preciosUnitarios.forEach(function(element) {
+        total += parseFloat(element.innerText);
+    });
+
+    // Actualizar el total final
+    var totalFinalElement = document.getElementById('total-final');
+    totalFinalElement.innerText = total.toFixed(2);
 }
 
 // showSlides();
