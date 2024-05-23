@@ -11,7 +11,7 @@
 <div class="carrito-container">
     <h1 class="carrito-title">Tu Carrito de Compras</h1>
     <div class="cantidad-productos">
-        <p class="cantidad-texto" th:text="'Cantidad de productos en el carrito: ' + ${cantidadProductos}">Cantidad de productos en el carrito: 0</p>
+        <p id="cantidad-productos" class="cantidad-texto" th:text="'Cantidad de productos en el carrito: ' + ${cantidadProductos}">Cantidad de productos en el carrito: 0</p>
     </div>
     <table class="carrito-table">
         <thead>
@@ -45,10 +45,7 @@
             <td th:text="${producto.categoria}">Categoría</td>
             <td th:text="${producto.subcategoria}">Subcategoría</td>
             <td>
-                <form action="/eliminar-del-carrito" method="post">
-                    <input type="hidden" name="codigoBarras" th:value="${producto.codigoBarras}">
-                    <button type="submit">Eliminar</button>
-                </form>
+                <button type="button" onclick="eliminarFila(this)">Eliminar</button>
             </td>
             <td>
                 <span class="precio-total" th:text="${producto.precio}">Precio Total</span>
@@ -73,15 +70,18 @@
         var cantidadSelects = document.querySelectorAll('.cantidad-select');
         cantidadSelects.forEach(function(select) {
             select.addEventListener('change', function() {
-                var row = this.closest('tr');
-                var precioUnitario = parseFloat(row.querySelector('.precio-unitario').innerText);
-                var cantidad = parseInt(this.value);
-                var precioTotal = precioUnitario * cantidad;
-                row.querySelector('.precio-total').innerText = precioTotal.toFixed(2);
-                actualizarTotal();
+                actualizarPrecioTotal(this.closest('tr'));
             });
         });
     });
+
+    function actualizarPrecioTotal(row) {
+        var precioUnitario = parseFloat(row.querySelector('.precio-unitario').innerText);
+        var cantidad = parseInt(row.querySelector('.cantidad-select').value);
+        var precioTotal = precioUnitario * cantidad;
+        row.querySelector('.precio-total').innerText = precioTotal.toFixed(2);
+        actualizarTotal();
+    }
 
     function actualizarTotal() {
         var total = 0;
@@ -90,6 +90,18 @@
             total += parseFloat(precio.innerText);
         });
         document.getElementById('total-final').innerText = total.toFixed(2);
+    }
+
+    function eliminarFila(button) {
+        var row = button.closest('tr');
+        row.parentNode.removeChild(row);
+        actualizarTotal();
+        actualizarCantidadProductos();
+    }
+
+    function actualizarCantidadProductos() {
+        var cantidadProductos = document.querySelectorAll('.carrito-table tbody tr').length;
+        document.getElementById('cantidad-productos').innerText = 'Cantidad de productos en el carrito: ' + cantidadProductos;
     }
 </script>
 </body>
