@@ -35,21 +35,13 @@ public class ServicioSupermercadoTest  {
     public void queSePuedaDevolverSupermercados() throws IOException, InterruptedException {
         Double latitud = -34.699416;
         Double longitud = -58.566259;
-      //  String url = "https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=" + latitud + "&lng=" + longitud + "&limit=" + 30;
-//        List<Supermercado> supermercadosEsperados = new ArrayList<>();
-//        supermercadosEsperados.add(new Supermercado("Super1"));
-//        supermercadosEsperados.add(new Supermercado("Super2"));
-        String jsonResponse = "{ \"sucursales\": [{ \"distanciaNumero\": 1.5, \"distanciaDescripcion\": \"Cerca\", \"banderaId\": 123, \"lat\": \"-34.603722\", \"lng\": \"-58.381592\", \"sucursalNombre\": \"Supermercado1\", \"id\": \"1\", \"sucursalTipo\": \"Hipermercado\", \"provincia\": \"Buenos Aires\", \"direccion\": \"Calle Falsa 123\", \"banderaDescripcion\": \"Super\", \"localidad\": \"Capital Federal\", \"comercioRazonSocial\": \"Supermercado SA\", \"comercioId\": 456, \"sucursalId\": \"S1\" }] }";
 
+        String jsonResponse = "{ \"sucursales\": [{ \"distanciaNumero\": 1.5, \"distanciaDescripcion\": \"Cerca\", \"banderaId\": 123, \"lat\": -34.603722, \"lng\": -58.381592, \"sucursalNombre\": \"Supermercado1\", \"id\": \"1\", \"sucursalTipo\": \"Hipermercado\", \"provincia\": \"Buenos Aires\", \"direccion\": \"Calle Falsa 123\", \"banderaDescripcion\": \"Super\", \"localidad\": \"Capital Federal\", \"comercioRazonSocial\": \"Supermercado SA\", \"comercioId\": 456, \"sucursalId\": \"S1\" }] }";
 
-
-     //  when(servicioSupermercado.obtenerSupermercados(latitud,longitud,30)).thenReturn(supermercadosEsperados);
         //when(httpClientMock.send(HttpRequest.class, HttpResponse.BodyHandlers.class)).thenReturn(httpResponseMock);
+
+        when(httpClientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(httpResponseMock);
         when(httpResponseMock.body()).thenReturn(jsonResponse);
-        when(httpClientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
-                .thenReturn(httpResponseMock);
-
-
 
         List<Supermercado> superObtenido = servicioSupermercado.obtenerSupermercados(latitud,longitud,1);
         assertThat(superObtenido, is(notNullValue()));
