@@ -26,6 +26,8 @@ public class ControladorCarritoCompras {
 
     @RequestMapping(path = "/carritoCompras", method = RequestMethod.GET)
     public ModelAndView verCarrito() {
+        DecimalFormat df = new DecimalFormat("#.00"); // Formato para dos decimales
+        carrito.forEach(producto -> producto.setPrecioFormateado(df.format(producto.getPrecio()))); // Formatear el precio de cada producto
         ModelAndView modelAndView = new ModelAndView("carritoCompras");
         modelAndView.addObject("carrito", carrito);
         modelAndView.addObject("cantidadProductos", carrito.size());
