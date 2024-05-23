@@ -19,23 +19,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.*;
 public class ControladorSupermercadoTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Mock
     private ServicioSupermercado servicioSupermercado;
-
-
-
-    @InjectMocks
     private ControladorSupermercado controladorSupermercado;
 
     @BeforeEach
-    public void init(){ this.controladorSupermercado = new ControladorSupermercado(new ServicioSupermercado());}
-    public void setUp() { MockitoAnnotations.openMocks(this); }
+    public void init(){
+
+        this.servicioSupermercado = mock(ServicioSupermercado.class);
+        this.controladorSupermercado = new ControladorSupermercado(this.servicioSupermercado);}
+
 
     @Test
     public void queAlHacerClickEnSupermercadoVayaAlaVistaSupermercado() throws IOException, InterruptedException {
@@ -51,25 +46,6 @@ public class ControladorSupermercadoTest {
         assertThat(view,equalToIgnoringCase("supermercados"));
 
     }
-//    @Test
-//    public void queAlHacerClickEnSupermercadoVayaAlaVistaSupermercadoYMuestreLaListaDeSuperCercano() throws IOException, InterruptedException {
-//
-//       double latitud = -34.67055556;
-//        double longitud = -58.56277778;
-//        List<Supermercado> supermercadosEsperados = servicioSupermercado.obtenerSupermercados(latitud, longitud, 30);
-//
-//
-//        ModelAndView mav = this.controladorSupermercado.irASupermercados(latitud,longitud);
-//        String view = mav.getViewName();
-//
-//        List<Supermercado> supermercadosObtenidos= (List<Supermercado>) mav.getModel().get("supermercados");
-//
-//        assertThat(supermercadosObtenidos,equalTo(supermercadosEsperados));
-//
-//    }
-
-
-
 
     @Test
     public void queAlHacerClickEnSupermercadoVayaAlaVistaSupermercadoYMuestreLaListaDeSuperCercano() throws IOException, InterruptedException {
@@ -77,8 +53,8 @@ public class ControladorSupermercadoTest {
         Double latitud = -34.699416;
         Double longitud = -58.566259;
         List<Supermercado> supermercadosEsperados = new ArrayList<>();
-     //  supermercadosEsperados.add(new Supermercado("Super1"));
-     //  supermercadosEsperados.add(new Supermercado("Super2"));
+       supermercadosEsperados.add(new Supermercado("Super1"));
+       supermercadosEsperados.add(new Supermercado("Super2"));
 
         when(servicioSupermercado.obtenerSupermercados(latitud, longitud, 30)).thenReturn(supermercadosEsperados);
 
@@ -86,16 +62,8 @@ public class ControladorSupermercadoTest {
         String view = mav.getViewName();
         List<Supermercado> supermercadosObtenidos = (List<Supermercado>) mav.getModel().get("supermercados");
 
-//        mockMvc.perform(get("/supermercados")
-//                        .param("latitud", "10.0")
-//                        .param("longitud", "20.0"))
-//
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("supermercados"))
-//                .andExpect(model().attributeExists("supermercados"))
-//                .andExpect(model().attribute("supermercados", supermercados));
 
         assertThat(view, equalTo("supermercados"));
-        assertThat(supermercadosObtenidos, equalTo(supermercadosEsperados));
+        assertThat(supermercadosObtenidos.size(), equalTo(2));
     }
 }

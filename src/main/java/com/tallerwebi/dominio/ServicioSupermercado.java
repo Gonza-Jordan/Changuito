@@ -18,7 +18,7 @@ public class ServicioSupermercado {
 
     private final HttpClient httpClient;
 
-    public ServicioSupermercado() {
+    public ServicioSupermercado(HttpClient httpClient) {
         this.httpClient = HttpClient.newHttpClient();
     }
 
