@@ -1,0 +1,60 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+
+/* *********************************************** ESTILOS HEADER *************************************************** */
+
+.navbar-brand {
+    font-size: 2em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5em;
+    width: 90%;
+    margin: auto;
+    height: 5em;
+
+}
+
+.cabecera ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2em;
+    align-items: center;
+}
+
+.cabecera li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contenedor-carrito-contador {
+    background-color: #BDFF00;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    font-size: 1.5em;
+    color: #333333;
+}
+
+/* ******************************************* ESTILOS FOOTER ********************************************* */
+
+.footer {
+    height: 6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333333;
+    color: whitesmoke;
+}

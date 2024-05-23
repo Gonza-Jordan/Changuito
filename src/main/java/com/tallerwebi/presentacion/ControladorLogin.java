@@ -58,6 +58,11 @@ public class ControladorLogin {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
+        if (usuario == null) {
+
+            return new ModelAndView("redirect:/login");
+        }
+
         ModelMap model = new ModelMap();
         model.put("usuario", usuario);
 
