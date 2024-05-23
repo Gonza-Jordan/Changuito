@@ -34,7 +34,13 @@
                 <span class="precio-unitario" th:text="${producto.precio}">Precio</span>
             </td>
             <td>
-                <input type="number" min="1" class="cantidad-input" value="1">
+                <select class="cantidad-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
             </td>
             <td th:text="${producto.categoria}">Categoría</td>
             <td th:text="${producto.subcategoria}">Subcategoría</td>
@@ -64,9 +70,9 @@
 <script type="text/javascript" src="/spring/js/main.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var cantidadInputs = document.querySelectorAll('.cantidad-input');
-        cantidadInputs.forEach(function(input) {
-            input.addEventListener('change', function() {
+        var cantidadSelects = document.querySelectorAll('.cantidad-select');
+        cantidadSelects.forEach(function(select) {
+            select.addEventListener('change', function() {
                 var row = this.closest('tr');
                 var precioUnitario = parseFloat(row.querySelector('.precio-unitario').innerText);
                 var cantidad = parseInt(this.value);
