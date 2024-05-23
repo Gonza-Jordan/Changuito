@@ -10,43 +10,53 @@
 
 <div class="carrito-container">
     <h1 class="carrito-title">Tu Carrito de Compras</h1>
+    <div class="cantidad-productos">
+        <p id="cantidad-productos" class="cantidad-texto" th:text="'Cantidad de productos en el carrito: ' + ${cantidadProductos}">Cantidad de productos en el carrito: 0</p>
+    </div>
     <table class="carrito-table">
         <thead>
         <tr>
-            <th>Foto</th> <!-- foto del producto -->
+            <th>Foto</th> <!-- columna de la foto, actualmente vacía -->
             <th>Producto</th>
-            <th>Precio</th>
+            <th>Precio Unitario</th>
             <th>Cantidad</th>
             <th>Categoría</th>
+            <th>Subcategoría</th>
             <th>Acciones</th>
+            <th>Precio producto total</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="producto, row : ${carrito}">
-            <td><!-- Aquí iría la foto del producto --></td>
+            <td><!-- Columna vacía para futura imagen --></td>
             <td th:text="${producto.nombre}">Nombre del Producto</td>
-            <td th:text="${producto.precio}" id="precio-${producto.idProducto}">Precio</td>
             <td>
-                <input type="number" min="0" value="1" id="cantidad-${producto.idProducto}" onchange="actualizarPrecio('${producto.idProducto}', ${producto.precio})">
-                <button type="button" onclick="decrementarCantidad('${producto.idProducto}', '${producto.precio}')">-</button>
-                <button type="button" onclick="incrementarCantidad('${producto.idProducto}', '${producto.precio}')">+</button>
+                <span class="precio-unitario" th:text="${producto.precio}">Precio</span>
             </td>
             <td>
-                <span>Categoría Fija</span>
+                <select class="cantidad-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </td>
+            <td th:text="${producto.categoria}">Categoría</td>
+            <td th:text="${producto.subcategoria}">Subcategoría</td>
+            <td>
+                <button type="button" onclick="eliminarFila(this)">Eliminar</button>
             </td>
             <td>
-                <form action="/eliminar-del-carrito" method="post">
-                    <input type="hidden" name="codigoBarras" th:value="${producto.codigoBarras}">
-                    <button type="submit">Eliminar</button>
-                </form>
+                <span class="precio-total" th:text="${producto.precio}">Precio Total</span>
             </td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="4"></td>
+            <td colspan="6"></td>
             <td style="text-align: right;">Total:</td>
-            <td id="total-final" colspan="2"><!-- total final --></td>
+            <td id="total-final" colspan="2">0.00</td>
         </tr>
         </tfoot>
     </table>
@@ -55,6 +65,46 @@
 <footer th:include="footer.html"></footer>
 
 <script type="text/javascript" src="/spring/js/main.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        actualizarTotal();
 
+        var cantidadSelects = document.querySelectorAll('.cantidad-select');
+        cantidadSelects.forEach(function(select) {
+            select.addEventListener('change', function() {
+                actualizarPrecioTotal(this.closest('tr'));
+            });
+        });
+    });
+
+    function actualizarPrecioTotal(row) {
+        var precioUnitario = parseFloat(row.querySelector('.precio-unitario').innerText);
+        var cantidad = parseInt(row.querySelector('.cantidad-select').value);
+        var precioTotal = precioUnitario * cantidad;
+        row.querySelector('.precio-total').innerText = precioTotal.toFixed(2);
+        actualizarTotal();
+    }
+
+    function actualizarTotal() {
+        var total = 0;
+        var precios = document.querySelectorAll('.precio-total');
+        precios.forEach(function(precio) {
+            total += parseFloat(precio.innerText);
+        });
+        document.getElementById('total-final').innerText = total.toFixed(2);
+    }
+
+    function eliminarFila(button) {
+        var row = button.closest('tr');
+        row.parentNode.removeChild(row);
+        actualizarTotal();
+        actualizarCantidadProductos();
+    }
+
+    function actualizarCantidadProductos() {
+        var cantidadProductos = document.querySelectorAll('.carrito-table tbody tr').length;
+        document.getElementById('cantidad-productos').innerText = 'Cantidad de productos en el carrito: ' + cantidadProductos;
+    }
+</script>
 </body>
 </html>

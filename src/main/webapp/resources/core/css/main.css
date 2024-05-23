@@ -504,7 +504,6 @@ input[type="checkbox"] {
 }
 
 /* ********************************************** ESTILOS CARRITO DE COMPRAS **************************************** */
-
 .carrito-container {
     margin: 20px;
     background-color: #f8f9fa;
@@ -518,6 +517,21 @@ input[type="checkbox"] {
     margin-bottom: 20px;
     color: #333333;
     text-align: center;
+}
+
+.cantidad-productos {
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.cantidad-productos .cantidad-texto {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
 }
 
 .carrito-table {
