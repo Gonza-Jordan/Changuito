@@ -13,13 +13,13 @@ input:focus-visible {
     background: none !important;
 }
 
-/*body {*/
-/*    background: white;*/
-/*}*/
+body {
+    background: white;
+}
 
-/*a {*/
-/*    text-decoration: none;*/
-/*}*/
+a {
+    text-decoration: none;
+}
 
 .login {
     height: 100vh;
@@ -67,3 +67,4 @@ input:focus-visible {
     color: gray;
     border: none !important;
 }
+
