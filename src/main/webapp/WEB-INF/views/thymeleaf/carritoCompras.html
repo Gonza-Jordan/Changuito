@@ -67,6 +67,8 @@
 <script type="text/javascript" src="/spring/js/main.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        actualizarTotal();
+
         var cantidadSelects = document.querySelectorAll('.cantidad-select');
         cantidadSelects.forEach(function(select) {
             select.addEventListener('change', function() {
