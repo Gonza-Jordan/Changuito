@@ -26,38 +26,31 @@ public class ControladorCarritoComprasTest {
 
     @Test
     public void queAlHacerClickEnManzanasSeMuestreLaVistaCategoriaConElNombreManzanas() {
-        // preparacion
+
         String nombreDelProducto = "Manzanas";
 
-        // ejecucion
         ModelAndView mav = this.controladorCarritoCompras.verCarrito();
         String viewName = mav.getViewName();
         List<Producto> productos = (List<Producto>) mav.getModel().get("carrito");
 
-        // verificacion
-        assertThat(viewName, equalToIgnoringCase("carritoCompras")); // Vista correcta
+        assertThat(viewName, equalToIgnoringCase("carritoCompras"));
         assertThat(productos.get(0).getNombre(), equalTo(nombreDelProducto));
     }
 
     @Test
     public void queAlEliminarUnProductoDelCarritoSeRedireccioneAlCarrito() {
-        // preparacion
+
         String codigoBarras = "123456789012";
-
-        // ejecucion
         String redirection = this.controladorCarritoCompras.eliminarDelCarrito(codigoBarras);
-
-        // verificacion
-        assertThat(redirection, equalToIgnoringCase("redirect:/carritoCompras")); // Redireccion correcta
+        assertThat(redirection, equalToIgnoringCase("redirect:/carritoCompras"));
     }
 
     @Test
     public void queAlIngresarAlCarritoSeMuestreLaCantidadDeProductosCorrecta() {
-        // ejecucion
+
         ModelAndView mav = this.controladorCarritoCompras.verCarrito();
         int cantidadProductos = (int) mav.getModel().get("cantidadProductos");
 
-        // verificacion
         assertThat(cantidadProductos, equalTo(3)); // Cantidad correcta
     }
 }
