@@ -16,6 +16,9 @@ public class ControladorGeolocalizacion {
     @Autowired
     private ServicioGeolocalizacion servicioGeolocalizacion;
 
+//    public ControladorGeolocalizacion(ServicioGeolocalizacion servicioGeolocalizacion) {
+//    }
+
     @PostMapping("/search")
     public String buscar(@RequestParam("query") String query, RedirectAttributes redirectAttributes) {
         try {

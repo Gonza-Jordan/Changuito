@@ -17,6 +17,7 @@ public class Supermercado {
     private int comercioId;
     private String sucursalId;
 
+    public Supermercado(){}
     public Supermercado( double distanciaNumero, String distanciaDescripcion,
      int banderaId,    double lat    , double lng    , String sucursalNombre    , String id
     , String sucursalTipo   , String provincia   , String direccion    , String banderaDescripcion

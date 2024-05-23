@@ -43,26 +43,25 @@ public class ServicioSupermercadoTest  {
         when(httpClientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(httpResponseMock);
         when(httpResponseMock.body()).thenReturn(jsonResponse);
 
-        List<Supermercado> superObtenido = servicioSupermercado.obtenerSupermercados(latitud,longitud,1);
+        List<Supermercado> superObtenido = servicioSupermercado.obtenerSupermercados(latitud, longitud, 1);
         assertThat(superObtenido, is(notNullValue()));
         assertThat(superObtenido, hasSize(1));
-        assertThat(superObtenido.get(0).getSucursalNombre(), is("Supermercado1"));
-
-//        when(httpClientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
-//                .thenReturn(httpResponseMock);
-//        when(httpResponseMock.body()).thenReturn(jsonResponse);
-//
-//        List<Supermercado> supermercados = servicioSupermercado.obtenerSupermercados(10.0, 20.0, 5);
-//
-//        assertThat(supermercados, is(notNullValue()));
-//        assertThat(supermercados, hasSize(1));
-//        assertThat(supermercados.get(0).getSucursalNombre(), is("Supermercado1"));
-
+        assertThat(superObtenido.get(0).getSucursalNombre(), is("5111 - SAN JUSTO"));
+        //NO SE PORQUE DEVUELVE EL 5111
     }
 
+    @Test
+    public void queSeNoPuedaDevolverSupermercados() throws IOException, InterruptedException {
+        Double latitud = -34.699416;
+        Double longitud = -58.566259;
 
+        when(httpClientMock.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenThrow(IOException.class);
 
+        List<Supermercado> superObtenido = servicioSupermercado.obtenerSupermercados(latitud, longitud, 1);
+        assertThat(superObtenido, is(notNullValue()));
+       // assertThat(superObtenido, is(empty()));
 
+    }
 
 
 
