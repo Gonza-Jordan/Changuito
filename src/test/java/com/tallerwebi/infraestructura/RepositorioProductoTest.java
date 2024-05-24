@@ -40,7 +40,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaGuardarUnProducto(){
         //Preparacion
-        Producto productoAGuardar = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas);
+        Producto productoAGuardar = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
 
         //Ejecucion
         this.repositorioProducto.guardarProducto(productoAGuardar);
@@ -58,7 +58,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaBuscarUnProductoPorNombre(){
         //Preparacion
-        Producto productoGuardado = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas);
+        Producto productoGuardado = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
 
         //Ejecucion
         this.repositorioProducto.guardarProducto(productoGuardado);
@@ -74,7 +74,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaBuscarUnProductoPorSubcategoria(){
         //Preparacion
-        Producto productoGuardado = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas);
+        Producto productoGuardado = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
 
         //Ejecucion
         this.repositorioProducto.guardarProducto(productoGuardado);
@@ -90,9 +90,9 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedanBuscarTodosLosProductosDeUnaSubcategoria(){
         //Preparacion
-        Producto productoGaseosa = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas);
-        Producto otroProductoGaseosa = new Producto("Sprite", 1500.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas);
-        Producto productoArroz = new Producto("Arroz", 1000.00, "987654321", Categoria.Almacen, Subcategoria.Arroz);
+        Producto productoGaseosa = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto otroProductoGaseosa = new Producto("Sprite", 1500.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg");
+        Producto productoArroz = new Producto("Arroz", 1000.00, "987654321", Categoria.Almacen, Subcategoria.Arroz, "img/producto/almacen/arroz.jpg");
 
         //Ejecucion
         this.repositorioProducto.guardarProducto(productoGaseosa);
@@ -103,8 +103,5 @@ public class RepositorioProductoTest {
         List<Producto> productosEncontrados = repositorioProducto.buscarProductosPorSubcategoria(Subcategoria.Gaseosas);
 
         assertThat(2, equalTo(productosEncontrados.size()));
-
     }
-
-
 }
