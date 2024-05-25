@@ -17,10 +17,6 @@ public class Supermercado {
     private int comercioId;
     private String sucursalId;
 
-    public Supermercado(String super1) {
-    }
-
-
     public double getDistanciaNumero() {
         return distanciaNumero;
     }
