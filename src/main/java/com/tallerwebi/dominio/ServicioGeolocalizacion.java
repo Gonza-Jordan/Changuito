@@ -20,9 +20,6 @@ public class ServicioGeolocalizacion {
     public ServicioGeolocalizacion() {
         this.httpClient = HttpClient.newHttpClient();
     }
-    public ServicioGeolocalizacion(HttpClient httpClient1) {
-        this.httpClient = HttpClient.newHttpClient();
-    }
 
     public JsonNode buscarUbicacion(String query) throws IOException, InterruptedException {
         query = URLEncoder.encode(query, "UTF-8");
