@@ -4,8 +4,8 @@ public class Supermercado {
     private double distanciaNumero;
     private String distanciaDescripcion;
     private int banderaId;
-    private double lat;
-    private double lng;
+    private String lat;
+    private String lng;
     private String sucursalNombre;
     private String id;
     private String sucursalTipo;
@@ -17,25 +17,7 @@ public class Supermercado {
     private int comercioId;
     private String sucursalId;
 
-    public Supermercado( double distanciaNumero, String distanciaDescripcion,
-     int banderaId,    double lat    , double lng    , String sucursalNombre    , String id
-    , String sucursalTipo   , String provincia   , String direccion    , String banderaDescripcion
-    , String localidad    , String comercioRazonSocial    , int comercioId    , String sucursalId) {
-        this.distanciaNumero = distanciaNumero;
-        this.distanciaDescripcion = distanciaDescripcion;
-        this.banderaId = banderaId;
-        this.lat = lat;
-        this.lng = lng;
-        this.sucursalNombre = sucursalNombre;
-        this.id = id;
-        this.sucursalTipo = sucursalTipo;
-        this.provincia = provincia;
-        this.direccion = direccion;
-        this.banderaDescripcion = banderaDescripcion;
-        this.localidad = localidad;
-        this.comercioRazonSocial = comercioRazonSocial;
-        this.comercioId = comercioId;
-        this.sucursalId = sucursalId;
+    public Supermercado(String super1) {
     }
 
 
@@ -63,19 +45,19 @@ public class Supermercado {
         this.banderaId = banderaId;
     }
 
-    public Double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
 

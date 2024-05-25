@@ -4,6 +4,11 @@ import com.tallerwebi.dominio.ServicioSupermercado;
 import com.tallerwebi.dominio.Supermercado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -48,11 +53,8 @@ public class ControladorSupermercadoTest {
         Double latitud = -34.699416;
         Double longitud = -58.566259;
         List<Supermercado> supermercadosEsperados = new ArrayList<>();
-       supermercadosEsperados.add(new Supermercado(0.6321, "0.63 kilometros",3 ,-34.676217 ,-58.563547 ,"dia" ,"10-3-522" ,"Autoservicio" ,"AR-B" ,"Arieta 2850" ,"Express" ,"La Matanza" ,"INC S. A." ,10 ,"522"  ));
-       supermercadosEsperados.add(new Supermercado(0.7545, "0.75 kilometros",4 ,-44.676217 ,-68.563547 ,"carefour" ,"10-3-523" ,"Autoservicio" ,"AR-B" ,"Arieta 3850" ,"Express" ,"La Matanza" ,"INC S. A." ,11 ,"523"  ));
-
-       // String jsonResponse = "{ \"sucursales\": [{ \"distanciaNumero\": , \"distanciaDescripcion\": \"\", \"banderaId\": 3, \"lat\": \"\", \"lng\": \"\", \"sucursalNombre\": \"Arieta 2850\", \"id\": \"\", \"sucursalTipo\": \"Autoservicio\", \"provincia\": \"AR-B\", \"direccion\": \"Arieta 2850\", \"banderaDescripcion\": \"Express\", \"localidad\": \"La Matanza\", \"comercioRazonSocial\": \"INC S.A.\", \"comercioId\": 10, \"sucursalId\": \"522\" }] }";
-
+       supermercadosEsperados.add(new Supermercado("Super1"));
+       supermercadosEsperados.add(new Supermercado("Super2"));
 
         when(servicioSupermercado.obtenerSupermercados(latitud, longitud, 30)).thenReturn(supermercadosEsperados);
 
