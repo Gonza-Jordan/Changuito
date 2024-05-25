@@ -45,7 +45,7 @@ INSERT INTO Producto (idProducto, nombre, precio, codigoBarras, categoria, subca
 VALUES (12, 'Gaseosa Coca-Cola Original 2.25L', 150.00, '7790040070066', 'Bebidas', 'Gaseosas', 'img/producto/bebidas/gaseosa_coca_cola.jpg');
 
 INSERT INTO Producto (idProducto, nombre, precio, codigoBarras, categoria, subcategoria, urlImagen)
-VALUES (13, 'Jugo Cepita Naranja 1L', 90.00, '7790070120130', 'Bebidas', 'Jugos', 'img/producto/bebidas/jugo_
+VALUES (13, 'Jugo Cepita Naranja 1L', 90.00, '7790070120130', 'Bebidas', 'Jugos', 'img/producto/bebidas/jugo.jpg');
 
 INSERT INTO Producto (idProducto, nombre, precio, codigoBarras, categoria, subcategoria, urlImagen)
 VALUES (14, 'Vino Malbec Rutini 750ml', 400.00, '7790167010209', 'Bebidas', 'Vinos', 'img/producto/bebidas/vino_rutini_malbec.jpg');
@@ -90,7 +90,7 @@ VALUES (25, 'Guantes de Látex Mapa Profesionales', 90.00, '7791234567010', 'Lim
 
     -- Cat. Lacteos
 INSERT INTO Producto (idProducto, nombre, precio, codigoBarras, categoria, subcategoria, urlImagen)
-VALUES (26, 'Leche La Serenísima Entera 1L', 70.00, '7790070410310', 'Lacteos', 'Leche', 'img/producto
+VALUES (26, 'Leche La Serenísima Entera 1L', 70.00, '7790070410310', 'Lacteos', 'Leche', 'img/producto');
 
 INSERT INTO Producto (idProducto, nombre, precio, codigoBarras, categoria, subcategoria, urlImagen)
 VALUES (27, 'Manteca Sancor 200g', 120.00, '7791335001063', 'Lacteos', 'Manteca', 'img/producto/lacteos/manteca_sancor.jpg');
