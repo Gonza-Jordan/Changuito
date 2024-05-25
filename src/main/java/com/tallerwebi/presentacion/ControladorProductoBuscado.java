@@ -28,7 +28,7 @@ public class ControladorProductoBuscado {
     public ModelAndView irAProductoBuscado(@RequestParam("subcategoria") Subcategoria subcategoria) {
         ModelMap model = new ModelMap();
         List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
-        if (productosDeLaSubcategoria != null){
+        if (productosDeLaSubcategoria != null && !productosDeLaSubcategoria.isEmpty()) {
             model.put("productos", productosDeLaSubcategoria);
         }else {
             model.put("error", "Productos de esa subcategoria no encontrados");
