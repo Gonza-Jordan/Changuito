@@ -6,44 +6,44 @@ VALUES(null, 'Jose', 'Lopez', 15012456, 'Florencio Varela 1903, San Justo, Provi
     --Cat. Almacen
 INSERT INTO Producto (nombre, precio, codigoBarras, categoria, subcategoria, urlImagen)
 VALUES
-    ('Arroz Gallo Oro 1kg', 80.00, '7790020061045', 'Almacen', 'Arroz', 'img/producto/almacen/arroz_gallo_oro.jpg'),
-    ('Fideos Don Vicente Spaghetti 500g', 45.90, '7790040072084', 'Almacen', 'Pastas', 'img/producto/almacen/fideos_don_vicente_spaghetti.jpg'),
-    ('Aceite de Girasol Cocinero 1.5L', 180.00, '7792080000139', 'Almacen', 'Aceite', 'img/producto/almacen/aceite_cocinero.jpg'),
-    ('Harina 0000 Pureza 1kg', 70.50, '7790040000013', 'Almacen', 'Harina', 'img/producto/almacen/harina_pureza.jpg'),
-    ('Azúcar Ledesma 1kg', 60.00, '7790070130085', 'Almacen', 'Endulzantes', 'img/producto/almacen/azucar_ledesma.jpg'),
+    ('Arroz Gallo Oro 1kg', 3750, '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true'),
+    ('Fideos Don Vicente Tallarines 500g', 2000, '11460304020', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/798895-1200-auto?v=638343636550800000&width=1200&height=auto&aspect=true'),
+    ('Aceite de Girasol Cocinero 1.5L', 2100, '12610905011', 'Almacen', 'Aceite', 'https://jumboargentina.vtexassets.com/arquivos/ids/614743-1200-auto?v=637409203109900000&width=1200&height=auto&aspect=true'),
+    ('Harina 0000 Pureza 1kg', 900, '11410142005', 'Almacen', 'Harina', 'https://jumboargentina.vtexassets.com/arquivos/ids/644481-1200-auto?v=637572504306700000&width=1200&height=auto&aspect=true'),
+    ('Azúcar Molida Ledesma 1kg', 1308, '11270101016', 'Almacen', 'Endulzantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/703064-1200-auto?v=637891329664700000&width=1200&height=auto&aspect=true'),
 
     --Cat. Perfumeria
-    ('Shampoo Sedal Rizos Obedientes 650ml', 189.90, '7506306236160', 'Perfumeria', 'Shampoo', 'img/producto/perfumeria/shampoo_sedal_rizos.jpg'),
-    ('Acondicionador Sedal Ceramidas 650ml', 189.90, '7506306236184', 'Perfumeria', 'Acondicionador', 'img/producto/perfumeria/acondicionador_sedal_ceramidas.jpg'),
-    ('Desodorante Rexona Antibacterial 150ml', 99.90, '7506306210320', 'Perfumeria', 'Desodorantes', 'img/producto/perfumeria/desodorante_rexona_antibacterial.jpg'),
-    ('Jabón Dove Go Fresh Pepino 4 unidades', 199.90, '7506306236733', 'Perfumeria', 'Jabones', 'img/producto/perfumeria/jabon_dove_go_fresh.jpg'),
-    ('Crema Dental Colgate Total 12 90g', 99.90, '7506306236320', 'Perfumeria', 'Dentífricos', 'img/producto/perfumeria/crema_dental_colgate_total12.jpg'),
+    ('Shampoo Sedal Rizos Definidos 650ml', 5150, '13710375002', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/766775-1200-auto?v=638108302089300000&width=1200&height=auto&aspect=true'),
+    ('Acondicionador Sedal Ceramidas 650ml', 5200, '13720863004', 'Perfumeria', 'Acondicionador', 'https://jumboargentina.vtexassets.com/arquivos/ids/787029-1200-auto?v=638240818051470000&width=1200&height=auto&aspect=true'),
+    ('Desodorante Rexona Antibacterial 150ml', 2500, '13420110034', 'Perfumeria', 'Desodorantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/802194-1200-auto?v=638375603688170000&width=1200&height=auto&aspect=true'),
+    ('Jabón Dove Go Original 90g', 1300, '13110109050', 'Perfumeria', 'Jabones', 'https://jumboargentina.vtexassets.com/arquivos/ids/806393-1200-auto?v=638403357956070000&width=1200&height=auto&aspect=true'),
+    ('Crema Dental Colgate Total 12 90g', 3315, '13220102208', 'Perfumeria', 'Dentifricos', 'https://jumboargentina.vtexassets.com/arquivos/ids/813235-1200-auto?v=638441267527100000&width=1200&height=auto&aspect=true'),
 
     --Cat. Bebidas
-    ('Agua Mineral Villavicencio 1.5L', 60.00, '7790050322211', 'Bebidas', 'Agua', 'img/producto/bebidas/agua_villavicencio.jpg'),
-    ('Gaseosa Coca-Cola Original 2.25L', 150.00, '7790040070066', 'Bebidas', 'Gaseosas', 'img/producto/bebidas/gaseosa_coca_cola.jpg'),
-    ('Jugo Cepita Naranja 1L', 90.00, '7790070120130', 'Bebidas', 'Jugos', 'img/producto/bebidas/jugo.jpg'),
-    ('Vino Malbec Rutini 750ml', 400.00, '7790167010209', 'Bebidas', 'Vinos', 'img/producto/bebidas/vino_rutini_malbec.jpg'),
-    ('Cerveza Quilmes Stout 1L', 120.00, '7790060069501', 'Bebidas', 'Cervezas', 'img/producto/bebidas/cerveza_quilmes_stout.jpg'),
+    ('Agua Mineral Glaciar Sin Gas Bajo Sodio 1.5L', 1554, '12120102001', 'Bebidas', 'Agua', 'https://jumboargentina.vtexassets.com/arquivos/ids/545277-1200-auto?v=637014798216800000&width=1200&height=auto&aspect=true'),
+    ('Gaseosa Coca-Cola Original 2.25L', 3100, '12110101009', 'Bebidas', 'Gaseosas', 'https://jumboargentina.vtexassets.com/arquivos/ids/782825-1200-auto?v=638206689776800000&width=1200&height=auto&aspect=true'),
+    ('Jugo Cepita Fresh Naranja 1.5L', 1485, '12130595001', 'Bebidas', 'Jugos', 'https://jumboargentina.vtexassets.com/arquivos/ids/801011-1200-auto?v=638367069703130000&width=1200&height=auto&aspect=true'),
+    ('Vino tinto Elementos Malbec 750Cc', 3900, '12262130001', 'Bebidas', 'Vinos', 'https://jumboargentina.vtexassets.com/arquivos/ids/581089-1200-auto?v=637225176402330000&width=1200&height=auto&aspect=true'),
+    ('Cerveza Quilmes Clasica 1L', 1783, '12440106063', 'Bebidas', 'Cervezas', 'https://jumboargentina.vtexassets.com/arquivos/ids/433499-1200-auto?v=636517616933330000&width=1200&height=auto&aspect=true'),
 
     -- Cat. Verduleria
-    ('Tomate Redondo 1kg', 120.00, '7791234567001', 'Verduleria', 'Tomate', 'img/producto/verduleria/tomate_redondo.jpg'),
-    ('Manzana Roja 1kg', 150.00, '7791234567002', 'Verduleria', 'Manzana', 'img/producto/verduleria/manzana_roja.jpg'),
-    ('Lechuga Criolla 1 unidad', 80.00, '7791234567003', 'Verduleria', 'Lechuga', 'img/producto/verduleria/lechuga_criolla.jpg'),
-    ('Zanahoria 1kg', 70.00, '7791234567004', 'Verduleria', 'Zanahoria', 'img/producto/verduleria/zanahoria.jpg'),
-    ('Papa Negra 1kg', 50.00, '7791234567005', 'Verduleria', 'Papa', 'img/producto/verduleria/papa_negra.jpg'),
+    ('Tomate Redondo Grande 1kg', 4499, '23210315001', 'Verduleria', 'Tomate', 'https://jumboargentina.vtexassets.com/arquivos/ids/339429-1200-auto?v=636393043636870000&width=1200&height=auto&aspect=true'),
+    ('Manzana Roja 1kg', 2299, '23110102025', 'Verduleria', 'Manzana', 'https://jumboargentina.vtexassets.com/arquivos/ids/472481-1200-auto?v=636694698370130000&width=1200&height=auto&aspect=true'),
+    ('Lechuga Capuchina 1Kg', 3699, '23210120001', 'Verduleria', 'Lechuga', 'https://jumboargentina.vtexassets.com/arquivos/ids/450976-1200-auto?v=636577194077270000&width=1200&height=auto&aspect=true'),
+    ('Zanahoria 1kg', 1199, '23210512002', 'Verduleria', 'Zanahoria', 'https://jumboargentina.vtexassets.com/arquivos/ids/472800-1200-auto?v=636695562251270000&width=1200&height=auto&aspect=true'),
+    ('Papa Negra 1kg', 599, '23210509005', 'Verduleria', 'Papa', 'https://jumboargentina.vtexassets.com/arquivos/ids/449110-1200-auto?v=636567690053330000&width=1200&height=auto&aspect=true'),
 
     -- Cat. Limpieza
-    ('Lavandina Ayudín 1L', 60.00, '7791290031566', 'Limpieza', 'Lavandina', 'img/producto/limpieza/lavandina_ayudin.jpg'),
-    ('Detergente Magistral Limón 750ml', 120.00, '7794000910323', 'Limpieza', 'Detergente', 'img/producto/limpieza/detergente_magistral_limon.jpg'),
-    ('Esponja Scotch-Brite Multiuso', 25.00, '7793800002002', 'Limpieza', 'Esponjas', 'img/producto/limpieza/esponja_scotch_brite.jpg'),
-    ('Trapo de Piso Vileda 1 unidad', 75.00, '7793884001224', 'Limpieza', 'Trapos', 'img/producto/limpieza/trapo_vileda.jpg'),
-    ('Guantes de Látex Mapa Profesionales', 90.00, '7791234567010', 'Limpieza', 'Guantes', 'img/producto/limpieza/guantes_mapa.jpg'),
+    ('Lavandina Ayudín 1L', 699, '14160501064', 'Limpieza', 'Lavandina', 'https://jumboargentina.vtexassets.com/arquivos/ids/678535-1200-auto?v=637739049922700000&width=1200&height=auto&aspect=true'),
+    ('Detergente Líquido Magistral Limón 750ml', 3550, '14210196003', 'Limpieza', 'Detergente', 'https://jumboargentina.vtexassets.com/arquivos/ids/781293-1200-auto?v=638194917774670000&width=1200&height=auto&aspect=true'),
+    ('Esponja Clasica Scotch-Brite', 562, '43140757003', 'Limpieza', 'Esponjas', 'https://jumboargentina.vtexassets.com/arquivos/ids/529332-1200-auto?v=636898152780870000&width=1200&height=auto&aspect=true'),
+    ('Trapo de Piso Nido De Abeja 1 unidad', 2775, '43140174001', 'Limpieza', 'Trapos', 'https://jumboargentina.vtexassets.com/arquivos/ids/794169-1200-auto?v=638307562527270000&width=1200&height=auto&aspect=true'),
+    ('Guantes de Látex Mapa 8 1/2', 3787, '43150160004', 'Limpieza', 'Guantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/527864-1200-auto?v=636890370760170000&width=1200&height=auto&aspect=true'),
 
     -- Cat. Lacteos
-    ('Leche La Serenísima Entera 1L', 70.00, '7790070410310', 'Lacteos', 'Leche', 'img/producto'),
-    ('Manteca Sancor 200g', 120.00, '7791335001063', 'Lacteos', 'Manteca', 'img/producto/lacteos/manteca_sancor.jpg'),
-    ('Queso Cremoso La Paulina 500g', 180.00, '7790160000514', 'Lacteos', 'Queso', 'img/producto/lacteos/queso_cremoso_la_paulina.jpg'),
-    ('Yogur Firme Serenito Frutilla 150g', 25.00, '7791335001063', 'Lacteos', 'Yogur', 'img/producto/lacteos/yogur_firme_serenito_frutilla.jpg'),
-    ('Crema de Leche Ilolay 200ml', 60.00, '7793880000167', 'Lacteos', 'Crema', 'img/producto/lacteos/crema_de_leche_ilolay.jpg');
+    ('Leche Descremada La Serenísima 1L', 1362, '21110301058', 'Lacteos', 'Leche', 'https://jumboargentina.vtexassets.com/arquivos/ids/760437-1200-auto?v=638049118084400000&width=1200&height=auto&aspect=true'),
+    ('Manteca Tonadita 200g', 2250, '21270184001', 'Lacteos', 'Manteca', 'https://jumboargentina.vtexassets.com/arquivos/ids/176504-1200-auto?v=636383331571730000&width=1200&height=auto&aspect=true'),
+    ('Queso Parmesano La Paulina 1Kg', 12999, '24450703003', 'Lacteos', 'Quesos', 'https://jumboargentina.vtexassets.com/arquivos/ids/596261-1200-auto?v=637315026086830000&width=1200&height=auto&aspect=true'),
+    ('Yogur Yogurisimo Natural 300g', 1700, '21220166004', 'Lacteos', 'Yogures', 'https://jumboargentina.vtexassets.com/arquivos/ids/790645-1200-auto?v=638277969692900000&width=1200&height=auto&aspect=true'),
+    ('Crema Doble Tregar 350g', 2080, '21210150006', 'Lacteos', 'Crema', 'https://jumboargentina.vtexassets.com/arquivos/ids/774486-1200-auto?v=638150854086930000&width=1200&height=auto&aspect=true');
 

@@ -23,7 +23,6 @@ public class ControladorProductoBuscado {
     @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
     public ModelAndView irAProductoBuscado(@RequestParam("categoria") String categoriaStr, @RequestParam("subcategoria") String subcategoriaStr) {
         ModelMap model = new ModelMap();
-
         try {
             Categoria categoria = Categoria.valueOf(categoriaStr);
             Subcategoria subcategoria = Subcategoria.valueOf(subcategoriaStr);

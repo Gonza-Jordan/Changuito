@@ -66,14 +66,14 @@
     <div class="product-column">
         <div class="product-card" th:each="producto : ${productos}">
             <div class="product-image">
-                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">
+                <img th:src="${producto.urlImagen}" alt="Imagen del Producto">
             </div>
             <div class="product-info">
-                <div class="product-name" th:text="${producto.nombre}">Gaseosa Coca-cola Sabor Original 2.25 L</div>
+                <div class="product-name" th:text="${producto.nombre}"></div>
                 <div class="store-info">
                     <div class="store-name">Carrefour</div>
                     <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>
-                    <div class="product-price" th:text="${producto.precio}">$1.280,82</div>
+                    <div class="product-price" th:text="${producto.precio}"></div>
                     <div class="store-logo">
                         <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">
                     </div>
@@ -91,7 +91,7 @@
                 </form>
             </div>
         </div>
-        <p th:if="${error != null}" class="alert alert-danger" th:text="${error}"></p>
+        <p th:if="${error != null}" th:text="${error}"></p>
     </div>
 </div>
 <footer th:include="footer.html"></footer>
