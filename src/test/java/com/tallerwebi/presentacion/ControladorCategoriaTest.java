@@ -9,14 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,26 +30,26 @@ public class ControladorCategoriaTest {
 	@Test
 	public void queAlHacerClickEnAlmacenDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreAlmacen(){
 		// preparacion
-		String nombreDeLaCategoria = "Almacen";
+		Categoria categoria = Categoria.Almacen;
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoria = mav.getModel().get("categoria");
+		Object categoriaResultante = mav.getModel().get("categoria");
 
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoria, equalTo(nombreDeLaCategoria));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
 
 	@Test
 	public void queAlHacerClickEnAlmacenDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElIconoAlmacen(){
 		// preparacion
-		String nombreDeLaCategoria = "Almacen";
-		String rutaDelIcono = "img/" + nombreDeLaCategoria + ".svg";
+		Categoria categoria = Categoria.Almacen;
+		String rutaDelIcono = "img/" + categoria + ".svg";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String icono = (String) mav.getModel().get("icono");
 
 		// verificacion
@@ -64,10 +61,10 @@ public class ControladorCategoriaTest {
 		// preparacion
 		Categoria categoria = Categoria.Almacen;
 		List<Subcategoria> subcategoriasEsperadas = Arrays.asList(categoria.getSubcategorias());
-		String nombreDeLaCategoria = "Almacen";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
+
 		// verificacion
 		List<Subcategoria> subcategoriasObtenidas = (List<Subcategoria>) mav.getModel().get("subcategorias");
 		assertThat(subcategoriasObtenidas, equalTo(subcategoriasEsperadas));
@@ -79,7 +76,7 @@ public class ControladorCategoriaTest {
 		String nombreDeLaCategoria = "Perfumeria";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
 		String viewName = mav.getViewName();
 		Object categoria = mav.getModel().get("categoria");
 
@@ -94,7 +91,7 @@ public class ControladorCategoriaTest {
 		String nombreDeLaCategoria = "Bebidas";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
 		String viewName = mav.getViewName();
 		Object categoria = mav.getModel().get("categoria");
 
@@ -109,7 +106,7 @@ public class ControladorCategoriaTest {
 		String nombreDeLaCategoria = "Verduleria";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
 		String viewName = mav.getViewName();
 		Object categoria = mav.getModel().get("categoria");
 
@@ -124,7 +121,7 @@ public class ControladorCategoriaTest {
 		String nombreDeLaCategoria = "Limpieza";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
 		String viewName = mav.getViewName();
 		Object categoria = mav.getModel().get("categoria");
 
@@ -139,7 +136,7 @@ public class ControladorCategoriaTest {
 		String nombreDeLaCategoria = "Lacteos";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
 		String viewName = mav.getViewName();
 		Object categoria = mav.getModel().get("categoria");
 
@@ -147,5 +144,4 @@ public class ControladorCategoriaTest {
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
 		assertThat(categoria, equalTo(nombreDeLaCategoria));
 	}
-
 }

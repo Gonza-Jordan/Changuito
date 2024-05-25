@@ -1,7 +1,6 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.*;
-import com.tallerwebi.dominio.ServicioBusqueda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -21,53 +18,28 @@ public class ControladorProductoBuscado {
     @Autowired
     public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
-
     }
 
-    @RequestMapping(path ="/productoBuscado", method = RequestMethod.GET)
-    public ModelAndView irAProductoBuscado(@RequestParam("subcategoria") Subcategoria subcategoria) {
+    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
+    public ModelAndView irAProductoBuscado(@RequestParam("categoria") String categoriaStr, @RequestParam("subcategoria") String subcategoriaStr) {
         ModelMap model = new ModelMap();
-        List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
-        if (productosDeLaSubcategoria != null){
-            model.put("productos", productosDeLaSubcategoria);
-        }else {
-            model.put("error", "Productos de esa subcategoria no encontrados");
+
+        try {
+            Categoria categoria = Categoria.valueOf(categoriaStr);
+            Subcategoria subcategoria = Subcategoria.valueOf(subcategoriaStr);
+
+            List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
+            if (productosDeLaSubcategoria != null && !productosDeLaSubcategoria.isEmpty()) {
+                model.put("productos", productosDeLaSubcategoria);
+                String titulo = "Productos de la categoría " + categoria.toString() + " y subcategoría " + subcategoria.toString();
+                model.put("titulo", titulo);
+            } else {
+                model.put("error", "Productos de esa subcategoría no encontrados");
+            }
+        } catch (IllegalArgumentException e) {
+            model.put("error", "Categoría o subcategoría inválida");
         }
+
         return new ModelAndView("productoBuscado", model);
     }
-
-
-
-
-
-//    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
-//
-//    public ModelAndView irAproductoBuscado(@RequestParam("nombre") String nombre) {
-//        ModelMap model = new ModelMap();
-//        Producto productoBuscado = servicioBusqueda.consultarProducto(nombre);
-//        if (productoBuscado != null) {
-//            model.put("producto", productoBuscado);
-//            return new ModelAndView("productoBuscado", model);
-//        }
-//        return null;
-//    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

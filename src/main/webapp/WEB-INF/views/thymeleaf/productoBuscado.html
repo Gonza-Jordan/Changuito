@@ -15,7 +15,9 @@
 <header th:include="header.html" class="cabecera"></header>
 <section th:include="buscador.html" class="buscador"></section>
 <br>
-<div class="tituloProductoBuscado"><h2>Gaseosa Coca-cola Sabor Original 2.25 L</h2></div>
+<div class="tituloProductoBuscado">
+    <h2 th:text="'Productos de la categoría ' + ${categoria} + ' y subcategoría ' + ${subcategoria}"></h2>
+</div>
 <br>
 <div class="containerProductoBuscado">
     <div class="filter-column">
@@ -79,130 +81,17 @@
             </div>
             <div class="buttons">
                 <button class="compare-button">Comparar</button>
-                <button class="add-button">Agregar</button>
+                <form th:action="@{/agregarAlCarrito}" method="post">
+                    <input type="hidden" name="nombre" th:value="${producto.nombre}"/>
+                    <input type="hidden" name="precio" th:value="${producto.precio}"/>
+                    <input type="hidden" name="codigoBarras" th:value="${producto.codigoBarras}"/>
+                    <input type="hidden" name="categoria" th:value="${producto.categoria}"/>
+                    <input type="hidden" name="subcategoria" th:value="${producto.subcategoria}"/>
+                    <button type="submit" class="add-button">Agregar</button>
+                </form>
             </div>
         </div>
-        <p th:if="${error != null}" class="alert alert-danger" th:text="${error}">
-<!--        <div class="product-card">-->
-<!--            <div class="product-image">-->
-<!--                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">-->
-<!--            </div>-->
-<!--            <div class="product-info">-->
-<!--                <div class="product-name">Gaseosa Coca-cola Sabor Original 2.25 L</div>-->
-<!--                <div class="store-info">-->
-<!--                    <div class="store-name">Carrefour</div>-->
-<!--                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>-->
-<!--                    <div class="product-price">$1.280,82</div>-->
-<!--                    <div class="store-logo">-->
-<!--                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="buttons">-->
-<!--                <button class="compare-button">Comparar</button>-->
-<!--                <button class="add-button">Agregar</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="product-card">-->
-<!--            <div class="product-image">-->
-<!--                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">-->
-<!--            </div>-->
-<!--            <div class="product-info">-->
-<!--                <div class="product-name">Gaseosa Coca-cola Sabor Original 2.25 L</div>-->
-<!--                <div class="store-info">-->
-<!--                    <div class="store-name">Carrefour</div>-->
-<!--                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>-->
-<!--                    <div class="product-price">$1.280,82</div>-->
-<!--                    <div class="store-logo">-->
-<!--                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="buttons">-->
-<!--                <button class="compare-button">Comparar</button>-->
-<!--                <button class="add-button">Agregar</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="product-card">-->
-<!--            <div class="product-image">-->
-<!--                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">-->
-<!--            </div>-->
-<!--            <div class="product-info">-->
-<!--                <div class="product-name">Gaseosa Coca-cola Sabor Original 2.25 L</div>-->
-<!--                <div class="store-info">-->
-<!--                    <div class="store-name">Carrefour</div>-->
-<!--                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>-->
-<!--                    <div class="product-price">$1.280,82</div>-->
-<!--                    <div class="store-logo">-->
-<!--                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="buttons">-->
-<!--                <button class="compare-button">Comparar</button>-->
-<!--                <button class="add-button">Agregar</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="product-card">-->
-<!--            <div class="product-image">-->
-<!--                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">-->
-<!--            </div>-->
-<!--            <div class="product-info">-->
-<!--                <div class="product-name">Gaseosa Coca-cola Sabor Original 2.25 L</div>-->
-<!--                <div class="store-info">-->
-<!--                    <div class="store-name">Carrefour</div>-->
-<!--                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>-->
-<!--                    <div class="product-price">$1.280,82</div>-->
-<!--                    <div class="store-logo">-->
-<!--                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="buttons">-->
-<!--                <button class="compare-button">Comparar</button>-->
-<!--                <button class="add-button">Agregar</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="product-card">-->
-<!--            <div class="product-image">-->
-<!--                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">-->
-<!--            </div>-->
-<!--            <div class="product-info">-->
-<!--                <div class="product-name">Gaseosa Coca-cola Sabor Original 2.25 L</div>-->
-<!--                <div class="store-info">-->
-<!--                    <div class="store-name">Carrefour</div>-->
-<!--                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>-->
-<!--                    <div class="product-price">$1.280,82</div>-->
-<!--                    <div class="store-logo">-->
-<!--                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="buttons">-->
-<!--                <button class="compare-button">Comparar</button>-->
-<!--                <button class="add-button">Agregar</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="product-card">-->
-<!--            <div class="product-image">-->
-<!--                <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del Producto">-->
-<!--            </div>-->
-<!--            <div class="product-info">-->
-<!--                <div class="product-name">Gaseosa Coca-cola Sabor Original 2.25 L</div>-->
-<!--                <div class="store-info">-->
-<!--                    <div class="store-name">Carrefour</div>-->
-<!--                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>-->
-<!--                    <div class="product-price">$1.280,82</div>-->
-<!--                    <div class="store-logo">-->
-<!--                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del Supermercado">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="buttons">-->
-<!--                <button class="compare-button">Comparar</button>-->
-<!--                <button class="add-button">Agregar</button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <p th:if="${error != null}" class="alert alert-danger" th:text="${error}"></p>
     </div>
 </div>
 <footer th:include="footer.html"></footer>
