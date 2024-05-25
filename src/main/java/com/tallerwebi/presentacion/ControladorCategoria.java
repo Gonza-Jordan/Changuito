@@ -20,35 +20,24 @@ public class ControladorCategoria {
     }
 
     @RequestMapping(path = "/categoria", method = RequestMethod.GET)
-    public ModelAndView irACategoria(@RequestParam("categoria") String categoria) {
+    public ModelAndView irACategoria(@RequestParam("categoria") Categoria categoria) {
         ModelAndView modelAndView = new ModelAndView("categoria");
         modelAndView.addObject("categoria", categoria);
-        String icono = "img/" + categoria + ".svg";
+        String icono = "img/" + categoria.toString() + ".svg";
         modelAndView.addObject("icono", icono);
 
-        Categoria categoriaEnum = Categoria.valueOf(categoria);
-
-        List<Subcategoria> subcategorias = Arrays.asList(categoriaEnum.getSubcategorias());
+        List<Subcategoria> subcategorias = Arrays.asList(categoria.getSubcategorias());
         modelAndView.addObject("subcategorias", subcategorias);
 
         // Obtener los productos correspondientes a la categoría y subcategoría seleccionadas
-        List<Producto> productos = obtenerProductos(categoriaEnum);
+        List<Producto> productos = obtenerProductos(categoria);
         modelAndView.addObject("productos", productos);
 
         return modelAndView;
     }
 
     private List<Producto> obtenerProductos(Categoria categoria) {
-        List<Producto> productos = new ArrayList<>();
-        switch (categoria) {
-            case Almacen:
-                // Aquí debes agregar la lógica para obtener los productos de la categoría Almacen
-                break;
-            case Perfumeria:
-                // Aquí debes agregar la lógica para obtener los productos de la categoría Perfumeria
-                break;
-            // Agrega más casos para las otras categorías...
-        }
-        return productos;
+        // Aquí deberías implementar la lógica para obtener los productos según la categoría
+        return new ArrayList<>();
     }
 }
