@@ -16,17 +16,27 @@ import java.util.List;
 
 @Controller
 public class ControladorProductoBuscado {
-//    private ServicioBusqueda servicioBusqueda;
-//
-//    @Autowired
-//    public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
-//        this.servicioBusqueda = servicioBusqueda;
-//
-//    }
+    private ServicioBusqueda servicioBusqueda;
 
+    @Autowired
+    public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
+        this.servicioBusqueda = servicioBusqueda;
+
+    }
 
     @RequestMapping(path ="/productoBuscado", method = RequestMethod.GET)
-    public ModelAndView irAProductoBuscado() { return new ModelAndView("productoBuscado"); }
+    public ModelAndView irAProductoBuscado(@RequestParam("subcategoria") Subcategoria subcategoria) {
+        ModelMap model = new ModelMap();
+        List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
+        if (productosDeLaSubcategoria != null){
+            model.put("productos", productosDeLaSubcategoria);
+        }else {
+            model.put("error", "Productos de esa subcategoria no encontrados");
+        }
+        return new ModelAndView("productoBuscado", model);
+    }
+
+
 
 
 

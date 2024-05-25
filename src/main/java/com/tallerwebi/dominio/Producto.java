@@ -21,6 +21,10 @@ public class Producto {
     @Column(nullable = true)
     private String urlImagen;
 
+    public Producto() {
+
+    }
+
     public Producto(String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen) {
         this.nombre = nombre;
         this.precio = precio;
@@ -29,6 +33,7 @@ public class Producto {
         this.subcategoria = subcategoria;
         this.urlImagen = urlImagen;
     }
+
 
     // Getters y Setters
 

@@ -1,12 +1,11 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio;
 
-import com.tallerwebi.dominio.Producto;
-import com.tallerwebi.dominio.RepositorioProducto;
-import com.tallerwebi.dominio.ServicioBusqueda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+
 @Service("servicioBusqueda")
 @Transactional
 public class ServicioBusquedaImpl implements ServicioBusqueda {
@@ -19,7 +18,14 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     }
 
     @Override
-    public Producto consultarProducto(String nombre) {
+    public Producto consultarProductoPorNombre(String nombre) {
         return repositorioProducto.buscarProductoPorNombre(nombre);
     }
+
+    @Override
+    public List<Producto> consultarProductosPorSubcategoria(Subcategoria subcategoria) {
+        return repositorioProducto.buscarProductosPorSubcategoria(subcategoria);
+    }
+
+
 }
