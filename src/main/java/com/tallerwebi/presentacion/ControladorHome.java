@@ -28,9 +28,9 @@ public class ControladorHome {
             iconos.put(String.valueOf(categorias.get(i)), "img/" + categorias.get(i) + ".svg");
         }
         modelAndView.addObject("iconos", iconos);
-        modelAndView.addObject("producto", new Producto());
         return modelAndView;
 
     }
 
 }
+

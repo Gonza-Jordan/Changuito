@@ -111,7 +111,6 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttrs) {
-        RedirectAttributes redirAttr;
         ModelMap model = new ModelMap();
 
         try {
