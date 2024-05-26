@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Service("servicioBusqueda")
 @Transactional
@@ -25,6 +26,11 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     @Override
     public List<Producto> consultarProductosPorSubcategoria(Subcategoria subcategoria) {
         return repositorioProducto.buscarProductosPorSubcategoria(subcategoria);
+    }
+
+    @Override
+    public List<Producto> consultarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros) {
+        return repositorioProducto.buscarProductosConFiltros(subcategoriaStr, filtros);
     }
 
 
