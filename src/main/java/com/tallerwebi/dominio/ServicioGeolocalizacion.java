@@ -42,5 +42,28 @@ public class ServicioGeolocalizacion {
 
         return null;
     }
+
+
+    public JsonNode buscarUbicacionUsuario(String query) throws IOException, InterruptedException {
+        query = URLEncoder.encode(query, "UTF-8");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://nominatim.openstreetmap.org/search?format=json&q=" + query))
+                .build();
+
+        HttpResponse<String> respuesta = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (respuesta.statusCode() != 200) {
+            throw new IOException("Código inesperado " + respuesta.statusCode());
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode repuestaJson = objectMapper.readTree(respuesta.body());
+
+        if (repuestaJson.isArray() && repuestaJson.size() > 0) {
+            return repuestaJson;
+        }
+
+        return null;
+    }
 }
 

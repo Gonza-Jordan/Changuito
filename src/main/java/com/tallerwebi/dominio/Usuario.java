@@ -1,8 +1,11 @@
 package com.tallerwebi.dominio;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 @Entity
+@DynamicUpdate
 public class Usuario {
 
     @Id
@@ -15,13 +18,13 @@ public class Usuario {
     @Column(length = 30, nullable = false)
     private String apellido;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 30, nullable = false, unique = true, updatable=false)
     private Integer dni;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 200, nullable = false)
     private String direccion;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 30, nullable = false, unique = true, updatable=false)
     private String email;
 
     @Column(length = 18, nullable = false)

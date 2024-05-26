@@ -44,9 +44,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     }
 
+    // Para update necesito buscar primero buscar en la bd y modificar ese objeto, no puedo modificar el que traigo de la web
     @Override
     public void modificar(Usuario usuario) {
-        sessionFactory.getCurrentSession().update(usuario);
+        Usuario usarioEncoantrado = this.buscar(usuario.getEmail());
+        sessionFactory.getCurrentSession().merge(usarioEncoantrado);
     }
 
 }

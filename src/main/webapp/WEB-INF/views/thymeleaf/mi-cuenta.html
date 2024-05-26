@@ -41,7 +41,7 @@
     <div id="loginbox" class="d-flex flex-column p-3 col-8">
         <h3 class="mb-3">Mi cuenta</h3>
 
-        <form action="#" th:action="@{/registrarme}" method="POST" th:object="${usuario}"
+        <form action="#" th:action="@{/modificar}" method="POST" th:object="${usuario}"
               enctype="application/x-www-form-urlencoded" class="signIn">
             <div class="row">
                 <div class="col-6">
@@ -89,6 +89,7 @@
                         type="text"
                         class="form-control mb-3"
                         placeholder="DNI"
+                        readonly
                         required
                 />
             </div>
@@ -101,6 +102,7 @@
                         type="email"
                         class="form-control mb-3"
                         placeholder="Email"
+                        readonly
                         required
                 />
             </div>
@@ -110,7 +112,7 @@
                 <input
                         th:field="*{contrasena}"
                         id="contrasena"
-                        type="password"
+                        type="text"
                         class="form-control mb-3"
                         placeholder="Contrasena"
                         required
@@ -118,13 +120,13 @@
             </div>
 
             <div class="d-flex justify-content-center">
-<!--                <button-->
-<!--                        id="btn-login"-->
-<!--                        class="btnLogin btn btn-sm btn-primary btn-block mb-3 me-2"-->
-<!--                        type="submit"-->
-<!--                >-->
-<!--                    Modificar-->
-<!--                </button>-->
+                <button
+                        id="btn-login"
+                        class="btnLogin btn btn-sm btn-primary btn-block mb-3 me-2"
+                        type="submit"
+                >
+                    Modificar
+                </button>
 
 
                 <a

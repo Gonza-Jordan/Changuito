@@ -7,5 +7,5 @@ public interface ServicioLogin {
     Usuario consultarUsuario(String email);
     void registrar(Usuario usuario) throws UsuarioExistente;
     Usuario validarContrasena(String contrasena, String email);
-
+    void modificar(Usuario usuario);
 }
