@@ -10,17 +10,17 @@
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener('change', function() {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
                     updateUrlParams(); // Actualizar la URL con los parámetros seleccionados
                 });
             });
 
             // Verificar los parámetros en la URL y marcar las casillas de verificación correspondientes
             const urlParams = new URLSearchParams(window.location.search);
-            checkboxes.forEach(function(checkbox) {
+            checkboxes.forEach(function (checkbox) {
                 if (urlParams.has(checkbox.name)) {
                     checkbox.checked = urlParams.get(checkbox.name).split(',').includes(checkbox.value);
                 }
@@ -32,7 +32,7 @@
             const params = new URLSearchParams(url.search);
 
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(function(checkbox) {
+            checkboxes.forEach(function (checkbox) {
                 if (checkbox.checked) {
                     if (!params.has(checkbox.name)) {
                         params.append(checkbox.name, checkbox.value);
@@ -89,9 +89,9 @@
             </div>
             <div class="filter-section">
                 <h2>Descuento</h2>
-                <label><input type="checkbox" name="descuento" value="Descuento5">Descuento del 5%</label>
-                <label><input type="checkbox" name="descuento" value="Descuento10">Descuento del 10%</label>
-                <label><input type="checkbox" name="descuento" value="Descuento25">Descuento del 25%</label>
+                <label><input type="checkbox" name="descuento" value="0.95">Descuento del 5%</label>
+                <label><input type="checkbox" name="descuento" value="0.9">Descuento del 10%</label>
+                <label><input type="checkbox" name="descuento" value="0.85">Descuento del 25%</label>
             </div>
             <div class="filter-section">
                 <h2>Marca</h2>
@@ -123,7 +123,13 @@
                 <div class="store-info">
                     <div class="store-name">Carrefour</div>
                     <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>
-                    <div class="product-price" th:text="${producto.precio}"></div>
+                    <div class="product-price">
+                        <span class="product-price-center" th:if="${producto.descuento != null}">
+                            <span class="tachado" th:text="'$' + ${producto.precio}"></span>
+                            <span class="descuento" th:text="'$' + ${producto.descuento}"></span>
+                         </span>
+                        <span th:if="${producto.descuento == null}" th:text="'$' + ${producto.precio}"></span>
+                    </div>
                     <div class="store-logo">
                         <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75"
                              alt="Logo del Supermercado">

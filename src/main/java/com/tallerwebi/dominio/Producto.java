@@ -21,6 +21,9 @@ public class Producto {
     @Column(nullable = true)
     private String urlImagen;
 
+    @Column(nullable = true)
+    private Double descuento;
+
     public Producto() {
 
     }
@@ -95,4 +98,7 @@ public class Producto {
 
     public void setPrecioFormateado(String format) {
     }
+    public Double getDescuento() { return descuento; }
+
+    public void setDescuento(Double descuento) { this.descuento = descuento; }
 }

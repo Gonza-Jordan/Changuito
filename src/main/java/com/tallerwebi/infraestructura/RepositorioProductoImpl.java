@@ -41,9 +41,10 @@ public class RepositorioProductoImpl implements RepositorioProducto {
         return productosEncontrados;
     }
 
+
     @Override
     public List<Producto> buscarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros) {
-        StringBuilder consulta = new StringBuilder("FROM Producto WHERE 1 = 1");
+        StringBuilder consulta = new StringBuilder("FROM Producto p WHERE 1 = 1");
 
         // Añade la subcategoría a la consulta
         if (subcategoriaStr != null && !subcategoriaStr.isEmpty()) {
@@ -61,11 +62,11 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                     String valor = valoresFiltro.get(i);
 
                     if (nombreFiltro.equals("precio")) {
-                        if (valor.contains("BETWEEN") || valor.contains(">") || valor.contains("<")) {
-                            consulta.append(nombreFiltro).append(" ").append(valor);
-                        }
+                        consulta.append(nombreFiltro).append(" ").append(valor);
+                    } else if (nombreFiltro.equals("descuento")) {
+                        consulta.append("p.descuento = p.precio * :factor").append(i);
                     } else {
-                        consulta.append(nombreFiltro).append(" = :").append(nombreFiltro).append(i);
+                        consulta.append("p.").append(nombreFiltro).append(" = :").append(nombreFiltro).append(i);
                     }
 
                     if (i < valoresFiltro.size() - 1) {
@@ -96,6 +97,8 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                         if (!valor.contains("BETWEEN") && !valor.contains(">") && !valor.contains("<")) {
                             query.setParameter(nombreFiltro + i, Double.parseDouble(valor));
                         }
+                    } else if (nombreFiltro.equals("descuento")) {
+                        query.setParameter("factor" + i, Double.parseDouble(valor));
                     } else {
                         query.setParameter(nombreFiltro + i, valor);
                     }
@@ -106,6 +109,7 @@ public class RepositorioProductoImpl implements RepositorioProducto {
         List<Producto> productosFiltrados = query.getResultList();
         return productosFiltrados;
     }
+
 
 }
 

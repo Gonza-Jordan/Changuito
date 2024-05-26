@@ -45,7 +45,7 @@ public class ControladorCarritoCompras {
             @RequestParam("precio") double precio,
             @RequestParam("codigoBarras") String codigoBarras,
             @RequestParam("categoria") Categoria categoria,
-            @RequestParam("subcategoria") Subcategoria subcategoria) {
+            @RequestParam("subcategoria") Subcategoria subcategoria){
 
         Producto producto = new Producto(nombre, precio, codigoBarras, categoria, subcategoria, "");
         carrito.add(producto);
