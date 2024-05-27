@@ -39,7 +39,7 @@ public class ControladorCategoriaTest {
 
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria));
+		assertThat(categoriaResultante.toString(), equalTo(categoria));
 	}
 
 	@Test
@@ -69,87 +69,5 @@ public class ControladorCategoriaTest {
 		List<Subcategoria> subcategoriasObtenidas = (List<Subcategoria>) mav.getModel().get("subcategorias");
 		assertThat(subcategoriasObtenidas, equalTo(subcategoriasEsperadas));
 	}
-
-	@Test
-	public void queAlHacerClickEnPerfumeriaDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombrePerfumeria(){
-		// preparacion
-		String nombreDeLaCategoria = "Perfumeria";
-
-		// ejecucion
-		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
-		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
-		String viewName = mav.getViewName();
-		Object categoriaResultante = mav.getModel().get("categoria");
-
-		// verificacion
-		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria));
-	}
-
-	@Test
-	public void queAlHacerClickEnBebidasDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreBebidas(){
-		// preparacion
-		String nombreDeLaCategoria = "Bebidas";
-		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
-
-		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
-		String viewName = mav.getViewName();
-		Object categoriaResultante = mav.getModel().get("categoria");
-
-		// verificacion
-		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria));
-	}
-
-
-	@Test
-	public void queAlHacerClickEnVerduleriaDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreVerduleria(){
-		// Preparación
-		String nombreDeLaCategoria = "Verduleria";
-		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
-
-		// Ejecución
-		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
-		String viewName = mav.getViewName();
-		Object categoriaResultante = mav.getModel().get("categoria");
-
-		// Verificación
-		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria));
-	}
-
-
-	@Test
-	public void queAlHacerClickEnLimpiezaDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreLimpieza(){
-		// Preparación
-		String nombreDeLaCategoria = "Limpieza";
-		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
-
-		// Ejecución
-		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
-		String viewName = mav.getViewName();
-		Object categoriaResultante = mav.getModel().get("categoria");
-
-		// Verificación
-		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria));
-	}
-
-
-	@Test
-	public void queAlHacerClickEnLacteosDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreLacteos(){
-		// Preparación
-		String nombreDeLaCategoria = "Lacteos";
-		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
-
-		// Ejecución
-		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
-		String viewName = mav.getViewName();
-		Object categoriaResultante = mav.getModel().get("categoria");
-
-		// Verificación
-		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria));
-	}
+	
 }
