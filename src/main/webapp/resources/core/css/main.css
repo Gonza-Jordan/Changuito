@@ -238,16 +238,17 @@ html {
 }
 
 .peso {
-    background-color: white;
-    border: 10px solid #BDFF00;
-    border-radius: 50%;
+    background-color: transparent;
+    border: none;
     color: #BDFF00;
     font-size: 3em;
-    display: block;
+    display: inline-block;
+    line-height: 1;
     padding: 0.2em;
-    width: 111px;
     position: absolute;
     bottom: 2.3em;
+    height: 5%;
+    weight: 5%;
 }
 
 .supermercado {
