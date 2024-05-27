@@ -148,7 +148,7 @@ public class ControladorLoginTest {
                         .param("contrasena", "abcd1234")
                         .session(new MockHttpSession()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/home"));
+                .andExpect(redirectedUrl("/login"));
 
 
     }

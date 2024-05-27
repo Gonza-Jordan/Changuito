@@ -36,7 +36,7 @@ public class RepositorioUsuarioTest {
     @Transactional
     @Rollback
     public void queSePuedaModificarUsuario() {
-        //Preparacion
+        // Preparación
         Usuario usuario = new Usuario();
         usuario.setContrasena("abcd1234");
         usuario.setEmail("jlopez@gmail.com");
@@ -45,16 +45,18 @@ public class RepositorioUsuarioTest {
         usuario.setDni(15012456);
         usuario.setDireccion("Florencio Varela 1903, San Justo, Provincia de Buenos Aires");
 
+        // Guardar el usuario primero
+        this.repositorioUsuario.guardar(usuario);
 
-        //Ejecucion
-        Object res = this.repositorioUsuario.buscar("jlopez@gmail.com");
+        // Modificar algún atributo del usuario
+        usuario.setApellido("Garcia");
 
+        // Ejecución
         this.repositorioUsuario.modificar(usuario);
 
-        //Verficacion
-
-        assertThat(res,null);
+        // Verificación
+        Usuario usuarioModificado = this.repositorioUsuario.buscar("jlopez@gmail.com");
+        assertThat("Garcia", equalTo(usuarioModificado.getApellido()));
     }
-
 
 }

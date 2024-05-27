@@ -2,7 +2,7 @@ package com.tallerwebi.presentacion;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.tallerwebi.dominio.ServicioGeolocalizacion;
-import com.tallerwebi.dominio.Supermercado;
+import com.tallerwebi.dominio.SupermercadoAPI;
 import com.tallerwebi.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

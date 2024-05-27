@@ -23,9 +23,8 @@
         <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
         <div class="carousel-container">
             <div class="carousel-item" th:each="subcategoria : ${subcategorias}">
-
-                    <a th:href="@{/productoBuscado(productoAbuscar=${subcategoria})}">
-                    <img src="" alt="Imagen del producto">
+                <a th:href="@{/productoFiltrado(categoria=${categoria}, subcategoria=${subcategoria})}">
+                <img src="" alt="Imagen del producto">
                     <p th:text="${subcategoria}"></p>
                 </a>
             </div>

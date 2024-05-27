@@ -43,7 +43,7 @@ public class ControladorProductoBuscado {
     }
 
 
-    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
+    @RequestMapping(path = "/productoFiltrado", method = RequestMethod.GET)
     public ModelAndView buscarProductos(
             @RequestParam(value = "categoria", required = false) String categoriaStr,
             @RequestParam(value = "subcategoria", required = false) String subcategoriaStr,
