@@ -34,12 +34,16 @@ a {
     border: gray solid 2px !important;
 }
 
-.signIn input:focus {
+.signIn div select {
+    border: gray solid 2px !important;
+}
+
+.signIn input:focus, .signIn select:focus {
     background: whitesmoke !important;
     border: whitesmoke solid 2px !important;
 }
 
-.signIn input:hover {
+.signIn input:hover, .signIn select:hover {
     border: white solid 2px !important;
 }
 

@@ -36,6 +36,7 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
+
         ModelMap model = new ModelMap();
         model.put("usuario", new Usuario());
         return new ModelAndView("nuevo-usuario", model);
@@ -143,6 +144,19 @@ public class ControladorLogin {
 //        return modelAndView;
 
 
+    }
+
+    @RequestMapping(path = "/modificar", method = RequestMethod.POST)
+    public ModelAndView modificar(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+
+
+        servicioLogin.modificar(usuario);
+
+        HttpSession misession = request.getSession(true);
+        misession.setAttribute("usuario", usuario);
+
+
+        return new ModelAndView("redirect:/home");
     }
 
 

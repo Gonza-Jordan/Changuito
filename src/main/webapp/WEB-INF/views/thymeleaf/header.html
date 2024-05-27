@@ -7,7 +7,11 @@
         <li><a href="#">Ofertas</a></li>
 
         <li><a href="#"> Categorías</a></li>
-        <li><a  th:href="@{/mi-cuenta}">Mi cuenta</a></li>
+
+
+        <li th:if="${session.usuario == null}"><a th:href="@{/mi-cuenta}">Mi cuenta</a></li>
+        <li th:if="${session.usuario != null}" ><a th:href="@{/mi-cuenta}" th:text="${session.usuario['nombre']}"></a></li>
+
 
         <li>
             <div class="contenedor-carrito-contador">
