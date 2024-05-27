@@ -3,17 +3,14 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.Categoria;
 import com.tallerwebi.dominio.Producto;
 import com.tallerwebi.dominio.Subcategoria;
-import com.tallerwebi.presentacion.ControladorCarritoCompras;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 
 public class ControladorCarritoComprasTest {
 
@@ -25,32 +22,65 @@ public class ControladorCarritoComprasTest {
     }
 
     @Test
-    public void queAlHacerClickEnManzanasSeMuestreLaVistaCategoriaConElNombreManzanas() {
+    void deberiaAgregarProductoAlCarrito() {
+        Producto producto = new Producto("Producto 1", 100.0, "123456", Categoria.Lacteos, Subcategoria.Leche, "");
 
-        String nombreDelProducto = "Manzanas";
+        controladorCarritoCompras.agregarAlCarrito(producto.getNombre(), producto.getPrecio(), producto.getCodigoBarras(),
+                producto.getCategoria(), producto.getSubcategoria(), producto.getUrlImagen());
 
-        ModelAndView mav = this.controladorCarritoCompras.verCarrito();
-        String viewName = mav.getViewName();
-        List<Producto> productos = (List<Producto>) mav.getModel().get("carrito");
+        ModelAndView modelAndView = controladorCarritoCompras.verCarrito();
 
-        assertThat(viewName, equalToIgnoringCase("carritoCompras"));
-        assertThat(productos.get(0).getNombre(), equalTo(nombreDelProducto));
+        List<Producto> carrito = (List<Producto>) modelAndView.getModel().get("carrito");
+        assertThat(carrito.size(), equalTo(1));
+        assertThat(carrito.get(0).getNombre(), equalTo("Producto 1"));
     }
 
     @Test
-    public void queAlEliminarUnProductoDelCarritoSeRedireccioneAlCarrito() {
+    void deberiaEliminarProductoDelCarrito() {
+        Producto producto = new Producto("Producto 1", 100.0, "123456", Categoria.Lacteos, Subcategoria.Leche, "");
+        controladorCarritoCompras.agregarAlCarrito(producto.getNombre(), producto.getPrecio(), producto.getCodigoBarras(),
+                producto.getCategoria(), producto.getSubcategoria(), producto.getUrlImagen());
 
-        String codigoBarras = "123456789012";
-        String redirection = this.controladorCarritoCompras.eliminarDelCarrito(codigoBarras);
-        assertThat(redirection, equalToIgnoringCase("redirect:/carritoCompras"));
+        controladorCarritoCompras.eliminarDelCarrito(producto.getCodigoBarras());
+
+        ModelAndView modelAndView = controladorCarritoCompras.verCarrito();
+        List<Producto> carrito = (List<Producto>) modelAndView.getModel().get("carrito");
+
+        assertThat(carrito.isEmpty(), equalTo(true));
     }
 
     @Test
-    public void queAlIngresarAlCarritoSeMuestreLaCantidadDeProductosCorrecta() {
+    void deberiaMostrarCarritoDeCompras() {
+        Producto producto1 = new Producto("Producto 1", 100.0, "123456", Categoria.Lacteos, Subcategoria.Leche, "");
+        Producto producto2 = new Producto("Producto 2", 200.0, "654321", Categoria.Bebidas, Subcategoria.Jugos, "");
+        controladorCarritoCompras.agregarAlCarrito(producto1.getNombre(), producto1.getPrecio(), producto1.getCodigoBarras(),
+                producto1.getCategoria(), producto1.getSubcategoria(), producto1.getUrlImagen());
+        controladorCarritoCompras.agregarAlCarrito(producto2.getNombre(), producto2.getPrecio(), producto2.getCodigoBarras(),
+                producto2.getCategoria(), producto2.getSubcategoria(), producto2.getUrlImagen());
 
-        ModelAndView mav = this.controladorCarritoCompras.verCarrito();
-        int cantidadProductos = (int) mav.getModel().get("cantidadProductos");
+        ModelAndView modelAndView = controladorCarritoCompras.verCarrito();
 
-        assertThat(cantidadProductos, equalTo(3)); // Cantidad correcta
+        List<Producto> carrito = (List<Producto>) modelAndView.getModel().get("carrito");
+
+        assertThat(modelAndView.getViewName(), equalTo("carritoCompras"));
+        assertThat(carrito.size(), equalTo(2));
+        assertThat(modelAndView.getModel().get("cantidadProductos"), equalTo(2));
+    }
+
+    @Test
+    void deberiaVaciarCarritoDeCompras() {
+        Producto producto1 = new Producto("Producto 1", 100.0, "123456", Categoria.Lacteos, Subcategoria.Leche, "");
+        Producto producto2 = new Producto("Producto 2", 200.0, "654321", Categoria.Bebidas, Subcategoria.Jugos, "");
+        controladorCarritoCompras.agregarAlCarrito(producto1.getNombre(), producto1.getPrecio(), producto1.getCodigoBarras(),
+                producto1.getCategoria(), producto1.getSubcategoria(), producto1.getUrlImagen());
+        controladorCarritoCompras.agregarAlCarrito(producto2.getNombre(), producto2.getPrecio(), producto2.getCodigoBarras(),
+                producto2.getCategoria(), producto2.getSubcategoria(), producto2.getUrlImagen());
+
+        controladorCarritoCompras.vaciarCarrito();
+
+        ModelAndView modelAndView = controladorCarritoCompras.verCarrito();
+        List<Producto> carrito = (List<Producto>) modelAndView.getModel().get("carrito");
+
+        assertThat(carrito.isEmpty(), equalTo(true));
     }
 }

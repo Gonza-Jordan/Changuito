@@ -45,7 +45,10 @@
             <td th:text="${producto.categoria}">Categoría</td>
             <td th:text="${producto.subcategoria}">Subcategoría</td>
             <td>
-                <button type="button" onclick="eliminarFila(this)">Eliminar</button>
+                <form th:action="@{/eliminar-del-carrito}" method="post">
+                    <input type="hidden" name="codigoBarras" th:value="${producto.codigoBarras}" />
+                    <button type="submit">Eliminar</button>
+                </form>
             </td>
             <td>
                 <span class="precio-total" th:text="${producto.precio}">Precio Total</span>
