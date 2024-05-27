@@ -48,47 +48,8 @@ VALUES
     ('Crema Doble Tregar 350g', 2080, '21210150006', 'Lacteos', 'Crema', 'https://jumboargentina.vtexassets.com/arquivos/ids/774486-1200-auto?v=638150854086930000&width=1200&height=auto&aspect=true', null);
 
 --Supermercados
---INSERT INTO Supermercado (
---    distanciaNumero, distanciaDescripcion, banderaId, lat, lng, sucursalNombre,
---    id, sucursalTipo, provincia, direccion, banderaDescripcion, localidad,
---    comercioRazonSocial, comercioId, sucursalId, logoUrl
---) VALUES
---(1.5, 'A 1.5 km', 1, '-34.748206', '-58.594244', 'Carrefour San Justo',
--- '1', 'Hipermercado', 'Buenos Aires', 'Av. Brig. Gral. Juan Manuel de Rosas 3910', 'Carrefour',
--- 'San Justo', 'Carrefour Argentina S.A.', 1, '1', 'https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/74.0.0/logo/logo___8ebc4231614a7b41a4258354ce76e1e1.svg');
---
---INSERT INTO Supermercado (
---    distanciaNumero, distanciaDescripcion, banderaId, lat, lng, sucursalNombre,
---    id, sucursalTipo, provincia, direccion, banderaDescripcion, localidad,
---    comercioRazonSocial, comercioId, sucursalId, logoUrl
---) VALUES
---(2.2, 'A 2.2 km', 2, '-34.698071', '-58.559937', 'Coto Ciudad Evita',
--- '2', 'Hipermercado', 'Buenos Aires', 'Av. Cristianía 2700', 'Coto',
--- 'Ciudad Evita', 'Coto CICSA', 2, '2', 'https://www.coto.com.ar/images/logocotogde.png');
---
---INSERT INTO Supermercado (
---    distanciaNumero, distanciaDescripcion, banderaId, lat, lng, sucursalNombre,
---    id, sucursalTipo, provincia, direccion, banderaDescripcion, localidad,
---    comercioRazonSocial, comercioId, sucursalId, logoUrl
---) VALUES
---(3.5, 'A 3.5 km', 3, '-34.764971', '-58.561073', 'Jumbo Lomas del Mirador',
--- '3', 'Hipermercado', 'Buenos Aires', 'Av. Gral. San Martín 5100', 'Jumbo',
--- 'Lomas del Mirador', 'Cencosud S.A.', 3, '3', 'https://jumboargentinaio.vtexassets.com/assets/vtex/assets-builder/jumboargentinaio.store-theme/3.0.76/img/logo-jumbo___298a91c7745ef5319749159e7332eec5.svg');
---
---INSERT INTO Supermercado (
---    distanciaNumero, distanciaDescripcion, banderaId, lat, lng, sucursalNombre,
---    id, sucursalTipo, provincia, direccion, banderaDescripcion, localidad,
---    comercioRazonSocial, comercioId, sucursalId, logoUrl
---) VALUES
---(4.1, 'A 4.1 km', 4, '-34.688569', '-58.602478', 'Disco Ramos Mejía',
--- '4', 'Supermercado', 'Buenos Aires', 'Av. Rivadavia 14618', 'Disco',
--- 'Ramos Mejía', 'Disco S.A.', 4, '4', 'https://discoargentina.vtexassets.com/assets/vtex.file-manager-graphql/images/bd790034-1117-4263-90e5-04f3f5a27503___ab950355900559ccc0bc0cb131364561.png);
---
---INSERT INTO Supermercado (
---    distanciaNumero, distanciaDescripcion, banderaId, lat, lng, sucursalNombre,
---    id, sucursalTipo, provincia, direccion, banderaDescripcion, localidad,
---    comercioRazonSocial, comercioId, sucursalId, logoUrl
---) VALUES
---(3.8, 'A 3.8 km', 5, '-34.743797', '-58.567844', 'ChangoMas',
--- '5', 'Hipermercado', 'Buenos Aires', 'Av. Brig. Gral. Juan Manuel de Rosas 1800', 'ChangoMas',
--- 'Isidro Casanova', 'ChangoMas Argentina', 5, '5', 'https://masonlineprod.vtexassets.com/assets/vtex.file-manager-graphql/images/1f676005-1a66-4379-abe1-e8c39b539f10___3b7e04ce085fbfa38121c0692ad1dd9b.svg');
+INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo', 'https://example.com/logo_carrefour.png');
+INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Coto', 'Avenida Brigadier Juan Manuel de Rosas 3990', 'San Justo', 'https://example.com/logo_coto.png');
+INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Jumbo', 'Boulevard Buenos Aires 1001', 'Lomas del Mirador', 'https://example.com/logo_jumbo.png');
+INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Dia', 'Avenida Juan Manuel de Rosas 11000', 'González Catán', 'https://example.com/logo_dia.png');
+INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Walmart', 'Ruta 3 Km 29', 'Isidro Casanova', 'https://example.com/logo_walmart.png');
