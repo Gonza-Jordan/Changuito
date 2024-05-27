@@ -115,6 +115,7 @@ html {
 
 /* ********************************************* ESTILOS VISTA HOME ************************************************* */
 
+/* Estilos existentes */
 .heroHome {
     background-image: url("../img/hero-home.jpg");
     height: 50vh;
@@ -180,7 +181,6 @@ html {
     text-decoration: none;
     color: inherit;
     padding: 1em;
-
 }
 
 .carousel-btn {
@@ -217,7 +217,6 @@ html {
     height: 2em;
 }
 
-
 .frase {
     background-color: #99CE00;
     height: 20vh;
@@ -239,16 +238,17 @@ html {
 }
 
 .peso {
-    background-color: white;
-    border: 10px solid #BDFF00;
-    border-radius: 50%;
+    background-color: transparent;
+    border: none;
     color: #BDFF00;
     font-size: 3em;
-    display: block;
+    display: inline-block;
+    line-height: 1;
     padding: 0.2em;
-    width: 111px;
     position: absolute;
     bottom: 2.3em;
+    height: 5%;
+    weight: 5%;
 }
 
 .supermercado {
@@ -261,24 +261,49 @@ html {
     margin-bottom: 3em;
 }
 
+/* Nuevos estilos para los supermercados */
 .contenedorSupermercado {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 1em;
-
+    margin: 0 auto;
+    max-width: 600px;
 }
 
-.contenedorSupermercado a {
-    text-decoration: none;
-    color: inherit;
-    height: 4em;
+.supermercado-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: left;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
+.supermercado-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.supermercado-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.supermercado-info p {
+    margin: 5px 0;
+}
+
+.supermercado-item:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+}
 /* ****************************************************************************************************************** */
 
 /* ******************************************* ESTILOS VISTA CATEGORIA ********************************************** */
@@ -510,13 +535,28 @@ input[type="checkbox"] {
 
 /* ******************************************* ESTILOS FOOTER ********************************************* */
 
-.footer {
-    height: 6em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333333;
-    color: whitesmoke;
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content p {
+    margin: 0.5em 0;
+}
+
+footer a {
+    color: #99CE00;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 /* ********************************************** ESTILOS CARRITO DE COMPRAS **************************************** */

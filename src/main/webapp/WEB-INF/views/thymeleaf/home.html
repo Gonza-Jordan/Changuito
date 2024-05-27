@@ -3,26 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <title>Changuito</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
-<!--<form action="/productoBuscado.html"  th:action="@{/productoBuscado}" th:object="${producto}" method="get" class="form-buscador">-->
-
-<!--    <button type="submit" class="lupa"><i class="fa-solid fa-magnifying-glass"></i></button>-->
-<!--    <input  th:field="*{nombre}" type="text" name="buscador" required autocomplete="off" placeholder="Producto">-->
-<!--    <button type="submit" class="boton-buscar">BUSCAR</button>-->
-<!--</form>-->
 <main>
     <div class="heroHome">
         <div class="container">
-            <p> Compará el precio del mismo producto en diferentes supermercados</p>
-            <!--<section th:include="buscador.html" class="buscador buscadorHome"></section>-->
+            <p>Compará el precio del mismo producto en diferentes supermercados</p>
             <section th:include="buscador.html" class="productoAbuscar"></section>
         </div>
     </div>
@@ -42,17 +32,22 @@
         </div>
     </section>
     <section class="frase">
-        <div class="peso"><img src="" alt="$"></div>
-        <p>Analizamos diariamente los precios de los supermercados más grandes de Argentina para traerte los precios más
-            baratos del mercado.</p>
+<!--        <div class="peso"><img src="img/Precio.png" alt="$"></div>-->
+        <p>Analizamos diariamente los precios de los supermercados más grandes de Argentina para traerte los precios más baratos del mercado.</p>
     </section>
     <section class="supermercado">
         <h2>Supermercados relevados</h2>
         <div class="contenedorSupermercado">
-            <a href=""><img src="" alt="Supermercado 1"></a>
-            <a href=""><img src="" alt="Supermercado 2"></a>
-            <a href=""><img src="" alt="Supermercado 3"></a>
-            <a href=""><img src="" alt="Supermercado 4"></a>
+            <div class="supermercado-item" th:each="supermercado : ${supermercados}">
+                <a th:href="@{/supermercado/${supermercado.id}}">
+                    <img th:src="${supermercado.logo}" th:alt="${supermercado.nombre}">
+                </a>
+                <div class="supermercado-info">
+                    <p th:text="${supermercado.nombre}"></p>
+                    <p>Ubicación: <span th:text="${supermercado.ubicacion}"></span></p>
+                    <p>Localidad: <span th:text="${supermercado.localidad}"></span></p>
+                </div>
+            </div>
         </div>
     </section>
 </main>
