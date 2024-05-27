@@ -32,7 +32,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(productosMock);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("Bebidas", "Gaseosas");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null);
 
         // Validacion
         assertThat(mav.getModel().get("productos"), equalTo(productosMock));
@@ -44,7 +44,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(null);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("Bebidas", "Gaseosas");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null);
 
         // Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
