@@ -14,15 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("servicioSupermercado")
-public class ServicioSupermercado {
+public class ServicioSupermercadoAPI {
 
     private final HttpClient httpClient;
 
-    public ServicioSupermercado() {
+    public ServicioSupermercadoAPI() {
         this.httpClient = HttpClient.newHttpClient();
     }
 
-    public List<Supermercado> obtenerSupermercados(Double latitud, Double longitud, Integer limite) throws IOException, InterruptedException {
+    public List<SupermercadoAPI> obtenerSupermercados(Double latitud, Double longitud, Integer limite) throws IOException, InterruptedException {
 
         String url = "https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=" + latitud + "&lng=" + longitud + "&limit=" + limite;
 
@@ -33,7 +33,7 @@ public class ServicioSupermercado {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            List<Supermercado> supermercados = procesarDatosDeApi(response.body());
+            List<SupermercadoAPI> supermercados = procesarDatosDeApi(response.body());
             return supermercados;
 
         } catch (IOException | InterruptedException e) {
@@ -42,16 +42,16 @@ public class ServicioSupermercado {
         }
     }
 
-    private List<Supermercado> procesarDatosDeApi(String json) throws IOException, InterruptedException {
+    private List<SupermercadoAPI> procesarDatosDeApi(String json) throws IOException, InterruptedException {
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(json);
             JsonNode supermercadosNode = jsonNode.get("sucursales");
 
-            List<Supermercado> supermercados = new ArrayList<>();
+            List<SupermercadoAPI> supermercados = new ArrayList<>();
             for (JsonNode supermercadoNode : supermercadosNode) {
-                Supermercado supermercado = objectMapper.treeToValue(supermercadoNode, Supermercado.class);
+                SupermercadoAPI supermercado = objectMapper.treeToValue(supermercadoNode, SupermercadoAPI.class);
                 supermercados.add(supermercado);
             }
             return supermercados;

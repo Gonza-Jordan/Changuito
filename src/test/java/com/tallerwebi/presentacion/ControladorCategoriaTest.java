@@ -35,12 +35,13 @@ public class ControladorCategoriaTest {
 		// ejecucion
 		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoriaResultante = mav.getModel().get("categoria");
+		Categoria categoriaResultante = (Categoria) mav.getModel().get("categoria");
 
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante.toString(), equalTo(categoria));
+		assertThat(categoriaResultante, equalTo(categoria)); // Verificar la igualdad de objetos, no de cadenas
 	}
+
 
 	@Test
 	public void queAlHacerClickEnAlmacenDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElIconoAlmacen(){
