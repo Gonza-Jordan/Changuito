@@ -9,7 +9,7 @@
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
-<section th:include="buscador.html" class="buscador"></section>
+<section th:include="buscador.html" class="productoAbuscar"></section>
 <section class="hero">
     <div>
         <!-- Cambia esta línea -->
@@ -23,7 +23,8 @@
         <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
         <div class="carousel-container">
             <div class="carousel-item" th:each="subcategoria : ${subcategorias}">
-                <a th:href="@{/productoBuscado(categoria=${categoria}, subcategoria=${subcategoria})}">
+
+                    <a th:href="@{/productoBuscado(productoAbuscar=${subcategoria})}">
                     <img src="" alt="Imagen del producto">
                     <p th:text="${subcategoria}"></p>
                 </a>

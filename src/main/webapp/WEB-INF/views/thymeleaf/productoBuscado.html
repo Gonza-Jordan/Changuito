@@ -13,7 +13,8 @@
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
-<section th:include="buscador.html" class="buscador"></section>
+<!--<section th:include="buscador.html" class="buscador"></section>-->
+<section th:include="buscador.html" class="productoAbuscar"></section>
 <br>
 <div class="tituloProductoBuscado">
     <h2 th:text="'Productos de la categoría ' + ${categoria} + ' y subcategoría ' + ${subcategoria}"></h2>
@@ -64,10 +65,13 @@
         </div>
     </div>
     <div class="product-column">
-        <div class="product-card" th:each="producto : ${productos}">
+
+        <div class="product-card" th:each="producto : ${productos}" th:name="producto">
+            <a th:ref="@{/producto_seleccionado(${producto})}">
             <div class="product-image">
                 <img th:src="${producto.urlImagen}" alt="Imagen del Producto">
             </div>
+            </a>
             <div class="product-info">
                 <div class="product-name" th:text="${producto.nombre}"></div>
                 <div class="store-info">
@@ -79,6 +83,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="buttons">
                 <button class="compare-button">Comparar</button>
                 <form th:action="@{/agregarAlCarrito}" method="post">
@@ -89,8 +94,10 @@
                     <input type="hidden" name="subcategoria" th:value="${producto.subcategoria}"/>
                     <button type="submit" class="add-button">Agregar</button>
                 </form>
+
             </div>
         </div>
+</a>
         <p th:if="${error != null}" th:text="${error}"></p>
     </div>
 </div>

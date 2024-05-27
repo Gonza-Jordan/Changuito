@@ -18,13 +18,20 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     }
 
     @Override
-    public Producto consultarProductoPorNombre(String nombre) {
+    public List<Producto> consultarProductoPorNombre(String nombre) {
+
+
         return repositorioProducto.buscarProductoPorNombre(nombre);
     }
 
     @Override
     public List<Producto> consultarProductosPorSubcategoria(Subcategoria subcategoria) {
         return repositorioProducto.buscarProductosPorSubcategoria(subcategoria);
+    }
+
+    @Override
+    public List<Producto> consultarProductoPorCategoria(Categoria categoria) {
+        return repositorioProducto.buscarProductoPorCategoria(categoria);
     }
 
 

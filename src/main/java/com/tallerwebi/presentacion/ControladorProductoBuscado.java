@@ -20,23 +20,64 @@ public class ControladorProductoBuscado {
         this.servicioBusqueda = servicioBusqueda;
     }
 
+//    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
+//    public ModelAndView irAProductoBuscado(@RequestParam("categoria") String categoriaStr, @RequestParam("subcategoria") String subcategoriaStr) {
+//        ModelMap model = new ModelMap();
+//        try {
+//            Categoria categoria = Categoria.valueOf(categoriaStr);
+//            Subcategoria subcategoria = Subcategoria.valueOf(subcategoriaStr);
+//
+//            List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
+//            if (productosDeLaSubcategoria != null && !productosDeLaSubcategoria.isEmpty()) {
+//                model.put("productos", productosDeLaSubcategoria);
+//                String titulo = "Productos de la categoría " + categoria.toString() + " y subcategoría " + subcategoria.toString();
+//                model.put("titulo", titulo);
+//            } else {
+//                model.put("error", "Productos de esa subcategoría no encontrados");
+//            }
+//        } catch (IllegalArgumentException e) {
+//            model.put("error", "Categoría o subcategoría inválida");
+//        }
+//
+//        return new ModelAndView("productoBuscado", model);
+//    }
+//
+//    @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
+//    public ModelAndView irAProductoBuscado(@RequestParam("categoria") String categoriaStr, @RequestParam("subcategoria") String subcategoriaStr) {
+//        ModelMap model = new ModelMap();
+//        try {
+//            Categoria categoria = Categoria.valueOf(categoriaStr);
+//            Subcategoria subcategoria = Subcategoria.valueOf(subcategoriaStr);
+//
+//            List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
+//            if (productosDeLaSubcategoria != null && !productosDeLaSubcategoria.isEmpty()) {
+//                model.put("productos", productosDeLaSubcategoria);
+//                String titulo = "Productos de la categoría " + categoria.toString() + " y subcategoría " + subcategoria.toString();
+//                model.put("titulo", titulo);
+//            } else {
+//                model.put("error", "Productos de esa subcategoría no encontrados");
+//            }
+//        } catch (IllegalArgumentException e) {
+//            model.put("error", "Categoría o subcategoría inválida");
+//        }
+//
+//        return new ModelAndView("productoBuscado", model);
+//    }
     @RequestMapping(path = "/productoBuscado", method = RequestMethod.GET)
-    public ModelAndView irAProductoBuscado(@RequestParam("categoria") String categoriaStr, @RequestParam("subcategoria") String subcategoriaStr) {
+    public ModelAndView irAProductoBuscado(@RequestParam("productoAbuscar") String productoAb) {
         ModelMap model = new ModelMap();
         try {
-            Categoria categoria = Categoria.valueOf(categoriaStr);
-            Subcategoria subcategoria = Subcategoria.valueOf(subcategoriaStr);
-
-            List<Producto> productosDeLaSubcategoria = servicioBusqueda.consultarProductosPorSubcategoria(subcategoria);
-            if (productosDeLaSubcategoria != null && !productosDeLaSubcategoria.isEmpty()) {
-                model.put("productos", productosDeLaSubcategoria);
-                String titulo = "Productos de la categoría " + categoria.toString() + " y subcategoría " + subcategoria.toString();
+            String productoABuscar = productoAb;
+            List<Producto> productosBuscados = servicioBusqueda.consultarProductoPorNombre(productoABuscar);
+            if (productosBuscados != null && !productosBuscados.isEmpty()) {
+                model.put("productos", productosBuscados);
+                String titulo = "Productos de la categoría " + productosBuscados.get(0).getCategoria().toString() + " y subcategoría " + productosBuscados.get(0).getSubcategoria().toString();
                 model.put("titulo", titulo);
             } else {
-                model.put("error", "Productos de esa subcategoría no encontrados");
+                model.put("error", "Productos  no encontrados");
             }
         } catch (IllegalArgumentException e) {
-            model.put("error", "Categoría o subcategoría inválida");
+            model.put("error", "producto no encontrado");
         }
 
         return new ModelAndView("productoBuscado", model);

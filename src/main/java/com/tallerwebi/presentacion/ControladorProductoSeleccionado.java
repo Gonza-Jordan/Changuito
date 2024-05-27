@@ -12,8 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorProductoSeleccionado {
+    private ServicioBusqueda servicioBusqueda;
+
+    @Autowired
+    public void ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
+        this.servicioBusqueda = servicioBusqueda;
+    }
+
     @RequestMapping(path ="/producto_seleccionado", method = RequestMethod.GET)
-    public ModelAndView irAProductoSeleccioando() {
+
+
+    public ModelAndView irAProductoSeleccionado(@RequestParam ("producto") String producto) {
+        ModelMap model = new ModelMap();
+
         return new ModelAndView("producto_seleccionado");
     }
 }

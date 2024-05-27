@@ -13,7 +13,8 @@
 </head>
 
 <header th:include="header.html" class="cabecera"></header>
-<section th:include="buscador.html" class="buscador"></section>
+<!--<section th:include="buscador.html" class="buscador"></section>-->
+<section th:include="buscador.html" class="productoAbuscar"></section>
 <br>
 <div class="contenedor_producto_seleccionado">
 <div class="contenedor_producto_columnas">
@@ -21,10 +22,10 @@
         <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del producto" class="product-image-producto-seleccionado">
     </div>
     <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado">Gaseosa Coca-cola Sabor Original 2.25 L</h1>
+        <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}></h1>
         <ul class="product-features-producto-seleccionado">
-            <li>Tipo de Producto: Gaseosas</li>
-            <li>Contenido: 2.2L</li>
+            <li th:text="Tipo de producto + ${producto.categoria}"></li>
+            <li th:text="${producto.codigoBarras}">Contenido:</li>
             <li>Envase: Botella</li>
             <li>Origen: Argentina</li>
             <li>Pack-unitario: Unitario</li>
