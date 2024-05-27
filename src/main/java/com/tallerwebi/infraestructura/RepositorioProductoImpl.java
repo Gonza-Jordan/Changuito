@@ -6,6 +6,7 @@ import com.tallerwebi.dominio.RepositorioProducto;
 import com.tallerwebi.dominio.Subcategoria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
