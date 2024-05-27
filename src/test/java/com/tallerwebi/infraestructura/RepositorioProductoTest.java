@@ -64,9 +64,9 @@ public class RepositorioProductoTest {
         this.repositorioProducto.guardarProducto(productoGuardado);
 
         //Verficacion
-        Producto productoEncontrado = (Producto) repositorioProducto.buscarProductoPorNombre("Coca Cola");
+        List<Producto> productoEncontrado = this.repositorioProducto.buscarProductoPorNombre("Coca Cola");
 
-        assertThat(productoEncontrado, equalTo(productoGuardado));
+        assertThat(productoEncontrado.get(0), equalTo(productoGuardado));
     }
 
     @Test

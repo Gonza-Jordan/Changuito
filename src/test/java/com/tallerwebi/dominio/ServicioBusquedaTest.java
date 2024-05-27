@@ -31,13 +31,15 @@ public class ServicioBusquedaTest {
     public void queSePuedaConsultarUnProductoPorNombre(){
         //Preparacion
         Producto productoMock = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        when(this.repositorioProducto.buscarProductoPorNombre(productoMock.getNombre())).thenReturn((List<Producto>) productoMock);
+        List<Producto> listProductoMock = new ArrayList<>();
+        listProductoMock.add(productoMock);
+        when(this.repositorioProducto.buscarProductoPorNombre(productoMock.getNombre())).thenReturn(listProductoMock);
 
         //Ejecucion
         List <Producto> productoObtenido = this.servicioBusqueda.consultarProductoPorNombre(productoMock.getNombre());
 
         //Verficacion
-        assertThat(productoObtenido, equalTo(productoMock));
+        assertThat(productoObtenido.get(0), equalTo(productoMock));
     }
 
     @Test
