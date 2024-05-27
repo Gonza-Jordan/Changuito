@@ -76,72 +76,80 @@ public class ControladorCategoriaTest {
 		String nombreDeLaCategoria = "Perfumeria";
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
+		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoria = mav.getModel().get("categoria");
+		Object categoriaResultante = mav.getModel().get("categoria");
 
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoria, equalTo(nombreDeLaCategoria));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
 
 	@Test
 	public void queAlHacerClickEnBebidasDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreBebidas(){
 		// preparacion
 		String nombreDeLaCategoria = "Bebidas";
+		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
 
 		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoria = mav.getModel().get("categoria");
+		Object categoriaResultante = mav.getModel().get("categoria");
 
 		// verificacion
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoria, equalTo(nombreDeLaCategoria));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
+
 
 	@Test
 	public void queAlHacerClickEnVerduleriaDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreVerduleria(){
-		// preparacion
+		// Preparación
 		String nombreDeLaCategoria = "Verduleria";
+		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
 
-		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
+		// Ejecución
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoria = mav.getModel().get("categoria");
+		Object categoriaResultante = mav.getModel().get("categoria");
 
-		// verificacion
+		// Verificación
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoria, equalTo(nombreDeLaCategoria));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
+
 
 	@Test
 	public void queAlHacerClickEnLimpiezaDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreLimpieza(){
-		// preparacion
+		// Preparación
 		String nombreDeLaCategoria = "Limpieza";
+		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
 
-		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
+		// Ejecución
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoria = mav.getModel().get("categoria");
+		Object categoriaResultante = mav.getModel().get("categoria");
 
-		// verificacion
+		// Verificación
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoria, equalTo(nombreDeLaCategoria));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
+
 
 	@Test
 	public void queAlHacerClickEnLacteosDeLaPantallaDelHomeSeMuestreLaVistaCategoriaConElNombreLacteos(){
-		// preparacion
+		// Preparación
 		String nombreDeLaCategoria = "Lacteos";
+		Categoria categoria = Categoria.valueOf(nombreDeLaCategoria);
 
-		// ejecucion
-		ModelAndView mav = this.controladorCategoria.irACategoria(Categoria.valueOf(nombreDeLaCategoria));
+		// Ejecución
+		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
 		String viewName = mav.getViewName();
-		Object categoria = mav.getModel().get("categoria");
+		Object categoriaResultante = mav.getModel().get("categoria");
 
-		// verificacion
+		// Verificación
 		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoria, equalTo(nombreDeLaCategoria));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
 }
