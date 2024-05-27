@@ -492,6 +492,22 @@ input[type="checkbox"] {
     margin-right: 5px;
 }
 
+.tachado{
+    text-decoration: line-through;
+    color: red;
+}
+
+.descuento{
+    color: green;
+    font-size: 1.5rem;
+}
+
+.product-price-center{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
 /* ******************************************* ESTILOS FOOTER ********************************************* */
 
 .footer {

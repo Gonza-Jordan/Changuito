@@ -1,31 +1,24 @@
 package com.tallerwebi.presentacion;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
-public class ControladorSupermercado {
+public class ControladorSupermercadoAPI {
 
-    private ServicioSupermercado servicioSupermercado;
+    private ServicioSupermercadoAPI servicioSupermercadoAPI;
 
     @Autowired
-    public ControladorSupermercado(ServicioSupermercado servicioSupermercado) {
-        this.servicioSupermercado = servicioSupermercado;
+    public ControladorSupermercadoAPI(ServicioSupermercadoAPI servicioSupermercadoAPI) {
+        this.servicioSupermercadoAPI = servicioSupermercadoAPI;
     }
 
     @RequestMapping(path = "/supermercados", method = RequestMethod.GET)
@@ -44,7 +37,7 @@ public class ControladorSupermercado {
         }
         modelAndView.addObject("iconoUbicacion", "img/ubicacion.png");
         modelAndView.addObject("iconoSupermercados", "img/supermercados.png");
-        List<Supermercado> supermercados = servicioSupermercado.obtenerSupermercados(latitud, longitud, 30);
+        List<SupermercadoAPI> supermercados = servicioSupermercadoAPI.obtenerSupermercados(latitud, longitud, 30);
         modelAndView.addObject("supermercados", supermercados);
 
         return modelAndView;

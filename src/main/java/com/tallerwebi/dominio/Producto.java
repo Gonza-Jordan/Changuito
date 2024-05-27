@@ -21,10 +21,14 @@ public class Producto {
     @Column(nullable = true)
     private String urlImagen;
 
+    @Column(nullable = true)
+    private Double descuento;
+
     public Producto() {
 
     }
 
+    // Constructor sin descuento
     public Producto(String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen) {
         this.nombre = nombre;
         this.precio = precio;
@@ -34,6 +38,11 @@ public class Producto {
         this.urlImagen = urlImagen;
     }
 
+    // Constructor con descuento
+    public Producto(String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen, Double descuento) {
+        this(nombre, precio, codigoBarras, categoria, subcategoria, urlImagen);
+        this.descuento = descuento;
+    }
 
     // Getters y Setters
 
@@ -95,4 +104,7 @@ public class Producto {
 
     public void setPrecioFormateado(String format) {
     }
+    public Double getDescuento() { return descuento; }
+
+    public void setDescuento(Double descuento) { this.descuento = descuento; }
 }
