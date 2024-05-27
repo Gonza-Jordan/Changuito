@@ -1,6 +1,6 @@
 package com.tallerwebi.dominio;
 
-public class Supermercado {
+public class SupermercadoAPI {
     private double distanciaNumero;
     private String distanciaDescripcion;
     private int banderaId;

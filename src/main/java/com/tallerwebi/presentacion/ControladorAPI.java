@@ -3,7 +3,7 @@ package com.tallerwebi.presentacion;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.tallerwebi.dominio.Supermercado;
+import com.tallerwebi.dominio.SupermercadoAPI;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +25,7 @@ public class ControladorAPI {
     }
 
     @GetMapping("/get")
-    public List<Supermercado> obtenerSucursales() {
+    public List<SupermercadoAPI> obtenerSucursales() {
         double latitud = -34.67055556;
         double longitud = -58.56277778;
         int limite = 30;
@@ -42,7 +42,7 @@ public class ControladorAPI {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Procesar la respuesta JSON y retornar la lista de sucursales
-            List<Supermercado> supermercados = procesarDatosDeApi(response.body());
+            List<SupermercadoAPI> supermercados = procesarDatosDeApi(response.body());
 
             return supermercados;
 
@@ -52,16 +52,16 @@ public class ControladorAPI {
         }
     }
 
-    private List<Supermercado> procesarDatosDeApi(String json) {
+    private List<SupermercadoAPI> procesarDatosDeApi(String json) {
         try {
             // Procesar el JSON y construir la lista de sucursales
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(json);
             JsonNode sucursalesNode = jsonNode.get("sucursales");
 
-            List<Supermercado> sucursales = new ArrayList<>();
+            List<SupermercadoAPI> sucursales = new ArrayList<>();
             for (JsonNode sucursalNode : sucursalesNode) {
-                Supermercado supermercado = objectMapper.treeToValue(sucursalNode, Supermercado.class);
+                SupermercadoAPI supermercado = objectMapper.treeToValue(sucursalNode, SupermercadoAPI.class);
                 sucursales.add(supermercado);
             }
 
