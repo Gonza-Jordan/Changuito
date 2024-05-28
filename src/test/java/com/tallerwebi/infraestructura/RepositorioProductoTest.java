@@ -1,10 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.config.HibernateConfig;
-import com.tallerwebi.dominio.Categoria;
-import com.tallerwebi.dominio.Producto;
-import com.tallerwebi.dominio.RepositorioProducto;
-import com.tallerwebi.dominio.Subcategoria;
+import com.tallerwebi.dominio.*;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -104,4 +101,5 @@ public class RepositorioProductoTest {
 
         assertThat(2, equalTo(productosEncontrados.size()));
     }
+
 }

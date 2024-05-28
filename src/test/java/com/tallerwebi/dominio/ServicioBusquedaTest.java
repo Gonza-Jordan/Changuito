@@ -61,8 +61,8 @@ public class ServicioBusquedaTest {
     public void queSePuedanConsultarLosProductosConElFiltroPreciosConLaCondicionMayorATresmil(){
         //Preparacion
         List<Producto> productosMock = new ArrayList<>();
-        productosMock.add(new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
-        productosMock.add(new Producto("Sprite", 1500.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Coca Cola", 4000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Sprite", 3500.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
         String subcategoriaStr = Subcategoria.Gaseosas.toString();
 
         List<String> precios = new ArrayList<>();
@@ -71,10 +71,10 @@ public class ServicioBusquedaTest {
         filtros.put("precios", precios);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
-        when(this.repositorioProducto.buscarProductosConFiltros(eq(subcategoriaStr), filtrosCaptor.capture())).thenReturn(productosMock);
+        when(this.repositorioProducto.buscarProductosConFiltros(eq(subcategoriaStr), filtrosCaptor.capture(), eq("1,2"))).thenReturn(productosMock);
 
         //Ejecucion
-        List<Producto> productosObtenidos = this.servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, filtros);
+        List<Producto> productosObtenidos = this.servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, filtros, "1,2");
 
         //Verficacion
         assertThat(productosObtenidos, equalTo(productosMock));

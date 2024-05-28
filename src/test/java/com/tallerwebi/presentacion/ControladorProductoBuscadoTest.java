@@ -37,7 +37,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(productosMock);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null);
 
         // Validacion
         assertThat(mav.getModel().get("productos"), equalTo(productosMock));
@@ -49,7 +49,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(null);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null);
 
         // Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
@@ -71,10 +71,10 @@ public class ControladorProductoBuscadoTest {
 
         // Capturador de argumentos
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
-        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture())).thenReturn(productosMock);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2,3"))).thenReturn(productosMock);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios , null, "1,2,3");
 
         // Verificacion
         assertThat(((List<Producto>) mav.getModel().get("productos")).size(), equalTo(3));
@@ -91,10 +91,10 @@ public class ControladorProductoBuscadoTest {
         filtros.put("precios", precios);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
-        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture())).thenReturn(null);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq(null))).thenReturn(null);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null);
 
         // Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
@@ -117,10 +117,10 @@ public class ControladorProductoBuscadoTest {
 
         // Capturador de argumentos
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
-        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture())).thenReturn(productosMock);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2,3"))).thenReturn(productosMock);
 
         // Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null, null, "1,2,3");
 
         // Verificacion
         assertThat(((List<Producto>) mav.getModel().get("productos")).size(), equalTo(3));

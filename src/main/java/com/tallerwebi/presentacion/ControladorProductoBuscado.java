@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,21 +28,30 @@ public class ControladorProductoBuscado {
     public ModelAndView irAProductoBuscado(@RequestParam("productoAbuscar") String productoAb) {
         ModelMap model = new ModelMap();
         try {
+
             String productoABuscar = productoAb;
             List<Producto> productosBuscados = servicioBusqueda.consultarProductoPorNombre(productoABuscar);
             if (productosBuscados != null && !productosBuscados.isEmpty()) {
-                model.put("productos", productosBuscados);
-                String titulo = "Productos de la categoría " + productosBuscados.get(0).getCategoria().toString() + " y subcategoría " + productosBuscados.get(0).getSubcategoria().toString();
-                model.put("titulo", titulo);
+                StringBuilder ids = new StringBuilder();
+                for (Producto producto : productosBuscados) {
+                    if (ids.length() > 0) {
+                        ids.append(",");
+                    }
+                    ids.append(producto.getIdProducto());
+                }
+
+                RedirectView redirectView = new RedirectView();
+                redirectView.setUrl("/spring/productoFiltrado?productoAbuscar=" + productoABuscar + "&productoIds=" + ids.toString());
+                return new ModelAndView(redirectView);
             } else {
                 model.put("error", "Productos no encontrados");
             }
         } catch (IllegalArgumentException e) {
             model.put("error", "Producto no encontrado");
         }
+
         return new ModelAndView("productoBuscado", model);
     }
-
 
     @RequestMapping(path = "/productoFiltrado", method = RequestMethod.GET)
     public ModelAndView buscarProductos(
@@ -51,22 +61,32 @@ public class ControladorProductoBuscado {
             @RequestParam(value = "ubicacion", required = false) List<String> ubicaciones,
             @RequestParam(value = "descuento", required = false) List<String> descuentos,
             @RequestParam(value = "marca", required = false) List<String> marcas,
-            @RequestParam(value = "supermercado", required = false) List<String> supermercados,
-            @RequestParam(value = "precio", required = false) List<String> precios) {
+            @RequestParam(value = "supermercado_id", required = false) List<String> supermercados,
+            @RequestParam(value = "precio", required = false) List<String> precios,
+            @RequestParam(value = "productoAbuscar", required = false) String productoABuscar,
+            @RequestParam(value = "productoIds", required = false) String productoIds) {
 
         ModelMap model = new ModelMap();
 
-        // Verifica si se han proporcionado filtros
-        if (tipos != null || ubicaciones != null || descuentos != null || marcas != null || supermercados != null || precios != null) {
-            // Ejecuta la lógica para filtrar productos
+        if (productoIds != null && !productoIds.isEmpty()) {
+            String[] idsArray = productoIds.split(",");
+            List<Integer> ids = new ArrayList<>();
+            for (String id : idsArray) {
+                ids.add(Integer.parseInt(id));
+            }
+
+            List<Producto> productos = servicioBusqueda.consultarProductosPorIds(ids);
+            model.put("productoBuscado", productos);
+        }
+
+        if (tipos != null || ubicaciones != null || descuentos != null || marcas != null || supermercados != null || precios != null || productoABuscar != null) {
             Map<String, List<String>> filtros = new HashMap<>();
             filtros.put("tipo", tipos);
             filtros.put("ubicacion", ubicaciones);
             filtros.put("descuento", descuentos);
             filtros.put("marca", marcas);
-            filtros.put("supermercado", supermercados);
+            filtros.put("supermercado_id", supermercados);
 
-            // Agregar filtro de precio
             if (precios != null) {
                 List<String> filtrosPrecio = new ArrayList<>();
                 for (String precio : precios) {
@@ -81,14 +101,13 @@ public class ControladorProductoBuscado {
                             filtrosPrecio.add("> 3000");
                             break;
                         default:
-                            // No hacer nada o manejar cualquier otro caso si es necesario
                             break;
                     }
                 }
                 filtros.put("precio", filtrosPrecio);
             }
 
-            List<Producto> productosFiltrados = servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, filtros);
+            List<Producto> productosFiltrados = servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, filtros, productoIds);
 
             if (productosFiltrados != null && !productosFiltrados.isEmpty()) {
                 model.put("productos", productosFiltrados);
@@ -96,7 +115,6 @@ public class ControladorProductoBuscado {
                 model.put("error", "Sin resultados");
             }
         } else {
-            // Ejecuta la lógica para buscar productos por categoría y subcategoría
             try {
                 Categoria categoria = Categoria.valueOf(categoriaStr);
                 Subcategoria subcategoria = Subcategoria.valueOf(subcategoriaStr);
@@ -106,15 +124,14 @@ public class ControladorProductoBuscado {
                     model.put("productos", productosDeLaSubcategoria);
                     model.put("categoria", categoria.toString());
                     model.put("subcategoria", subcategoria.toString());
-
                 } else {
                     model.put("error", "Productos de esa subcategoría no encontrados");
                 }
             } catch (IllegalArgumentException e) {
                 model.put("error", "Categoría o subcategoría inválida");
             }
-
         }
+
         return new ModelAndView("productoBuscado", model);
     }
 }

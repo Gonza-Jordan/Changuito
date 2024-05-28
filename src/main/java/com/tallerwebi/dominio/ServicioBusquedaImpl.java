@@ -37,9 +37,12 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     }
 
     @Override
+    public List<Producto> consultarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros, String productoIds) {
+        return repositorioProducto.buscarProductosConFiltros(subcategoriaStr, filtros, productoIds);
+    }
 
-    public List<Producto> consultarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros) {
-        return repositorioProducto.buscarProductosConFiltros(subcategoriaStr, filtros);
+    public List<Producto> consultarProductosPorIds(List<Integer> ids) {
+        return repositorioProducto.buscarProductosPorIds(ids);
     }
 
 

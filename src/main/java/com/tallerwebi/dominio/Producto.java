@@ -24,6 +24,10 @@ public class Producto {
     @Column(nullable = true)
     private Double descuento;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supermercado_id")
+    private Supermercado supermercado;
+
     public Producto() {
 
     }
@@ -102,9 +106,13 @@ public class Producto {
         this.urlImagen = urlImagen;
     }
 
-    public void setPrecioFormateado(String format) {
-    }
+    public void setPrecioFormateado(String format) {  }
+
     public Double getDescuento() { return descuento; }
 
     public void setDescuento(Double descuento) { this.descuento = descuento; }
+
+    public Supermercado getSupermercado() { return supermercado; }
+
+    public void setSupermercado(Supermercado supermercado) { this.supermercado = supermercado; }
 }

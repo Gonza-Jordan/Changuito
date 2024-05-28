@@ -25,6 +25,7 @@
                     checkbox.checked = urlParams.get(checkbox.name).split(',').includes(checkbox.value);
                 }
             });
+
         });
 
         function updateUrlParams() {
@@ -74,9 +75,9 @@
 <!--</div>-->
 <div class="tituloProductoBuscado">
     <h2 th:if="${error == null}">
-        <span th:if="${categoria != null} and ${subcategoria != null}"
-              th:text="'Productos de la categoría ' + ${categoria} + ' y subcategoría ' + ${subcategoria}"></span>
-        <span th:if="${categoria == null} and ${subcategoria == null}"
+        <span th:if="${#httpServletRequest.getParameter('categoria') != null} and ${#httpServletRequest.getParameter('subcategoria') != null} and ${#httpServletRequest.getParameter('productoAbuscar') == null}"
+              th:text="'Productos de la categoría ' + ${#httpServletRequest.getParameter('categoria')} + ' y subcategoría ' + ${#httpServletRequest.getParameter('subcategoria')}"></span>
+        <span th:if="${#httpServletRequest.getParameter('productoAbuscar') != null}"
               th:text="'Producto buscado: ' + ${#httpServletRequest.getParameter('productoAbuscar')}"></span>
     </h2>
 </div>
@@ -85,35 +86,37 @@
 <div class="containerProductoBuscado">
     <form id="filtro" th:action="@{/filtrar}" th:method="get">
         <div class="filter-column">
-            <div class="filter-section">
-                <h2>Tipo</h2>
-                <label><input type="checkbox" name="tipo" value="Tipo1">Tipo 1</label>
-                <label><input type="checkbox" name="tipo" value="Tipo2">Tipo 2</label>
-                <label><input type="checkbox" name="tipo" value="Tipo3">Tipo 3</label>
-            </div>
-            <div class="filter-section">
-                <h2>Ubicación</h2>
-                <label><input type="checkbox" name="ubicacion" value="Ubicacion1">Ubicación 1</label>
-                <label><input type="checkbox" name="ubicacion" value="Ubicacion2">Ubicación 2</label>
-                <label><input type="checkbox" name="ubicacion" value="Ubicacion3">Ubicación 3</label>
-            </div>
+<!--            <div class="filter-section">-->
+<!--                <h2>Tipo</h2>-->
+<!--                <label><input type="checkbox" name="tipo" value="Tipo1">Tipo 1</label>-->
+<!--                <label><input type="checkbox" name="tipo" value="Tipo2">Tipo 2</label>-->
+<!--                <label><input type="checkbox" name="tipo" value="Tipo3">Tipo 3</label>-->
+<!--            </div>-->
+<!--            <div class="filter-section">-->
+<!--                <h2>Ubicación</h2>-->
+<!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion1">Ubicación 1</label>-->
+<!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion2">Ubicación 2</label>-->
+<!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion3">Ubicación 3</label>-->
+<!--            </div>-->
             <div class="filter-section">
                 <h2>Descuento</h2>
                 <label><input type="checkbox" name="descuento" value="0.95">Descuento del 5%</label>
                 <label><input type="checkbox" name="descuento" value="0.9">Descuento del 10%</label>
                 <label><input type="checkbox" name="descuento" value="0.85">Descuento del 25%</label>
             </div>
-            <div class="filter-section">
-                <h2>Marca</h2>
-                <label><input type="checkbox" name="marca" value="marca1">Marca 1</label>
-                <label><input type="checkbox" name="marca" value="marca2">Marca 2</label>
-                <label><input type="checkbox" name="marca" value="marca3">Marca 3</label>
-            </div>
+<!--            <div class="filter-section">-->
+<!--                <h2>Marca</h2>-->
+<!--                <label><input type="checkbox" name="marca" value="marca1">Marca 1</label>-->
+<!--                <label><input type="checkbox" name="marca" value="marca2">Marca 2</label>-->
+<!--                <label><input type="checkbox" name="marca" value="marca3">Marca 3</label>-->
+<!--            </div>-->
             <div class="filter-section">
                 <h2>Supermercado</h2>
-                <label><input type="checkbox" name="supermercado" value="supermercado1">Supermercado 1</label>
-                <label><input type="checkbox" name="supermercado" value="supermercado1">Supermercado 2</label>
-                <label><input type="checkbox" name="supermercado" value="supermercado1">Supermercado 3</label>
+                <label><input type="checkbox" name="supermercado_id" value="1">Carrefour</label>
+                <label><input type="checkbox" name="supermercado_id" value="2">Coto</label>
+                <label><input type="checkbox" name="supermercado_id" value="3">Jumbo</label>
+                <label><input type="checkbox" name="supermercado_id" value="4">Dia</label>
+                <label><input type="checkbox" name="supermercado_id" value="5">Chango Mas</label>
             </div>
             <div class="filter-section">
                 <h2>Precio</h2>
@@ -127,15 +130,15 @@
 
         <div class="product-card" th:each="producto : ${productos}" th:name="producto">
             <a th:ref="@{/producto_seleccionado(${producto})}">
-            <div class="product-image">
-                <img th:src="${producto.urlImagen}" alt="Imagen del Producto">
-            </div>
+                <div class="product-image">
+                    <img th:src="${producto.urlImagen}" alt="Imagen del Producto">
+                </div>
             </a>
             <div class="product-info">
                 <div class="product-name" th:text="${producto.nombre}"></div>
                 <div class="store-info">
-                    <div class="store-name">Carrefour</div>
-                    <div class="store-location">Av. Juan Bautista Alberdi 5494, Cdad. Autónoma de Buenos Aires</div>
+                    <div class="store-name" th:text="${producto.supermercado.nombre}"></div>
+                    <div class="store-location" th:text="${producto.supermercado.ubicacion}"></div>
                     <div class="product-price">
                         <span class="product-price-center" th:if="${producto.descuento != null}">
                             <span class="tachado" th:text="'$' + ${producto.precio}"></span>
@@ -144,8 +147,7 @@
                         <span th:if="${producto.descuento == null}" th:text="'$' + ${producto.precio}"></span>
                     </div>
                     <div class="store-logo">
-                        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75"
-                             alt="Logo del Supermercado">
+                        <img th:src="${producto.supermercado.logo}" th:alt="${producto.supermercado.nombre}">
                     </div>
                 </div>
             </div>
@@ -165,7 +167,7 @@
 
             </div>
         </div>
-</a>
+        </a>
         <p th:if="${error != null}" th:text="${error}"></p>
     </div>
 </div>

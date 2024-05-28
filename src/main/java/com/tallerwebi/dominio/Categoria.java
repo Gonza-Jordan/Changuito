@@ -2,12 +2,12 @@ package com.tallerwebi.dominio;
 
 public enum Categoria {
 
-    Almacen(Subcategoria.Arroz, Subcategoria.Aceite, Subcategoria.Harina, Subcategoria.Pastas),
+    Almacen(Subcategoria.Arroz, Subcategoria.Aceite, Subcategoria.Harina, Subcategoria.Pastas, Subcategoria.Endulzantes),
     Perfumeria(Subcategoria.Toallitas, Subcategoria.Acondicionador, Subcategoria.Shampoo, Subcategoria.Dentifricos),
-    Bebidas(Subcategoria.Agua, Subcategoria.Gaseosas, Subcategoria.Jugos, Subcategoria.Vinos),
-    Verduleria(Subcategoria.Tomate, Subcategoria.Manzana, Subcategoria.Lechuga, Subcategoria.Zanahoria),
-    Limpieza(Subcategoria.Guantes, Subcategoria.Servilletas, Subcategoria.Escobas, Subcategoria.Lavandina),
-    Lacteos(Subcategoria.Leche, Subcategoria.Manteca, Subcategoria.Quesos, Subcategoria.Yogures);
+    Bebidas(Subcategoria.Agua, Subcategoria.Gaseosas, Subcategoria.Jugos, Subcategoria.Vinos, Subcategoria.Cervezas),
+    Verduleria(Subcategoria.Tomate, Subcategoria.Manzana, Subcategoria.Lechuga, Subcategoria.Zanahoria, Subcategoria.Papa),
+    Limpieza(Subcategoria.Guantes, Subcategoria.Servilletas, Subcategoria.Escobas, Subcategoria.Lavandina, Subcategoria.Detergente, Subcategoria.Esponjas, Subcategoria.Trapos),
+    Lacteos(Subcategoria.Leche, Subcategoria.Manteca, Subcategoria.Quesos, Subcategoria.Yogures, Subcategoria.Crema);
 
     private final Subcategoria[] subcategorias;
 
