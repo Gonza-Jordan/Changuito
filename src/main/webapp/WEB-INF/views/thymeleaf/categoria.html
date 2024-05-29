@@ -12,7 +12,6 @@
 <section th:include="buscador.html" class="buscador"></section>
 <section class="hero">
     <div>
-        <!-- Cambia esta línea -->
         <img th:src="@{'/img/' + ${categoria} + '.svg'}" alt="" class="icono-categoria">
         <h2 th:text="${categoria}">Categoría</h2>
     </div>
@@ -24,7 +23,7 @@
         <div class="carousel-container">
             <div class="carousel-item" th:each="subcategoria : ${subcategorias}">
                 <a th:href="@{/productoFiltrado(categoria=${categoria}, subcategoria=${subcategoria})}">
-                <img src="" alt="Imagen del producto">
+                    <img th:src="@{'/img/' + ${subcategoria} + '.svg'}" alt="Imagen del producto" class="imagen-subcategoria">
                     <p th:text="${subcategoria}"></p>
                 </a>
             </div>
@@ -35,32 +34,81 @@
 <section class="mejoresMarcas productosDestacados">
     <h2>Las mejores marcas</h2>
     <div class="filaMarca filaProducto">
-        <div class="contenedorMarca contenedorProducto">
-            <a href="#"><img src="" alt="Imagen de la marca">
-                <p>Marca 1</p></a>
+        <div class="contenedorMarca contenedorProductoMarca">
+            <div class="carta">
+                <a href="https://www.coca-cola.com">
+                    <div class="info-marca">
+                    <img src="https://blog.workana.com/wp-content/uploads/2018/10/logo-coca-cola-workana.png" alt="Imagen de Coca-Cola" class="imagen-marca">
+                        <p>Coca-Cola</p>
+                        <p>Fundada en: 1886</p>
+                        <p>Productos: Bebidas</p>
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="contenedorMarca contenedorProducto">
-            <a href="#"><img src="" alt="Imagen de la marca">
-                <p>Marca 2</p></a>
+        <div class="contenedorMarca contenedorProductoMarca">
+            <div class="carta">
+                <a href="https://www.arcor.com/ar/">
+                    <div class="info-marca">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Grupo_arcor_logo.svg/1200px-Grupo_arcor_logo.svg.png" alt="Imagen de Arcor" class="imagen-marca">
+                        <p>Arcor</p>
+                        <p>Fundada en: 1951</p>
+                        <p>Productos: Consumo Masivo</p>
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="contenedorMarca contenedorProducto">
-            <a href="#"><img src="" alt="Imagen de la marca">
-                <p>Marca 3</p></a>
+        <div class="contenedorMarca contenedorProductoMarca">
+            <div class="carta">
+                <a href="https://www.knorr.com/ar/home.html">
+                    <img src="https://marcasur.com/archivos/destacado_portada/3266.jpg" alt="Imagen de Knorr" class="imagen-marca">
+                    <div class="info-marca">
+                        <p>Knorr</p>
+                        <p>Fundada en: 1838</p>
+                        <p>Productos: Alimentos</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="contenedorMarca contenedorProductoMarca">
+            <div class="carta">
+            <a href="https://www.marolio.com.ar/es/inicio">
+                <div class="info-marca">
+                <img src="https://www.marolio.com.ar/images/marcas/new-logos/MAROLIO-(Logo).png" alt="Imagen de Marolio" class="imagen-marca">
+
+                <p>Marolio</p>
+                <p>Fundada en: 1950</p>
+                <p>Productos: Alimentos</p>
+            </div>
+            </a>
         </div>
     </div>
-    <div class="filaMarca filaProducto">
-        <div class="contenedorMarca contenedorProducto">
-            <a href="#"><img src="" alt="Imagen de la marca">
-                <p>Marca 4</p></a>
-        </div>
-        <div class="contenedorMarca contenedorProducto">
-            <a href="#"><img src="" alt="Imagen de la marca">
-                <p>Marca 5</p></a>
-        </div>
-        <div class="contenedorMarca contenedorProducto">
-            <a href="#"><img src="" alt="Imagen de la marca">
-                <p>Marca 6</p></a>
-        </div>
+            <div class="contenedorMarca contenedorProductoMarca">
+                <div class="carta">
+            <a href="https://www.laserenisima.com.ar/">
+                <div class="info-marca">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/La_Serenisma_Logo.svg/800px-La_Serenisma_Logo.svg.png" alt="Imagen de Serenisima" class="imagen-marca">
+
+                <p>La Serenisima</p>
+                <p>Fundada en: 1929</p>
+                <p>Productos: Lacteos</p>
+                </div>
+                </a>
+            </div>
+    </div>
+                <div class="contenedorMarca contenedorProductoMarca">
+                    <div class="carta">
+            <a href="https://www.mamalucchetti.com.ar/">
+                <div class="info-marca">
+                <img src="https://www.mamalucchetti.com.ar/wp-content/uploads/2020/04/logo.png.webp" alt="Imagen de Lucchetti" class="imagen-marca">
+
+                <p>Lucchetti</p>
+                <p>Fundada en: 1904</p>
+                <p>Productos: Pastas</p>
+                    </div>
+                    </a>
+                </div>
+    </div>
     </div>
 </section>
 <script th:src="@{/js/carusel.js}"></script>
