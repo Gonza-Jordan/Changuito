@@ -14,10 +14,33 @@ INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Chango Ma
 INSERT INTO Producto (nombre, precio, codigoBarras, categoria, subcategoria, urlImagen, descuento, supermercado_id)
 VALUES
     ('Arroz Gallo Oro 1kg', 3750, '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 3562.5, 1),
+    ('Arroz Dos Hermanos Largo Fino 1kg', 3600, '7790415010050', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/703064-1200-auto?v=637891329664700000&width=1200&height=auto&aspect=true', null, 2),
+    ('Arroz Gallo Oro Largo 1kg', 4500, '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 4000.0, 3),
+    ('Arroz Largo Fino Molinos Ala 1kg', 3650, '7790020000197', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/625788-1200-auto?v=637528440071470000&width=1200&height=auto&aspect=true', null, 4),
+    ('Arroz Lucchetti Largo Fino 1kg', 3800, '7790040015600', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/818208-800-auto?v=638482955195770000&width=800&height=auto&aspect=true', null, 2),
+
     ('Fideos Don Vicente Tallarines 500g', 2000, '11460304020', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/798895-1200-auto?v=638343636550800000&width=1200&height=auto&aspect=true', null, 2),
+    ('Fideos Matarazzo Tirabuzón 500g', 2100, '7790070102366', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/793499-1200-auto?v=638303241842570000&width=1200&height=auto&aspect=true', null, 3),
+    ('Fideos Lucchetti Mostacholes 500g', 1900, '7790060111332', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/793512-1200-auto?v=638303241882300000&width=1200&height=auto&aspect=true', null, 4),
+    ('Fideos Favorita Spaghetti 500g', 1800, '7790012001215', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/685850-800-auto?v=637787434515600000&width=800&height=auto&aspect=true', null, 5),
+    ('Fideos Arcor Spaghetti 500g', 1850, '7790002001602', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/624113-800-auto?v=637505107327000000&width=800&height=auto&aspect=true', null, 3),
+
     ('Aceite de Girasol Cocinero 1.5L', 2100, '12610905011', 'Almacen', 'Aceite', 'https://jumboargentina.vtexassets.com/arquivos/ids/614743-1200-auto?v=637409203109900000&width=1200&height=auto&aspect=true', null, 3),
+    ('Aceite de Girasol Natura 1.5L', 2400, '7790070101356', 'Almacen', 'Aceite', 'https://jumboargentina.vtexassets.com/arquivos/ids/427751-1200-auto?v=636495154762100000&width=1200&height=auto&aspect=true', null, 4),
+    ('Aceite de Maíz Mazola 1L', 2500, '7790070100106', 'Almacen', 'Aceite', 'https://jumboargentina.vtexassets.com/arquivos/ids/194799-1200-auto?v=636383557391870000&width=1200&height=auto&aspect=true', null, 5),
+    ('Aceite Natura Blend 1.5L', 2300, '7790070100205', 'Almacen', 'Aceite', 'https://jumboargentina.vtexassets.com/arquivos/ids/208072-800-auto?v=636383711897100000&width=800&height=auto&aspect=true', null, 1),
+    ('Aceite Cañuelas 1.5L', 3500, '7790012001456', 'Almacen', 'Aceite', 'https://jumboargentina.vtexassets.com/arquivos/ids/427642-800-auto?v=636495153112630000&width=800&height=auto&aspect=true', null, 4),
+
     ('Harina 0000 Pureza 1kg', 900, '11410142005', 'Almacen', 'Harina', 'https://jumboargentina.vtexassets.com/arquivos/ids/644481-1200-auto?v=637572504306700000&width=1200&height=auto&aspect=true', null, 4),
+    ('Harina Integral Favorita 1kg', 950, '7790070411376', 'Almacen', 'Harina', 'https://jumboargentina.vtexassets.com/arquivos/ids/803442-1200-auto?v=638379921894370000&width=1200&height=auto&aspect=true', null, 5),
+    ('Harina 000 Morixe 1kg', 920, '7790012001389', 'Almacen', 'Harina', 'https://ardiaprod.vtexassets.com/arquivos/ids/291081-800-auto?v=638437873870900000&width=800&height=auto&aspect=true', null, 2),
+    ('Harina Blancaflor 1kg', 1050, '7790070411206', 'Almacen', 'Harina', 'https://jumboargentina.vtexassets.com/arquivos/ids/822721-800-auto?v=638508241322270000&width=800&height=auto&aspect=true', null, 5),
+
     ('Azúcar Molida Ledesma 1kg', 1308, '11270101016', 'Almacen', 'Endulzantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/703064-1200-auto?v=637891329664700000&width=1200&height=auto&aspect=true', null, 5),
+    ('Azucar Blanca Domino 1kg', 1350, '7790040098328', 'Almacen', 'Endulzantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/173691-800-auto?v=636383168620300000&width=800&height=auto&aspect=true', null, 2),
+    ('Miel Pura Flores 500g', 8000, '7790217000286', 'Almacen', 'Endulzantes', 'https://static.cotodigital3.com.ar/sitios/fotos/full/00498500/00498596.jpg?3.0.170a', null, 3),
+    ('Edulcorante Hileret Light', 1600, '7790409000624', 'Almacen', 'Endulzantes', 'https://d3340tyzmtlo4u.cloudfront.net/users/864/images/thumbnails/300/300/detailed/13/Hileret_Edulcorante_L%C3%ADquido_Sweet,_400_ml.webp', null, 4),
+    ('Stevia Pure Via Liquido 80ml', 950, '7790200000364', 'Almacen', 'Endulzantes', 'https://carrefourar.vtexassets.com/arquivos/ids/318095-800-auto?v=638180311874530000&width=800&height=auto&aspect=true', null, 5),
 
     --Cat. Perfumeria
     ('Shampoo Sedal Rizos Definidos 650ml', 5150, '13710375002', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/766775-1200-auto?v=638108302089300000&width=1200&height=auto&aspect=true', null, 1),
@@ -25,6 +48,8 @@ VALUES
     ('Desodorante Rexona Antibacterial 150ml', 2500, '13420110034', 'Perfumeria', 'Desodorantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/802194-1200-auto?v=638375603688170000&width=1200&height=auto&aspect=true', null, 3),
     ('Jabón Dove Go Original 90g', 1300, '13110109050', 'Perfumeria', 'Jabones', 'https://jumboargentina.vtexassets.com/arquivos/ids/806393-1200-auto?v=638403357956070000&width=1200&height=auto&aspect=true', null, 4),
     ('Crema Dental Colgate Total 12 90g', 3315, '13220102208', 'Perfumeria', 'Dentifricos', 'https://jumboargentina.vtexassets.com/arquivos/ids/813235-1200-auto?v=638441267527100000&width=1200&height=auto&aspect=true', null, 5),
+    ('Shampoo Pantene Pro-V 400ml', 4500, '13710406001', 'Perfumeria', 'Shampoo', 'https://via.placeholder.com/150', null, 1),
+    ('Acondicionador Dove Reconstrucción Completa 400ml', 4600, '13720589005', 'Perfumeria', 'Acondicionador', 'https://via.placeholder.com/150', null, 2),
 
     --Cat. Bebidas
     ('Agua Mineral Glaciar Sin Gas Bajo Sodio 1.5L', 1554, '12120102001', 'Bebidas', 'Agua', 'https://jumboargentina.vtexassets.com/arquivos/ids/545277-1200-auto?v=637014798216800000&width=1200&height=auto&aspect=true', null, 1),
