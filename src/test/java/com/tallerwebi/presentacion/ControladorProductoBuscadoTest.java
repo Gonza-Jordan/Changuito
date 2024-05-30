@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -134,6 +135,13 @@ public class ControladorProductoBuscadoTest {
         productosMock.add(new Producto("Arroz gallo", 500, "456", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
         productosMock.add(new Producto("Fanta", 800, "789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
 
+        when(this.servicioBusqueda.consultarProductoPorNombre("Arroz")).thenReturn(productosMock);
+
+        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("Arroz");
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/spring/productoFiltrado?productoAbuscar=" + "Arroz"+ "&productoIds=" + "null,null,null" );
+
+        assertThat(mav.getView(), equalTo(redirectView));
     }
 
 }
