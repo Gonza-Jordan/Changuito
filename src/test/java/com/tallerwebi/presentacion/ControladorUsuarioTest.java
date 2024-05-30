@@ -46,9 +46,56 @@ public class ControladorUsuarioTest {
 
     }
 
+    @Test
+    public void queAlSolicitarLaPantallaDeLoginSeMuestreLaVistaLogin(){
+
+        ModelAndView modelAndView = controladorUsuario.irALogin();
+
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("login"));
+    }
 
     @Test
-    public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente {
+    public void queAlSolicitarLaPantallaDeNuevoUsuarioSeMuestreLaVistaNuevoUsuario(){
+
+        ModelAndView modelAndView = controladorUsuario.nuevoUsuario();
+
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("nuevo-usuario"));
+    }
+
+    @Test
+    public void queAlSolicitarLaPantallaMiCuentaYNoEstaLogueadoRedirijaALogin() {
+
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(null);
+
+        ModelAndView modelAndView = controladorUsuario.irMiCuenta(requestMock);
+
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("redirect:/login"));
+    }
+
+    @Test
+    public void queAlSolicitarLaPantallaMiCuentaSeMuestreLaVistaMiCuenta() {
+
+        Usuario usuario = new Usuario(); // Create a mock Usuario object as per your actual implementation
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuario);
+
+        ModelAndView modelAndView = controladorUsuario.irMiCuenta(requestMock);
+
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("mi-cuenta"));
+    }
+
+
+    @Test
+    public void registrameSiUsuarioNoExisteDebeCrearUsuarioYVolverAlLogin() throws UsuarioExistente {
 
         // ejecucion
         ModelAndView modelAndView = controladorUsuario.registrarme(usuarioMock, redirectMock);
@@ -59,7 +106,7 @@ public class ControladorUsuarioTest {
     }
 
     @Test
-    public void registrarmeSiUsuarioExisteDeberiaVolverAFormulario() throws UsuarioExistente {
+    public void registrarmeSiUsuarioExisteDebeVolverAFormulario() throws UsuarioExistente {
         // preparacion
         doThrow(UsuarioExistente.class).when(servicioUsuarioMock).registrar(usuarioMock);
 
@@ -73,7 +120,7 @@ public class ControladorUsuarioTest {
     }
 
     @Test
-    public void errorEnRegistrarmeDeberiaVolverAFormulario() throws Exception {
+    public void errorEnRegistrarmeDebeVolverAFormulario() throws Exception {
         // preparacion
         doThrow(RuntimeException.class).when(servicioUsuarioMock).registrar(usuarioMock);
 
