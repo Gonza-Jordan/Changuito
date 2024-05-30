@@ -127,4 +127,13 @@ public class ControladorProductoBuscadoTest {
         assertThat(mav.getModel().get("productos"), equalTo(productosMock));
 
     }
+    @Test
+    public void queAlIngresarArrozMuestreTodaLaLista(){
+        List<Producto> productosMock = new ArrayList<>();
+        productosMock.add(new Producto("Arroz Ala", 900, "123", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Arroz gallo", 500, "456", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Fanta", 800, "789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+
+    }
+
 }
