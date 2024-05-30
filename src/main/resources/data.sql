@@ -3,21 +3,23 @@ INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena)
 VALUES(null, 'Jose', 'Lopez', 15012456, 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires', 'jlopez@gmail.com','abcd1234');
 
 --Supermercados
-INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo', 'https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/74.0.0/logo/logo___8ebc4231614a7b41a4258354ce76e1e1.svg');
-INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Coto', 'Avenida Brigadier Juan Manuel de Rosas 3990', 'San Justo', 'https://logowik.com/content/uploads/images/supermercado-coto4935.logowik.com.webp');
-INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Jumbo', 'Boulevard Buenos Aires 1001', 'Lomas del Mirador', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoCb8u-rE8EFcTlcQbvHtcoa8HR-_d6_deVSuuF06w&s');
-INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Dia', 'Avenida Juan Manuel de Rosas 11000', 'González Catán', 'https://exportargentina.org.ar/companyimages/15441142122096.jpg');
-INSERT INTO Supermercado (nombre, ubicacion, localidad, logo) VALUES ('Chango Mas', 'Ruta 3 Km 29', 'Isidro Casanova', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s');
+INSERT INTO Supermercado (nombre, ubicacion, localidad, logo)
+VALUES
+    ('Carrefour', 'Avenida Mosconi 2871', 'San Justo', 'https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/74.0.0/logo/logo___8ebc4231614a7b41a4258354ce76e1e1.svg'),
+    ('Coto', 'Avenida Brigadier Juan Manuel de Rosas 3990', 'San Justo', 'https://logowik.com/content/uploads/images/supermercado-coto4935.logowik.com.webp'),
+    ('Jumbo', 'Boulevard Buenos Aires 1001', 'Lomas del Mirador', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoCb8u-rE8EFcTlcQbvHtcoa8HR-_d6_deVSuuF06w&s'),
+    ('Dia', 'Avenida Juan Manuel de Rosas 11000', 'González Catán', 'https://exportargentina.org.ar/companyimages/15441142122096.jpg'),
+    ('Chango Mas', 'Ruta 3 Km 29', 'Isidro Casanova', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s');
 
 --Productos
     --Cat. Almacen
 INSERT INTO Producto (nombre, precio, codigoBarras, categoria, subcategoria, urlImagen, descuento, supermercado_id)
 VALUES
     ('Arroz Gallo Oro 1kg', 3750, '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 3562.5, 1),
-    ('Arroz Dos Hermanos Largo Fino 1kg', 3600, '7790415010050', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/703064-1200-auto?v=637891329664700000&width=1200&height=auto&aspect=true', null, 2),
-    ('Arroz Gallo Oro Largo 1kg', 4500, '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 4000.0, 3),
+    ('Arroz Dos Hermanos Largo Fino 1kg', 3600, '7790415010050', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/637989-1200-auto?v=637544430793970000&width=1200&height=auto&aspect=true', null, 2),
+    ('Arroz Gallo Oro Largo 1kg', 4500, '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 4050, 3),
     ('Arroz Largo Fino Molinos Ala 1kg', 3650, '7790020000197', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/625788-1200-auto?v=637528440071470000&width=1200&height=auto&aspect=true', null, 4),
-    ('Arroz Lucchetti Largo Fino 1kg', 3800, '7790040015600', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/818208-800-auto?v=638482955195770000&width=800&height=auto&aspect=true', null, 2),
+    ('Arroz Lucchetti Largo Fino 1kg', 3800, '7790040015600', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/818208-800-auto?v=638482955195770000&width=800&height=auto&aspect=true', 3610, 2),
 
     ('Fideos Don Vicente Tallarines 500g', 2000, '11460304020', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/798895-1200-auto?v=638343636550800000&width=1200&height=auto&aspect=true', null, 2),
     ('Fideos Matarazzo Tirabuzón 500g', 2100, '7790070102366', 'Almacen', 'Pastas', 'https://jumboargentina.vtexassets.com/arquivos/ids/793499-1200-auto?v=638303241842570000&width=1200&height=auto&aspect=true', null, 3),
