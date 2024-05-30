@@ -3,6 +3,7 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.Categoria;
 import com.tallerwebi.dominio.Producto;
 import com.tallerwebi.dominio.Subcategoria;
+import com.tallerwebi.dominio.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +58,17 @@ public class ControladorCarritoCompras {
 
     public void vaciarCarrito() {
         carrito.clear();
+    }
+
+    @RequestMapping(path = "/guardarCarrito", method = RequestMethod.GET)
+    public ModelAndView guardarCarrito(HttpServletRequest request) {
+        HttpSession misession = request.getSession();
+        Usuario usuario = (Usuario) misession.getAttribute("usuario");
+
+        carrito.forEach(producto -> usuario.getProducto().add(producto)); // Formatear el precio de cada producto
+
+
+
+        return new ModelAndView("redirect:/home");
     }
 }

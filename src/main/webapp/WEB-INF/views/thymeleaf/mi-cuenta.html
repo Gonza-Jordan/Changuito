@@ -139,6 +139,14 @@
 
             </div>
 
+            <div>
+                <h4>Productos</h4>
+                <div th:each="producto : ${usuario.producto}">
+                    <p th:text="${producto.nombre}">Nombre del Producto</p>
+                </div>
+            </div>
+
+
             <p th:if="${error != null}" th:text="'Error ' + ${error}" class="alert alert-danger m-0"></p>
         </form>
     </div>

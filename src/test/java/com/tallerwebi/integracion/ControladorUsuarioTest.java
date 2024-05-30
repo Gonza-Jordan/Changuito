@@ -1,7 +1,6 @@
 package com.tallerwebi.integracion;
 
-import com.tallerwebi.dominio.ServicioLogin;
-import com.tallerwebi.dominio.ServicioLoginImpl;
+import com.tallerwebi.dominio.ServicioUsuarioImpl;
 import com.tallerwebi.integracion.config.HibernateTestConfig;
 import com.tallerwebi.integracion.config.SpringWebTestConfig;
 import com.tallerwebi.dominio.Usuario;
@@ -21,16 +20,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,22 +34,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class})
-public class ControladorLoginTest {
+public class ControladorUsuarioTest {
 
     private Usuario usuarioMock;
-    private ServicioLoginImpl mockServicioLogin;
+    private ServicioUsuarioImpl mockServicioUsuario;
 
     @Autowired
     private WebApplicationContext wac;
     private MockMvc mockMvc;
-
 
     @BeforeEach
     public void init() {
         usuarioMock = mock(Usuario.class);
         //when(usuarioMock.getEmail()).thenReturn("jlopez@gmail.com");
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-        mockServicioLogin = mock(ServicioLoginImpl.class);
+        mockServicioUsuario = mock(ServicioUsuarioImpl.class);
 
     }
 
@@ -137,7 +130,7 @@ public class ControladorLoginTest {
         usuario.setContrasena("abcd1234");
         usuario.setEmail("jlopez@gmail.com");
 
-        when(mockServicioLogin.validarContrasena("jlopez@gmail.com", "abcd1234")).thenReturn(usuario);
+        when(mockServicioUsuario.validarContrasena("jlopez@gmail.com", "abcd1234")).thenReturn(usuario);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));

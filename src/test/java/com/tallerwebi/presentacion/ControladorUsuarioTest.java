@@ -1,8 +1,7 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.ServicioLogin;
-import com.tallerwebi.dominio.ServicioLoginImpl;
-import com.tallerwebi.dominio.Subcategoria;
+import com.tallerwebi.dominio.ServicioUsuario;
+import com.tallerwebi.dominio.ServicioUsuarioImpl;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,14 +18,14 @@ import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 
-public class ControladorLoginTest {
+public class ControladorUsuarioTest {
 
-    private ControladorLogin controladorLogin;
+    private ControladorUsuario controladorUsuario;
     private Usuario usuarioMock;
     private DatosLogin datosLoginMock;
     private HttpServletRequest requestMock;
     private HttpSession sessionMock;
-    private ServicioLogin servicioLoginMock;
+    private ServicioUsuario servicioUsuarioMock;
 
     private RedirectAttributes redirectMock;
     private MockMvc mockMvc;
@@ -39,8 +38,8 @@ public class ControladorLoginTest {
 //		when(usuarioMock.getEmail()).thenReturn("dami@unlam.com");
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
-        servicioLoginMock = mock(ServicioLoginImpl.class);
-        controladorLogin = new ControladorLogin(servicioLoginMock);
+        servicioUsuarioMock = mock(ServicioUsuarioImpl.class);
+        controladorUsuario = new ControladorUsuario(servicioUsuarioMock);
 
         redirectMock = mock(RedirectAttributes.class);
         ;
@@ -52,20 +51,20 @@ public class ControladorLoginTest {
     public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente {
 
         // ejecucion
-        ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock, redirectMock);
+        ModelAndView modelAndView = controladorUsuario.registrarme(usuarioMock, redirectMock);
 
         // validacion
         assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/login"));
-        verify(servicioLoginMock, times(1)).registrar(usuarioMock);
+        verify(servicioUsuarioMock, times(1)).registrar(usuarioMock);
     }
 
     @Test
     public void registrarmeSiUsuarioExisteDeberiaVolverAFormulario() throws UsuarioExistente {
         // preparacion
-        doThrow(UsuarioExistente.class).when(servicioLoginMock).registrar(usuarioMock);
+        doThrow(UsuarioExistente.class).when(servicioUsuarioMock).registrar(usuarioMock);
 
         // ejecucion
-        ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock, redirectMock);
+        ModelAndView modelAndView = controladorUsuario.registrarme(usuarioMock, redirectMock);
 
         // validacion
         assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/nuevo-usuario"));
@@ -76,10 +75,10 @@ public class ControladorLoginTest {
     @Test
     public void errorEnRegistrarmeDeberiaVolverAFormulario() throws Exception {
         // preparacion
-        doThrow(RuntimeException.class).when(servicioLoginMock).registrar(usuarioMock);
+        doThrow(RuntimeException.class).when(servicioUsuarioMock).registrar(usuarioMock);
 
         // ejecucion
-        ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock, redirectMock);
+        ModelAndView modelAndView = controladorUsuario.registrarme(usuarioMock, redirectMock);
 
         // validacion
         assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/nuevo-usuario"));

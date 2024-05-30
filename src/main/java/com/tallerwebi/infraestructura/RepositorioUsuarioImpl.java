@@ -1,6 +1,8 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.Producto;
 import com.tallerwebi.dominio.RepositorioUsuario;
+import com.tallerwebi.dominio.Supermercado;
 import com.tallerwebi.dominio.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -50,5 +52,6 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         Usuario usarioEncoantrado = this.buscar(usuario.getEmail());
         sessionFactory.getCurrentSession().merge(usarioEncoantrado);
     }
+
 
 }
