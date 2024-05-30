@@ -59,4 +59,49 @@ public class RepositorioUsuarioTest {
         assertThat("Garcia", equalTo(usuarioModificado.getApellido()));
     }
 
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedaGuardarUsuario() {
+        // Preparación
+        Usuario usuario = new Usuario();
+        usuario.setContrasena("abcd1234");
+        usuario.setEmail("jlopez@gmail.com");
+        usuario.setApellido("Lopez");
+        usuario.setNombre("Jose");
+        usuario.setDni(15012456);
+        usuario.setDireccion("Florencio Varela 1903, San Justo, Provincia de Buenos Aires");
+
+        // Ejecucion
+        this.repositorioUsuario.guardar(usuario);
+
+
+        // Verificación
+        Usuario usuarioGuardado = this.repositorioUsuario.buscar("jlopez@gmail.com");
+        assertThat("jlopez@gmail.com", equalTo(usuarioGuardado.getEmail()));
+    }
+
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedaBuscarUsuario() {
+        // Preparación
+        Usuario usuario = new Usuario();
+        usuario.setContrasena("abcd1234");
+        usuario.setEmail("jlopez@gmail.com");
+        usuario.setApellido("Lopez");
+        usuario.setNombre("Jose");
+        usuario.setDni(15012456);
+        usuario.setDireccion("Florencio Varela 1903, San Justo, Provincia de Buenos Aires");
+        this.repositorioUsuario.guardar(usuario);
+
+        // Ejecucion
+        Usuario usuarioBuscado = this.repositorioUsuario.buscar("jlopez@gmail.com");
+
+        // Verificación
+        assertThat("jlopez@gmail.com", equalTo(usuarioBuscado.getEmail()));
+    }
+
 }
