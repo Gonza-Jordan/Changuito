@@ -1,7 +1,6 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.ServicioLogin;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,15 +13,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-public class ControladorLogin {
+public class ControladorUsuario {
 
-    private ServicioLogin servicioLogin;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin) {
-        this.servicioLogin = servicioLogin;
+    public ControladorUsuario(ServicioUsuario servicioUsuario) {
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
@@ -59,6 +60,12 @@ public class ControladorLogin {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
+//        Producto producto=new Producto("a",5.0,"s", Categoria.Bebidas, Subcategoria.Gaseosas,"ss");
+//        List<Producto> productos=new ArrayList<>();
+//        productos.add(producto);
+//
+//        usuario.setProducto(productos);
+
         if (usuario == null) {
 
             return new ModelAndView("redirect:/login");
@@ -90,7 +97,7 @@ public class ControladorLogin {
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request, RedirectAttributes redirectAttrs) {
         ModelMap model = new ModelMap();
 
-        Usuario usuario = servicioLogin.validarContrasena(datosLogin.getEmail(), datosLogin.getContrasena());
+        Usuario usuario = servicioUsuario.validarContrasena(datosLogin.getEmail(), datosLogin.getContrasena());
 
         if (usuario != null) {
             HttpSession misession = request.getSession(true);
@@ -115,7 +122,7 @@ public class ControladorLogin {
         ModelMap model = new ModelMap();
 
         try {
-            servicioLogin.registrar(usuario);
+            servicioUsuario.registrar(usuario);
         } catch (UsuarioExistente e) {
             redirectAttrs.addFlashAttribute("error", "El usuario ya existe");
             return new ModelAndView("redirect:/nuevo-usuario");
@@ -150,7 +157,7 @@ public class ControladorLogin {
     public ModelAndView modificar(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
 
 
-        servicioLogin.modificar(usuario);
+        servicioUsuario.modificar(usuario);
 
         HttpSession misession = request.getSession(true);
         misession.setAttribute("usuario", usuario);

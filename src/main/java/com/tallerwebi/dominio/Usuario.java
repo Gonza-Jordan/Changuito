@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @DynamicUpdate
@@ -29,6 +30,9 @@ public class Usuario {
 
     @Column(length = 18, nullable = false)
     private String contrasena;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List <Producto> producto;
 
     public String getEmail() {
         return email;
@@ -76,5 +80,13 @@ public class Usuario {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public List<Producto> getProducto() {
+        return producto;
+    }
+
+    public void setProducto(List<Producto> producto) {
+        this.producto = producto;
     }
 }
