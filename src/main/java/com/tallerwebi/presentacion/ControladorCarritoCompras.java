@@ -1,9 +1,6 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Categoria;
-import com.tallerwebi.dominio.Producto;
-import com.tallerwebi.dominio.Subcategoria;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +17,7 @@ import java.util.List;
 @Controller
 public class ControladorCarritoCompras {
 
-    private List<Producto> carrito = new ArrayList<>();
+    private List<SupermercadoProducto> carrito = new ArrayList<>();
 
     public ControladorCarritoCompras() {
         // Inicialmente, el carrito está vacío
@@ -29,7 +26,15 @@ public class ControladorCarritoCompras {
     @RequestMapping(path = "/carritoCompras", method = RequestMethod.GET)
     public ModelAndView verCarrito() {
         DecimalFormat df = new DecimalFormat("#.00"); // Formato para dos decimales
-        carrito.forEach(producto -> producto.setPrecioFormateado(df.format(producto.getPrecio()))); // Formatear el precio de cada producto
+
+        for (SupermercadoProducto supermercadoProducto : carrito) {
+            Double precio = supermercadoProducto.getPrecio(); // Asegúrate de que getPrecio() devuelve un double
+            supermercadoProducto.getProducto().setPrecioFormateado(df.format(precio)); // Formatear el precio de cada producto
+        }
+
+
+
+//        carrito.forEach(supermercadoProducto -> supermercadoProducto.getProducto().setPrecioFormateado(df.format(supermercadoProducto.getPrecio()))); // Formatear el precio de cada producto
         ModelAndView modelAndView = new ModelAndView("carritoCompras");
         modelAndView.addObject("carrito", carrito);
         modelAndView.addObject("cantidadProductos", carrito.size());
@@ -38,21 +43,24 @@ public class ControladorCarritoCompras {
 
     @RequestMapping(path = "/eliminar-del-carrito", method = RequestMethod.POST)
     public String eliminarDelCarrito(@ModelAttribute("codigoBarras") String codigoBarras) {
-        carrito.removeIf(producto -> producto.getCodigoBarras().equals(codigoBarras));
+        carrito.removeIf(supermercadoProducto -> supermercadoProducto.getProducto().getCodigoBarras().equals(codigoBarras));
         return "redirect:/carritoCompras";
     }
 
     @RequestMapping(path = "/agregarAlCarrito", method = RequestMethod.POST)
     public String agregarAlCarrito(
             @RequestParam("nombre") String nombre,
-            @RequestParam("precio") double precio,
+            @RequestParam("precio") String precio,
             @RequestParam("codigoBarras") String codigoBarras,
             @RequestParam("categoria") Categoria categoria,
             @RequestParam("subcategoria") Subcategoria subcategoria,
             @RequestParam("urlImagen") String urlImagen) {
 
-        Producto producto = new Producto(nombre, precio, codigoBarras, categoria, subcategoria, urlImagen);
-        carrito.add(producto);
+        Producto producto = new Producto(nombre, codigoBarras, categoria, subcategoria, urlImagen);
+        SupermercadoProducto supermercadoProducto = new SupermercadoProducto();
+        supermercadoProducto.setProducto(producto);
+        supermercadoProducto.setPrecio(Double.parseDouble(precio));
+        carrito.add(supermercadoProducto);
         return "redirect:/carritoCompras";
     }
 
@@ -65,9 +73,7 @@ public class ControladorCarritoCompras {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
-        carrito.forEach(producto -> usuario.getProducto().add(producto)); // Formatear el precio de cada producto
-
-
+        carrito.forEach(supermercadoProducto -> usuario.getSupermercadoProducto().add(supermercadoProducto)); // Formatear el precio de cada producto
 
         return new ModelAndView("redirect:/home");
     }

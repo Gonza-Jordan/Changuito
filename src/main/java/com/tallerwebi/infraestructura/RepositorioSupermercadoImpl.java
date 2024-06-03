@@ -1,7 +1,5 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Producto;
-import com.tallerwebi.dominio.RepositorioProducto;
 import com.tallerwebi.dominio.RepositorioSupermercado;
 import com.tallerwebi.dominio.Supermercado;
 import org.hibernate.SessionFactory;
@@ -20,9 +18,4 @@ public class RepositorioSupermercadoImpl implements RepositorioSupermercado {
         this.sessionFactory.getCurrentSession().save(supermercado);
     }
 
-    @Override
-    public void guardarProductoConSupermercado(Supermercado supermercado, Producto producto) {
-        producto.setSupermercado(supermercado);
-        this.sessionFactory.getCurrentSession().save(producto);
-    }
 }

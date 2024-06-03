@@ -2,6 +2,9 @@ package com.tallerwebi.dominio;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Supermercado {
     @Id
@@ -13,8 +16,10 @@ public class Supermercado {
     private String localidad;
     private String logo;
 
-    public Supermercado() {
+    @OneToMany(mappedBy = "supermercado", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<SupermercadoProducto> productos = new HashSet<>();
 
+    public Supermercado() {
     }
 
     public Supermercado(String nombre, String ubicacion, String localidad, String logo) {
@@ -24,7 +29,11 @@ public class Supermercado {
         this.logo = logo;
     }
 
-    // Getters y Setters
+    // En la clase Supermercado
+    public void agregarProducto(SupermercadoProducto supermercadoProducto) {
+        supermercadoProducto.setSupermercado(this);
+        this.productos.add(supermercadoProducto);
+    }
 
     public Integer getIdSupermercado() {
         return idSupermercado;
@@ -64,5 +73,8 @@ public class Supermercado {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public void agregarSupermercadoProducto(SupermercadoProducto supermercadoProducto) {
     }
 }
