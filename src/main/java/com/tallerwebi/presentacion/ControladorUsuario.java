@@ -166,5 +166,19 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/home");
     }
 
+    @RequestMapping(path = "/pruebaAdmin", method = RequestMethod.GET)
+    public ModelAndView admin(HttpServletRequest request) {
+
+        HttpSession misession = request.getSession();
+        Usuario usuario = (Usuario) misession.getAttribute("usuario");
+
+        if (!usuario.getAdmin()){
+            return new ModelAndView("redirect:/home");
+        }
+
+        return new ModelAndView("redirect:/mi-cuenta");
+
+    }
+
 
 }

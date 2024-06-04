@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,9 @@ public class Usuario {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List <Producto> producto;
+
+    @Column(nullable = false)
+    private Boolean admin;
 
     public String getEmail() {
         return email;
@@ -88,5 +92,13 @@ public class Usuario {
 
     public void setProducto(List<Producto> producto) {
         this.producto = producto;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
     }
 }

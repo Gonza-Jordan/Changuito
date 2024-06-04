@@ -67,8 +67,6 @@ public class ControladorCarritoCompras {
 
         carrito.forEach(producto -> usuario.getProducto().add(producto)); // Formatear el precio de cada producto
 
-
-
         return new ModelAndView("redirect:/home");
     }
 }
