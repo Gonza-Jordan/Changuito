@@ -47,7 +47,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaGuardarUnProducto(){
         //Preparacion
-        Producto productoAGuardar = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto productoAGuardar = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
         this.repositorioProducto.guardarProducto(productoAGuardar);
 
         //Ejecucion
@@ -64,7 +64,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaBuscarUnProductoPorNombre(){
         //Preparacion
-        Producto productoGuardado = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto productoGuardado = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
         this.repositorioProducto.guardarProducto(productoGuardado);
 
         //Ejecucion
@@ -79,7 +79,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaBuscarUnProductoPorSubcategoria(){
         //Preparacion
-        Producto productoGuardado = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto productoGuardado = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
         this.repositorioProducto.guardarProducto(productoGuardado);
 
         //Ejecucion
@@ -94,9 +94,9 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedanBuscarTodosLosProductosDeUnaSubcategoria(){
         //Preparacion
-        Producto productoGaseosa = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        Producto otroProductoGaseosa = new Producto("Sprite", 1500.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg");
-        Producto productoArroz = new Producto("Arroz", 1000.00, "987654321", Categoria.Almacen, Subcategoria.Arroz, "img/producto/almacen/arroz.jpg");
+        Producto productoGaseosa = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto otroProductoGaseosa = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg");
+        Producto productoArroz = new Producto("Arroz", "987654321", Categoria.Almacen, Subcategoria.Arroz, "img/producto/almacen/arroz.jpg");
         this.repositorioProducto.guardarProducto(productoGaseosa);
         this.repositorioProducto.guardarProducto(otroProductoGaseosa);
         this.repositorioProducto.guardarProducto(productoArroz);
@@ -106,65 +106,6 @@ public class RepositorioProductoTest {
 
         //Verficacion
         assertThat(2, equalTo(productosEncontrados.size()));
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorPrecioMenorAMil(){
-        //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        Producto productoGaseosa = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        Producto otroProductoGaseosa = new Producto("Sprite", 900.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg");
-
-        this.repositorioProducto.guardarProducto(productoGaseosa);
-        this.repositorioProducto.guardarProducto(otroProductoGaseosa);
-
-        List<String> precios = new ArrayList<>();
-        precios.add("< 1000");
-        Map<String, List<String>> filtros = new HashMap<>();
-        filtros.put("precio", precios);
-
-        //Ejecucion
-        List<Producto> productosEncontrados = repositorioProducto.buscarProductosConFiltros(subcategoriaStr, filtros, productoGaseosa.getIdProducto().toString() + "," + otroProductoGaseosa.getIdProducto().toString());
-
-        //Verficacion
-        assertThat(1, equalTo(productosEncontrados.size()));
-        assertThat(productosEncontrados.get(0), equalTo(otroProductoGaseosa));
-        assertThat(productosEncontrados.get(0).getPrecio(), lessThan(1000.00));
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorSupermercadoCoto() {
-        // Preparación
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        Producto productoGaseosa = new Producto("Coca Cola", 2000.00, "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        Producto otroProductoGaseosa = new Producto("Sprite", 900.00, "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg");
-
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        Supermercado supermercadoDia = new Supermercado("Dia", "Avenida Juan Manuel de Rosas 11000", "González Catán", "");
-        this.repositorioSupermercado.guardarSupermercado(supermercadoCoto);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoDia);
-
-        productoGaseosa.setSupermercado(supermercadoCoto);
-        otroProductoGaseosa.setSupermercado(supermercadoDia);
-        this.repositorioProducto.guardarProducto(productoGaseosa);
-        this.repositorioProducto.guardarProducto(otroProductoGaseosa);
-
-        List<String> supermercados = new ArrayList<>();
-        supermercados.add(supermercadoCoto.getIdSupermercado().toString());
-        Map<String, List<String>> filtros = new HashMap<>();
-        filtros.put("supermercado_id", supermercados);
-
-        // Ejecución
-        List<Producto> productosEncontrados = repositorioProducto.buscarProductosConFiltros(subcategoriaStr, filtros, productoGaseosa.getIdProducto().toString() + "," + otroProductoGaseosa.getIdProducto().toString());
-
-        // Verificación
-        assertThat(1, equalTo(productosEncontrados.size()));
-        assertThat(productosEncontrados.get(0), equalTo(productoGaseosa));
-        assertThat(productosEncontrados.get(0).getSupermercado(), equalTo(productoGaseosa.getSupermercado()));
     }
 
 

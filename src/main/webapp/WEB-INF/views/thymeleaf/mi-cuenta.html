@@ -141,8 +141,8 @@
 
             <div>
                 <h4>Productos</h4>
-                <div th:each="producto : ${usuario.producto}">
-                    <p th:text="${producto.nombre}">Nombre del Producto</p>
+                <div th:each="supermercadoProducto : ${usuario.supermercadoProducto}">
+                    <p th:text="${supermercadoProducto.producto.nombre}">Nombre del Producto</p>
                 </div>
             </div>
 

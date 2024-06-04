@@ -33,7 +33,7 @@ public class Usuario {
     private String contrasena;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List <Producto> producto;
+    private List <SupermercadoProducto> supermercadoProducto;
 
     @Column(nullable = false)
     private Boolean admin;
@@ -86,12 +86,12 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public List<Producto> getProducto() {
-        return producto;
+    public List<SupermercadoProducto> getSupermercadoProducto() {
+        return supermercadoProducto;
     }
 
-    public void setProducto(List<Producto> producto) {
-        this.producto = producto;
+    public void setSupermercadoProducto(List<SupermercadoProducto> supermercadoProducto) {
+        this.supermercadoProducto = supermercadoProducto;
     }
 
     public void setAdmin(Boolean admin) {
