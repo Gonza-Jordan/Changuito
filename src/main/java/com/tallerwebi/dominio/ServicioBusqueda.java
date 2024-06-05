@@ -10,7 +10,7 @@ public interface ServicioBusqueda {
 
     List<Producto> consultarProductoPorCategoria (Categoria categoria);
 
-    List<Producto> consultarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros, String productoIds);
+    List<SupermercadoProducto> consultarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros, String productoIds);
 
     List<Producto> consultarProductosPorIds(List<Integer> ids);
 }

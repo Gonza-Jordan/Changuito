@@ -13,7 +13,5 @@ public interface RepositorioProducto {
 
     List<Producto> buscarProductoPorCategoria(Categoria categoria);
 
-    List<Producto> buscarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros, String productoIds);
-
     List<Producto> buscarProductosPorIds(List<Integer> ids);
 }

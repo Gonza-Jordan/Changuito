@@ -2,6 +2,9 @@ package com.tallerwebi.dominio;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Producto {
     @Id
@@ -9,7 +12,6 @@ public class Producto {
     private Integer idProducto;
 
     private String nombre;
-    private double precio;
     private String codigoBarras;
 
     @Enumerated(EnumType.STRING)
@@ -21,35 +23,48 @@ public class Producto {
     @Column(nullable = true)
     private String urlImagen;
 
-    @Column(nullable = true)
-    private Double descuento;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "supermercado_id")
-    private Supermercado supermercado;
-
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<SupermercadoProducto> supermercados = new HashSet<>();
 
     public Producto() {
-
     }
 
     // Constructor sin descuento
-    public Producto(String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen) {
+    public Producto(String nombre, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen) {
         this.nombre = nombre;
-        this.precio = precio;
         this.codigoBarras = codigoBarras;
         this.categoria = categoria;
         this.subcategoria = subcategoria;
         this.urlImagen = urlImagen;
     }
 
-    // Constructor con descuento
-    public Producto(String nombre, double precio, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen, Double descuento) {
-        this(nombre, precio, codigoBarras, categoria, subcategoria, urlImagen);
-        this.descuento = descuento;
+//    public Set<SupermercadoProducto> getSupermercados() {
+//        Set<Supermercado> supermercados = new HashSet<>();
+//        for (SupermercadoProducto supermercadoProducto : this.supermercados) {
+//            supermercados.add(supermercadoProducto.getSupermercado());
+//        }
+//        return this.supermercados;
+//    }
+public Set<SupermercadoProducto> getSupermercados() {
+    return this.supermercados;
+}
+
+
+
+
+    public double getPrecioSupermercado(int idSupermercado) {
+        for (SupermercadoProducto supermercadoProducto : supermercados) {
+            if (supermercadoProducto.getSupermercado().getIdSupermercado() == idSupermercado) {
+                return supermercadoProducto.getPrecio();
+            }
+        }
+        return 0.0; // Otra acción si no se encuentra el precio para el supermercado especificado
     }
 
-    // Getters y Setters
+    // En la clase Producto
+    public void agregarSupermercado(SupermercadoProducto supermercadoProducto) {
+        this.supermercados.add(supermercadoProducto);
+    }
 
     public Integer getIdProducto() {
         return idProducto;
@@ -65,14 +80,6 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public String getCodigoBarras() {
@@ -110,20 +117,6 @@ public class Producto {
     public void setPrecioFormateado(String format) {
     }
 
-    public Double getDescuento() {
-        return descuento;
+    public void agregarSupermercadoProducto(SupermercadoProducto supermercadoProducto) {
     }
-
-    public void setDescuento(Double descuento) {
-        this.descuento = descuento;
-    }
-
-    public Supermercado getSupermercado() {
-        return supermercado;
-    }
-
-    public void setSupermercado(Supermercado supermercado) {
-        this.supermercado = supermercado;
-    }
-
 }
