@@ -179,9 +179,9 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlIngresarArrozMuestreTodaLaLista(){
         List<Producto> productosMock = new ArrayList<>();
-        productosMock.add(new Producto("Arroz Ala", 900, "123", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
-        productosMock.add(new Producto("Arroz gallo", 500, "456", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
-        productosMock.add(new Producto("Fanta", 800, "789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Arroz Ala",  "1235248", Categoria.Bebidas, Subcategoria.Gaseosas,""));
+        productosMock.add(new Producto("Arroz gallo", "4562548", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Fanta", "12566789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
 
         when(this.servicioBusqueda.consultarProductoPorNombre("Arroz")).thenReturn(productosMock);
 
