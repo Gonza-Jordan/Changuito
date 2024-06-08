@@ -5,7 +5,9 @@ import java.util.Map;
 
 public interface RepositorioSupermercadoProducto {
 
-    void guardarProductoConSupermercado(Supermercado supermercado, Producto producto);
+    void guardarSupermercadoProducto(Supermercado supermercado, Producto producto);
+
+    void asignarPrecioYDescuentoAUnSupermercadoProducto(SupermercadoProducto supermercadoProducto, Double precio, Double descuento);
 
     List<SupermercadoProducto> buscarConFiltros(String subcategoria, Map<String, List<String>> filtros, List<Integer> productoIds);
 
