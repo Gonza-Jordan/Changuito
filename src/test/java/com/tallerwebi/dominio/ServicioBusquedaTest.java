@@ -194,4 +194,93 @@ public class ServicioBusquedaTest {
 
     }
 
+    @Test
+    public void queSePuedanOrdenarLosProductosConElSelectDeOrdenarPorPrecioDeMenorAMayor(){
+        //Preparacion
+        String subcategoriaStr = Subcategoria.Gaseosas.toString();
+
+        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMockMas = new Producto("Fanta","111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+
+        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMockMas = new SupermercadoProducto();
+
+        supermercadoProductoMock.setSupermercado(supermercadoMock);
+        supermercadoProductoMock.setProducto(productoMock);
+        supermercadoProductoMock.setPrecio(4000.00);
+
+        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMock.setProducto(otroProductoMock);
+        otroSupermercadoProductoMock.setPrecio(4500.00);
+
+        otroSupermercadoProductoMockMas.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMockMas.setProducto(otroProductoMock);
+        otroSupermercadoProductoMockMas.setPrecio(3000.00);
+
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMockMas);
+
+        String ordenar = "menor_a_mayor";
+
+        //Ejecucion
+        List<SupermercadoProducto> supermercadosProductosObtenidos = this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar);
+
+        //Verficacion
+        assertThat(supermercadosProductosObtenidos.size(), equalTo(3));
+        assertThat(supermercadosProductosObtenidos.get(0).getPrecio(), equalTo(3000.00));
+        assertThat(supermercadosProductosObtenidos.get(1).getPrecio(), equalTo(4000.00));
+        assertThat(supermercadosProductosObtenidos.get(2).getPrecio(), equalTo(4500.00));
+
+    }
+
+    @Test
+    public void queSePuedanOrdenarLosProductosConElSelectDeOrdenarPorPrecioDeMayorAMenor(){
+        //Preparacion
+        String subcategoriaStr = Subcategoria.Gaseosas.toString();
+
+        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMockMas = new Producto("Fanta","111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+
+        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMockMas = new SupermercadoProducto();
+
+        supermercadoProductoMock.setSupermercado(supermercadoMock);
+        supermercadoProductoMock.setProducto(productoMock);
+        supermercadoProductoMock.setPrecio(4000.00);
+
+        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMock.setProducto(otroProductoMock);
+        otroSupermercadoProductoMock.setPrecio(4500.00);
+
+        otroSupermercadoProductoMockMas.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMockMas.setProducto(otroProductoMock);
+        otroSupermercadoProductoMockMas.setPrecio(3000.00);
+
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMockMas);
+
+        String ordenar = "mayor_a_menor";
+
+        //Ejecucion
+        List<SupermercadoProducto> supermercadosProductosObtenidos = this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar);
+
+        //Verficacion
+        assertThat(supermercadosProductosObtenidos.size(), equalTo(3));
+        assertThat(supermercadosProductosObtenidos.get(0).getPrecio(), equalTo(4500.00));
+        assertThat(supermercadosProductosObtenidos.get(1).getPrecio(), equalTo(4000.00));
+        assertThat(supermercadosProductosObtenidos.get(2).getPrecio(), equalTo(3000.00));
+
+    }
+
+
 }
