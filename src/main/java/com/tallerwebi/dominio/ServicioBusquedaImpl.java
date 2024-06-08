@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -51,5 +52,22 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     @Override
     public List<Producto> consultarProductosPorIds(List<Integer> ids) {
         return repositorioProducto.buscarProductosPorIds(ids);
+    }
+
+    @Override
+    public List<SupermercadoProducto> ordenarProductos(List<SupermercadoProducto> productosFiltrados, String ordenar) {
+        if ("menor_a_mayor".equals(ordenar)) {
+            productosFiltrados.sort(Comparator.comparingDouble(this::getPrecioConDescuento));
+        } else if ("mayor_a_menor".equals(ordenar)) {
+            productosFiltrados.sort(Comparator.comparingDouble(this::getPrecioConDescuento).reversed());
+        }
+        return productosFiltrados;
+    }
+
+    private double getPrecioConDescuento(SupermercadoProducto producto) {
+        if (producto.getDescuento() != null) {
+            return producto.getPrecio() * producto.getDescuento();
+        }
+        return producto.getPrecio();
     }
 }

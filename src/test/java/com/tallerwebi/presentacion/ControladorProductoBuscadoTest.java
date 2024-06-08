@@ -47,7 +47,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, null, "1")).thenReturn(supermercadoProductoListMock);
 
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "");
 
         //Validacion
         assertThat(mav.getModel().get("productos"), equalTo(productosMock));
@@ -59,7 +59,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(null);
 
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "");
 
         //Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
@@ -93,13 +93,13 @@ public class ControladorProductoBuscadoTest {
         List<String> precios = new ArrayList<>();
         precios.add("menor_a_1000");
         Map<String, List<String>> filtros = new HashMap<>();
-        filtros.put("precios", precios);
+        filtros.put("precio", precios);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2,3"))).thenReturn(supermercadoProductoListMock);
 
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios , null, "1,2,3");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", subcategoriaStr, null, null, null, null, null, precios , null, "1,2,3", "");
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
@@ -114,7 +114,7 @@ public class ControladorProductoBuscadoTest {
         List<String> precios = new ArrayList<>();
         precios.add("mayor_a_3000");
         Map<String, List<String>> filtros = new HashMap<>();
-        filtros.put("precios", precios);
+        filtros.put("precio", precios);
 
         List<SupermercadoProducto> supermercadoProductoList = new ArrayList<>();
 
@@ -122,7 +122,7 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq(null))).thenReturn(supermercadoProductoList);
 
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null, "");
 
         //Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
@@ -157,13 +157,13 @@ public class ControladorProductoBuscadoTest {
         List<String> descuentos = new ArrayList<>();
         descuentos.add("0.95");
         Map<String, List<String>> filtros = new HashMap<>();
-        filtros.put("precios", descuentos);
+        filtros.put("descuento", descuentos);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2,3"))).thenReturn(supermercadoProductoListMock);
 
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2,3");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2,3", "");
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));

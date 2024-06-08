@@ -13,4 +13,6 @@ public interface ServicioBusqueda {
     List<SupermercadoProducto> consultarProductosConFiltros(String subcategoriaStr, Map<String, List<String>> filtros, String productoIds);
 
     List<Producto> consultarProductosPorIds(List<Integer> ids);
+
+    List<SupermercadoProducto> ordenarProductos(List<SupermercadoProducto> productosFiltrados, String ordenar);
 }
