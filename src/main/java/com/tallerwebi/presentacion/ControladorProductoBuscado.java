@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.List;
 
@@ -64,7 +66,7 @@ public class ControladorProductoBuscado {
             @RequestParam(value = "precio", required = false) List<String> precios,
             @RequestParam(value = "productoAbuscar", required = false) String productoABuscar,
             @RequestParam(value = "productoIds", required = false) String productoIds,
-            @RequestParam(value = "ordenar", required = false) String ordenar) {
+            @RequestParam(value = "ordenar", required = false) String ordenar, HttpServletRequest request) {
 
         ModelMap model = new ModelMap();
 
@@ -74,26 +76,7 @@ public class ControladorProductoBuscado {
         if (descuentos != null) filtros.put("descuento", descuentos);
         if (marcas != null) filtros.put("marca", marcas);
         if (supermercados != null) filtros.put("supermercado_id", supermercados);
-
-        if (precios != null) {
-            List<String> filtrosPrecio = new ArrayList<>();
-            for (String precio : precios) {
-                switch (precio) {
-                    case "menor_a_1000":
-                        filtrosPrecio.add("< 1000");
-                        break;
-                    case "entre_1000_y_3000":
-                        filtrosPrecio.add("BETWEEN 1000 AND 3000");
-                        break;
-                    case "mas_de_3000":
-                        filtrosPrecio.add("> 3000");
-                        break;
-                    default:
-                        break;
-                }
-            }
-            filtros.put("precio", filtrosPrecio);
-        }
+        if (precios != null) filtros.put("precio", precios);
 
         List<SupermercadoProducto> productosFiltrados = servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, filtros, productoIds);
 
@@ -101,7 +84,59 @@ public class ControladorProductoBuscado {
             productosFiltrados = servicioBusqueda.ordenarProductos(productosFiltrados, ordenar);
         }
 
+        if (supermercados == null){
+            List<Supermercado> filtrosSupermercadosAMostrar = servicioBusqueda.consultarSupermercados(productosFiltrados);
+            filtrosSupermercadosAMostrar.sort(Comparator.comparing(Supermercado::getNombre));
+            model.put("supermercados", filtrosSupermercadosAMostrar);
+            HttpSession session = request.getSession();
+            session.removeAttribute("supermercados");
+            session.setAttribute("supermercados", filtrosSupermercadosAMostrar);
+
+        }else {
+            HttpSession session = request.getSession();
+            List<Supermercado> filtrosSupermercadosAMostrar = (List<Supermercado>) session.getAttribute("supermercados");
+            model.put("supermercados", filtrosSupermercadosAMostrar);
+        }
+
+        if (descuentos == null){
+            List<Double> filtrosDescuentosAMostrar = servicioBusqueda.consultarDescuentos(productosFiltrados);
+            filtrosDescuentosAMostrar.sort(Collections.reverseOrder());
+            model.put("descuentos", filtrosDescuentosAMostrar);
+            HttpSession session = request.getSession();
+            session.removeAttribute("descuentos");
+            session.setAttribute("descuentos", filtrosDescuentosAMostrar);
+
+        }else {
+            HttpSession session = request.getSession();
+            List<Double> filtrosDescuentosAMostrar = (List<Double>) session.getAttribute("descuentos");
+            model.put("descuentos", filtrosDescuentosAMostrar);
+        }
+
+        if (precios == null){
+            List<String> filtrosPreciosAMostrar = servicioBusqueda.consultarPrecios(productosFiltrados);
+            model.put("precios", filtrosPreciosAMostrar);
+
+            List<String> filtrosPreciosAMostrarFormateados = servicioBusqueda.formatearPrecios(filtrosPreciosAMostrar);
+            model.put("preciosFormateados", filtrosPreciosAMostrarFormateados);
+
+            HttpSession session = request.getSession();
+            session.removeAttribute("precios");
+            session.setAttribute("precios", filtrosPreciosAMostrar);
+            session.removeAttribute("preciosFormateados");
+            session.setAttribute("preciosFormateados", filtrosPreciosAMostrarFormateados);
+
+        }else {
+            HttpSession session = request.getSession();
+            List<String> filtrosPreciosAMostrar = (List<String>) session.getAttribute("precios");
+            model.put("precios", filtrosPreciosAMostrar);
+            List<String> filtrosPreciosAMostrarFormateados = (List<String>) session.getAttribute("preciosFormateados");
+            model.put("preciosFormateados", filtrosPreciosAMostrarFormateados);
+        }
+
+
+
         model.put("productos", productosFiltrados);
+
 
         if (productosFiltrados.isEmpty()) {
             model.put("error", "Sin resultados");
@@ -109,5 +144,6 @@ public class ControladorProductoBuscado {
 
         return new ModelAndView("productoBuscado", model);
     }
+
 
 }

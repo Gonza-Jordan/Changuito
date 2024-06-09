@@ -10,7 +10,7 @@
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <script>
-           document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             const selectOrdenar = document.getElementById('ordenar');
 
@@ -77,7 +77,6 @@
 
             window.location.href = `${url.pathname}?${params.toString()}`;
         }
-
     </script>
 </head>
 <body>
@@ -120,11 +119,18 @@
             <!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion2">Ubicación 2</label>-->
             <!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion3">Ubicación 3</label>-->
             <!--            </div>-->
-            <div class="filter-section">
+            <div class="filter-section" th:if="${descuentos != null and !descuentos.isEmpty()}">
                 <h2>Descuento</h2>
-                <label><input type="checkbox" name="descuento" value="0.95">Descuento del 5%</label>
-                <label><input type="checkbox" name="descuento" value="0.9">Descuento del 10%</label>
-                <label><input type="checkbox" name="descuento" value="0.85">Descuento del 25%</label>
+                <div th:each="descuento : ${descuentos}">
+                    <label><input type="checkbox" name="descuento" th:value="${descuento}"
+                                  th:text="${'Descuento del ' + (100.0 - descuento * 100).intValue() + '%'}"></label>
+                </div>
+            </div>
+            <div class="filter-section" th:if="${descuentos == null || descuentos.isEmpty()}">
+                <h2>Descuento</h2>
+                <div>
+                    Sin descuentos.
+                </div>
             </div>
             <!--            <div class="filter-section">-->
             <!--                <h2>Marca</h2>-->
@@ -132,19 +138,39 @@
             <!--                <label><input type="checkbox" name="marca" value="marca2">Marca 2</label>-->
             <!--                <label><input type="checkbox" name="marca" value="marca3">Marca 3</label>-->
             <!--            </div>-->
-            <div class="filter-section">
+            <div class="filter-section" th:if="${supermercados != null and !supermercados.isEmpty()}">
                 <h2>Supermercado</h2>
-                <label><input type="checkbox" name="supermercado_id" value="1">Carrefour</label>
-                <label><input type="checkbox" name="supermercado_id" value="2">Coto</label>
-                <label><input type="checkbox" name="supermercado_id" value="3">Jumbo</label>
-                <label><input type="checkbox" name="supermercado_id" value="4">Dia</label>
-                <label><input type="checkbox" name="supermercado_id" value="5">Chango Mas</label>
+                <div th:each="supermercado : ${supermercados}">
+                    <label><input type="checkbox" name="supermercado_id" th:value="${supermercado.idSupermercado}"
+                                  th:text="${supermercado.nombre}"></label>
+                </div>
             </div>
-            <div class="filter-section">
+            <div class="filter-section" th:if="${supermercados == null || supermercados.isEmpty()}">
+                <h2>Supermercado</h2>
+                <div>
+                   Sin supermercados.
+                </div>
+            </div>
+            <div class="filter-section" th:if="${precios != null and !precios.isEmpty() and (precios[0] != precios[1])}">
                 <h2>Precio</h2>
-                <label><input type="checkbox" name="precio" value="menor_a_1000">Hasta $1.000</label>
-                <label><input type="checkbox" name="precio" value="entre_1000_y_3000">$1.000 a $3.000</label>
-                <label><input type="checkbox" name="precio" value="mas_de_3000">Más de $3.000</label>
+                <label>
+                    <input type="checkbox" name="precio" th:value="'BETWEEN ' + ${precios[0]} + ' AND ' + ${precios[1]}"
+                           th:text="'Entre $' + ${preciosFormateados[0]} + ' y $' + ${preciosFormateados[1]}">
+                </label>
+                <label>
+                    <input type="checkbox" name="precio" th:value="'BETWEEN ' + ${precios[1]} + ' AND ' + ${precios[2]}"
+                           th:text="'Entre $' + ${preciosFormateados[1]} + ' y $' + ${preciosFormateados[2]}">
+                </label>
+                <label>
+                    <input type="checkbox" name="precio" th:value="'BETWEEN ' + ${precios[2]} + ' AND ' + ${precios[3]}"
+                           th:text="'Entre $' + ${preciosFormateados[2]} + ' y $' + ${preciosFormateados[3]}">
+                </label>
+            </div>
+            <div class="filter-section" th:if="${precios == null || precios.isEmpty() || (precios[0] == precios[1])}">
+                <h2>Precio</h2>
+                <div>
+                    Sin precios.
+                </div>
             </div>
         </div>
     </form>
@@ -164,12 +190,15 @@
                         <div class="product-price">
                     <span class="product-price-center" th:if="${supermercadoProducto.descuento != null}">
                         <span class="tachado" th:text="'$' + ${supermercadoProducto.precio}"></span>
-                <span class="descuento" th:text="'$' + ${supermercadoProducto.descuento * supermercadoProducto.precio}"></span>
+                <span class="descuento"
+                      th:text="'$' + ${supermercadoProducto.descuento * supermercadoProducto.precio}"></span>
                     </span>
-                            <span th:if="${supermercadoProducto.descuento == null}" th:text="'$' + ${supermercadoProducto.precio}"></span>
+                            <span th:if="${supermercadoProducto.descuento == null}"
+                                  th:text="'$' + ${supermercadoProducto.precio}"></span>
                         </div>
                         <div class="store-logo">
-                            <img th:src="${supermercadoProducto.supermercado.logo}" th:alt="${supermercadoProducto.supermercado.nombre}">
+                            <img th:src="${supermercadoProducto.supermercado.logo}"
+                                 th:alt="${supermercadoProducto.supermercado.nombre}">
                         </div>
                     </div>
                 </div>
@@ -178,9 +207,11 @@
                     <form th:action="@{/agregarAlCarrito}" method="post">
                         <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>
                         <input type="hidden" name="precio" th:value="${supermercadoProducto.precio}"/>
-                        <input type="hidden" name="codigoBarras" th:value="${supermercadoProducto.producto.codigoBarras}"/>
+                        <input type="hidden" name="codigoBarras"
+                               th:value="${supermercadoProducto.producto.codigoBarras}"/>
                         <input type="hidden" name="categoria" th:value="${supermercadoProducto.producto.categoria}"/>
-                        <input type="hidden" name="subcategoria" th:value="${supermercadoProducto.producto.subcategoria}"/>
+                        <input type="hidden" name="subcategoria"
+                               th:value="${supermercadoProducto.producto.subcategoria}"/>
                         <!-- Agrega el campo para urlImagen -->
                         <input type="hidden" name="urlImagen" th:value="${supermercadoProducto.producto.urlImagen}"/>
                         <button type="submit" class="add-button">Agregar</button>

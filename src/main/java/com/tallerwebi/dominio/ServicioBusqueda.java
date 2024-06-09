@@ -15,4 +15,12 @@ public interface ServicioBusqueda {
     List<Producto> consultarProductosPorIds(List<Integer> ids);
 
     List<SupermercadoProducto> ordenarProductos(List<SupermercadoProducto> productosFiltrados, String ordenar);
+
+    List<Supermercado> consultarSupermercados(List<SupermercadoProducto> productosFiltrados);
+
+    List<Double> consultarDescuentos(List<SupermercadoProducto> productosFiltrados);
+
+    List<String> consultarPrecios(List<SupermercadoProducto> productosFiltrados);
+
+    List<String> formatearPrecios(List<String> filtrosPreciosAMostrar);
 }

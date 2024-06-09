@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +46,14 @@ public class ControladorProductoBuscadoTest {
         List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
         supermercadoProductoListMock.add(supermercadoProductoMock);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         when(this.servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, null, "1")).thenReturn(supermercadoProductoListMock);
 
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "", request);
 
         //Validacion
         assertThat(mav.getModel().get("productos"), equalTo(productosMock));
@@ -58,8 +64,12 @@ public class ControladorProductoBuscadoTest {
         //Preparacion
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(null);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "", request);
 
         //Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
@@ -98,8 +108,12 @@ public class ControladorProductoBuscadoTest {
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", subcategoriaStr, null, null, null, null, null, precios , null, "1,2", "");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", subcategoriaStr, null, null, null, null, null, precios , null, "1,2", "", request);
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
@@ -121,8 +135,12 @@ public class ControladorProductoBuscadoTest {
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq(null))).thenReturn(supermercadoProductoList);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null, "");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null, "", request);
 
         //Validacion
         assertThat(mav.getModel().get("error"), is(notNullValue()));
@@ -162,8 +180,12 @@ public class ControladorProductoBuscadoTest {
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2", "");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2", "", request);
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
@@ -205,8 +227,12 @@ public class ControladorProductoBuscadoTest {
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, supermercados, null , null, "1,2", "");
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, supermercados, null , null, "1,2", "", request);
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
@@ -247,8 +273,12 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar)).thenReturn(supermercadoProductoListMock);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar, request);
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
@@ -290,8 +320,12 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar)).thenReturn(supermercadoProductoListMock);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar, request);
 
         //Verificacion
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));

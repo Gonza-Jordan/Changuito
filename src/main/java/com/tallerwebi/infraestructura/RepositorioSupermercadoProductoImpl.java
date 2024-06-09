@@ -62,7 +62,7 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
                     String valor = valoresFiltro.get(i);
 
                     if (nombreFiltro.equals("precio")) {
-                        consulta.append("sp.precio ").append(valor);
+                        consulta.append("sp.precio * COALESCE(sp.descuento, 1.0) ").append(valor);
                     } else {
                         consulta.append(nombreFiltro).append(" = :").append(nombreFiltro).append(i);
                     }
