@@ -184,7 +184,7 @@ public class RepositorioSupermercadoProductoTest {
     @Test
     @Transactional
     @Rollback
-    public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorPrecioMenorAMil(){
+    public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorPrecioEntreMilYDosMil(){
         //Preparacion
         String subcategoriaStr = Subcategoria.Gaseosas.toString();
         Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
@@ -205,11 +205,11 @@ public class RepositorioSupermercadoProductoTest {
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Sprite'")
                 .getSingleResult();
 
-        this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoObtenido, 1200.00, null);
-        this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(otroSupermercadoProductoObtenido, 800.00, null);
+        this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoObtenido, 2200.00, null);
+        this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(otroSupermercadoProductoObtenido, 1200.00, null);
 
         List<String> precios = new ArrayList<>();
-        precios.add("< 1000");
+        precios.add("BETWEEN 1000 AND 2000");
         Map<String, List<String>> filtros = new HashMap<>();
         filtros.put("precio", precios);
 
@@ -223,7 +223,7 @@ public class RepositorioSupermercadoProductoTest {
         //Verficacion
         assertThat(1, equalTo(productosEncontrados.size()));
         assertThat(productosEncontrados.get(0).getProducto(), equalTo(otroProductoMock));
-        assertThat(productosEncontrados.get(0).getPrecio(), equalTo(800.00));
+        assertThat(productosEncontrados.get(0).getPrecio(), equalTo(1200.00));
     }
 
     @Test
