@@ -53,6 +53,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "", request);
 
         //Validacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(mav.getModel().get("productos"), equalTo(productosMock));
     }
 
@@ -69,6 +70,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "", request);
 
         //Validacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(mav.getModel().get("error"), is(notNullValue()));
         assertThat(mav.getModel().get("error"), is("Sin resultados"));
     }
@@ -113,6 +115,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", subcategoriaStr, null, null, null, null, null, precios , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getPrecio(), equalTo(supermercadoProductoMock.getPrecio()));
@@ -140,6 +143,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null, "", request);
 
         //Validacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(mav.getModel().get("error"), is(notNullValue()));
         assertThat(mav.getModel().get("error"), is("Sin resultados"));
 
@@ -183,6 +187,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getDescuento(), equalTo(supermercadoProductoMock.getDescuento()));
@@ -227,6 +232,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, supermercados, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getSupermercado(), equalTo(supermercadoProductoMock.getSupermercado()));
@@ -271,6 +277,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar, request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getPrecio(), equalTo(supermercadoProductoMock.getPrecio()));
@@ -316,6 +323,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar, request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getPrecio(), equalTo(supermercadoProductoMock.getPrecio()));
@@ -362,6 +370,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(mav.getModel().get("descuentos"), equalTo(descuentosEsperados));
@@ -415,6 +424,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(1));
         assertThat(mav.getModel().get("productos"), equalTo(otraSupermercadoProductoListMock));
         assertThat(mav.getModel().get("descuentos"), equalTo(descuentosEsperados));
@@ -458,6 +468,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(mav.getModel().get("supermercados"), equalTo(supermercadosEsperados));
@@ -513,6 +524,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, supermercados, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(1));
         assertThat(mav.getModel().get("productos"), equalTo(otraSupermercadoProductoListMock));
         assertThat(mav.getModel().get("supermercados"), equalTo(supermercadosEsperados));
@@ -564,6 +576,7 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(mav.getModel().get("precios"), equalTo(preciosSinFormatear));
@@ -626,11 +639,136 @@ public class ControladorProductoBuscadoTest {
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios , null, "1,2", "", request);
 
         //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(1));
         assertThat(mav.getModel().get("productos"), equalTo(otraSupermercadoProductoListMock));
         assertThat(mav.getModel().get("precios"), equalTo(preciosSinFormatear));
         assertThat(mav.getModel().get("preciosFormateados"), equalTo(preciosFormateados));
 
     }
+
+    @Test
+    public void siNoHayDescuentosDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloDescuentosDeLaVista() {
+        //Preparacion
+        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+
+        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
+
+        supermercadoProductoMock.setSupermercado(supermercadoMock);
+        supermercadoProductoMock.setProducto(productoMock);
+
+        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMock.setProducto(otroProductoMock);
+
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+
+        List<Double> descuentosVacios = new ArrayList<>();
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
+        when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(descuentosVacios);
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
+        assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
+        assertThat(mav.getModel().get("descuentos"), equalTo(descuentosVacios));
+
+    }
+
+    @Test
+    public void siNoHaySupermercadosDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloSupermercadosDeLaVista() {
+        //Preparacion
+        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+
+        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
+
+        supermercadoProductoMock.setSupermercado(supermercadoMock);
+        supermercadoProductoMock.setProducto(productoMock);
+
+        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMock.setProducto(otroProductoMock);
+
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+
+        List<Double> supermercadosVacios = new ArrayList<>();
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
+        when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(supermercadosVacios);
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
+        assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
+        assertThat(mav.getModel().get("supermercados"), equalTo(supermercadosVacios));
+
+    }
+
+    @Test
+    public void siNoHayPreciosDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloPreciosDeLaVista() {
+        //Preparacion
+        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+
+        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
+        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
+
+        supermercadoProductoMock.setSupermercado(supermercadoMock);
+        supermercadoProductoMock.setProducto(productoMock);
+
+        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMock.setProducto(otroProductoMock);
+
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+
+        List<Double> preciosVacios = new ArrayList<>();
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
+        when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(preciosVacios);
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
+        assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
+        assertThat(mav.getModel().get("precios"), equalTo(preciosVacios));
+
+    }
+
 
 }

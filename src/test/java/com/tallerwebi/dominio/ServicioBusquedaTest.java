@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -433,4 +434,47 @@ public class ServicioBusquedaTest {
         assertThat(preciosObtenidos.get(2), equalTo("1000.0"));
         assertThat(preciosObtenidos.get(3), equalTo("1000.0"));
     }
+
+    @Test
+    public void queAlConsultarLosSupermercadosALosQuePertenecenLosProductosDevuelvaVacioSiNoHayProductos(){
+        //Preparacion
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        List<Supermercado> supermercadoVacios = new ArrayList<>();
+
+        //Ejecucion
+        List<Supermercado> supermercadosObtenidos = this.servicioBusqueda.consultarSupermercados(supermercadoProductoListMock);
+
+        //Verficacion
+        assertThat(supermercadosObtenidos.size(), equalTo(0));
+        assertThat(supermercadosObtenidos, equalTo(supermercadoVacios));
+    }
+
+    @Test
+    public void queAlConsultarLosDescuentosDeLosProductosDevuelvaVacioSiNoHayProductos(){
+        //Preparacion
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        List<Double> descuentosVacios = new ArrayList<>();
+
+        //Ejecucion
+        List<Double> descuentosObtenidos = this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock);
+
+        //Verficacion
+        assertThat(descuentosObtenidos.size(), equalTo(0));
+        assertThat(descuentosObtenidos, equalTo(descuentosVacios));
+    }
+
+    @Test
+    public void queAlConsultarLosPreciosDeLosProductosDevuelvaVacioSiNoHayProductos(){
+        //Preparacion
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        List<String> preciosVacios = new ArrayList<>();
+
+        //Ejecucion
+        List<String> preciosObtenidos = this.servicioBusqueda.consultarPrecios(supermercadoProductoListMock);
+
+        //Verficacion
+        assertThat(preciosObtenidos.size(), equalTo(0));
+        assertThat(preciosObtenidos, equalTo(preciosVacios));
+    }
+
 }
