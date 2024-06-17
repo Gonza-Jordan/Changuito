@@ -93,15 +93,19 @@
                             <input class="form-check-input" type="radio" name="tipoTarjeta" id="debito" value="debito">
                             <label class="form-check-label" for="debito">Tarjeta de Débito</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="saldo" value="saldo">
+                            <label class="form-check-label" for="saldo">Saldo en la cuenta</label>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
-                        <input type="text" class="form-control" id="numeroTarjeta" pattern="\\d{16}" maxlength="16" placeholder="1234 5678 9123 4567" required>
+                        <input type="text" class="form-control" id="numeroTarjeta" pattern="\d{16}" maxlength="16" placeholder="1234 5678 9123 4567" required>
                         <div class="invalid-feedback">El número de tarjeta debe tener 16 dígitos.</div>
                     </div>
                     <div class="mb-3">
                         <label for="nombreTitular" class="form-label">Nombre del titular</label>
-                        <input type="text" class="form-control" id="nombreTitular" pattern="[a-zA-Z\\s]+" placeholder="Nombre Apellido" required>
+                        <input type="text" class="form-control" id="nombreTitular" pattern="[a-zA-Z\s]+" placeholder="Nombre Apellido" required>
                         <div class="invalid-feedback">El nombre del titular debe contener solo letras y espacios.</div>
                     </div>
                     <div class="mb-3">
@@ -111,83 +115,73 @@
                     </div>
                     <div class="mb-3">
                         <label for="codigoSeguridad" class="form-label">Código de seguridad</label>
-                        <input type="password" class="form-control" id="codigoSeguridad" pattern="\\d{3}" maxlength="3" placeholder="123" required>
+                        <input type="password" class="form-control" id="codigoSeguridad" pattern="\d{3}" maxlength="3" placeholder="123" required>
                         <div class="invalid-feedback">El código de seguridad debe tener 3 dígitos.</div>
                     </div>
                     <div class="mb-3">
                         <label for="domicilio" class="form-label">Domicilio</label>
-                        <input type="text" class="form-control" id="domicilio" pattern="[a-zA-Z0-9\\s]+" placeholder="Calle Falsa 123" required>
+                        <input type="text" class="form-control" id="domicilio" pattern="[a-zA-Z0-9\s]+" placeholder="Calle Falsa 123" required>
                         <div class="invalid-feedback">Ingrese un domicilio válido sin caracteres especiales.</div>
                     </div>
                     <div class="mb-3">
                         <label for="codigoPostal" class="form-label">Código Postal</label>
-                        <input type="text" class="form-control" id="codigoPostal" pattern="\\d{4}" maxlength="4" placeholder="1000" required>
+                        <input type="text" class="form-control" id="codigoPostal" pattern="\d{4}" maxlength="4" placeholder="1000" required>
                         <div class="invalid-feedback">El código postal debe tener 4 dígitos.</div>
                     </div>
-                    <div class="mb-3">
-                        <div class="mb-3">
-                            <label for="totalPagar" class="form-label">Total a pagar: $</label>
-                            <label id="totalPagar" class="form-label"></label>
-                        </div>
+                    <div class="mb-3 d-flex justify-content-end">
+                        <label for="totalPagar" class="form-label me-2" style="font-size: 1.2em;">Total a pagar: $</label>
+                        <label id="totalPagar" class="form-label" style="font-size: 1.2em;"></label>
                     </div>
                     <button type="submit" class="btn btn-primary">Realizar Pago</button>
                 </form>
+                <div id="mensajeExito" class="text-success text-center mt-3" style="display:none; font-size: 1.5rem;">Pago exitoso</div>
             </div>
         </div>
     </div>
 </div>
+
 
 <footer th:include="footer.html"></footer>
 
 <script type="text/javascript" src="/spring/js/main.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        actualizarTotal();
+    actualizarTotal();
 
-        var cantidadSelects = document.querySelectorAll('.cantidad-select');
-        cantidadSelects.forEach(function(select) {
-            select.addEventListener('change', function() {
-                actualizarPrecioTotal(this.closest('tr'));
-            });
+    var cantidadSelects = document.querySelectorAll('.cantidad-select');
+    cantidadSelects.forEach(function(select) {
+        select.addEventListener('change', function() {
+            actualizarPrecioTotal(this.closest('tr'));
         });
+    });
 
-        // Copiar el valor del total al abrir el modal
-        document.querySelector('[data-bs-target="#modalPago"]').addEventListener('click', function() {
-            document.getElementById('totalPagar').innerText = document.getElementById('total-final').innerText;
-        });
+    // Copiar el valor del total al abrir el modal
+    document.querySelector('[data-bs-target="#modalPago"]').addEventListener('click', function() {
+        document.getElementById('totalPagar').innerText = document.getElementById('total-final').innerText;
+    });
 
-        document.getElementById('formPago').addEventListener('submit', function(event) {
-            const numeroTarjeta = document.getElementById('numeroTarjeta');
-            const nombreTitular = document.getElementById('nombreTitular');
-            const fechaVencimiento = document.getElementById('fechaVencimiento');
-            const codigoSeguridad = document.getElementById('codigoSeguridad');
-            const domicilio = document.getElementById('domicilio');
-            const codigoPostal = document.getElementById('codigoPostal');
+    document.getElementById('formPago').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const numeroTarjeta = document.getElementById('numeroTarjeta');
+        const nombreTitular = document.getElementById('nombreTitular');
+        const fechaVencimiento = document.getElementById('fechaVencimiento');
+        const codigoSeguridad = document.getElementById('codigoSeguridad');
+        const domicilio = document.getElementById('domicilio');
+        const codigoPostal = document.getElementById('codigoPostal');
+        const tipoTarjeta = document.querySelector('input[name="tipoTarjeta"]:checked').value;
 
-            // Validaciones del formulario
-            if (!numeroTarjeta.value.match(/^\\d{16}$/)) {
+        // Validaciones del formulario
+        if (tipoTarjeta !== 'saldo') {
+            if (!numeroTarjeta.value.match(/^\d{16}$/)) {
                 alert("El número de tarjeta debe tener 16 dígitos.");
-                event.preventDefault();
                 return false;
             }
-            if (!nombreTitular.value.match(/^[a-zA-Z\\s]+$/)) {
+            if (!nombreTitular.value.match(/^[a-zA-Z\s]+$/)) {
                 alert("El nombre del titular debe contener solo letras y espacios.");
-                event.preventDefault();
                 return false;
             }
-            if (!codigoSeguridad.value.match(/^\\d{3}$/)) {
+            if (!codigoSeguridad.value.match(/^\d{3}$/)) {
                 alert("El código de seguridad debe tener 3 dígitos.");
-                event.preventDefault();
-                return false;
-            }
-            if (!domicilio.value.match(/^[a-zA-Z0-9\\s]+$/)) {
-                alert("El domicilio no debe contener caracteres especiales.");
-                event.preventDefault();
-                return false;
-            }
-            if (!codigoPostal.value.match(/^\\d{4}$/)) {
-                alert("El código postal debe tener 4 dígitos.");
-                event.preventDefault();
                 return false;
             }
 
@@ -199,10 +193,24 @@
 
             if (fechaVencimientoVal < fechaActual) {
                 alert("La tarjeta está vencida. Por favor, ingrese otra tarjeta.");
-                event.preventDefault();
                 return false;
             }
-        });
+        }
+        if (!domicilio.value.match(/^[a-zA-Z0-9\s]+$/)) {
+            alert("El domicilio no debe contener caracteres especiales.");
+            return false;
+        }
+        if (!codigoPostal.value.match(/^\d{4}$/)) {
+            alert("El código postal debe tener 4 dígitos.");
+            return false;
+        }
+
+        // Mostrar mensaje de éxito en el modal
+        document.getElementById('mensajeExito').style.display = 'block';
+        setTimeout(function() {
+            window.location.href = '/spring/home'; // Redirigir a la página principal
+            fetch('/spring/vaciarCarrito', { method: 'POST' });
+        }, 3000);
     });
 
     function actualizarPrecioTotal(row) {
@@ -233,12 +241,24 @@
         var cantidadProductos = document.querySelectorAll('.carrito-table tbody tr').length;
         document.getElementById('cantidad-productos').innerText = 'Cantidad de productos en el carrito: ' + cantidadProductos;
     }
-                // Mostrar mensaje de éxito y vaciar el carrito
-            document.getElementById('mensajeExito').style.display = 'block';
-            setTimeout(function() {
-                window.location.href = '/spring/home'; // Redirigir a la página principal
-                fetch('/spring/vaciarCarrito', { method: 'POST' });
-            }, 2000);
+
+        // Mostrar u ocultar campos según la opción de pago seleccionada
+        const tipoTarjetaInputs = document.querySelectorAll('input[name="tipoTarjeta"]');
+        tipoTarjetaInputs.forEach(function(input) {
+            input.addEventListener('change', function() {
+                const tarjetaFields = document.querySelectorAll('#numeroTarjeta, #nombreTitular, #fechaVencimiento, #codigoSeguridad');
+                if (this.value === 'saldo') {
+                    tarjetaFields.forEach(function(field) {
+                        field.closest('.mb-3').style.display = 'none';
+                    });
+                } else {
+                    tarjetaFields.forEach(function(field) {
+                        field.closest('.mb-3').style.display = 'block';
+                    });
+                }
+            });
+        });
+    });
 
 </script>
 </body>
