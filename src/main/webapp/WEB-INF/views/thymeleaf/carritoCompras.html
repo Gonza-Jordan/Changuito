@@ -180,7 +180,7 @@
             // Validar fecha de vencimiento
             const fechaVencimientoVal = new Date(fechaVencimiento.value);
             const fechaActual = new Date();
-            fechaActual.setMonth(fechaActual.getMonth() + 1); // Ajustar a primer día del próximo mes
+            fechaActual.setMonth(fechaActual.getMonth() + 1);
             fechaActual.setDate(1);
 
             if (fechaVencimientoVal < fechaActual) {
@@ -188,8 +188,12 @@
                 return false;
             }
 
-            // Mostrar mensaje de éxito
+            // Mostrar mensaje de éxito y vaciar el carrito
             document.getElementById('mensajeExito').style.display = 'block';
+            setTimeout(function() {
+                window.location.href = '/spring/home'; // Redirigir a la página principal
+                fetch('/spring/vaciarCarrito', { method: 'POST' });
+            }, 2000);
         });
     });
 
