@@ -11,6 +11,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Copiar el valor del total al abrir el modal
     document.querySelector('[data-bs-target="#modalPago"]').addEventListener('click', function() {
         document.getElementById('totalPagar').innerText = document.getElementById('total-final').innerText;
+        actualizarCuotas(); // Actualizar cuotas al abrir el modal
+    });
+
+    // Mostrar u ocultar campos según la opción de pago seleccionada
+    const tipoTarjetaInputs = document.querySelectorAll('input[name="tipoTarjeta"]');
+    tipoTarjetaInputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+            const tarjetaFields = document.querySelectorAll('#numeroTarjeta, #nombreTitular, #fechaVencimiento, #codigoSeguridad');
+            if (this.value === 'saldo') {
+                tarjetaFields.forEach(function(field) {
+                    field.closest('.mb-3').style.display = 'none';
+                });
+            } else {
+                tarjetaFields.forEach(function(field) {
+                    field.closest('.mb-3').style.display = 'block';
+                });
+            }
+
+            // Si se selecciona tarjeta de crédito, actualizar las opciones de cuotas
+            if (this.value === 'credito') {
+                actualizarCuotas();
+                document.getElementById('cuotasDiv').style.display = 'block';
+            } else {
+                document.getElementById('cuotasDiv').style.display = 'none';
+            }
+        });
     });
 
     document.getElementById('formPago').addEventListener('submit', function(event) {
@@ -95,20 +121,24 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('cantidad-productos').innerText = 'Cantidad de productos en el carrito: ' + cantidadProductos;
     }
 
-        // Mostrar u ocultar campos según la opción de pago seleccionada
-        const tipoTarjetaInputs = document.querySelectorAll('input[name="tipoTarjeta"]');
-        tipoTarjetaInputs.forEach(function(input) {
-            input.addEventListener('change', function() {
-                const tarjetaFields = document.querySelectorAll('#numeroTarjeta, #nombreTitular, #fechaVencimiento, #codigoSeguridad');
-                if (this.value === 'saldo') {
-                    tarjetaFields.forEach(function(field) {
-                        field.closest('.mb-3').style.display = 'none';
-                    });
-                } else {
-                    tarjetaFields.forEach(function(field) {
-                        field.closest('.mb-3').style.display = 'block';
-                    });
-                }
-            });
+    function actualizarCuotas() {
+        var total = parseFloat(document.getElementById('total-final').innerText);
+        var cuotasSelect = document.getElementById('cuotasSelect');
+
+        cuotasSelect.innerHTML = ''; // Limpiar opciones existentes
+
+        var opcionesCuotas = [
+            { cuotas: 1, texto: '1 cuota de $' + total.toFixed(2) },
+            { cuotas: 3, texto: '3 cuotas de $' + (total / 3).toFixed(2) },
+            { cuotas: 6, texto: '6 cuotas de $' + (total / 6).toFixed(2) },
+            { cuotas: 12, texto: '12 cuotas de $' + (total / 12).toFixed(2) }
+        ];
+
+        opcionesCuotas.forEach(function(opcion) {
+            var option = document.createElement('option');
+            option.value = opcion.cuotas;
+            option.textContent = opcion.texto;
+            cuotasSelect.appendChild(option);
         });
-    });
+    }
+});
