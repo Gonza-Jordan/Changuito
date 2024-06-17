@@ -85,22 +85,47 @@
             <div class="modal-body">
                 <form id="formPago" novalidate>
                     <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="credito" value="credito" checked>
+                            <label class="form-check-label" for="credito">Tarjeta de Crédito</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="debito" value="debito">
+                            <label class="form-check-label" for="debito">Tarjeta de Débito</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
                         <input type="text" class="form-control" id="numeroTarjeta" pattern="\d{16}" maxlength="16" placeholder="1234 5678 9123 4567" required>
+                        <div class="invalid-feedback">El número de tarjeta debe tener 16 dígitos.</div>
                     </div>
                     <div class="mb-3">
                         <label for="nombreTitular" class="form-label">Nombre del titular</label>
                         <input type="text" class="form-control" id="nombreTitular" pattern="[a-zA-Z\s]+" placeholder="Nombre Apellido" required>
+                        <div class="invalid-feedback">El nombre del titular debe contener solo letras y espacios.</div>
                     </div>
                     <div class="mb-3">
                         <label for="fechaVencimiento" class="form-label">Fecha de vencimiento</label>
                         <input type="month" class="form-control" id="fechaVencimiento" required>
+                        <div class="invalid-feedback">Por favor, seleccione una fecha de vencimiento válida.</div>
                     </div>
                     <div class="mb-3">
                         <label for="codigoSeguridad" class="form-label">Código de seguridad</label>
                         <input type="password" class="form-control" id="codigoSeguridad" pattern="\d{3}" maxlength="3" placeholder="123" required>
+                        <div class="invalid-feedback">El código de seguridad debe tener 3 dígitos.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="domicilio" class="form-label">Domicilio</label>
+                        <input type="text" class="form-control" id="domicilio" pattern="[a-zA-Z0-9\s]+" placeholder="Calle Falsa 123" required>
+                        <div class="invalid-feedback">Ingrese un domicilio válido sin caracteres especiales.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="codigoPostal" class="form-label">Código Postal</label>
+                        <input type="text" class="form-control" id="codigoPostal" pattern="\d{4}" maxlength="4" placeholder="1000" required>
+                        <div class="invalid-feedback">El código postal debe tener 4 dígitos.</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Realizar Pago</button>
+                    <div id="mensajeExito" class="text-success mt-3" style="display: none;">Pago exitoso. Gracias por su compra!</div>
                 </form>
             </div>
         </div>
@@ -122,25 +147,33 @@
         });
 
         document.getElementById('formPago').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
             const numeroTarjeta = document.getElementById('numeroTarjeta');
             const nombreTitular = document.getElementById('nombreTitular');
             const fechaVencimiento = document.getElementById('fechaVencimiento');
             const codigoSeguridad = document.getElementById('codigoSeguridad');
+            const domicilio = document.getElementById('domicilio');
+            const codigoPostal = document.getElementById('codigoPostal');
 
             // Validaciones del formulario
             if (!numeroTarjeta.value.match(/^\d{16}$/)) {
                 alert("El número de tarjeta debe tener 16 dígitos.");
-                event.preventDefault();
                 return false;
             }
             if (!nombreTitular.value.match(/^[a-zA-Z\s]+$/)) {
                 alert("El nombre del titular debe contener solo letras y espacios.");
-                event.preventDefault();
                 return false;
             }
             if (!codigoSeguridad.value.match(/^\d{3}$/)) {
                 alert("El código de seguridad debe tener 3 dígitos.");
-                event.preventDefault();
+                return false;
+            }
+            if (!domicilio.value.match(/^[a-zA-Z0-9\s]+$/)) {
+                alert("El domicilio no debe contener caracteres especiales.");
+                return false;
+            }
+            if (!codigoPostal.value.match(/^\d{4}$/)) {
+                alert("El código postal debe tener 4 dígitos.");
                 return false;
             }
 
@@ -152,9 +185,11 @@
 
             if (fechaVencimientoVal < fechaActual) {
                 alert("La tarjeta está vencida. Por favor, ingrese otra tarjeta.");
-                event.preventDefault();
                 return false;
             }
+
+            // Mostrar mensaje de éxito
+            document.getElementById('mensajeExito').style.display = 'block';
         });
     });
 
