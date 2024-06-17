@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 tarjetaFields.forEach(function(field) {
                     field.closest('.mb-3').style.display = 'none';
                 });
+                mostrarSaldoActual(5000); // Harcodeado, sustituir con el saldo real
             } else {
                 tarjetaFields.forEach(function(field) {
                     field.closest('.mb-3').style.display = 'block';
                 });
+                ocultarSaldoActual();
             }
 
             // Si se selecciona tarjeta de crédito, actualizar las opciones de cuotas
@@ -140,5 +142,24 @@ document.addEventListener('DOMContentLoaded', function() {
             option.textContent = opcion.texto;
             cuotasSelect.appendChild(option);
         });
+    }
+
+    function mostrarSaldoActual(saldo) {
+        const saldoActual = document.getElementById('saldoActual');
+        if (saldoActual) {
+            saldoActual.innerText = 'Saldo actual: $' + saldo.toFixed(2);
+            saldoActual.style.display = 'block'; // Asegúrate de mostrar el elemento si está oculto
+        } else {
+            console.error('Elemento saldoActual no encontrado en el DOM.');
+        }
+    }
+
+    function ocultarSaldoActual() {
+        const saldoActual = document.getElementById('saldoActual');
+        if (saldoActual) {
+            saldoActual.style.display = 'none'; // Asegúrate de ocultar el elemento si está visible
+        } else {
+            console.error('Elemento saldoActual no encontrado en el DOM.');
+        }
     }
 });
