@@ -31,7 +31,9 @@
         </thead>
         <tbody>
         <tr th:each="supermercadoProducto, row : ${carrito}">
-            <td><!-- Columna vacía para futura imagen --></td>
+            <td>
+                <img th:src="${supermercadoProducto.producto.urlImagen}" alt="Imagen del Producto" style="width: 100px; height: auto;">
+            </td>
             <td th:text="${supermercadoProducto.producto.nombre}"></td>
             <td>
                 <span class="precio-unitario" th:text="${supermercadoProducto.precio}"></span>
@@ -76,27 +78,34 @@
 
 <!-- Modal para datos de pago -->
 <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalPagoLabel">Datos de Pago</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Contenedor para mensajes de error -->
+                <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
+
                 <form id="formPago" novalidate>
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="credito" value="credito" checked>
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="credito" value="credito">
                             <label class="form-check-label" for="credito">Tarjeta de Crédito</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="debito" value="debito">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="debito" value="debito" checked>
                             <label class="form-check-label" for="debito">Tarjeta de Débito</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="tipoTarjeta" id="saldo" value="saldo">
                             <label class="form-check-label" for="saldo">Saldo en la cuenta</label>
                         </div>
+                    </div>
+                    <div id="cuotasDiv" style="display: none;">
+                        <label for="cuotasSelect" class="form-label">Seleccionar cantidad de cuotas:</label>
+                        <select class="form-select" id="cuotasSelect" name="cuotasSelect"></select>
                     </div>
                     <div class="mb-3">
                         <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
@@ -129,6 +138,9 @@
                         <div class="invalid-feedback">El código postal debe tener 4 dígitos.</div>
                     </div>
                     <div class="mb-3 d-flex justify-content-end">
+                        <label id="saldoActual" class="form-label me-2" style="font-size: 1.2em; display: none;">Saldo actual: $ 5000.00</label>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-end">
                         <label for="totalPagar" class="form-label me-2" style="font-size: 1.2em;">Total a pagar: $</label>
                         <label id="totalPagar" class="form-label" style="font-size: 1.2em;"></label>
                     </div>
@@ -139,7 +151,6 @@
         </div>
     </div>
 </div>
-
 
 <footer th:include="footer.html"></footer>
 
