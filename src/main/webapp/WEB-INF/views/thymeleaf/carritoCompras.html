@@ -4,18 +4,9 @@
     <meta charset="UTF-8">
     <title>Carrito de Compras</title>
     <link rel="stylesheet" type="text/css" href="/spring/css/main.css">
-    <!-- Boostrap core css -->
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous"
-    />
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"
-    ></script>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
@@ -23,7 +14,7 @@
 <div class="carrito-container">
     <h1 class="carrito-title">Tu Carrito de Compras</h1>
     <div class="cantidad-productos">
-        <p id="cantidad-productos" class="cantidad-texto" th:text="'Cantidad de productos en el carrito: ' + ${cantidadProductos}">Cantidad de productos en el carrito: 0</p>
+        <p id="cantidad-productos" class="cantidad-texto" th:text="'Cantidad de productos en el carrito: ' + ${cantidadProductos}"></p>
     </div>
     <table class="carrito-table">
         <thead>
@@ -41,9 +32,9 @@
         <tbody>
         <tr th:each="supermercadoProducto, row : ${carrito}">
             <td><!-- Columna vacía para futura imagen --></td>
-            <td th:text="${supermercadoProducto.producto.nombre}">Nombre del Producto</td>
+            <td th:text="${supermercadoProducto.producto.nombre}"></td>
             <td>
-                <span class="precio-unitario" th:text="${supermercadoProducto.precio}">Precio</span>
+                <span class="precio-unitario" th:text="${supermercadoProducto.precio}"></span>
             </td>
             <td>
                 <select class="cantidad-select">
@@ -54,8 +45,8 @@
                     <option value="5">5</option>
                 </select>
             </td>
-            <td th:text="${supermercadoProducto.producto.categoria}">Categoría</td>
-            <td th:text="${supermercadoProducto.producto.subcategoria}">Subcategoría</td>
+            <td th:text="${supermercadoProducto.producto.categoria}"></td>
+            <td th:text="${supermercadoProducto.producto.subcategoria}"></td>
             <td>
                 <form th:action="@{/eliminar-del-carrito}" method="post">
                     <input type="hidden" name="codigoBarras" th:value="${supermercadoProducto.producto.codigoBarras}" />
@@ -63,7 +54,7 @@
                 </form>
             </td>
             <td>
-                <span class="precio-total" th:text="${supermercadoProducto.precio}">Precio Total</span>
+                <span class="precio-total" th:text="${supermercadoProducto.precio}"></span>
             </td>
         </tr>
         </tbody>
@@ -71,14 +62,74 @@
         <tr>
             <td colspan="6"></td>
             <td style="text-align: right;">Total:</td>
-            <td id="total-final" colspan="2">0.00</td>
+            <td id="total-final" colspan="2"></td>
         </tr>
         </tfoot>
     </table>
+    <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#modalPago">Pagar</button>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+        <a th:href="@{/guardarCarrito}" class="btn btn-primary btn-sm btn-block mb-4">Guardar carrito</a>
+    </div>
 </div>
 
-<div class="d-flex justify-content-center align-items-center">
-    <a th:href="@{/guardarCarrito}" class="btnLogin btn btn-sm btn-primary btn-block mb-4">Guardar carrito</a>
+<!-- Modal para datos de pago -->
+<div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPagoLabel">Datos de Pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formPago" novalidate>
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="credito" value="credito" checked>
+                            <label class="form-check-label" for="credito">Tarjeta de Crédito</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="debito" value="debito">
+                            <label class="form-check-label" for="debito">Tarjeta de Débito</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
+                        <input type="text" class="form-control" id="numeroTarjeta" pattern="\d{16}" maxlength="16" placeholder="1234 5678 9123 4567" required>
+                        <div class="invalid-feedback">El número de tarjeta debe tener 16 dígitos.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombreTitular" class="form-label">Nombre del titular</label>
+                        <input type="text" class="form-control" id="nombreTitular" pattern="[a-zA-Z\s]+" placeholder="Nombre Apellido" required>
+                        <div class="invalid-feedback">El nombre del titular debe contener solo letras y espacios.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaVencimiento" class="form-label">Fecha de vencimiento</label>
+                        <input type="month" class="form-control" id="fechaVencimiento" required>
+                        <div class="invalid-feedback">Por favor, seleccione una fecha de vencimiento válida.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="codigoSeguridad" class="form-label">Código de seguridad</label>
+                        <input type="password" class="form-control" id="codigoSeguridad" pattern="\d{3}" maxlength="3" placeholder="123" required>
+                        <div class="invalid-feedback">El código de seguridad debe tener 3 dígitos.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="domicilio" class="form-label">Domicilio</label>
+                        <input type="text" class="form-control" id="domicilio" pattern="[a-zA-Z0-9\s]+" placeholder="Calle Falsa 123" required>
+                        <div class="invalid-feedback">Ingrese un domicilio válido sin caracteres especiales.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="codigoPostal" class="form-label">Código Postal</label>
+                        <input type="text" class="form-control" id="codigoPostal" pattern="\d{4}" maxlength="4" placeholder="1000" required>
+                        <div class="invalid-feedback">El código postal debe tener 4 dígitos.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Realizar Pago</button>
+                    <div id="mensajeExito" class="text-success mt-3" style="display: none;">Pago exitoso. Gracias por su compra!</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer th:include="footer.html"></footer>
@@ -93,6 +144,56 @@
             select.addEventListener('change', function() {
                 actualizarPrecioTotal(this.closest('tr'));
             });
+        });
+
+        document.getElementById('formPago').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const numeroTarjeta = document.getElementById('numeroTarjeta');
+            const nombreTitular = document.getElementById('nombreTitular');
+            const fechaVencimiento = document.getElementById('fechaVencimiento');
+            const codigoSeguridad = document.getElementById('codigoSeguridad');
+            const domicilio = document.getElementById('domicilio');
+            const codigoPostal = document.getElementById('codigoPostal');
+
+            // Validaciones del formulario
+            if (!numeroTarjeta.value.match(/^\d{16}$/)) {
+                alert("El número de tarjeta debe tener 16 dígitos.");
+                return false;
+            }
+            if (!nombreTitular.value.match(/^[a-zA-Z\s]+$/)) {
+                alert("El nombre del titular debe contener solo letras y espacios.");
+                return false;
+            }
+            if (!codigoSeguridad.value.match(/^\d{3}$/)) {
+                alert("El código de seguridad debe tener 3 dígitos.");
+                return false;
+            }
+            if (!domicilio.value.match(/^[a-zA-Z0-9\s]+$/)) {
+                alert("El domicilio no debe contener caracteres especiales.");
+                return false;
+            }
+            if (!codigoPostal.value.match(/^\d{4}$/)) {
+                alert("El código postal debe tener 4 dígitos.");
+                return false;
+            }
+
+            // Validar fecha de vencimiento
+            const fechaVencimientoVal = new Date(fechaVencimiento.value);
+            const fechaActual = new Date();
+            fechaActual.setMonth(fechaActual.getMonth() + 1);
+            fechaActual.setDate(1);
+
+            if (fechaVencimientoVal < fechaActual) {
+                alert("La tarjeta está vencida. Por favor, ingrese otra tarjeta.");
+                return false;
+            }
+
+            // Mostrar mensaje de éxito y vaciar el carrito
+            document.getElementById('mensajeExito').style.display = 'block';
+            setTimeout(function() {
+                window.location.href = '/spring/home'; // Redirigir a la página principal
+                fetch('/spring/vaciarCarrito', { method: 'POST' });
+            }, 2000);
         });
     });
 
