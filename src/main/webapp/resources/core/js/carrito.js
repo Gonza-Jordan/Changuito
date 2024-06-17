@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('formPago').addEventListener('submit', function(event) {
         event.preventDefault();
+        const errorMessages = document.getElementById('errorMessages');
+        errorMessages.style.display = 'none';
+        errorMessages.innerHTML = '';
+
         const numeroTarjeta = document.getElementById('numeroTarjeta');
         const nombreTitular = document.getElementById('nombreTitular');
         const fechaVencimiento = document.getElementById('fechaVencimiento');
@@ -53,23 +57,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalPagar = parseFloat(document.getElementById('total-final').innerText);
         const saldoActual = 5000; // Harcodeado, sustituir con el saldo real
 
+        // Función para mostrar mensajes de error
+        function showError(message) {
+            errorMessages.style.display = 'block';
+            errorMessages.innerHTML += '<p>' + message + '</p>';
+        }
+
         // Validaciones del formulario
         if (tipoTarjeta === 'saldo') {
             if (totalPagar > saldoActual) {
-                alert("Saldo insuficiente.");
+                showError("Saldo insuficiente.");
                 return false;
             }
         } else {
             if (!numeroTarjeta.value.match(/^\d{16}$/)) {
-                alert("El número de tarjeta debe tener 16 dígitos.");
+                showError("El numero de tarjeta debe tener 16 digitos.");
                 return false;
             }
             if (!nombreTitular.value.match(/^[a-zA-Z\s]+$/)) {
-                alert("El nombre del titular debe contener solo letras y espacios.");
+                showError("El nombre del titular debe contener solo letras y espacios.");
                 return false;
             }
             if (!codigoSeguridad.value.match(/^\d{3}$/)) {
-                alert("El código de seguridad debe tener 3 dígitos.");
+                showError("El codigo de seguridad debe tener 3 digitos.");
                 return false;
             }
 
@@ -80,17 +90,17 @@ document.addEventListener('DOMContentLoaded', function() {
             fechaActual.setDate(1);
 
             if (fechaVencimientoVal < fechaActual) {
-                alert("La tarjeta está vencida. Por favor, ingrese otra tarjeta.");
+                showError("La tarjeta esta vencida. Por favor, ingrese otra tarjeta.");
                 return false;
             }
         }
 
         if (!domicilio.value.match(/^[a-zA-Z0-9\s]+$/)) {
-            alert("El domicilio no debe contener caracteres especiales.");
+            showError("El domicilio no debe contener caracteres especiales.");
             return false;
         }
         if (!codigoPostal.value.match(/^\d{4}$/)) {
-            alert("El código postal debe tener 4 dígitos.");
+            showError("El codigo postal debe tener 4 digitos.");
             return false;
         }
 

@@ -75,15 +75,17 @@
 </div>
 
 <!-- Modal para datos de pago -->
-<!-- Modal para datos de pago -->
 <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalPagoLabel">Datos de Pago</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Contenedor para mensajes de error -->
+                <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
+
                 <form id="formPago" novalidate>
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
@@ -101,8 +103,7 @@
                     </div>
                     <div id="cuotasDiv" style="display: none;">
                         <label for="cuotasSelect" class="form-label">Seleccionar cantidad de cuotas:</label>
-                        <select class="form-select" id="cuotasSelect" name="cuotasSelect">
-                        </select>
+                        <select class="form-select" id="cuotasSelect" name="cuotasSelect"></select>
                     </div>
                     <div class="mb-3">
                         <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
@@ -135,7 +136,7 @@
                         <div class="invalid-feedback">El código postal debe tener 4 dígitos.</div>
                     </div>
                     <div class="mb-3 d-flex justify-content-end">
-                        <label id="saldoActual" class="form-label me-2" style="font-size: 1.2em; display: none;">Saldo actual: $5000.00</label> <!-- Inicialmente oculto -->
+                        <label id="saldoActual" class="form-label me-2" style="font-size: 1.2em; display: none;">Saldo actual: $5000.00</label>
                     </div>
                     <div class="mb-3 d-flex justify-content-end">
                         <label for="totalPagar" class="form-label me-2" style="font-size: 1.2em;">Total a pagar: $</label>
