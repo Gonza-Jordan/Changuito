@@ -50,9 +50,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const domicilio = document.getElementById('domicilio');
         const codigoPostal = document.getElementById('codigoPostal');
         const tipoTarjeta = document.querySelector('input[name="tipoTarjeta"]:checked').value;
+        const totalPagar = parseFloat(document.getElementById('total-final').innerText);
+        const saldoActual = 5000; // Harcodeado, sustituir con el saldo real
 
         // Validaciones del formulario
-        if (tipoTarjeta !== 'saldo') {
+        if (tipoTarjeta === 'saldo') {
+            if (totalPagar > saldoActual) {
+                alert("Saldo insuficiente.");
+                return false;
+            }
+        } else {
             if (!numeroTarjeta.value.match(/^\d{16}$/)) {
                 alert("El número de tarjeta debe tener 16 dígitos.");
                 return false;
@@ -77,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
         }
+
         if (!domicilio.value.match(/^[a-zA-Z0-9\s]+$/)) {
             alert("El domicilio no debe contener caracteres especiales.");
             return false;
