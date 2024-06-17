@@ -93,6 +93,10 @@
                             <input class="form-check-input" type="radio" name="tipoTarjeta" id="debito" value="debito">
                             <label class="form-check-label" for="debito">Tarjeta de Débito</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoTarjeta" id="saldo" value="saldo">
+                            <label class="form-check-label" for="saldo">Saldo en la cuenta</label>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
@@ -124,107 +128,22 @@
                         <input type="text" class="form-control" id="codigoPostal" pattern="\d{4}" maxlength="4" placeholder="1000" required>
                         <div class="invalid-feedback">El código postal debe tener 4 dígitos.</div>
                     </div>
+                    <div class="mb-3 d-flex justify-content-end">
+                        <label for="totalPagar" class="form-label me-2" style="font-size: 1.2em;">Total a pagar: $</label>
+                        <label id="totalPagar" class="form-label" style="font-size: 1.2em;"></label>
+                    </div>
                     <button type="submit" class="btn btn-primary">Realizar Pago</button>
-                    <div id="mensajeExito" class="text-success mt-3" style="display: none;">Pago exitoso. Gracias por su compra!</div>
                 </form>
+                <div id="mensajeExito" class="text-success text-center mt-3" style="display:none; font-size: 1.5rem;">Pago exitoso</div>
             </div>
         </div>
     </div>
 </div>
 
+
 <footer th:include="footer.html"></footer>
 
+<script type="text/javascript" src="/spring/js/carrito.js"></script>
 <script type="text/javascript" src="/spring/js/main.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        actualizarTotal();
-
-        var cantidadSelects = document.querySelectorAll('.cantidad-select');
-        cantidadSelects.forEach(function(select) {
-            select.addEventListener('change', function() {
-                actualizarPrecioTotal(this.closest('tr'));
-            });
-        });
-
-        document.getElementById('formPago').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            const numeroTarjeta = document.getElementById('numeroTarjeta');
-            const nombreTitular = document.getElementById('nombreTitular');
-            const fechaVencimiento = document.getElementById('fechaVencimiento');
-            const codigoSeguridad = document.getElementById('codigoSeguridad');
-            const domicilio = document.getElementById('domicilio');
-            const codigoPostal = document.getElementById('codigoPostal');
-
-            // Validaciones del formulario
-            if (!numeroTarjeta.value.match(/^\d{16}$/)) {
-                alert("El número de tarjeta debe tener 16 dígitos.");
-                return false;
-            }
-            if (!nombreTitular.value.match(/^[a-zA-Z\s]+$/)) {
-                alert("El nombre del titular debe contener solo letras y espacios.");
-                return false;
-            }
-            if (!codigoSeguridad.value.match(/^\d{3}$/)) {
-                alert("El código de seguridad debe tener 3 dígitos.");
-                return false;
-            }
-            if (!domicilio.value.match(/^[a-zA-Z0-9\s]+$/)) {
-                alert("El domicilio no debe contener caracteres especiales.");
-                return false;
-            }
-            if (!codigoPostal.value.match(/^\d{4}$/)) {
-                alert("El código postal debe tener 4 dígitos.");
-                return false;
-            }
-
-            // Validar fecha de vencimiento
-            const fechaVencimientoVal = new Date(fechaVencimiento.value);
-            const fechaActual = new Date();
-            fechaActual.setMonth(fechaActual.getMonth() + 1);
-            fechaActual.setDate(1);
-
-            if (fechaVencimientoVal < fechaActual) {
-                alert("La tarjeta está vencida. Por favor, ingrese otra tarjeta.");
-                return false;
-            }
-
-            // Mostrar mensaje de éxito y vaciar el carrito
-            document.getElementById('mensajeExito').style.display = 'block';
-            setTimeout(function() {
-                window.location.href = '/spring/home'; // Redirigir a la página principal
-                fetch('/spring/vaciarCarrito', { method: 'POST' });
-            }, 2000);
-        });
-    });
-
-    function actualizarPrecioTotal(row) {
-        var precioUnitario = parseFloat(row.querySelector('.precio-unitario').innerText);
-        var cantidad = parseInt(row.querySelector('.cantidad-select').value);
-        var precioTotal = precioUnitario * cantidad;
-        row.querySelector('.precio-total').innerText = precioTotal.toFixed(2);
-        actualizarTotal();
-    }
-
-    function actualizarTotal() {
-        var total = 0;
-        var precios = document.querySelectorAll('.precio-total');
-        precios.forEach(function(precio) {
-            total += parseFloat(precio.innerText);
-        });
-        document.getElementById('total-final').innerText = total.toFixed(2);
-    }
-
-    function eliminarFila(button) {
-        var row = button.closest('tr');
-        row.parentNode.removeChild(row);
-        actualizarTotal();
-        actualizarCantidadProductos();
-    }
-
-    function actualizarCantidadProductos() {
-        var cantidadProductos = document.querySelectorAll('.carrito-table tbody tr').length;
-        document.getElementById('cantidad-productos').innerText = 'Cantidad de productos en el carrito: ' + cantidadProductos;
-    }
-</script>
 </body>
 </html>
