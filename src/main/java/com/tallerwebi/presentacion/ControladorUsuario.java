@@ -43,28 +43,12 @@ public class ControladorUsuario {
         return new ModelAndView("nuevo-usuario", model);
     }
 
-//    @RequestMapping(path = "/home", method = RequestMethod.GET)
-//    public ModelAndView irAHome(HttpServletRequest request) {
-//
-//        HttpSession misession = request.getSession();
-//        Usuario usuario = (Usuario) misession.getAttribute("usuario");
-//
-//        ModelMap model = new ModelMap();
-//        model.put("usuario", usuario);
-//
-//        return new ModelAndView("home", model);
-//    }
+
 
     @RequestMapping(path = "/mi-cuenta", method = RequestMethod.GET)
     public ModelAndView irMiCuenta(HttpServletRequest request) {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
-
-//        Producto producto=new Producto("a",5.0,"s", Categoria.Bebidas, Subcategoria.Gaseosas,"ss");
-//        List<Producto> productos=new ArrayList<>();
-//        productos.add(producto);
-//
-//        usuario.setProducto(productos);
 
         if (usuario == null) {
 
@@ -81,15 +65,15 @@ public class ControladorUsuario {
     @RequestMapping(path = "/sign-out", method = RequestMethod.GET)
     public ModelAndView cerrarSession(HttpServletRequest request) {
         HttpSession misession = request.getSession();
+
+        Usuario usuario = (Usuario) misession.getAttribute("usuario");
+        usuario.setStampCarritoActivo(null);
+        servicioUsuario.modificar(usuario);
+
         misession.removeAttribute("usuario");
 
         return new ModelAndView("redirect:/home");
     }
-
-//    @RequestMapping(path = "/", method = RequestMethod.GET)
-//    public ModelAndView inicio() {
-//        return new ModelAndView("redirect:/login");
-//    }
 
 
     // FUNCIONES POST Y PUT
@@ -103,16 +87,11 @@ public class ControladorUsuario {
             HttpSession misession = request.getSession(true);
             misession.setAttribute("usuario", usuario);
 
-//            model.put("usuario", usuario);
-//            return new ModelAndView("mi-cuenta", model);
 
             return new ModelAndView("redirect:/home");
         } else {
-//            model.put("error", "Usuario o clave incorrecta");
             redirectAttrs.addFlashAttribute("error", "Usuario o clave incorrecta");
         }
-
-//        return new ModelAndView("login", model);
         return new ModelAndView("redirect:/login");
 
     }
@@ -127,30 +106,13 @@ public class ControladorUsuario {
             redirectAttrs.addFlashAttribute("error", "El usuario ya existe");
             return new ModelAndView("redirect:/nuevo-usuario");
 
-//            model.put("error", "El usuario ya existe");
-//            return new ModelAndView("nuevo-usuario", model);
         } catch (Exception e) {
             redirectAttrs.addFlashAttribute("error", "Error al registrar el nuevo usuario");
             return new ModelAndView("redirect:/nuevo-usuario");
 
-//            model.put("error", "Error al registrar el nuevo usuario");
-//            return new ModelAndView("nuevo-usuario", model);
         }
         redirectAttrs.addFlashAttribute("register", "Usuario registrado correctamente");
         return new ModelAndView("redirect:/login");
-
-//        // Si uso redirect no me toma DatosLogin()
-//        ModelAndView modelAndView = new ModelAndView("login");
-//
-//        modelAndView.addObject("register", "Usuario registrado correctamente");
-//        modelAndView.addObject("datosLogin", new DatosLogin());
-//
-////        model.put("register", "Usuario registrado correctamente");
-////        return new ModelAndView("redirect:/login",model);
-//
-//        return modelAndView;
-
-
     }
 
     @RequestMapping(path = "/modificar", method = RequestMethod.POST)

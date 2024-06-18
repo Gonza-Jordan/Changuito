@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,10 +34,13 @@ public class Usuario {
     private String contrasena;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List <SupermercadoProducto> supermercadoProducto;
+    private List <Carrito> carritos;
 
-    @Column(nullable = false)
+    @Column()
     private Boolean admin;
+
+    @Column()
+    private Date stampCarritoActivo;
 
     public String getEmail() {
         return email;
@@ -86,13 +90,6 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public List<SupermercadoProducto> getSupermercadoProducto() {
-        return supermercadoProducto;
-    }
-
-    public void setSupermercadoProducto(List<SupermercadoProducto> supermercadoProducto) {
-        this.supermercadoProducto = supermercadoProducto;
-    }
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
@@ -100,5 +97,25 @@ public class Usuario {
 
     public Boolean getAdmin() {
         return admin;
+    }
+
+    public List<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
+    }
+
+    public Date getStampCarritoActivo() {
+        return stampCarritoActivo;
+    }
+
+    public void setStampCarritoActivo(Date stampCarritoActivo) {
+        this.stampCarritoActivo = stampCarritoActivo;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -11,4 +11,6 @@ public interface RepositorioSupermercadoProducto {
 
     List<SupermercadoProducto> buscarConFiltros(String subcategoria, Map<String, List<String>> filtros, List<Integer> productoIds);
 
+    SupermercadoProducto buscarSupermercadoProducto(Integer idProducto, Integer idSupermercado);
+
 }
