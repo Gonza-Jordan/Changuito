@@ -20,12 +20,24 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
         this.sessionFactory = sessionFactory;
     }
 
+
     @Override
-    public void guardarProductoConSupermercado(Supermercado supermercado, Producto producto) {
+    public void guardarSupermercadoProducto(Supermercado supermercado, Producto producto) {
         SupermercadoProducto supermercadoProducto = new SupermercadoProducto();
-        supermercadoProducto.setProducto(producto);
         supermercadoProducto.setSupermercado(supermercado);
+        supermercadoProducto.setProducto(producto);
         this.sessionFactory.getCurrentSession().save(supermercadoProducto);
+    }
+
+    @Override
+    public void asignarPrecioYDescuentoAUnSupermercadoProducto(SupermercadoProducto supermercadoProducto, Double precio, Double descuento) {
+        if (precio != null){
+            supermercadoProducto.setPrecio(precio);
+        }
+        if (descuento != null){
+            supermercadoProducto.setDescuento(descuento);
+        }
+        this.sessionFactory.getCurrentSession().saveOrUpdate(supermercadoProducto);
     }
 
     @Override
@@ -50,7 +62,7 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
                     String valor = valoresFiltro.get(i);
 
                     if (nombreFiltro.equals("precio")) {
-                        consulta.append("sp.precio ").append(valor);
+                        consulta.append("sp.precio * COALESCE(sp.descuento, 1.0) ").append(valor);
                     } else {
                         consulta.append(nombreFiltro).append(" = :").append(nombreFiltro).append(i);
                     }

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -51,5 +53,96 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     @Override
     public List<Producto> consultarProductosPorIds(List<Integer> ids) {
         return repositorioProducto.buscarProductosPorIds(ids);
+    }
+
+    @Override
+    public List<SupermercadoProducto> ordenarProductos(List<SupermercadoProducto> productosFiltrados, String ordenar) {
+        if ("menor_a_mayor".equals(ordenar)) {
+            productosFiltrados.sort(Comparator.comparingDouble(this::getPrecioConDescuento));
+        } else if ("mayor_a_menor".equals(ordenar)) {
+            productosFiltrados.sort(Comparator.comparingDouble(this::getPrecioConDescuento).reversed());
+        }
+        return productosFiltrados;
+    }
+
+    @Override
+    public List<Supermercado> consultarSupermercados(List<SupermercadoProducto> productosFiltrados) {
+        List<Supermercado> supermercados = new ArrayList<>();
+        for (SupermercadoProducto supermercadoProducto : productosFiltrados) {
+            Supermercado supermercado = supermercadoProducto.getSupermercado();
+            if (!supermercados.contains(supermercado)) {
+                supermercados.add(supermercado);
+            }
+        }
+        return supermercados;
+    }
+
+    @Override
+    public List<Double> consultarDescuentos(List<SupermercadoProducto> productosFiltrados) {
+        List<Double> descuentos = new ArrayList<>();
+        for (SupermercadoProducto supermercadoProducto : productosFiltrados) {
+            Double descuento = supermercadoProducto.getDescuento();
+            if (!descuentos.contains(descuento) && descuento != null) {
+                descuentos.add(descuento);
+            }
+        }
+        return descuentos;
+    }
+
+    @Override
+    public List<String> consultarPrecios(List<SupermercadoProducto> productosFiltrados) {
+        List<String> precios = new ArrayList<>();
+
+        if (!productosFiltrados.isEmpty()) {
+            Double menorPrecio = Double.MAX_VALUE;
+            Double mayorPrecio = Double.MIN_VALUE;
+
+            for (SupermercadoProducto supermercadoProducto : productosFiltrados) {
+                Double precio;
+                if (supermercadoProducto.getDescuento() != null){
+                    precio = supermercadoProducto.getPrecio() * supermercadoProducto.getDescuento();
+                }else {
+                    precio = supermercadoProducto.getPrecio();
+                }
+                if (precio < menorPrecio) {
+                    menorPrecio = precio;
+                }
+                if (precio > mayorPrecio) {
+                    mayorPrecio = precio;
+                }
+            }
+            Double tercioPrecio = menorPrecio + ((mayorPrecio - menorPrecio) / 3);
+            Double dosTerciosPrecio = menorPrecio + (2 * (mayorPrecio - menorPrecio) / 3);
+
+            precios.add(String.valueOf(menorPrecio));
+            precios.add(String.valueOf(tercioPrecio));
+            precios.add(String.valueOf(dosTerciosPrecio));
+            precios.add(String.valueOf(mayorPrecio));
+        }
+
+        return precios;
+    }
+
+    public List<String> formatearPrecios(List<String> filtrosPreciosAMostrar) {
+        List<String> preciosFormateados = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#");
+
+        for (String precioStr : filtrosPreciosAMostrar) {
+            try {
+                Double precio = Double.parseDouble(precioStr);
+                String precioFormateado = df.format(precio);
+                preciosFormateados.add(precioFormateado);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return preciosFormateados;
+    }
+
+    private double getPrecioConDescuento(SupermercadoProducto producto) {
+        if (producto.getDescuento() != null) {
+            return producto.getPrecio() * producto.getDescuento();
+        }
+        return producto.getPrecio();
     }
 }

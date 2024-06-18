@@ -94,9 +94,9 @@ INSERT INTO SupermercadoProducto (supermercado_id, producto_id, precio, descuent
 VALUES
     (1, 1, 3750, 0.95),
     (2, 2, 3600, null),
-    (3, 3, 4500, 0.95),
-    (4, 4, 3650, 0.95),
-    (5, 5, 3800, null),
+    (3, 3, 4500, 0.75),
+    (4, 4, 3650, 0.90),
+    (5, 5, 3800, 0.90),
     (1, 6, 2000, null),
     (2, 7, 2100, null),
     (3, 8, 1900, null),
@@ -143,5 +143,4 @@ VALUES
     (4, 49, 12999, null),
     (5, 50, 1700, null),
     (1, 51, 2080, null),
-
-(2, 1, 3500, null);
+    (2, 1, 3500, null);

@@ -352,7 +352,7 @@ html {
 /* ******************************************* ESTILOS VISTA CATEGORIA ********************************************** */
 
 .icono-sub-categoria {
-    width: 100px
+    width: 100px;
     height: auto;
 }
 
@@ -447,6 +447,21 @@ html {
 
 .tituloProductoBuscado {
     padding-left: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 100px;
+}
+
+.ordenar{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: end;
+}
+
+#ordenar{
+    width:50%;
 }
 
 .containerProductoBuscado {
@@ -601,6 +616,11 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+}
+
+.error{
+    font-size: 2em;
+    color: red;
 }
 
 /* ******************************************* ESTILOS FOOTER ********************************************* */

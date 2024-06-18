@@ -1,3 +1,4 @@
+
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.*;
@@ -25,16 +26,13 @@ public class ControladorCarritoCompras {
 
     @RequestMapping(path = "/carritoCompras", method = RequestMethod.GET)
     public ModelAndView verCarrito() {
-        DecimalFormat df = new DecimalFormat("#.00"); // Formato para dos decimales
+        DecimalFormat df = new DecimalFormat("#.00");
 
         for (SupermercadoProducto supermercadoProducto : carrito) {
-            Double precio = supermercadoProducto.getPrecio(); // Asegúrate de que getPrecio() devuelve un double
-            supermercadoProducto.getProducto().setPrecioFormateado(df.format(precio)); // Formatear el precio de cada producto
+            Double precio = supermercadoProducto.getPrecio();
+            supermercadoProducto.getProducto().setPrecioFormateado(df.format(precio));
         }
 
-
-
-//        carrito.forEach(supermercadoProducto -> supermercadoProducto.getProducto().setPrecioFormateado(df.format(supermercadoProducto.getPrecio()))); // Formatear el precio de cada producto
         ModelAndView modelAndView = new ModelAndView("carritoCompras");
         modelAndView.addObject("carrito", carrito);
         modelAndView.addObject("cantidadProductos", carrito.size());
@@ -68,13 +66,27 @@ public class ControladorCarritoCompras {
         carrito.clear();
     }
 
+    @RequestMapping(path = "/vaciarCarrito", method = RequestMethod.POST)
+    public ModelAndView vaciarCarrito(HttpSession session) {
+        carrito.clear();
+        session.setAttribute("carrito", carrito);
+        return new ModelAndView("redirect:/home");
+    }
+
     @RequestMapping(path = "/guardarCarrito", method = RequestMethod.GET)
     public ModelAndView guardarCarrito(HttpServletRequest request) {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
-        carrito.forEach(supermercadoProducto -> usuario.getSupermercadoProducto().add(supermercadoProducto)); // Formatear el precio de cada producto
+        carrito.forEach(supermercadoProducto -> usuario.getSupermercadoProducto().add(supermercadoProducto));
 
         return new ModelAndView("redirect:/home");
+    }
+
+    @RequestMapping(path = "/pagar", method = RequestMethod.POST)
+    public String pagar(HttpSession session) {
+        // Vaciar el carrito
+        session.removeAttribute("carrito");
+        return "redirect:/home";
     }
 }
