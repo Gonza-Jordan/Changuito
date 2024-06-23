@@ -158,11 +158,28 @@
 
                     <a class="btnLogin btn btn-sm btn-primary btn-block my-2" id="eliminarCarrito" th:href="@{/eliminarCarrito(id=${carrito.getId()})}">Eliminar carrito</a>
 
+                </div>
+
+            </div>
+
+
+            <div>
+                <h4>Mis pedidos</h4>
+
+                <div th:each="pedido : ${usuario.getPedidos()}" class="mt-4">
+
+                    <h7>Fecha de creacion:</h7>
+                    <p th:text="${pedido.getFechaDeCreacion()}"></p>
+
+                    <h7>Carrito:</h7>
+                    <div>
+                        <p th:text="${pedido.getCarrito().getFechaDeCreacion()}"></p>
+                    </div>
 
                 </div>
 
-
             </div>
+
 
             <p th:if="${error != null}" th:text="'Error ' + ${error}" class="alert alert-danger m-0"></p>
         </form>

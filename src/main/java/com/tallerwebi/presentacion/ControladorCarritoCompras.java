@@ -23,15 +23,16 @@ public class ControladorCarritoCompras {
     //private List<Producto> carrito = new ArrayList<>();
     private ServicioCarrito servicioCarrito;
     private ServicioUsuario servicioUsuario;
+    private ServicioPedido servicioPedido;
     private ServicioSupermercadoProducto servicioSupermercadoProducto;
 
 
-    public ControladorCarritoCompras(ServicioCarrito servicioCarrito, ServicioUsuario servicioUsuario, ServicioSupermercadoProducto servicioSupermercadoProducto) {
+    public ControladorCarritoCompras(ServicioCarrito servicioCarrito, ServicioUsuario servicioUsuario, ServicioPedido servicioPedido,ServicioSupermercadoProducto servicioSupermercadoProducto) {
         // Inicialmente, el carrito está vacío
         this.servicioCarrito = servicioCarrito;
         this.servicioUsuario = servicioUsuario;
+        this.servicioPedido = servicioPedido;
         this.servicioSupermercadoProducto = servicioSupermercadoProducto;
-
     }
 
     @RequestMapping(path = "/carritoCompras", method = RequestMethod.GET)
@@ -131,9 +132,9 @@ public class ControladorCarritoCompras {
 
         Date stamp = usuario.getStampCarritoActivo();
 
-        Carrito carrito1 = servicioCarrito.consultarCarrito(stamp);
+        Carrito carrito = servicioCarrito.consultarCarrito(stamp);
 
-        usuario.getCarritos().add(carrito1);
+        usuario.getCarritos().add(carrito);
 
         servicioUsuario.modificar(usuario);
 
@@ -182,6 +183,28 @@ public class ControladorCarritoCompras {
         return new ModelAndView("redirect:/home");
     }
 
+  
+    //PEDIDOS
+    @RequestMapping(path = "/generarPedido", method = RequestMethod.POST)
+    public ModelAndView generarPedido(HttpServletRequest request) {
+        HttpSession misession = request.getSession();
+        Usuario usuario = (Usuario) misession.getAttribute("usuario");
+
+        Date stamp = usuario.getStampCarritoActivo();
+
+        Carrito carrito = servicioCarrito.consultarCarrito(stamp);
+
+        Pedido pedido = new Pedido();
+        pedido.setCarrito(carrito);
+        servicioPedido.registrar(pedido);
+
+        usuario.getPedidos().add(pedido);
+        servicioUsuario.modificar(usuario);
+
+        misession.setAttribute("usuario", usuario);
+
+        return new ModelAndView("redirect:/mi-cuenta");
+    }
 
 
     //
