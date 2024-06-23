@@ -101,6 +101,18 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
         return query.getResultList();
     }
 
+
+    @Override
+    public SupermercadoProducto buscarSupermercadoProducto(Integer idProducto, Integer idSupermercado) {
+
+        String hql = "FROM SupermercadoProducto WHERE producto.idProducto = :idProducto AND supermercado.idSupermercado = :idSupermercado";
+        javax.persistence.Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("idProducto", idProducto );
+        query.setParameter("idSupermercado", idSupermercado);
+        return (SupermercadoProducto) query.getSingleResult();
+
+    }
+
 }
 
 
