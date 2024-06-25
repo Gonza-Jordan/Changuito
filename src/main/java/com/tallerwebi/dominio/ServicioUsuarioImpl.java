@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 
 @Service("servicioLogin")
@@ -49,5 +50,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     public void modificar(Usuario usuario){
         repositorioUsuario.modificar(usuario);
     };
+
+    @Override
+    public List<Carrito> eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito) {
+        repositorioUsuario.eliminarCarritoDeUsuario(usuario, carrito);
+        return null;
+    }
 
 }

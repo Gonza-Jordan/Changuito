@@ -48,16 +48,16 @@ a {
 }
 
 .btnLogin {
-    background: white;
-    color: black;
-    border: none;
+    background: gray !important;
+    color: #99ce00 !important;
+    border: none !important;
 }
 
 .btnLogin:hover,
 .btnLogin:active,
 .btnLogin:focus-visible {
-    background: gray !important;
-    color: #99ce00 !important;
+    background: darkgray !important;
+    color: white !important;
     border: none !important;
     box-shadow: none !important;
 }

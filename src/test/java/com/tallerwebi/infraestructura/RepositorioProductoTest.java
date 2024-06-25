@@ -48,14 +48,15 @@ public class RepositorioProductoTest {
     public void queSePuedaGuardarUnProducto(){
         //Preparacion
         Producto productoAGuardar = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        this.repositorioProducto.guardarProducto(productoAGuardar);
 
         //Ejecucion
+        this.repositorioProducto.guardarProducto(productoAGuardar);
+
+        //Verficacion
         Producto productoObtenido = (Producto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Producto WHERE nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        //Verficacion
         assertThat(productoObtenido, equalTo(productoAGuardar));
     }
 
