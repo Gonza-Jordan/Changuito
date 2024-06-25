@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Promociones</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+<body>
+<header th:include="header.html" class="cabecera"></header>
+<section th:include="buscador.html" class="buscador"></section>
+<br>
+<br>
+<div class="containerProductoBuscado">
+    <div class="product-column">
+        <h2 class="titulo-promos">Productos con Combos:</h2>
+        <div th:each="promocion : ${promociones}">
+            <!-- Si es una instancia de Combo -->
+            <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
+                <div class="product-card">
+                    <a th:href="@{/producto_seleccionado/{id}(id=${promocion.producto.producto.idProducto})}">
+                        <div class="product-image">
+                            <img th:src="${promocion.producto.producto.urlImagen}" alt="Imagen del Producto">
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <div class="product-name" th:text="${promocion.producto.producto.nombre}"></div>
+                        <div class="store-info">
+                            <div class="store-name" th:text="${promocion.producto.supermercado.nombre}"></div>
+                            <div class="store-location" th:text="${promocion.producto.supermercado.ubicacion}"></div>
+                            <div class="product-price">
+                                    <span class="product-price-center">
+                                        <span class="tachado"
+                                              th:text="'$' + ${promocion.producto.precio} * ${promocion.cantidadVendida}"></span>
+                                    </span>
+                            </div>
+                            <div class="store-logo">
+                                <img th:src="${promocion.producto.supermercado.logo}"
+                                     th:alt="${promocion.producto.supermercado.nombre}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="combo-datos">
+                        <div class="x">
+                            <span th:text="${promocion.cantidadVendida}"></span>
+                            <span>X</span>
+                            <span th:text="${promocion.cantidadCobrada}"></span>
+                        </div>
+                        <span th:text="'Desde: ' + ${promocion.fechaInicio}"></span>
+                        <span th:text="'Hasta: ' + ${promocion.fechaFin}"></span>
+                        <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
+                        <div class="buttons">
+                            <form th:action="@{/agregarAlCarrito}" method="post">
+                                <input type="hidden" name="nombre" th:value="${promocion.producto.producto.nombre}"/>
+                                <input type="hidden" name="precio" th:value="${promocion.producto.precio}"/>
+                                <input type="hidden" name="codigoBarras"
+                                       th:value="${promocion.producto.producto.codigoBarras}"/>
+                                <input type="hidden" name="categoria"
+                                       th:value="${promocion.producto.producto.categoria}"/>
+                                <input type="hidden" name="subcategoria"
+                                       th:value="${promocion.producto.producto.subcategoria}"/>
+                                <input type="hidden" name="urlImagen"
+                                       th:value="${promocion.producto.producto.urlImagen}"/>
+                                <button type="submit" class="add-button">Agregar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contenedor-paquetes">
+        <div class="product-column">
+            <h2 class="titulo-promos">Paquetes de Productos:</h2>
+            <div th:each="promocion : ${promociones}">
+                <!-- Si es una instancia de Paquete -->
+                <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}">
+                    <div class="product-card">
+                        <div class="paquete">
+                            <div class="nombre">
+                                <span th:text="${promocion.nombre}"></span>
+                            </div>
+                            <div th:each="producto : ${promocion.productos}">
+                                <a th:href="@{/producto_seleccionado/{id}(id=${producto.producto.idProducto})}">
+                                    <div class="product-image">
+                                        <img th:src="${producto.producto.urlImagen}" alt="Imagen del Producto">
+                                    </div>
+                                </a>
+                                <div class="product-info">
+                                    <div class="product-name" th:text="${producto.producto.nombre}"></div>
+                                    <div class="store-info">
+                                        <div class="store-name" th:text="${producto.supermercado.nombre}"></div>
+                                        <div class="store-location" th:text="${producto.supermercado.ubicacion}"></div>
+                                        <div class="product-price">
+                                    <span class="product-price-center">
+                                        <span class="tachado" th:text="'$' + ${producto.precio}"></span>
+                                    </span>
+                                        </div>
+                                        <div class="store-logo">
+                                            <img th:src="${producto.supermercado.logo}"
+                                                 th:alt="${producto.supermercado.nombre}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="combo-datos">
+                            <span th:text="'Desde: ' + ${promocion.fechaInicio}"></span>
+                            <span th:text="'Hasta: ' + ${promocion.fechaFin}"></span>
+                            <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
+                            <div class="buttons">
+                                <form th:action="@{/agregarAlCarrito}" method="post">
+                                    <input type="hidden" name="nombre"
+                                           th:value="${promocion.productos[0].producto.nombre}"/>
+                                    <input type="hidden" name="precio" th:value="${promocion.precioFinal}"/>
+                                    <input type="hidden" name="codigoBarras"
+                                           th:value="${promocion.productos[0].producto.codigoBarras}"/>
+                                    <input type="hidden" name="categoria"
+                                           th:value="${promocion.productos[0].producto.categoria}"/>
+                                    <input type="hidden" name="subcategoria"
+                                           th:value="${promocion.productos[0].producto.subcategoria}"/>
+                                    <input type="hidden" name="urlImagen"
+                                           th:value="${promocion.productos[0].producto.urlImagen}"/>
+                                    <button type="submit" class="add-button">Agregar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p th:if="${error != null}" th:text="'>> ' +  ${error}" class="error"></p>
+
+<footer th:include="footer.html"></footer>
+</body>
+</html>

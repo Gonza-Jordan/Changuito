@@ -29,10 +29,8 @@ public class Supermercado {
         this.logo = logo;
     }
 
-    // En la clase Supermercado
-    public void agregarProducto(SupermercadoProducto supermercadoProducto) {
-        supermercadoProducto.setSupermercado(this);
-        this.productos.add(supermercadoProducto);
+    public Set<SupermercadoProducto> getProductos() {
+        return this.productos;
     }
 
     public Integer getIdSupermercado() {

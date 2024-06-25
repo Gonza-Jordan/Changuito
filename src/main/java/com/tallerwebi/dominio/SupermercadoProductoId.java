@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
@@ -8,8 +9,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class SupermercadoProductoId implements Serializable {
+    @Column(name = "producto_id")
     private Integer productoId;
+
+    @Column(name = "supermercado_id")
     private Integer supermercadoId;
+//    private Integer productoId;
+//    private Integer supermercadoId;
 
     public SupermercadoProductoId() {
     }

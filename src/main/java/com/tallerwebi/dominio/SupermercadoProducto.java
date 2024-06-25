@@ -33,7 +33,7 @@ public class SupermercadoProducto implements Serializable {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
-        producto.agregarSupermercadoProducto(this); // Agregar este producto a la lista de SupermercadoProducto en Producto
+        producto.agregarSupermercadoProducto(this);
     }
 
     public Supermercado getSupermercado() {
@@ -42,7 +42,7 @@ public class SupermercadoProducto implements Serializable {
 
     public void setSupermercado(Supermercado supermercado) {
         this.supermercado = supermercado;
-        supermercado.agregarSupermercadoProducto(this); // Agregar este producto a la lista de SupermercadoProducto en Supermercado
+        supermercado.agregarSupermercadoProducto(this);
     }
 
     public Double getPrecio() {

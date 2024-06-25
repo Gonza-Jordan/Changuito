@@ -137,3 +137,49 @@ VALUES
     (5, 50, 1700, null),
     (1, 51, 2080, null),
     (2, 1, 3500, null);
+
+INSERT INTO Promocion (precioFinal, fechaInicio, fechaFin)
+VALUES
+    (3600, '2023-01-01', '2023-12-31'),
+    (3800, '2024-01-01', '2024-12-31'),
+    (4084.2, '2024-01-01', '2024-12-31'),
+    (3412, '2024-01-01', '2024-12-31'),
+    (6200, '2024-01-01', '2024-12-31'),
+    (1800, '2024-01-01', '2024-12-31'),
+    (4233, '2024-01-01', '2024-12-31'),
+    (2100, '2024-01-01', '2024-12-31'),
+    (4200, '2024-01-01', '2024-12-31');
+
+
+INSERT INTO Combo (idPromocion, producto_id, supermercado_id, cantidadVendida, cantidadCobrada)
+VALUES
+    (1, 2, 2, 2, 1),
+    (2, 5, 5, 2, 1),
+    (5, 33, 3, 3, 2),
+    (6, 16, 1, 4, 2),
+    (8, 7, 2, 2, 1),
+    (9, 11, 1, 4, 2);
+
+INSERT INTO Paquete (idPromocion, descuento, nombre)
+VALUES
+    (3, 10.0, 'Paquete AA'),
+    (4, 20.0, 'All in one'),
+    (7, 15.0, 'Mezcla mix');
+
+INSERT INTO Paquete_supermercado_producto (paquete_id, producto_id, supermercado_id)
+VALUES
+    (3, 15, 5),
+    (3, 20, 5),
+    (4, 24, 4),
+    (4, 29, 4),
+    (7, 6, 1),
+    (7, 16, 1),
+    (7, 51, 1);
+
+
+
+
+
+
+
+
