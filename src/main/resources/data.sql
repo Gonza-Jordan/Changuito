@@ -170,7 +170,7 @@ VALUES
 INSERT INTO Paquete (idPromocion, descuento, nombre)
 VALUES
     (3, 10.0, 'Paquete AA'),
-    (4, 20.0, 'All in one'),
+    (4, 20.0, 'Todo en uno'),
     (7, 15.0, 'Mezcla mix');
 
 INSERT INTO Paquete_supermercado_producto (paquete_id, producto_id, supermercado_id)

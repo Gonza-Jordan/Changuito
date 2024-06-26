@@ -1,7 +1,6 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.Paquete;
-import com.tallerwebi.dominio.Producto;
 import com.tallerwebi.dominio.Promocion;
 import com.tallerwebi.dominio.RepositorioPromocion;
 import org.hibernate.SessionFactory;
@@ -28,9 +27,14 @@ public class RepositorioPromocionImpl implements RepositorioPromocion {
         for (Promocion promocion : promociones) {
             if (promocion instanceof Paquete) {
                 Paquete paquete = (Paquete) promocion;
-                paquete.getProductos().size();  // Forzar la inicialización
+                paquete.getProductos().size();  //Fuerzo la inicialización
             }
         }
         return promociones;
+    }
+
+    @Override
+    public void guardarPromocion(Promocion promocion){
+        this.sessionFactory.getCurrentSession().save(promocion);
     }
 }

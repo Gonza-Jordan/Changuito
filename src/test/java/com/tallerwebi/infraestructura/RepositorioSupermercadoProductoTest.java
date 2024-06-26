@@ -65,10 +65,10 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaGuardarUnSupermercadoProducto() {
-        // Ejecución
+        //Ejecución
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
 
-        // Verificación
+        //Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -81,16 +81,16 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaAsignarPrecioAUnSupermercadoProducto() {
-        // Preparación
+        //Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        // Ejecución
+        //Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 3000.00, null);
 
-        // Verificación
+        //Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -103,16 +103,16 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaAsignarDescuentoAUnSupermercadoProducto() {
-        // Preparación
+        //Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        // Ejecución
+        //Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, null, 0.90);
 
-        // Verificación
+        //Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -125,16 +125,16 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaAsignarPrecioYDescuentoAUnSupermercadoProducto() {
-        // Preparación
+        //Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        // Ejecución
+        //Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 3000.00, 0.90);
 
-        // Verificación
+        //Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -148,17 +148,17 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaSobreescribirUnPrecioYUnDescuentoAUnSupermercadoProducto() {
-        // Preparación
+        //Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        // Ejecución
+        //Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 3000.00, 0.90);
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 1500.00, 0.80);
 
-        // Verificación
+        //Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -172,7 +172,7 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorPrecioEntreMilYDosMil(){
-        // Preparación
+        //Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, otroProductoMock);
 
@@ -196,10 +196,10 @@ public class RepositorioSupermercadoProductoTest {
         ids.add(productoMock.getIdProducto());
         ids.add(otroProductoMock.getIdProducto());
 
-        // Ejecución
+        //Ejecución
         List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(Subcategoria.Gaseosas.toString(), filtros, ids);
 
-        // Verificación
+        //Verificación
         assertThat(1, equalTo(productosEncontrados.size()));
         assertThat(productosEncontrados.get(0).getProducto(), equalTo(otroProductoMock));
         assertThat(productosEncontrados.get(0).getPrecio(), equalTo(1200.00));
