@@ -22,49 +22,82 @@ public class ControladorProductoBuscadoTest {
     private ServicioBusqueda servicioBusqueda;
     private ControladorProductoBuscado controladorProductoBuscado;
 
+    private Producto productoMock;
+    private Producto otroProductoMock;
+    private Producto otroProductoMockMas;
+    private Supermercado supermercadoMock;
+    private Supermercado otroSupermercadoMock;
+    private SupermercadoProducto supermercadoProductoMock;
+    private SupermercadoProducto otroSupermercadoProductoMock;
+    private SupermercadoProducto otroSupermercadoProductoMockMas;
+    private List<SupermercadoProducto> supermercadoProductoListMock;
+    private HttpServletRequest request;
+    private HttpSession session;
+    private List<String> precios;
+    private List<String> descuentos;
+    private List<String> supermercados;
+    private Map<String, List<String>> filtros;
+
+
     @BeforeEach
     public void init() {
         this.servicioBusqueda = mock(ServicioBusqueda.class);
         this.controladorProductoBuscado = new ControladorProductoBuscado(this.servicioBusqueda);
+
+        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+
+        this.supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+        this.otroSupermercadoMock = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
+        this.supermercadoMock.setIdSupermercado(2);
+        this.otroSupermercadoMock.setIdSupermercado(1);
+
+        this.supermercadoProductoMock = new SupermercadoProducto();
+        this.otroSupermercadoProductoMock = new SupermercadoProducto();
+        this.otroSupermercadoProductoMockMas = new SupermercadoProducto();
+
+        supermercadoProductoMock.setSupermercado(supermercadoMock);
+        supermercadoProductoMock.setProducto(productoMock);
+
+        otroSupermercadoProductoMock.setSupermercado(otroSupermercadoMock);
+        otroSupermercadoProductoMock.setProducto(otroProductoMock);
+
+        otroSupermercadoProductoMockMas.setSupermercado(supermercadoMock);
+        otroSupermercadoProductoMockMas.setProducto(otroProductoMockMas);
+
+        supermercadoProductoListMock = new ArrayList<>();
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+
+        this.precios = new ArrayList<>();
+        this.descuentos = new ArrayList<>();
+        this.supermercados = new ArrayList<>();
+        this.filtros = new HashMap<>();
+
+        this.request = mock(HttpServletRequest.class);
+        this.session = mock(HttpSession.class);
+        when(request.getSession()).thenReturn(session);
     }
 
     @Test
     public void queAlHacerClickEnLaSubcategoriaGaseosasSeMuestrenLosProductosDelTipoGaseosas() {
         //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        List<Producto> productosMock = new ArrayList<>();
-        Producto productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
-
-        when(this.servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, null, "1")).thenReturn(supermercadoProductoListMock);
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq(null))).thenReturn(supermercadoProductoListMock);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "", request);
 
         //Validacion
         assertThat(mav.getViewName(), equalTo("productoBuscado"));
-        assertThat(mav.getModel().get("productos"), equalTo(productosMock));
+        assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
     }
 
     @Test
     public void queAlHacerClickEnLaSubcategoriaGaseosasSeMuestreUnMensajeDeErrorPorqueNoEncontroProductos() {
         //Preparacion
         when(this.servicioBusqueda.consultarProductosPorSubcategoria(Subcategoria.Gaseosas)).thenReturn(null);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null, null, null, "", request);
@@ -78,41 +111,17 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElCheckboxDePrecioEntreMilYDosMilSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
         supermercadoProductoMock.setPrecio(1200.00);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
         otroSupermercadoProductoMock.setPrecio(1800.00);
 
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
-        List<String> precios = new ArrayList<>();
         precios.add("BETWEEN 1000 AND 2000");
-        Map<String, List<String>> filtros = new HashMap<>();
         filtros.put("precio", precios);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
-
         //Ejecucion
-        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", subcategoriaStr, null, null, null, null, null, precios , null, "1,2", "", request);
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", Subcategoria.Gaseosas.toString(), null, null, null, null, null, precios , null, "1,2", "", request);
 
         //Verificacion
         assertThat(mav.getViewName(), equalTo("productoBuscado"));
@@ -125,19 +134,13 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElCheckboxDePrecioEntreDosMilYTresMilSeMuestreElMensajeDeQueNoSeEncontraronProductos(){
         //Preparacion
-        List<String> precios = new ArrayList<>();
         precios.add("BETWEEN 2000 AND 3000");
-        Map<String, List<String>> filtros = new HashMap<>();
         filtros.put("precio", precios);
 
         List<SupermercadoProducto> supermercadoProductoList = new ArrayList<>();
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq(null))).thenReturn(supermercadoProductoList);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, precios, null, null, "", request);
@@ -152,36 +155,14 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElCheckboxDeDescuentoDelCincoPorcientoSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
         supermercadoProductoMock.setDescuento(0.95);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
         otroSupermercadoProductoMock.setDescuento(0.95);
 
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
-        List<String> descuentos = new ArrayList<>();
         descuentos.add("0.95");
-        Map<String, List<String>> filtros = new HashMap<>();
         filtros.put("descuento", descuentos);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, descuentos, null, null, null , null, "1,2", "", request);
@@ -198,35 +179,14 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElCheckboxDeSupermercadoCotoSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        supermercadoCoto.setIdSupermercado(1);
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCoto);
+        supermercadoProductoMock.setSupermercado(otroSupermercadoMock);
         supermercadoProductoMock.setProducto(productoMock);
 
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCoto);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
-        List<String> supermercados = new ArrayList<>();
-        supermercados.add(supermercadoCoto.getIdSupermercado().toString());
-        Map<String, List<String>> filtros = new HashMap<>();
+        supermercados.add(otroSupermercadoMock.getIdSupermercado().toString());
         filtros.put("supermercado_id", supermercados);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, supermercados, null , null, "1,2", "", request);
@@ -243,35 +203,14 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElSelectDeOrdenarPorPrecioDeMenorAMayorSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        supermercadoCoto.setIdSupermercado(1);
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCoto);
-        supermercadoProductoMock.setProducto(productoMock);
         supermercadoProductoMock.setPrecio(1000.00);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCoto);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
         otroSupermercadoProductoMock.setPrecio(2000.00);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
 
         String ordenar = "menor_a_mayor";
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar)).thenReturn(supermercadoProductoListMock);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar, request);
@@ -289,35 +228,14 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElSelectDeOrdenarPorPrecioDeMayorAMenorSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        supermercadoCoto.setIdSupermercado(1);
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCoto);
-        supermercadoProductoMock.setProducto(productoMock);
         supermercadoProductoMock.setPrecio(2000.00);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCoto);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
         otroSupermercadoProductoMock.setPrecio(1000.00);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
 
         String ordenar = "mayor_a_menor";
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar)).thenReturn(supermercadoProductoListMock);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", ordenar, request);
@@ -335,24 +253,8 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queElFiltroDescuentosMuestreLosDescuentosDeLosProductosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
         supermercadoProductoMock.setDescuento(0.95);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
         otroSupermercadoProductoMock.setDescuento(0.90);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
 
         List<Double> descuentosEsperados = new ArrayList<>();
         descuentosEsperados.add(0.95);
@@ -361,10 +263,6 @@ public class ControladorProductoBuscadoTest {
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(descuentosEsperados);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
@@ -380,24 +278,8 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queElFiltroDescuentosMuestreLosDescuentosDeLosProductosDeLaSubcategoriaGaseosasAunSiSeSeleccionaElDescuentoDelCincoPorciento() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
         supermercadoProductoMock.setDescuento(0.95);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
         otroSupermercadoProductoMock.setDescuento(0.90);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
 
         List<SupermercadoProducto> otraSupermercadoProductoListMock = new ArrayList<>();
         otraSupermercadoProductoListMock.add(supermercadoProductoMock);
@@ -406,18 +288,13 @@ public class ControladorProductoBuscadoTest {
         descuentosEsperados.add(0.95);
         descuentosEsperados.add(0.90);
 
-        List<String> descuentos = new ArrayList<>();
         descuentos.add("0.95");
-        Map<String, List<String>> filtros = new HashMap<>();
         filtros.put("descuento", descuentos);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(otraSupermercadoProductoListMock);
         when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(descuentosEsperados);
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("descuentos")).thenReturn(descuentosEsperados);
 
         //Ejecucion
@@ -434,35 +311,13 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queElFiltroSupermercadosMuestreLosSupermercadosDeLosProductosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCarrefour);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCoto);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<Supermercado> supermercadosEsperados = new ArrayList<>();
-        supermercadosEsperados.add(supermercadoCarrefour);
-        supermercadosEsperados.add(supermercadoCoto);
+        supermercadosEsperados.add(supermercadoMock);
+        supermercadosEsperados.add(otroSupermercadoMock);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.consultarSupermercados(supermercadoProductoListMock)).thenReturn(supermercadosEsperados);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
@@ -478,46 +333,20 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queElFiltroSupermercadosMuestreLosSupermercadosDeLosProductosDeLaSubcategoriaGaseosasAunSiSeSeleccionaElSupermercadoCoto() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        supermercadoCarrefour.setIdSupermercado(1);
-        supermercadoCoto.setIdSupermercado(2);
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCarrefour);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCoto);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<SupermercadoProducto> otraSupermercadoProductoListMock = new ArrayList<>();
         otraSupermercadoProductoListMock.add(supermercadoProductoMock);
 
         List<Supermercado> supermercadosEsperados = new ArrayList<>();
-        supermercadosEsperados.add(supermercadoCarrefour);
-        supermercadosEsperados.add(supermercadoCoto);
+        supermercadosEsperados.add(supermercadoMock);
+        supermercadosEsperados.add(otroSupermercadoMock);
 
-        List<String> supermercados = new ArrayList<>();
-        supermercados.add(supermercadoCoto.getIdSupermercado().toString());
-        Map<String, List<String>> filtros = new HashMap<>();
+        supermercados.add(otroSupermercadoMock.getIdSupermercado().toString());
         filtros.put("supermercado_id", supermercados);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(otraSupermercadoProductoListMock);
         when(this.servicioBusqueda.consultarSupermercados(supermercadoProductoListMock)).thenReturn(supermercadosEsperados);
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("supermercados")).thenReturn(supermercadosEsperados);
 
         //Ejecucion
@@ -534,23 +363,6 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queElFiltroPreciosMuestreLosPreciosEntreRangosDeLosProductosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCarrefour);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCarrefour);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<String> preciosSinFormatear = new ArrayList<>();
         preciosSinFormatear.add("1000.00");
         preciosSinFormatear.add("1333.33");
@@ -568,10 +380,6 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarPrecios(supermercadoProductoListMock)).thenReturn(preciosSinFormatear);
         when(this.servicioBusqueda.formatearPrecios(preciosSinFormatear)).thenReturn(preciosFormateados);
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
-
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
 
@@ -587,23 +395,6 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queElFiltroPreciosMuestreLosPreciosEntreRangosDeLosProductosDeLaSubcategoriaGaseosasAunSiSeSeleccionaRangoEntreMilYDosMil() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoCarrefour);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoCarrefour);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<SupermercadoProducto> otraSupermercadoProductoListMock = new ArrayList<>();
         otraSupermercadoProductoListMock.add(supermercadoProductoMock);
 
@@ -619,9 +410,7 @@ public class ControladorProductoBuscadoTest {
         preciosFormateados.add("1667");
         preciosFormateados.add("2000");
 
-        List<String> precios = new ArrayList<>();
         precios.add("BETWEEN 1000 AND 2000");
-        Map<String, List<String>> filtros = new HashMap<>();
         filtros.put("precio", precios);
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
@@ -629,9 +418,6 @@ public class ControladorProductoBuscadoTest {
         when(this.servicioBusqueda.consultarPrecios(supermercadoProductoListMock)).thenReturn(preciosSinFormatear);
         when(this.servicioBusqueda.formatearPrecios(preciosSinFormatear)).thenReturn(preciosFormateados);
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("precios")).thenReturn(preciosSinFormatear);
         when(request.getSession().getAttribute("preciosFormateados")).thenReturn(preciosFormateados);
 
@@ -650,32 +436,11 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void siNoHayDescuentosDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloDescuentosDeLaVista() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<Double> descuentosVacios = new ArrayList<>();
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(descuentosVacios);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
@@ -691,32 +456,11 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void siNoHaySupermercadosDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloSupermercadosDeLaVista() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<Double> supermercadosVacios = new ArrayList<>();
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(supermercadosVacios);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
@@ -732,32 +476,11 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void siNoHayPreciosDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloPreciosDeLaVista() {
         //Preparacion
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        SupermercadoProducto supermercadoProductoMock = new SupermercadoProducto();
-        SupermercadoProducto otroSupermercadoProductoMock = new SupermercadoProducto();
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
-
-        otroSupermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setProducto(otroProductoMock);
-
-        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
-        supermercadoProductoListMock.add(supermercadoProductoMock);
-        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
-
         List<Double> preciosVacios = new ArrayList<>();
 
         ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
         when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
         when(this.servicioBusqueda.consultarDescuentos(supermercadoProductoListMock)).thenReturn(preciosVacios);
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpSession session = mock(HttpSession.class);
-        when(request.getSession()).thenReturn(session);
 
         //Ejecucion
         ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);

@@ -43,9 +43,11 @@ public class ControladorHomeTest {
 
 		// ejecucion
 		ModelAndView mav = this.controladorHome.irAHome();
+		List<Categoria> categoriasObtenidas = (List<Categoria>) mav.getModel().get("categorias");
+
 
 		// verificacion
-		List<Categoria> categoriasObtenidas = (List<Categoria>) mav.getModel().get("categorias");
+		assertThat(mav.getViewName(), equalToIgnoringCase("home"));
 		assertThat(categoriasObtenidas.size(), equalTo(categorias.size()));
 	}
 

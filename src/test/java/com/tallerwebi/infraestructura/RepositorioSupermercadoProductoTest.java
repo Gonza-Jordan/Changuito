@@ -36,28 +36,39 @@ public class RepositorioSupermercadoProductoTest {
     private RepositorioProducto repositorioProducto;
     private RepositorioSupermercado repositorioSupermercado;
 
+    private Producto productoMock;
+    private Producto otroProductoMock;
+    private Supermercado supermercadoMock;
+    private Supermercado supermercadoCoto;
+    private Supermercado supermercadoCarrefour;
+
     @BeforeEach
     public void init() {
         this.repositorioSupermercadoProducto = new RepositorioSupermercadoProductoImpl(this.sessionFactory);
         this.repositorioProducto = mock(RepositorioProducto.class);
         this.repositorioSupermercado = mock(RepositorioSupermercado.class);
+
+        productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+        supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
+        supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+
+        this.repositorioProducto.guardarProducto(productoMock);
+        this.repositorioProducto.guardarProducto(otroProductoMock);
+        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
+        this.repositorioSupermercado.guardarSupermercado(supermercadoCoto);
+        this.repositorioSupermercado.guardarSupermercado(supermercadoCarrefour);
     }
 
     @Test
     @Transactional
     @Rollback
     public void queSePuedaGuardarUnSupermercadoProducto() {
-        //Preparacion
-        Producto productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
-
-        //Ejecucion
+        // Ejecución
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
 
-        //Verficacion
+        // Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -70,22 +81,16 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaAsignarPrecioAUnSupermercadoProducto() {
-        //Preparacion
-        Producto productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
+        // Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
-
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        //Ejecucion
+        // Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 3000.00, null);
 
-        //Verficacion
+        // Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -98,22 +103,16 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaAsignarDescuentoAUnSupermercadoProducto() {
-        //Preparacion
-        Producto productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
+        // Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
-
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        //Ejecucion
+        // Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, null, 0.90);
 
-        //Verficacion
+        // Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -126,22 +125,16 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaAsignarPrecioYDescuentoAUnSupermercadoProducto() {
-        //Preparacion
-        Producto productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
+        // Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
-
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        //Ejecucion
+        // Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 3000.00, 0.90);
 
-        //Verficacion
+        // Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -155,23 +148,17 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedaSobreescribirUnPrecioYUnDescuentoAUnSupermercadoProducto() {
-        //Preparacion
-        Producto productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
+        // Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
-
         SupermercadoProducto supermercadoProductoBuscado = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
 
-        //Ejecucion
+        // Ejecución
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 3000.00, 0.90);
         this.repositorioSupermercadoProducto.asignarPrecioYDescuentoAUnSupermercadoProducto(supermercadoProductoBuscado, 1500.00, 0.80);
 
-        //Verficacion
+        // Verificación
         SupermercadoProducto supermercadoProductoObtenido = (SupermercadoProducto) this.sessionFactory.getCurrentSession()
                 .createQuery("FROM SupermercadoProducto WHERE producto.nombre = 'Coca Cola'")
                 .getSingleResult();
@@ -185,15 +172,7 @@ public class RepositorioSupermercadoProductoTest {
     @Transactional
     @Rollback
     public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorPrecioEntreMilYDosMil(){
-        //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioProducto.guardarProducto(otroProductoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
+        // Preparación
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, otroProductoMock);
 
@@ -217,10 +196,10 @@ public class RepositorioSupermercadoProductoTest {
         ids.add(productoMock.getIdProducto());
         ids.add(otroProductoMock.getIdProducto());
 
-        //Ejecucion
-        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(subcategoriaStr, filtros, ids);
+        // Ejecución
+        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(Subcategoria.Gaseosas.toString(), filtros, ids);
 
-        //Verficacion
+        // Verificación
         assertThat(1, equalTo(productosEncontrados.size()));
         assertThat(productosEncontrados.get(0).getProducto(), equalTo(otroProductoMock));
         assertThat(productosEncontrados.get(0).getPrecio(), equalTo(1200.00));
@@ -231,16 +210,6 @@ public class RepositorioSupermercadoProductoTest {
     @Rollback
     public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorSupermercadoCoto() {
         //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        Supermercado supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioProducto.guardarProducto(otroProductoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoCoto);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoCarrefour);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoCoto, productoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoCarrefour, otroProductoMock);
 
@@ -254,7 +223,7 @@ public class RepositorioSupermercadoProductoTest {
         ids.add(otroProductoMock.getIdProducto());
 
         //Ejecucion
-        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(subcategoriaStr, filtros, ids);
+        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(Subcategoria.Gaseosas.toString(), filtros, ids);
 
         //Verficacion
         assertThat(1, equalTo(productosEncontrados.size()));
@@ -268,14 +237,6 @@ public class RepositorioSupermercadoProductoTest {
     @Rollback
     public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorDescuentoIgualAlCincoPorciento(){
         //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioProducto.guardarProducto(otroProductoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, otroProductoMock);
 
@@ -300,7 +261,7 @@ public class RepositorioSupermercadoProductoTest {
         ids.add(otroProductoMock.getIdProducto());
 
         //Ejecucion
-        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(subcategoriaStr, filtros, ids);
+        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(Subcategoria.Gaseosas.toString(), filtros, ids);
 
         //Verficacion
         assertThat(1, equalTo(productosEncontrados.size()));
@@ -313,14 +274,6 @@ public class RepositorioSupermercadoProductoTest {
     @Rollback
     public void queSiNoSeEncuentranProductosDeUnaSubcategoriaPorDescuentoIgualAlCincoPorcientoDevuelvaVacio(){
         //Preparacion
-        String subcategoriaStr = Subcategoria.Gaseosas.toString();
-        Producto productoMock = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Producto otroProductoMock = new Producto("Sprite","123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        Supermercado supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
-
-        this.repositorioProducto.guardarProducto(productoMock);
-        this.repositorioProducto.guardarProducto(otroProductoMock);
-        this.repositorioSupermercado.guardarSupermercado(supermercadoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, productoMock);
         this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoMock, otroProductoMock);
 
@@ -345,7 +298,7 @@ public class RepositorioSupermercadoProductoTest {
         ids.add(otroProductoMock.getIdProducto());
 
         //Ejecucion
-        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(subcategoriaStr, filtros, ids);
+        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(Subcategoria.Gaseosas.toString(), filtros, ids);
 
         //Verficacion
         assertThat(0, equalTo(productosEncontrados.size()));

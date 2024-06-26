@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,17 +13,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.lessThan;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
 
 
 @ExtendWith(SpringExtension.class)
@@ -33,14 +26,10 @@ public class RepositorioProductoTest {
 
     @Autowired
     private SessionFactory sessionFactory;
-
     private RepositorioProducto repositorioProducto;
-    private RepositorioSupermercado repositorioSupermercado;
 
     @BeforeEach
-    public void init() { this.repositorioProducto = new RepositorioProductoImpl(this.sessionFactory);
-        this.repositorioSupermercado = mock(RepositorioSupermercado.class);}
-
+    public void init() { this.repositorioProducto = new RepositorioProductoImpl(this.sessionFactory);}
 
     @Test
     @Transactional
@@ -108,6 +97,5 @@ public class RepositorioProductoTest {
         //Verficacion
         assertThat(2, equalTo(productosEncontrados.size()));
     }
-
 
 }
