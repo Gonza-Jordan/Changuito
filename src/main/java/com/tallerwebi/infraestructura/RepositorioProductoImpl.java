@@ -59,6 +59,11 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                 .setParameter("ids", ids)
                 .getResultList();
     }
+
+    @Override
+    public List<Producto> findAllByIds(List<Long> ids) {
+        return this.sessionFactory.findAllById(List<Long> ids);
+    }
 }
 
 

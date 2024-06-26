@@ -77,6 +77,26 @@
 
             window.location.href = `${url.pathname}?${params.toString()}`;
         }
+
+
+            function addToCompare(productId) {
+            let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+            if (!compareList.includes(productId)) {
+            compareList.push(productId);
+        }
+            localStorage.setItem('compareList', JSON.stringify(compareList));
+        }
+
+            document.querySelector('.compare-view-button').addEventListener('click', function(event) {
+            let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+            if (compareList.length === 0) {
+            alert('No hay productos para comparar.');
+            event.preventDefault();
+        } else {
+            this.href = '/comparar?ids=' + compareList.join(',');
+        }
+        });
+
     </script>
 </head>
 <body>
@@ -203,8 +223,10 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <button class="compare-button">Comparar</button>
-<!--                    <form th:action="@{/agregarAlCarrito}" method="post">-->
+
+                    <button class="compare-button" th:onclick="addToCompare(${supermercadoProducto.producto.idProducto})">Comparar</button>
+
+                    <!--                    <form th:action="@{/agregarAlCarrito}" method="post">-->
 <!--                        <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>-->
 <!--                        <input type="hidden" name="precio" th:value="${supermercadoProducto.precio}"/>-->
 <!--                        <input type="hidden" name="codigoBarras"-->
@@ -219,6 +241,8 @@
 
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
 
+                    <!-- Botón para ver la comparación -->
+                    <a th:href="@{/comparar}" class="compare-view-button">Ver Comparación</a>
                 </div>
             </div>
             </a>

@@ -23,6 +23,7 @@ public class ControladorProductoBuscado {
 
     @Autowired
     public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
+
         this.servicioBusqueda = servicioBusqueda;
     }
 
@@ -53,6 +54,7 @@ public class ControladorProductoBuscado {
 
         return new ModelAndView("productoBuscado", model);
     }
+
 
     @RequestMapping(path = "/productoFiltrado", method = RequestMethod.GET)
     public ModelAndView buscarProductos(
@@ -144,6 +146,7 @@ public class ControladorProductoBuscado {
 
         return new ModelAndView("productoBuscado", model);
     }
+
 
 
 }
