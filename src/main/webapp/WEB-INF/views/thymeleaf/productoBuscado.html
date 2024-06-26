@@ -204,18 +204,20 @@
                 </div>
                 <div class="buttons">
                     <button class="compare-button">Comparar</button>
-                    <form th:action="@{/agregarAlCarrito}" method="post">
-                        <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>
-                        <input type="hidden" name="precio" th:value="${supermercadoProducto.precio}"/>
-                        <input type="hidden" name="codigoBarras"
-                               th:value="${supermercadoProducto.producto.codigoBarras}"/>
-                        <input type="hidden" name="categoria" th:value="${supermercadoProducto.producto.categoria}"/>
-                        <input type="hidden" name="subcategoria"
-                               th:value="${supermercadoProducto.producto.subcategoria}"/>
-                        <!-- Agrega el campo para urlImagen -->
-                        <input type="hidden" name="urlImagen" th:value="${supermercadoProducto.producto.urlImagen}"/>
-                        <button type="submit" class="add-button">Agregar</button>
-                    </form>
+<!--                    <form th:action="@{/agregarAlCarrito}" method="post">-->
+<!--                        <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>-->
+<!--                        <input type="hidden" name="precio" th:value="${supermercadoProducto.precio}"/>-->
+<!--                        <input type="hidden" name="codigoBarras"-->
+<!--                               th:value="${supermercadoProducto.producto.codigoBarras}"/>-->
+<!--                        <input type="hidden" name="categoria" th:value="${supermercadoProducto.producto.categoria}"/>-->
+<!--                        <input type="hidden" name="subcategoria"-->
+<!--                               th:value="${supermercadoProducto.producto.subcategoria}"/>-->
+<!--                        &lt;!&ndash; Agrega el campo para urlImagen &ndash;&gt;-->
+<!--                        <input type="hidden" name="urlImagen" th:value="${supermercadoProducto.producto.urlImagen}"/>-->
+<!--                        <button type="submit" class="add-button">Agregar</button>-->
+<!--                    </form>-->
+
+                    <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
 
                 </div>
             </div>

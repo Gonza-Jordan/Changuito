@@ -1,15 +1,22 @@
 --Usuarios
-INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena)
-VALUES(null, 'Jose', 'Lopez', 15012456, 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires', 'jlopez@gmail.com','abcd1234');
+INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena, admin)
+VALUES (null, 'Jose', 'Lopez', 15012456, 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
+        'jlopez@gmail.com', 'abcd1234', false),
+       (null, 'German', 'Perez', 15031258, 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
+        'gperez@gmail.com', 'abcd1234', true);
 
 --Supermercados
 INSERT INTO Supermercado (nombre, ubicacion, localidad, logo)
-VALUES
-    ('Carrefour', 'Avenida Mosconi 2871', 'San Justo', 'https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/74.0.0/logo/logo___8ebc4231614a7b41a4258354ce76e1e1.svg'),
-    ('Coto', 'Avenida Brigadier Juan Manuel de Rosas 3990', 'San Justo', 'https://logowik.com/content/uploads/images/supermercado-coto4935.logowik.com.webp'),
-    ('Jumbo', 'Boulevard Buenos Aires 1001', 'Lomas del Mirador', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoCb8u-rE8EFcTlcQbvHtcoa8HR-_d6_deVSuuF06w&s'),
-    ('Dia', 'Avenida Juan Manuel de Rosas 11000', 'González Catán', 'https://exportargentina.org.ar/companyimages/15441142122096.jpg'),
-    ('Chango Mas', 'Ruta 3 Km 29', 'Isidro Casanova', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s');
+VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo',
+        'https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/74.0.0/logo/logo___8ebc4231614a7b41a4258354ce76e1e1.svg'),
+       ('Coto', 'Avenida Brigadier Juan Manuel de Rosas 3990', 'San Justo',
+        'https://logowik.com/content/uploads/images/supermercado-coto4935.logowik.com.webp'),
+       ('Jumbo', 'Boulevard Buenos Aires 1001', 'Lomas del Mirador',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoCb8u-rE8EFcTlcQbvHtcoa8HR-_d6_deVSuuF06w&s'),
+       ('Dia', 'Avenida Juan Manuel de Rosas 11000', 'González Catán',
+        'https://exportargentina.org.ar/companyimages/15441142122096.jpg'),
+       ('Chango Mas', 'Ruta 3 Km 29', 'Isidro Casanova',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s');
 
 --Productos
     --Cat. Almacen
@@ -51,8 +58,8 @@ VALUES
     ('Desodorante Rexona Antibacterial 150ml', '13420110034', 'Perfumeria', 'Desodorantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/802194-1200-auto?v=638375603688170000&width=1200&height=auto&aspect=true'),
     ('Jabón Dove Go Original 90g', '13110109050', 'Perfumeria', 'Jabones', 'https://jumboargentina.vtexassets.com/arquivos/ids/806393-1200-auto?v=638403357956070000&width=1200&height=auto&aspect=true'),
     ('Crema Dental Colgate Total 12 90g', '13220102208', 'Perfumeria', 'Dentifricos', 'https://jumboargentina.vtexassets.com/arquivos/ids/813235-1200-auto?v=638441267527100000&width=1200&height=auto&aspect=true'),
-    ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://via.placeholder.com/150'),
-    ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://via.placeholder.com/150'),
+    ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/808320-1200-auto?v=638422365671900000&width=1200&height=auto&aspect=true'),
+    ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://jumboargentina.vtexassets.com/arquivos/ids/781237-1200-auto?v=638193299692670000&width=1200&height=auto&aspect=true'),
 
     --Cat. Bebidas
     ('Agua Mineral Glaciar Sin Gas Bajo Sodio 1.5L', '12120102001', 'Bebidas', 'Agua', 'https://jumboargentina.vtexassets.com/arquivos/ids/545277-1200-auto?v=637014798216800000&width=1200&height=auto&aspect=true'),

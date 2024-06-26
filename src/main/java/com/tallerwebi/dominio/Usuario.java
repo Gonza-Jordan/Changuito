@@ -1,8 +1,12 @@
 package com.tallerwebi.dominio;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -31,8 +35,19 @@ public class Usuario {
     @Column(length = 18, nullable = false)
     private String contrasena;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List <SupermercadoProducto> supermercadoProducto;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List <Carrito> carritos;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List <Pedido> pedidos;
+
+    @Column()
+    private Boolean admin;
+
+    @Column()
+    private Date stampCarritoActivo;
 
     public String getEmail() {
         return email;
@@ -82,11 +97,40 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public List<SupermercadoProducto> getSupermercadoProducto() {
-        return supermercadoProducto;
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
-    public void setSupermercadoProducto(List<SupermercadoProducto> supermercadoProducto) {
-        this.supermercadoProducto = supermercadoProducto;
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public List<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
+    }
+
+    public Date getStampCarritoActivo() {
+        return stampCarritoActivo;
+    }
+
+    public void setStampCarritoActivo(Date stampCarritoActivo) {
+        this.stampCarritoActivo = stampCarritoActivo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }
