@@ -29,7 +29,7 @@ public class Producto {
     public Producto() {
     }
 
-    // Constructor sin descuento
+    //Constructor sin descuento
     public Producto(String nombre, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen) {
         this.nombre = nombre;
         this.codigoBarras = codigoBarras;
@@ -38,32 +38,8 @@ public class Producto {
         this.urlImagen = urlImagen;
     }
 
-//    public Set<SupermercadoProducto> getSupermercados() {
-//        Set<Supermercado> supermercados = new HashSet<>();
-//        for (SupermercadoProducto supermercadoProducto : this.supermercados) {
-//            supermercados.add(supermercadoProducto.getSupermercado());
-//        }
-//        return this.supermercados;
-//    }
-public Set<SupermercadoProducto> getSupermercados() {
-    return this.supermercados;
-}
-
-
-
-
-    public double getPrecioSupermercado(int idSupermercado) {
-        for (SupermercadoProducto supermercadoProducto : supermercados) {
-            if (supermercadoProducto.getSupermercado().getIdSupermercado() == idSupermercado) {
-                return supermercadoProducto.getPrecio();
-            }
-        }
-        return 0.0; // Otra acción si no se encuentra el precio para el supermercado especificado
-    }
-
-    // En la clase Producto
-    public void agregarSupermercado(SupermercadoProducto supermercadoProducto) {
-        this.supermercados.add(supermercadoProducto);
+    public Set<SupermercadoProducto> getSupermercados() {
+        return this.supermercados;
     }
 
     public Integer getIdProducto() {

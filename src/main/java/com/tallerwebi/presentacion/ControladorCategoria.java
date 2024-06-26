@@ -16,9 +16,6 @@ import java.util.List;
 @Controller
 public class ControladorCategoria {
 
-    public ControladorCategoria() {
-    }
-
     @RequestMapping(path = "/categoria", method = RequestMethod.GET)
     public ModelAndView irACategoria(@RequestParam("categoria") Categoria categoria) {
         ModelAndView modelAndView = new ModelAndView("categoria");
@@ -29,15 +26,15 @@ public class ControladorCategoria {
         List<Subcategoria> subcategorias = Arrays.asList(categoria.getSubcategorias());
         modelAndView.addObject("subcategorias", subcategorias);
 
-        // Obtener los productos correspondientes a la categoría y subcategoría seleccionadas
-        List<Producto> productos = obtenerProductos(categoria);
-        modelAndView.addObject("productos", productos);
+//        // Obtener los productos correspondientes a la categoría y subcategoría seleccionadas
+//        List<Producto> productos = obtenerProductos(categoria);
+//        modelAndView.addObject("productos", productos);
 
         return modelAndView;
     }
 
-    private List<Producto> obtenerProductos(Categoria categoria) {
-        // Aquí deberías implementar la lógica para obtener los productos según la categoría
-        return new ArrayList<>();
-    }
+//    private List<Producto> obtenerProductos(Categoria categoria) {
+//        // Aquí deberías implementar la lógica para obtener los productos según la categoría
+//        return new ArrayList<>();
+//    }
 }

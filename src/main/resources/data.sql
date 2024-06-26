@@ -58,8 +58,8 @@ VALUES
     ('Desodorante Rexona Antibacterial 150ml', '13420110034', 'Perfumeria', 'Desodorantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/802194-1200-auto?v=638375603688170000&width=1200&height=auto&aspect=true'),
     ('Jabón Dove Go Original 90g', '13110109050', 'Perfumeria', 'Jabones', 'https://jumboargentina.vtexassets.com/arquivos/ids/806393-1200-auto?v=638403357956070000&width=1200&height=auto&aspect=true'),
     ('Crema Dental Colgate Total 12 90g', '13220102208', 'Perfumeria', 'Dentifricos', 'https://jumboargentina.vtexassets.com/arquivos/ids/813235-1200-auto?v=638441267527100000&width=1200&height=auto&aspect=true'),
-    ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://via.placeholder.com/150'),
-    ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://via.placeholder.com/150'),
+    ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/808320-1200-auto?v=638422365671900000&width=1200&height=auto&aspect=true'),
+    ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://jumboargentina.vtexassets.com/arquivos/ids/781237-1200-auto?v=638193299692670000&width=1200&height=auto&aspect=true'),
 
     --Cat. Bebidas
     ('Agua Mineral Glaciar Sin Gas Bajo Sodio 1.5L', '12120102001', 'Bebidas', 'Agua', 'https://jumboargentina.vtexassets.com/arquivos/ids/545277-1200-auto?v=637014798216800000&width=1200&height=auto&aspect=true'),
@@ -144,3 +144,49 @@ VALUES
     (5, 50, 1700, null),
     (1, 51, 2080, null),
     (2, 1, 3500, null);
+
+INSERT INTO Promocion (precioFinal, fechaInicio, fechaFin)
+VALUES
+    (3600, '2023-01-01', '2023-12-31'),
+    (3800, '2024-01-01', '2024-12-31'),
+    (4084.2, '2024-01-01', '2024-12-31'),
+    (3412, '2024-01-01', '2024-12-31'),
+    (6200, '2024-01-01', '2024-12-31'),
+    (1800, '2024-01-01', '2024-12-31'),
+    (4233, '2024-01-01', '2024-12-31'),
+    (2100, '2024-01-01', '2024-12-31'),
+    (4200, '2024-01-01', '2024-12-31');
+
+
+INSERT INTO Combo (idPromocion, producto_id, supermercado_id, cantidadVendida, cantidadCobrada)
+VALUES
+    (1, 2, 2, 2, 1),
+    (2, 5, 5, 2, 1),
+    (5, 33, 3, 3, 2),
+    (6, 16, 1, 4, 2),
+    (8, 7, 2, 2, 1),
+    (9, 11, 1, 4, 2);
+
+INSERT INTO Paquete (idPromocion, descuento, nombre)
+VALUES
+    (3, 10.0, 'Paquete AA'),
+    (4, 20.0, 'All in one'),
+    (7, 15.0, 'Mezcla mix');
+
+INSERT INTO Paquete_supermercado_producto (paquete_id, producto_id, supermercado_id)
+VALUES
+    (3, 15, 5),
+    (3, 20, 5),
+    (4, 24, 4),
+    (4, 29, 4),
+    (7, 6, 1),
+    (7, 16, 1),
+    (7, 51, 1);
+
+
+
+
+
+
+
+

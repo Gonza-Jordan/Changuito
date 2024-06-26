@@ -493,6 +493,8 @@ html {
     transition: box-shadow 0.3s ease-in-out;
     margin-bottom: 20px;
     padding: 10px;
+
+    justify-content: space-between;
 }
 
 .product-card:hover {
@@ -569,6 +571,8 @@ html {
     cursor: pointer;
     margin-bottom: 5px;
     font-weight: bold;
+    text-decoration: none;
+
 }
 
 .compare-button:hover {
@@ -1029,3 +1033,51 @@ footer a:hover {
     margin-bottom: 11px;
     font-size: 1.2em;
 }
+
+/* ******************************************* ESTILOS PROMOCIONES ********************************************* */
+
+.combo-datos{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 12em;
+    justify-content: end;
+    align-items: end;
+
+    margin-right: 1em;
+}
+
+.x span{
+    font-size: 5em;
+    padding: 6px;
+}
+
+.x{
+    display: flex;
+    align-items: center;
+}
+
+.x span:nth-child(2){
+    font-size: 3em;
+}
+
+.paquete{
+        margin-left: 1em;
+}
+
+.contenedor-paquetes{
+    width: 40%;
+}
+
+.titulo-promos{
+    margin-bottom: 0.5em;
+}
+
+.nombre span{
+    font-size: 4em;
+}
+
+.nombre{
+    margin-bottom: 1em;
+}
+
