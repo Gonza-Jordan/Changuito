@@ -58,8 +58,8 @@ VALUES
     ('Desodorante Rexona Antibacterial 150ml', '13420110034', 'Perfumeria', 'Desodorantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/802194-1200-auto?v=638375603688170000&width=1200&height=auto&aspect=true'),
     ('Jabón Dove Go Original 90g', '13110109050', 'Perfumeria', 'Jabones', 'https://jumboargentina.vtexassets.com/arquivos/ids/806393-1200-auto?v=638403357956070000&width=1200&height=auto&aspect=true'),
     ('Crema Dental Colgate Total 12 90g', '13220102208', 'Perfumeria', 'Dentifricos', 'https://jumboargentina.vtexassets.com/arquivos/ids/813235-1200-auto?v=638441267527100000&width=1200&height=auto&aspect=true'),
-    ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://via.placeholder.com/150'),
-    ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://via.placeholder.com/150'),
+    ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/808320-1200-auto?v=638422365671900000&width=1200&height=auto&aspect=true'),
+    ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://jumboargentina.vtexassets.com/arquivos/ids/781237-1200-auto?v=638193299692670000&width=1200&height=auto&aspect=true'),
 
     --Cat. Bebidas
     ('Agua Mineral Glaciar Sin Gas Bajo Sodio 1.5L', '12120102001', 'Bebidas', 'Agua', 'https://jumboargentina.vtexassets.com/arquivos/ids/545277-1200-auto?v=637014798216800000&width=1200&height=auto&aspect=true'),
