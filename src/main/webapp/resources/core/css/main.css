@@ -571,6 +571,8 @@ html {
     cursor: pointer;
     margin-bottom: 5px;
     font-weight: bold;
+    text-decoration: none;
+
 }
 
 .compare-button:hover {
@@ -1078,3 +1080,4 @@ footer a:hover {
 .nombre{
     margin-bottom: 1em;
 }
+

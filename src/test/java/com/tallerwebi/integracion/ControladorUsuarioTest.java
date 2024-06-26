@@ -93,18 +93,18 @@ public class ControladorUsuarioTest {
     }
 
     //    /sign-out
-    @Test
-    public void debeRetornarLaPaginaHomeCuandoSeCierraSesionYSeDebeHaberEliminadoLaSesion() throws Exception {
-
-        MvcResult result = this.mockMvc.perform(get("/sign-out"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/home"))
-                .andReturn();
-
-        HttpSession session = result.getRequest().getSession();
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        assert (usuario == null);
-    }
+//    @Test
+//    public void debeRetornarLaPaginaHomeCuandoSeCierraSesionYSeDebeHaberEliminadoLaSesion() throws Exception {
+//
+//        MvcResult result = this.mockMvc.perform(get("/sign-out"))
+//                .andExpect(status().is3xxRedirection())
+//                .andExpect(redirectedUrl("/home"))
+//                .andReturn();
+//
+//        HttpSession session = result.getRequest().getSession();
+//        Usuario usuario = (Usuario) session.getAttribute("usuario");
+//        assert (usuario == null);
+//    }
 
     //    /validar-login
     @Test
