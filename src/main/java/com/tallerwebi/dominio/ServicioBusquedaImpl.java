@@ -139,10 +139,7 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
         return preciosFormateados;
     }
 
-    @Override
-    public List<Producto> findByIds(List<Long> ids) {
-        return repositorioProducto.findAllByIds(ids);
-    }
+
 
     private double getPrecioConDescuento(SupermercadoProducto producto) {
         if (producto.getDescuento() != null) {

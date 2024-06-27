@@ -60,10 +60,7 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                 .getResultList();
     }
 
-    @Override
-    public List<Producto> findAllByIds(List<Long> ids) {
-        return this.sessionFactory.findAllById(List<Long> ids);
-    }
+
 }
 
 

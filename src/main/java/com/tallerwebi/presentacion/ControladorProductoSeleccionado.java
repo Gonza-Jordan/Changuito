@@ -26,17 +26,12 @@ public class ControladorProductoSeleccionado {
 
     @RequestMapping(path ="/comparar", method = RequestMethod.GET)
 
+    public ModelAndView irAProductoSeleccionado(@RequestParam ("ids")List<Integer> ids) {
 
-    public ModelAndView irAProductoSeleccionado(@RequestParam ("ids")List<Long> ids, ModelMap model) {
-
-        List<Producto> productos = servicioBusqueda.findByIds(ids);
-        model.addAttribute("productos", productos);
+        List<Producto> productos = servicioBusqueda.consultarProductosPorIds(ids);
         ModelMap model = new ModelMap();
+        model.addAttribute("productos", productos);
 
-        return new ModelAndView("producto_seleccionado");
+        return new ModelAndView("producto_seleccionado",model);
     }
-}
-public String compararProductos(@RequestParam("ids") List<Long> ids, Model model) {
-
-
 }

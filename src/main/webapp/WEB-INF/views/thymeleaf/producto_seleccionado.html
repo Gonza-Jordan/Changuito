@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Producto Buscado</title>
+    <title>Productos Comparados</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- custom style -->
@@ -16,10 +16,10 @@
 <!--<section th:include="buscador.html" class="buscador"></section>-->
 <section th:include="buscador.html" class="buscador"></section>
 <br>
-<div class="contenedor_producto_seleccionado">
-<div class="contenedor_producto_columnas">
+<div class="contenedor_producto_seleccionado" th:if="${productos != null}">
+<div class="contenedor_producto_columnas" th:each="producto : ${productos}">
     <div class="columna_izquierda_producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del producto" class="product-image-producto-seleccionado">
+        <img th:src="${producto.getUrlImagen()}" alt="Imagen del producto" class="product-image-producto-seleccionado">
     </div>
     <div class="columna_derecha_producto">
         <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}></h1>
@@ -32,8 +32,8 @@
             <li>Sabor: Cola</li>
         </ul>
         <div class="store-info-producto-seleccionado">
-            <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-producto-seleccionado">
-            <p class="store-location-producto-seleccionado">Ubicación del supermercado</p>
+            <img  alt="Logo del supermercado" class="store-logo-producto-seleccionado">
+            <p class="store-location-producto-seleccionado"th:text="${producto.supermercados.ubicacion}">Ubicación del supermercado</p>
         </div>
         <div class="product-price-producto-seleccionado">Precio regular: $1.280,82</div>
         <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>

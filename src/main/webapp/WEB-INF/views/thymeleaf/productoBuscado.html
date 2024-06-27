@@ -79,23 +79,6 @@
         }
 
 
-            function addToCompare(productId) {
-            let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-            if (!compareList.includes(productId)) {
-            compareList.push(productId);
-        }
-            localStorage.setItem('compareList', JSON.stringify(compareList));
-        }
-
-            document.querySelector('.compare-view-button').addEventListener('click', function(event) {
-            let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-            if (compareList.length === 0) {
-            alert('No hay productos para comparar.');
-            event.preventDefault();
-        } else {
-            this.href = '/comparar?ids=' + compareList.join(',');
-        }
-        });
 
     </script>
 </head>
@@ -224,7 +207,8 @@
                 </div>
                 <div class="buttons">
 
-                    <button class="compare-button" th:onclick="addToCompare(${supermercadoProducto.producto.idProducto})">Comparar</button>
+                    <button class="compare-button" onclick="addToCompare(this)" th:data-product-id="${supermercadoProducto.producto.idProducto}">Comparar</button>
+<!--                    <button class="compare-button" th:onclick="'addToCompare(' + ${supermercadoProducto.producto.idProducto} + ')'">Comparar</button>-->
 
                     <!--                    <form th:action="@{/agregarAlCarrito}" method="post">-->
 <!--                        <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>-->
@@ -242,7 +226,7 @@
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
 
                     <!-- Botón para ver la comparación -->
-                    <a th:href="@{/comparar}" class="compare-view-button">Ver Comparación</a>
+                    <a href="#" class="compare-view-button" onclick="goToCompare()">Ver Comparación</a>
                 </div>
             </div>
             </a>
@@ -252,4 +236,26 @@
 </div>
 <footer th:include="footer.html"></footer>
 </body>
+<script>
+    function addToCompare(button) {
+        const productId = button.getAttribute('data-product-id');
+        let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+        if (!compareList.includes(productId)) {
+            compareList.push(productId);
+        }
+        console.log('Compare List before saving:', compareList);
+        localStorage.setItem('compareList', JSON.stringify(compareList));
+        console.log('Compare List saved:', localStorage.getItem('compareList'));
+    }
+
+    function goToCompare() {
+        let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+        console.log('Compare List to send:', compareList);
+        if (compareList.length === 0) {
+            alert('No hay productos para comparar.');
+        } else {
+            window.location.href = '/comparar?ids=' + compareList.join(',');
+        }
+    }
+</script>
 </html>
