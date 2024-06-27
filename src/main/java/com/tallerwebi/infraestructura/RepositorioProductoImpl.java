@@ -60,6 +60,14 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                 .getResultList();
     }
 
+    @Override
+    public Producto buscarProductoPorId(Integer id) {
+        return (Producto) this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT Producto.nombre FROM Producto WHERE Producto.idProducto IN (:id) ", Producto.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
 
 }
 

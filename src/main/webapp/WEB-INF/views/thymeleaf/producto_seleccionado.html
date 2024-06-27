@@ -16,32 +16,32 @@
 <!--<section th:include="buscador.html" class="buscador"></section>-->
 <section th:include="buscador.html" class="buscador"></section>
 <br>
-<div class="contenedor_producto_seleccionado" th:if="${productos != null}">
-<div class="contenedor_producto_columnas" th:each="producto : ${productos}">
-    <div class="columna_izquierda_producto">
-        <img th:src="${producto.getUrlImagen()}" alt="Imagen del producto" class="product-image-producto-seleccionado">
-    </div>
-    <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}></h1>
-        <ul class="product-features-producto-seleccionado">
-            <li th:text="Tipo de producto + ${producto.categoria}"></li>
-            <li th:text="${producto.codigoBarras}">Contenido:</li>
-            <li>Envase: Botella</li>
-            <li>Origen: Argentina</li>
-            <li>Pack-unitario: Unitario</li>
-            <li>Sabor: Cola</li>
-        </ul>
-        <div class="store-info-producto-seleccionado">
-            <img  alt="Logo del supermercado" class="store-logo-producto-seleccionado">
-            <p class="store-location-producto-seleccionado"th:text="${producto.supermercados.ubicacion}">Ubicación del supermercado</p>
-        </div>
-        <div class="product-price-producto-seleccionado">Precio regular: $1.280,82</div>
-        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>
+<!--<div class="contenedor_producto_seleccionado" th:if="${productos != null}">-->
+<!--<div class="contenedor_producto_columnas" th:each="producto : ${productos}">-->
+<!--    <div class="columna_izquierda_producto">-->
+<!--        <img th:src="${producto.getUrlImagen()}" alt="Imagen del producto" class="product-image-producto-seleccionado">-->
+<!--    </div>-->
+<!--    <div class="columna_derecha_producto">-->
+<!--        <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}></h1>-->
+<!--        <ul class="product-features-producto-seleccionado">-->
+<!--            <li th:text="Tipo de producto + ${producto.categoria}"></li>-->
+<!--            <li th:text="${producto.codigoBarras}">Contenido:</li>-->
+<!--            <li>Envase: Botella</li>-->
+<!--            <li>Origen: Argentina</li>-->
+<!--            <li>Pack-unitario: Unitario</li>-->
+<!--            <li>Sabor: Cola</li>-->
+<!--        </ul>-->
+<!--        <div class="store-info-producto-seleccionado">-->
+<!--            <img  alt="Logo del supermercado" class="store-logo-producto-seleccionado">-->
+<!--            <p class="store-location-producto-seleccionado"th:text="${producto.supermercados.ubicacion}">Ubicación del supermercado</p>-->
+<!--        </div>-->
+<!--        <div class="product-price-producto-seleccionado">Precio regular: $1.280,82</div>-->
+<!--        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>-->
 
-    </div>
-    <br>
-</div>
-</div>
+<!--    </div>-->
+<!--    <br>-->
+<!--</div>-->
+<!--</div>-->
 <div class="contenedor-cards">
     <div class="card-producto">
         <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">

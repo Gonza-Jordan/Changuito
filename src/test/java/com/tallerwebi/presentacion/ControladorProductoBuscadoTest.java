@@ -204,13 +204,13 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlIngresarArrozMuestreTodaLaLista(){
         List<Producto> productosMock = new ArrayList<>();
-        productosMock.add(new Producto("Arroz Ala",  "1235248", Categoria.Bebidas, Subcategoria.Gaseosas,""));
-        productosMock.add(new Producto("Arroz gallo", "4562548", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
-        productosMock.add(new Producto("Fanta", "12566789", Categoria.Bebidas, Subcategoria.Gaseosas, ""));
+        productosMock.add(new Producto("Arroz Ala",  "1235248", Categoria.Bebidas, Subcategoria.Gaseosas,"",marca));
+        productosMock.add(new Producto("Arroz gallo", "4562548", Categoria.Bebidas, Subcategoria.Gaseosas, "",marca));
+        productosMock.add(new Producto("Fanta", "12566789", Categoria.Bebidas, Subcategoria.Gaseosas, "",marca));
 
         when(this.servicioBusqueda.consultarProductoPorNombre("Arroz")).thenReturn(productosMock);
 
-        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("Arroz");
+        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("arroz");
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/spring/productoFiltrado?productoAbuscar=" + "Arroz"+ "&productoIds=" + "null,null,null" );
 

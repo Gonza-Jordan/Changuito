@@ -151,6 +151,13 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
         return marcas;
     }
 
+    @Override
+    public List<Producto> buscarProductoACompararId(Integer ids) {
+        List<Producto> productos = new ArrayList<>();
+        Producto nombre =repositorioProducto.buscarProductoPorId(ids);
+        return consultarProductoPorNombre(nombre.getNombre());
+    }
+
     private double getPrecioConDescuento(SupermercadoProducto producto) {
         if (producto.getDescuento() != null) {
             return producto.getPrecio() * producto.getDescuento();

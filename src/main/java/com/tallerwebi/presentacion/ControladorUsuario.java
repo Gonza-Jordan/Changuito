@@ -21,6 +21,7 @@ public class ControladorUsuario {
 
     private ServicioUsuario servicioUsuario;
 
+
     @Autowired
     public ControladorUsuario(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;

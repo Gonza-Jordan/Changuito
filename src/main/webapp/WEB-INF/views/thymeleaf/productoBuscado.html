@@ -214,26 +214,18 @@
                 </div>
                 <div class="buttons">
 
-                    <button class="compare-button" onclick="addToCompare(this)" th:data-product-id="${supermercadoProducto.producto.idProducto}">Comparar</button>
-<!--                    <button class="compare-button" th:onclick="'addToCompare(' + ${supermercadoProducto.producto.idProducto} + ')'">Comparar</button>-->
+<!--                    <button class="compare-button" onclick="addToCompare(this)" th:data-product-id="${supermercadoProducto.producto.idProducto}">Comparar</button>-->
+<!--                    <button class="compare-button" th:onclick="'window.location.href=\'//productoBuscado?agregarAComparacion?idProducto=' + ${supermercadoProducto.producto.idProducto} + '\''">Comparar</button>-->
 
-                    <!--                    <form th:action="@{/agregarAlCarrito}" method="post">-->
-<!--                        <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>-->
-<!--                        <input type="hidden" name="precio" th:value="${supermercadoProducto.precio}"/>-->
-<!--                        <input type="hidden" name="codigoBarras"-->
-<!--                               th:value="${supermercadoProducto.producto.codigoBarras}"/>-->
-<!--                        <input type="hidden" name="categoria" th:value="${supermercadoProducto.producto.categoria}"/>-->
-<!--                        <input type="hidden" name="subcategoria"-->
-<!--                               th:value="${supermercadoProducto.producto.subcategoria}"/>-->
-<!--                        &lt;!&ndash; Agrega el campo para urlImagen &ndash;&gt;-->
-<!--                        <input type="hidden" name="urlImagen" th:value="${supermercadoProducto.producto.urlImagen}"/>-->
-<!--                        <button type="submit" class="add-button">Agregar</button>-->
-<!--                    </form>-->
-
+                    <button class="compare-button" th:onclick="@{/producto_seleccionado/{id}(id=${supermercadoProducto.producto.idProducto})}">Comparar</button>
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
 
                     <!-- Botón para ver la comparación -->
-                    <a href="#" class="compare-view-button" onclick="goToCompare()">Ver Comparación</a>
+<!--                    <a href="#" class="compare-view-button" onclick="goToCompare()">Ver Comparación</a>-->
+                    <button class="view-compare-button" onclick="window.location.href='/spring/producto_seleccionado?idProducto=' + ${supermercadoProducto.producto.idProducto} + '\''">Ver Comparación</button>
+<!--                    <button class="view-compare-button" onclick="window.location.href='/productoBuscado?verComparacion'">Ver Comparación</button>-->
+<!--                    <button class="view-compare-button" th:onclick="@{/verComparacion}">Ver Comparación</button>-->
+<!--                    <button class="view-compare-button" onclick="window.location.href='/productoBuscado?verComparacion'">Ver Comparación</button>-->
                 </div>
             </div>
             </a>
@@ -243,26 +235,5 @@
 </div>
 <footer th:include="footer.html"></footer>
 </body>
-<script>
-    function addToCompare(button) {
-        const productId = button.getAttribute('data-product-id');
-        let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-        if (!compareList.includes(productId)) {
-            compareList.push(productId);
-        }
-        console.log('Compare List before saving:', compareList);
-        localStorage.setItem('compareList', JSON.stringify(compareList));
-        console.log('Compare List saved:', localStorage.getItem('compareList'));
-    }
 
-    function goToCompare() {
-        let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-        console.log('Compare List to send:', compareList);
-        if (compareList.length === 0) {
-            alert('No hay productos para comparar.');
-        } else {
-            window.location.href = '/comparar?ids=' + compareList.join(',');
-        }
-    }
-</script>
 </html>

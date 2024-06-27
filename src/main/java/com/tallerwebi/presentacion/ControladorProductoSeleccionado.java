@@ -24,14 +24,20 @@ public class ControladorProductoSeleccionado {
 
     }
 
-    @RequestMapping(path ="/comparar", method = RequestMethod.GET)
+    @RequestMapping(path ="/producto_seleccionado", method = RequestMethod.GET)
 
-    public ModelAndView irAProductoSeleccionado(@RequestParam ("ids")List<Integer> ids) {
+    public ModelAndView irAProductoSeleccionado(@RequestParam ("ids") Integer ids) {
 
-        List<Producto> productos = servicioBusqueda.consultarProductosPorIds(ids);
         ModelMap model = new ModelMap();
-        model.addAttribute("productos", productos);
 
-        return new ModelAndView("producto_seleccionado",model);
+        List<Producto> comparacion = servicioBusqueda.buscarProductoACompararId(ids);
+
+        if (comparacion!= null){
+            model.put("comparaciones", comparacion);
+        }else {
+            model.put("error", "No hay promociones");
+        }
+
+        return new ModelAndView("producto_seleccionado", model);
     }
 }
