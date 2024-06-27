@@ -2,6 +2,7 @@ package com.tallerwebi.dominio;
 
 import com.tallerwebi.infraestructura.RepositorioProductoImpl;
 import com.tallerwebi.presentacion.ControladorProductoBuscado;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -32,7 +33,9 @@ public class ServicioBusquedaTest {
     private SupermercadoProducto otroSupermercadoProductoMock;
     private SupermercadoProducto otroSupermercadoProductoMockMas;
     private List<SupermercadoProducto> supermercadoProductoListMock;
-    private Marca marca = new Marca("Marca");
+    private Marca marcaCocaCola;
+    private Marca marcaSprite;
+    private Marca marcaFanta;
 
     @BeforeEach
     public void init() {
@@ -40,11 +43,15 @@ public class ServicioBusquedaTest {
         this.repositorioSupermercadoProducto = mock(RepositorioSupermercadoProducto.class);
         this.servicioBusqueda = new ServicioBusquedaImpl(this.repositorioProducto, this.repositorioSupermercadoProducto);
 
-        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
-        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
-        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
+        this.marcaCocaCola = new Marca("Coca Cola");
+        this.marcaSprite = new Marca("Sprite");
+        this.marcaFanta = new Marca("Fanta");
 
-        this.supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaCocaCola);
+        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaSprite);
+        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaFanta);
+
+        this.supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "");
         this.otroSupermercadoMock = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
         this.otroSupermercadoMock.setIdSupermercado(2);
 
@@ -187,6 +194,33 @@ public class ServicioBusquedaTest {
     }
 
     @Test
+    public void queSePuedanConsultarLosProductosConElFiltroMarcaConLaCondicionCocaCola() {
+        //Preparacion
+        String subcategoriaStr = Subcategoria.Gaseosas.toString();
+
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+
+        List<String> marcas = new ArrayList<>();
+        marcas.add("1");
+        Map<String, List<String>> filtros = new HashMap<>();
+        filtros.put("marca", marcas);
+
+        List<Integer> productosIds = new ArrayList<>();
+        productosIds.add(1);
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.repositorioSupermercadoProducto.buscarConFiltros(eq(subcategoriaStr), filtrosCaptor.capture(), eq(productosIds))).thenReturn(supermercadoProductoListMock);
+
+        //Ejecucion
+        List<SupermercadoProducto> supermercadosProductosObtenidos = this.servicioBusqueda.consultarProductosConFiltros(subcategoriaStr, filtros, "1");
+
+        //Verficacion
+        assertThat(supermercadosProductosObtenidos, equalTo(supermercadoProductoListMock));
+        assertThat(supermercadosProductosObtenidos.get(0).getProducto().getMarca(), equalTo(marcaCocaCola));
+
+    }
+
+    @Test
     public void queSePuedanOrdenarLosProductosConElSelectDeOrdenarPorPrecioDeMenorAMayor() {
         //Preparacion
         supermercadoProductoMock.setPrecio(4000.00);
@@ -234,26 +268,18 @@ public class ServicioBusquedaTest {
     }
 
     @Test
-    public void queSePuedanOrdenarLosProductosConElSelectDeOrdenarPorSupermercadoDeAZ() {
+    public void queSePuedanConsultarLosSupermercadosQueTienenLosProductos() {
         //Preparacion
-        supermercadoMock.setNombre("Carrefour");
-        otroSupermercadoMock.setNombre("Coto");
-
-        supermercadoProductoMock.setSupermercado(supermercadoMock);
-        otroSupermercadoProductoMock.setSupermercado(otroSupermercadoMock);
-
         supermercadoProductoListMock.add(supermercadoProductoMock);
         supermercadoProductoListMock.add(otroSupermercadoProductoMock);
 
-        String ordenar = "supermercado_ascendente";
-
         //Ejecucion
-        List<SupermercadoProducto> supermercadosProductosObtenidos = this.servicioBusqueda.ordenarProductos(supermercadoProductoListMock, ordenar);
+        List<Supermercado> supermercadosObtenidos = this.servicioBusqueda.consultarSupermercados(supermercadoProductoListMock);
 
         //Verficacion
-        assertThat(supermercadosProductosObtenidos.size(), equalTo(2));
-        assertThat(supermercadosProductosObtenidos.get(0).getSupermercado(), equalTo(supermercadoMock));
-        assertThat(supermercadosProductosObtenidos.get(1).getSupermercado(), equalTo(otroSupermercadoMock));
+        assertThat(supermercadosObtenidos.size(), equalTo(2));
+        assertThat(supermercadosObtenidos.get(0), equalTo(supermercadoMock));
+        assertThat(supermercadosObtenidos.get(1), equalTo(otroSupermercadoMock));
     }
 
     @Test
@@ -272,6 +298,22 @@ public class ServicioBusquedaTest {
         assertThat(descuentosObtenidos.size(), equalTo(2));
         assertThat(descuentosObtenidos.get(0), equalTo(supermercadoProductoMock.getDescuento()));
         assertThat(descuentosObtenidos.get(1), equalTo(otroSupermercadoProductoMock.getDescuento()));
+
+    }
+
+    @Test
+    public void queSePuedanConsultarLMarcasQueTienenLosProductos() {
+        // Preparacion
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+
+        // Ejecucion
+        List<Marca> marcasObtenidas = this.servicioBusqueda.consultarMarcas(supermercadoProductoListMock);
+
+        // Verficacion
+        assertThat(marcasObtenidas.size(), equalTo(2));
+        assertThat(marcasObtenidas.get(0).getNombre(), equalTo(marcaCocaCola.getNombre()));
+        assertThat(marcasObtenidas.get(1).getNombre(), equalTo(marcaSprite.getNombre()));
 
     }
 
@@ -375,6 +417,20 @@ public class ServicioBusquedaTest {
         // Verificacion
         assertThat(preciosObtenidos.size(), equalTo(0));
         assertThat(preciosObtenidos, equalTo(preciosVacios));
+    }
+
+    @Test
+    public void queAlConsultarLasMarcasDeLosProductosDevuelvaVacioSiNoHayProductos() {
+        // Preparacion
+        List<SupermercadoProducto> supermercadoProductoListMock = new ArrayList<>();
+        List<Marca> marcasVacias = new ArrayList<>();
+
+        // Ejecucion
+        List<Marca> marcasObtenidas = this.servicioBusqueda.consultarMarcas(supermercadoProductoListMock);
+
+        // Verificacion
+        assertThat(marcasObtenidas.size(), equalTo(0));
+        assertThat(marcasObtenidas, equalTo(marcasVacias));
     }
 
 }
