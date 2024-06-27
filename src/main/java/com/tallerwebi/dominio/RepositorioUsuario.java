@@ -10,6 +10,8 @@ public interface RepositorioUsuario {
 
     void modificar(Usuario usuario);
 
+    void modificarPedidoCarrito(Usuario usuario);
+
     void eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito);
 
 }

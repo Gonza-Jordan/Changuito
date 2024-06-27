@@ -10,5 +10,8 @@ public interface ServicioUsuario {
     void registrar(Usuario usuario) throws UsuarioExistente;
     Usuario validarContrasena(String contrasena, String email);
     void modificar(Usuario usuario);
+    void modificarPedidoCarrito(Usuario usuario);
     List<Carrito> eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito);
+
+
 }
