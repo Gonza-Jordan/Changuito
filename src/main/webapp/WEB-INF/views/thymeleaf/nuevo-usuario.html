@@ -40,7 +40,7 @@
     <div id="loginbox" class="divForm d-flex flex-column p-3 col-8">
         <h3 class="mb-3">Registro</h3>
 
-        <form action="#" th:action="@{/registrarme}" method="POST" th:object="${usuario}"
+        <form th:action="@{/registrarme}" method="post" th:object="${usuario}"
               enctype="application/x-www-form-urlencoded" class="signIn">
             <div class="row">
                 <div class="col-6">

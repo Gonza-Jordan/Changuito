@@ -12,6 +12,8 @@ public interface RepositorioCarrito {
 
     void modificar(Carrito carrito);
 
+    void eliminar(Carrito carrito);
+
 
 }
 

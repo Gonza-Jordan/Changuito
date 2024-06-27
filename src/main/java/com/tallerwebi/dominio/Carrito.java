@@ -19,7 +19,7 @@ public class Carrito {
     @Column(nullable = false, unique = true)
     private Date fechaDeCreacion;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<SupermercadoProducto> supermercadoProducto;
 
 

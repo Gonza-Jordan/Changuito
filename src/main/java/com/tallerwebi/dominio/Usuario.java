@@ -26,7 +26,7 @@ public class Usuario {
     @Column(length = 30, nullable = false, unique = true, updatable=false)
     private Integer dni;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 200)
     private String direccion;
 
     @Column(length = 30, nullable = false, unique = true, updatable=false)
@@ -35,11 +35,11 @@ public class Usuario {
     @Column(length = 18, nullable = false)
     private String contrasena;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List <Carrito> carritos;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List <Pedido> pedidos;
 
@@ -48,6 +48,24 @@ public class Usuario {
 
     @Column()
     private Date stampCarritoActivo;
+
+    @Column()
+    private Boolean guardoCarrito;
+
+    public Usuario() {
+        this.admin=false;
+        this.guardoCarrito=false;
+    }
+
+
+
+    public Boolean getGuardoCarrito() {
+        return guardoCarrito;
+    }
+
+    public void setGuardoCarrito(Boolean guardoCarrito) {
+        this.guardoCarrito = guardoCarrito;
+    }
 
     public String getEmail() {
         return email;

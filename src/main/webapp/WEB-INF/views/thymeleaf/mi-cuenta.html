@@ -176,6 +176,11 @@
                         <p th:text="${pedido.getCarrito().getFechaDeCreacion()}"></p>
                     </div>
 
+                    <h7>Productos:</h7>
+                    <div th:each="supermercadoProducto : ${pedido.getCarrito().getSupermercadoProducto()}">
+                        <p th:text="${supermercadoProducto.producto.getNombre()}"></p>
+                    </div>
+
                 </div>
 
             </div>

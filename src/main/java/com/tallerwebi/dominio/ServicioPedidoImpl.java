@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
+import java.util.List;
 
 @Service("servicioPedido")
 @Transactional
@@ -22,5 +22,11 @@ public class ServicioPedidoImpl implements ServicioPedido {
     public void registrar(Pedido pedido) {
         repositorioPedido.guardar(pedido);
     }
+
+    @Override
+    public Pedido buscar(Long id) {
+        return repositorioPedido.buscar(id);
+             }
+
 
 }

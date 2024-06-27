@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Date;
+import java.util.List;
 
 @Repository("repositorioPedido")
 public class RepositorioPedidoImpl implements RepositorioPedido {
@@ -26,6 +27,20 @@ public class RepositorioPedidoImpl implements RepositorioPedido {
     @Override
     public void guardar(Pedido pedido) {
         sessionFactory.getCurrentSession().save(pedido);
+    }
+
+    @Override
+    public Pedido buscar(Long id) {
+        String hql = "FROM Pedido WHERE id = :id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id", id);
+
+        try {
+            return (Pedido) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+
     }
 
 

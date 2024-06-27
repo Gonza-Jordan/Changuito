@@ -43,22 +43,122 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     }
 
+    @Override
+    public void modificarPedidoCarrito(Usuario usuario) {
+
+//        //SOLUCION PARA ERROR MULTIPLE ENTITIES (SI USUARIO ESTA EN LA SESION NO HACE FALTA HACER MERGE)
+//        Usuario existingUsuario = sessionFactory.getCurrentSession().find(Usuario.class, this.buscar(usuario.getEmail()).getId());
+//
+//        if (existingUsuario != null) {
+//            existingUsuario.setNombre(usuario.getNombre());
+//            existingUsuario.setApellido(usuario.getApellido());
+//            existingUsuario.setDireccion(usuario.getDireccion());
+//            existingUsuario.setContrasena(usuario.getContrasena());
+//            existingUsuario.setAdmin(usuario.getAdmin());
+//            existingUsuario.setStampCarritoActivo(usuario.getStampCarritoActivo());
+//
+//            if (usuario.getCarritos() != null) {
+//                existingUsuario.getCarritos().addAll(usuario.getCarritos());
+//            }
+//
+//            if (usuario.getPedidos() != null) {
+//                existingUsuario.getPedidos().addAll(usuario.getPedidos());
+//            }
+//
+//            sessionFactory.getCurrentSession().merge(existingUsuario);
+//
+//        }
+
+        //sessionFactory.getCurrentSession().evict(usuario);
+        //SOLUCION PARA ERROR MULTIPLE ENTITIES (SI USUARIO ESTA EN LA SESION NO HACE FALTA HACER MERGE)
+        if (sessionFactory.getCurrentSession().contains(this.buscar(usuario.getEmail()))) {
+            Usuario existingUsuario = sessionFactory.getCurrentSession().find(Usuario.class, this.buscar(usuario.getEmail()).getId());
+
+
+            if (existingUsuario != null) {
+
+                if (usuario.getCarritos()!=null){
+                    existingUsuario.getCarritos().clear();
+                    existingUsuario.getCarritos().addAll(usuario.getCarritos());
+                }
+
+                if (usuario.getPedidos()!=null){
+                    existingUsuario.getPedidos().clear();
+                    existingUsuario.getPedidos().addAll(usuario.getPedidos());
+                }
+
+                sessionFactory.getCurrentSession().merge(existingUsuario);
+
+            }
+        }
+//        else {
+//
+//            if (usuario.getCarritos() != null) {
+//                usuario.getCarritos().clear();
+//                usuario.getCarritos().addAll(usuario.getCarritos());
+//            }
+//
+//            if (usuario.getPedidos() != null) {
+//                usuario.getPedidos().clear();
+//                usuario.getPedidos().addAll(usuario.getPedidos());
+//            }
+//        }
+
+    }
+
     // Para update necesito buscar primero buscar en la bd y modificar ese objeto, no puedo modificar el que traigo de la web
     @Override
     public void modificar(Usuario usuario) {
-        //Usuario usarioEncontrado = this.buscar(usuario.getEmail());
-        //sessionFactory.getCurrentSession().merge(usuario);
 
-        Usuario existingUsuario = sessionFactory.getCurrentSession().find(Usuario.class, usuario.getId());
-        if (existingUsuario != null) {
-            existingUsuario.setNombre(usuario.getNombre());
-            existingUsuario.setApellido(usuario.getApellido());
-            existingUsuario.setDireccion(usuario.getDireccion());
-            existingUsuario.setContrasena(usuario.getContrasena());
-            existingUsuario.setAdmin(usuario.getAdmin());
-            existingUsuario.setCarritos(usuario.getCarritos());
-            existingUsuario.setStampCarritoActivo(usuario.getStampCarritoActivo());
-            sessionFactory.getCurrentSession().merge(existingUsuario);
+//        //SOLUCION PARA ERROR MULTIPLE ENTITIES (SI USUARIO ESTA EN LA SESION NO HACE FALTA HACER MERGE)
+//        Usuario existingUsuario = sessionFactory.getCurrentSession().find(Usuario.class, this.buscar(usuario.getEmail()).getId());
+//
+//        if (existingUsuario != null) {
+//            existingUsuario.setNombre(usuario.getNombre());
+//            existingUsuario.setApellido(usuario.getApellido());
+//            existingUsuario.setDireccion(usuario.getDireccion());
+//            existingUsuario.setContrasena(usuario.getContrasena());
+//            existingUsuario.setAdmin(usuario.getAdmin());
+//            existingUsuario.setStampCarritoActivo(usuario.getStampCarritoActivo());
+//
+//            if (usuario.getCarritos() != null) {
+//                existingUsuario.getCarritos().addAll(usuario.getCarritos());
+//            }
+//
+//            if (usuario.getPedidos() != null) {
+//                existingUsuario.getPedidos().addAll(usuario.getPedidos());
+//            }
+//
+//            sessionFactory.getCurrentSession().merge(existingUsuario);
+//
+//        }
+
+
+        //SOLUCION PARA ERROR MULTIPLE ENTITIES (SI USUARIO ESTA EN LA SESION NO HACE FALTA HACER MERGE)
+        if (sessionFactory.getCurrentSession().contains(this.buscar(usuario.getEmail()))) {
+            Usuario existingUsuario = sessionFactory.getCurrentSession().find(Usuario.class, this.buscar(usuario.getEmail()).getId());
+
+
+            if (existingUsuario != null) {
+                existingUsuario.setNombre(usuario.getNombre());
+                existingUsuario.setApellido(usuario.getApellido());
+                existingUsuario.setDireccion(usuario.getDireccion());
+                existingUsuario.setContrasena(usuario.getContrasena());
+                existingUsuario.setAdmin(usuario.getAdmin());
+                existingUsuario.setStampCarritoActivo(usuario.getStampCarritoActivo());
+
+
+                sessionFactory.getCurrentSession().merge(existingUsuario);
+
+            }
+        }else {
+            usuario.setNombre(usuario.getNombre());
+            usuario.setApellido(usuario.getApellido());
+            usuario.setDireccion(usuario.getDireccion());
+            usuario.setContrasena(usuario.getContrasena());
+            usuario.setAdmin(usuario.getAdmin());
+            usuario.setStampCarritoActivo(usuario.getStampCarritoActivo());
+
         }
 
     }

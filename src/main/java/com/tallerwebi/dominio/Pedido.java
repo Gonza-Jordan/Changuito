@@ -19,7 +19,7 @@ public class Pedido {
     @Column(nullable = false, unique = true)
     private Date fechaDeCreacion;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private Carrito carrito;
 
     public Pedido() {
