@@ -30,6 +30,10 @@ public class Pedido {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Date getFechaDeCreacion() {
         return fechaDeCreacion;
     }
