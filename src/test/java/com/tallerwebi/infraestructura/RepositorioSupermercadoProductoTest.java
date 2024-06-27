@@ -41,15 +41,17 @@ public class RepositorioSupermercadoProductoTest {
     private Supermercado supermercadoMock;
     private Supermercado supermercadoCoto;
     private Supermercado supermercadoCarrefour;
+    private Marca marca = new Marca("Marca");
 
     @BeforeEach
     public void init() {
         this.repositorioSupermercadoProducto = new RepositorioSupermercadoProductoImpl(this.sessionFactory);
         this.repositorioProducto = mock(RepositorioProducto.class);
         this.repositorioSupermercado = mock(RepositorioSupermercado.class);
+        this.sessionFactory.getCurrentSession().save(marca);
 
-        productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
+        otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
         supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
         supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
         supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");

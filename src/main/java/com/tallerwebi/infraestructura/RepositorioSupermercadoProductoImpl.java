@@ -61,8 +61,10 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
                 for (int i = 0; i < valoresFiltro.size(); i++) {
                     String valor = valoresFiltro.get(i);
 
-                    if (nombreFiltro.equals("precio")) {
+                      if (nombreFiltro.equals("precio")) {
                         consulta.append("sp.precio * COALESCE(sp.descuento, 1.0) ").append(valor);
+                    } else if (nombreFiltro.equals("marca")) {
+                        consulta.append("p.marca.idMarca = :marcaId").append(i);
                     } else {
                         consulta.append(nombreFiltro).append(" = :").append(nombreFiltro).append(i);
                     }
@@ -92,7 +94,9 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
                 for (int i = 0; i < valoresFiltro.size(); i++) {
                     String valor = valoresFiltro.get(i);
 
-                    if (!nombreFiltro.equals("precio")) {
+                    if (nombreFiltro.equals("marca")) {
+                        query.setParameter("marcaId" + i, Integer.valueOf(valor));
+                    } else if (!nombreFiltro.equals("precio")) {
                         query.setParameter(nombreFiltro + i, valor);
                     }
                 }

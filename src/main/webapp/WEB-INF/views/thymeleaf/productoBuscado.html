@@ -132,12 +132,19 @@
                     Sin descuentos.
                 </div>
             </div>
-            <!--            <div class="filter-section">-->
-            <!--                <h2>Marca</h2>-->
-            <!--                <label><input type="checkbox" name="marca" value="marca1">Marca 1</label>-->
-            <!--                <label><input type="checkbox" name="marca" value="marca2">Marca 2</label>-->
-            <!--                <label><input type="checkbox" name="marca" value="marca3">Marca 3</label>-->
-            <!--            </div>-->
+            <div class="filter-section" th:if="${marcas != null and !marcas.isEmpty()}">
+                <h2>Marca</h2>
+                <div th:each="marca : ${marcas}">
+                    <label><input type="checkbox" name="marca" th:value="${marca.idMarca}"
+                                  th:text="${marca.nombre}"></label>
+                </div>
+            </div>
+            <div class="filter-section" th:if="${marcas == null || marcas.isEmpty()}">
+                <h2>Marca</h2>
+                <div>
+                    Sin marcas.
+                </div>
+            </div>
             <div class="filter-section" th:if="${supermercados != null and !supermercados.isEmpty()}">
                 <h2>Supermercado</h2>
                 <div th:each="supermercado : ${supermercados}">
@@ -185,7 +192,7 @@
                 <div class="product-info">
                     <div class="product-name" th:text="${supermercadoProducto.producto.nombre}"></div>
                     <div class="store-info">
-                        <div class="store-name" th:text="${supermercadoProducto.supermercado.nombre}"></div>
+                        <div class="store-name" th:text="${supermercadoProducto.producto.marca.nombre}"></div>
                         <div class="store-location" th:text="${supermercadoProducto.supermercado.ubicacion}"></div>
                         <div class="product-price">
                     <span class="product-price-center" th:if="${supermercadoProducto.descuento != null}">

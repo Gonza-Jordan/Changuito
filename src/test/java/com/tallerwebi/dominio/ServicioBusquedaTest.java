@@ -32,6 +32,7 @@ public class ServicioBusquedaTest {
     private SupermercadoProducto otroSupermercadoProductoMock;
     private SupermercadoProducto otroSupermercadoProductoMockMas;
     private List<SupermercadoProducto> supermercadoProductoListMock;
+    private Marca marca = new Marca("Marca");
 
     @BeforeEach
     public void init() {
@@ -39,9 +40,9 @@ public class ServicioBusquedaTest {
         this.repositorioSupermercadoProducto = mock(RepositorioSupermercadoProducto.class);
         this.servicioBusqueda = new ServicioBusquedaImpl(this.repositorioProducto, this.repositorioSupermercadoProducto);
 
-        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "");
-        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
+        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
+        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
 
         this.supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
         this.otroSupermercadoMock = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
