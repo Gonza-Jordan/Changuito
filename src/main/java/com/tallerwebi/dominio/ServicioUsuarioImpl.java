@@ -52,6 +52,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     };
 
     @Override
+    public void modificarPedidoCarrito(Usuario usuario){
+        repositorioUsuario.modificarPedidoCarrito(usuario);
+    };
+
+    @Override
     public List<Carrito> eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito) {
         repositorioUsuario.eliminarCarritoDeUsuario(usuario, carrito);
         return null;

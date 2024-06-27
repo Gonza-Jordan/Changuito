@@ -42,7 +42,7 @@ public class RepositorioUsuarioTest {
         usuario.setEmail("jlopez@gmail.com");
         usuario.setApellido("Lopez");
         usuario.setNombre("Jose");
-        usuario.setDni(15012456);
+        usuario.setDni("15012456");
         usuario.setDireccion("Florencio Varela 1903, San Justo, Provincia de Buenos Aires");
 
         // Guardar el usuario primero
@@ -70,7 +70,7 @@ public class RepositorioUsuarioTest {
         usuario.setEmail("jlopez@gmail.com");
         usuario.setApellido("Lopez");
         usuario.setNombre("Jose");
-        usuario.setDni(15012456);
+        usuario.setDni("15012456");
         usuario.setDireccion("Florencio Varela 1903, San Justo, Provincia de Buenos Aires");
 
         // Ejecucion
@@ -93,7 +93,7 @@ public class RepositorioUsuarioTest {
         usuario.setEmail("jlopez@gmail.com");
         usuario.setApellido("Lopez");
         usuario.setNombre("Jose");
-        usuario.setDni(15012456);
+        usuario.setDni("15012456");
         usuario.setDireccion("Florencio Varela 1903, San Justo, Provincia de Buenos Aires");
         this.repositorioUsuario.guardar(usuario);
 

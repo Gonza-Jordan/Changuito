@@ -9,4 +9,6 @@ public interface ServicioCarrito {
     void registrar(Carrito carrito) ;
     //Usuario validarContrasena(String contrasena, String email);
     void modificar(Carrito carrito);
+    void eliminar(Carrito carrito);
+
 }

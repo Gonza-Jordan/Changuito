@@ -29,6 +29,7 @@ public class RepositorioCarritoImpl implements RepositorioCarrito {
         sessionFactory.getCurrentSession().save(carrito);
     }
 
+
     @Override
     public Carrito buscar(Date stamp) {
         String hql = "FROM Carrito WHERE fechaDeCreacion = :stamp";
@@ -71,6 +72,18 @@ public class RepositorioCarritoImpl implements RepositorioCarrito {
         }
 
     }
+
+    @Override
+    public void eliminar(Carrito carrito) {
+
+        Carrito carritoEncontrado = sessionFactory.getCurrentSession().find(Carrito.class, carrito.getId());
+        if (carritoEncontrado != null) {
+            sessionFactory.getCurrentSession().delete(carritoEncontrado);
+        }
+
+    }
+
+
 
 
 }

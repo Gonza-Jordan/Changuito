@@ -4,7 +4,6 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,22 +11,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Controller
-public class ControladorCarritoCompras {
+public class ControladorCarrito {
 
-    //private List<Producto> carrito = new ArrayList<>();
+
     private ServicioCarrito servicioCarrito;
     private ServicioUsuario servicioUsuario;
     private ServicioPedido servicioPedido;
     private ServicioSupermercadoProducto servicioSupermercadoProducto;
 
 
-    public ControladorCarritoCompras(ServicioCarrito servicioCarrito, ServicioUsuario servicioUsuario, ServicioPedido servicioPedido,ServicioSupermercadoProducto servicioSupermercadoProducto) {
+    public ControladorCarrito(ServicioCarrito servicioCarrito, ServicioUsuario servicioUsuario, ServicioPedido servicioPedido, ServicioSupermercadoProducto servicioSupermercadoProducto) {
         // Inicialmente, el carrito está vacío
         this.servicioCarrito = servicioCarrito;
         this.servicioUsuario = servicioUsuario;
@@ -40,7 +36,7 @@ public class ControladorCarritoCompras {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
-        if (usuario==null){
+        if (usuario == null) {
             return new ModelAndView("redirect:/login");
         }
 
@@ -61,18 +57,22 @@ public class ControladorCarritoCompras {
     }
 
     @RequestMapping(path = "/agregarAlCarrito", method = RequestMethod.GET)
-    public String agregarAlCarrito(
+    public ModelAndView agregarAlCarrito(
             @RequestParam("idProducto") Integer idProducto,
-            @RequestParam("idSupemercado") Integer idSupemercado, HttpServletRequest request) throws UsuarioExistente {
+            @RequestParam("idSupemercado") Integer idSupemercado, HttpServletRequest request)  {
 
         //
         SupermercadoProducto supermercadoProducto;
-        supermercadoProducto=this.servicioSupermercadoProducto.consultarSupermercadoProducto(idProducto, idSupemercado);
+        supermercadoProducto = this.servicioSupermercadoProducto.consultarSupermercadoProducto(idProducto, idSupemercado);
 
 
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
+        //Usuario usuario=servicioUsuario.consultarUsuario(usuario1.getEmail());
 
+        if (usuario == null) {
+            return new ModelAndView("redirect:/login");
+        }
 
         if (usuario.getStampCarritoActivo() == null) {
             //
@@ -83,9 +83,10 @@ public class ControladorCarritoCompras {
 
             usuario.setStampCarritoActivo(carrito1.getFechaDeCreacion());
 
+            servicioCarrito.registrar(carrito1);
+
             misession.setAttribute("usuario", usuario);
 
-            servicioCarrito.registrar(carrito1);
 
         } else {
             //
@@ -102,8 +103,7 @@ public class ControladorCarritoCompras {
             //servicioUsuario.modificar(usuario);
         }
 
-
-        return "redirect:/carritoCompras";
+        return new ModelAndView("redirect:/carritoCompras");
 
 //        ModelAndView modelAndView = new ModelAndView("carritoComprasPrueba2");
 //        modelAndView.addObject("supermercadoProducto", supermercadoProducto);
@@ -117,26 +117,56 @@ public class ControladorCarritoCompras {
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
         usuario.setStampCarritoActivo(null);
-        misession.setAttribute("usuario", usuario);
 
         servicioUsuario.modificar(usuario);
+
+        usuario.setGuardoCarrito(false);
+
+        misession.setAttribute("usuario", usuario);
 
         return new ModelAndView("redirect:/home");
     }
 
+    //AGREGAR ELIMINAR EN SERVICIO Y REPO CARRITO
     @RequestMapping(path = "/guardarCarrito", method = RequestMethod.GET)
     public ModelAndView guardarCarrito(HttpServletRequest request) {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
-
         Date stamp = usuario.getStampCarritoActivo();
-
         Carrito carrito = servicioCarrito.consultarCarrito(stamp);
 
-        usuario.getCarritos().add(carrito);
+        if (usuario.getGuardoCarrito()) {
+
+            Carrito carrito2 = new Carrito();
+            carrito2.setSupermercadoProducto(carrito.getSupermercadoProducto());
+
+//            servicioUsuario.eliminarCarritoDeUsuario(usuario, carrito);
+//            usuario.getCarritos().remove(carrito);
+//            usuario.getCarritos().removeIf(carrito3 -> carrito3.equals(carrito));
+//            servicioCarrito.eliminar(carrito);
+//            usuario.getCarritos().removeIf(carritoGet -> carritoGet.getSupermercadoProducto().isEmpty());
+
+
+            servicioCarrito.registrar(carrito2);
+
+            usuario.getCarritos().add(carrito2);
+            usuario.setStampCarritoActivo(carrito2.getFechaDeCreacion());
+
+//            ModelMap model = new ModelMap();
+//            model.put("carritos", usuario.getCarritos());
+//
+//            return new ModelAndView("prueba", model);
+
+        } else {
+            usuario.getCarritos().add(carrito);
+            usuario.setGuardoCarrito(true);
+        }
+
+//        usuario.getCarritos().add(carrito);
 
         servicioUsuario.modificar(usuario);
+        servicioUsuario.modificarPedidoCarrito(usuario);
 
         misession.setAttribute("usuario", usuario);
 
@@ -173,7 +203,7 @@ public class ControladorCarritoCompras {
 
         servicioUsuario.eliminarCarritoDeUsuario(usuario, carrito);
 
-        Usuario usuario1=servicioUsuario.consultarUsuario(usuario.getEmail());
+        Usuario usuario1 = servicioUsuario.consultarUsuario(usuario.getEmail());
 
         misession.setAttribute("usuario", usuario1);
 
@@ -183,15 +213,16 @@ public class ControladorCarritoCompras {
         return new ModelAndView("redirect:/home");
     }
 
-  
+
     //PEDIDOS
     @RequestMapping(path = "/generarPedido", method = RequestMethod.POST)
     public ModelAndView generarPedido(HttpServletRequest request) {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
-        Date stamp = usuario.getStampCarritoActivo();
+        //Usuario usuario=servicioUsuario.consultarUsuario(usuario.getEmail());
 
+        Date stamp = usuario.getStampCarritoActivo();
         Carrito carrito = servicioCarrito.consultarCarrito(stamp);
 
         Pedido pedido = new Pedido();
@@ -199,11 +230,19 @@ public class ControladorCarritoCompras {
         servicioPedido.registrar(pedido);
 
         usuario.getPedidos().add(pedido);
+        servicioUsuario.modificarPedidoCarrito(usuario);
+
+        //
+        usuario.setStampCarritoActivo(null);
         servicioUsuario.modificar(usuario);
+
+        usuario.setGuardoCarrito(false);
+
 
         misession.setAttribute("usuario", usuario);
 
         return new ModelAndView("redirect:/mi-cuenta");
+
     }
 
 
@@ -219,10 +258,10 @@ public class ControladorCarritoCompras {
 //        return new ModelAndView("redirect:/home");
 //    }
 
-    @RequestMapping(path = "/pagar", method = RequestMethod.POST)
-    public String pagar(HttpSession session) {
-        // Vaciar el carrito
-        session.removeAttribute("carrito");
-        return "redirect:/home";
-    }
+//    @RequestMapping(path = "/pagar", method = RequestMethod.POST)
+//    public String pagar(HttpSession session) {
+//        // Vaciar el carrito
+//        session.removeAttribute("carrito");
+//        return "redirect:/home";
+//    }
 }

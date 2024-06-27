@@ -19,7 +19,7 @@ public class Carrito {
     @Column(nullable = false, unique = true)
     private Date fechaDeCreacion;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<SupermercadoProducto> supermercadoProducto;
 
 
@@ -31,6 +31,10 @@ public class Carrito {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<SupermercadoProducto> getSupermercadoProducto() {

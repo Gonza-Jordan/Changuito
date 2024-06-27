@@ -26,17 +26,6 @@ public class ServicioCarritoImpl implements ServicioCarrito {
     public Carrito consultarCarritoPorId(Long id) {
         return repositorioCarrito.buscarPorId(id);
     }
-//
-//    @Override
-//    public Usuario validarContrasena(String email, String contrasena) {
-//        Usuario usuario = this.consultarUsuario(email);
-//
-//        if (usuario != null) {
-//            return Objects.equals(usuario.getContrasena(), contrasena) ? usuario : null;
-//        } else {
-//            return null;
-//        }
-//    }
 
 
     @Override
@@ -54,6 +43,11 @@ public class ServicioCarritoImpl implements ServicioCarrito {
         repositorioCarrito.modificar(carrito);
     }
 
-    ;
+    @Override
+    public void eliminar(Carrito carrito) {
+        repositorioCarrito.eliminar(carrito);
+    }
+
+
 
 }
