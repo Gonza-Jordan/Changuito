@@ -63,7 +63,7 @@ public class ControladorUsuarioTest {
 
         String viewName = modelAndView.getViewName();
 
-        assertThat(viewName, equalToIgnoringCase("nuevo-usuario"));
+        assertThat(viewName, equalToIgnoringCase("nuevoUsuario"));
     }
 
     @Test
@@ -82,9 +82,9 @@ public class ControladorUsuarioTest {
     @Test
     public void queAlSolicitarLaPantallaMiCuentaSeMuestreLaVistaMiCuenta() {
 
-        Usuario usuario = new Usuario(); // Create a mock Usuario object as per your actual implementation
         when(requestMock.getSession()).thenReturn(sessionMock);
-        when(sessionMock.getAttribute("usuario")).thenReturn(usuario);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(servicioUsuarioMock.consultarUsuario(usuarioMock.getEmail())).thenReturn(usuarioMock);
 
         ModelAndView modelAndView = controladorUsuario.irMiCuenta(requestMock);
 

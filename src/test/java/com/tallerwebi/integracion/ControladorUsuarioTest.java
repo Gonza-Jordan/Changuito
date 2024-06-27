@@ -79,7 +79,7 @@ public class ControladorUsuarioTest {
         this.mockMvc.perform(get("/nuevo-usuario"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("usuario"))
-                .andExpect(view().name("nuevo-usuario"));
+                .andExpect(view().name("nuevoUsuario"));
 
     }
 

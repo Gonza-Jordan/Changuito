@@ -24,7 +24,7 @@ public class Usuario {
     private String apellido;
 
     @Column(length = 30, nullable = false, unique = true, updatable=false)
-    private Integer dni;
+    private String dni;
 
     @Column(length = 200)
     private String direccion;
@@ -57,8 +57,6 @@ public class Usuario {
         this.guardoCarrito=false;
     }
 
-
-
     public Boolean getGuardoCarrito() {
         return guardoCarrito;
     }
@@ -79,7 +77,7 @@ public class Usuario {
         return nombre;
     }
 
-    public Integer getDni() {
+    public String getDni() {
         return dni;
     }
 
@@ -91,7 +89,7 @@ public class Usuario {
         return contrasena;
     }
 
-    public void setDni(Integer dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

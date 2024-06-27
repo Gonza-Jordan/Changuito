@@ -14,8 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class ControladorUsuario {
@@ -43,7 +41,7 @@ public class ControladorUsuario {
 
         Usuario usuario= new Usuario();
         model.put("usuario", usuario);
-        return new ModelAndView("nuevo-usuario", model);
+        return new ModelAndView("nuevoUsuario", model);
     }
 
 
@@ -103,7 +101,7 @@ public class ControladorUsuario {
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttrs) {
-        System.out.println("Usuario received: " + usuario);
+        System.out.println("Usuario received: " + usuario.getEmail());
 
 //        ModelMap model = new ModelMap();
 //        model.put("usuario", usuario);

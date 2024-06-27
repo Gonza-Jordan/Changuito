@@ -33,6 +33,10 @@ public class Carrito {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public List<SupermercadoProducto> getSupermercadoProducto() {
         return supermercadoProducto;
     }

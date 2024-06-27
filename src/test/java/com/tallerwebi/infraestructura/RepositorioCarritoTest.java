@@ -34,6 +34,7 @@ public class RepositorioCarritoTest {
         this.repositorioCarrito = new RepositorioCarritoImpl(this.sessionFactory);
     }
 
+
 //    @Test
 //    @Transactional
 //    @Rollback
@@ -41,9 +42,18 @@ public class RepositorioCarritoTest {
 //        // Preparación
 //        Carrito carrito = new Carrito();
 //
+//        Producto producto = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+//        Supermercado supermercado = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+//        producto.setIdProducto(1);
+//        supermercado.setIdSupermercado(1);
+//
+//
 //        SupermercadoProducto superProdu = new SupermercadoProducto();
-//        Supermercado supermercado = new Supermercado();
-//        Producto producto = new Producto();
+//        SupermercadoProductoId superProduId = new SupermercadoProductoId(producto.getIdProducto(), supermercado.getIdSupermercado());
+//        superProduId.setProductoId(producto.getIdProducto());
+//        superProduId.setSupermercadoId(supermercado.getIdSupermercado());
+//        superProdu.setId(superProduId);
+//
 //        superProdu.setSupermercado(supermercado);
 //        superProdu.setProducto(producto);
 //        superProdu.setPrecio(50.0);
@@ -55,11 +65,21 @@ public class RepositorioCarritoTest {
 //
 //        // Guardar el usuario primero
 //        this.repositorioCarrito.guardar(carrito);
+//        Carrito carritoGuardado= this.repositorioCarrito.buscar(carrito.getFechaDeCreacion());
+//
 //
 //        // Modificar algún atributo del usuario
+//        Producto producto2 = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "");
+//        Supermercado supermercado2 = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+//        producto2.setIdProducto(2);
+//        supermercado2.setIdSupermercado(2);
+//
 //        SupermercadoProducto superProdu2 = new SupermercadoProducto();
-//        Supermercado supermercado2 = new Supermercado();
-//        Producto producto2 = new Producto();
+//        SupermercadoProductoId superProduId2 = new SupermercadoProductoId(producto2.getIdProducto(), supermercado2.getIdSupermercado());
+//        superProduId2.setProductoId(producto2.getIdProducto());
+//        superProduId2.setSupermercadoId(supermercado2.getIdSupermercado());
+//        superProdu2.setId(superProduId2);
+//
 //        superProdu2.setSupermercado(supermercado2);
 //        superProdu2.setProducto(producto2);
 //        superProdu2.setPrecio(1000.0);
@@ -68,7 +88,7 @@ public class RepositorioCarritoTest {
 //        listaSupermercadoProducto2.add(superProdu2);
 //
 //        carrito.setSupermercadoProducto(listaSupermercadoProducto2);
-//;
+//
 //
 //        // Ejecución
 //        this.repositorioCarrito.modificar(carrito);

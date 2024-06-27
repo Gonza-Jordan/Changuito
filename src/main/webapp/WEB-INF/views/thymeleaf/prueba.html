@@ -39,13 +39,40 @@
         class="miCuenta container d-flex justify-content-center align-items-center"
 >
 
-    <div>
-        <div>
-            <p>AAA</p>
+    <form th:action="@{/registrarme}" method="post" th:object="${usuario}" enctype="application/x-www-form-urlencoded"
+          class="signIn">
+        <div class="row">
+            <div class="col-6">
+                <label for="nombre">Nombre</label>
+                <input th:field="*{nombre}" id="nombre" type="text" class="form-control mb-3" placeholder="Nombre"
+                       required/>
+            </div>
+            <div class="col-6">
+                <label for="apellido">Apellido</label>
+                <input th:field="*{apellido}" id="apellido" type="text" class="form-control mb-3" placeholder="Apellido"
+                       required/>
+            </div>
+
+            <div class="col-6">
+                <label for="email">email</label>
+                <input th:field="*{email}" id="email" type="text" class="form-control mb-3" placeholder="email"
+                       required/>
+            </div>
         </div>
-    </div>
 
 
+
+        <div class="col-6">
+            <label for="contrasena">contrasena</label>
+            <input th:field="*{contrasena}" id="contrasena" type="password" class="form-control mb-3"
+                   placeholder="contrasena"
+                   required/>
+        </div>
+        <!-- Include other fields (direccion, dni, email, contrasena) similarly -->
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+
+    <p th:if="${error != null}" th:text="'Error ' + ${error}" class="alert alert-danger m-0"></p>
 
 
 </main>

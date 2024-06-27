@@ -1,8 +1,8 @@
 --Usuarios
 INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena, admin, guardoCarrito)
-VALUES (null, 'Jose', 'Lopez', 15012456, 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
+VALUES (null, 'Jose', 'Lopez', '15012456', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
         'jlopez@gmail.com', 'abcd1234', false, false),
-       (null, 'German', 'Perez', 15031258, 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
+       (null, 'German', 'Perez', '15031258', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
         'gperez@gmail.com', 'abcd1234', true, false);
 
 --Supermercados
