@@ -217,7 +217,7 @@
 <!--                    <button class="compare-button" onclick="addToCompare(this)" th:data-product-id="${supermercadoProducto.producto.idProducto}">Comparar</button>-->
 <!--                    <button class="compare-button" th:onclick="'window.location.href=\'//productoBuscado?agregarAComparacion?idProducto=' + ${supermercadoProducto.producto.idProducto} + '\''">Comparar</button>-->
 
-                    <button class="compare-button" th:onclick="@{/producto_seleccionado/{id}(id=${supermercadoProducto.producto.idProducto})}">Comparar</button>
+                    <a class="compare-button" th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto})}">Comparar</a>
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
 
                     <!-- Botón para ver la comparación -->

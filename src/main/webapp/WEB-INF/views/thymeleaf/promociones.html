@@ -23,8 +23,9 @@
             <!-- Si es una instancia de Combo -->
             <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
                 <div class="product-card">
-                    <a th:href="@{/producto_seleccionado/{id}(id=${promocion.producto.producto.idProducto})}">
-                        <div class="product-image">
+                    <a th:href="@{/producto_seleccionado(id=${promocion.producto.producto.idProducto})}">
+
+                    <div class="product-image">
                             <img th:src="${promocion.producto.producto.urlImagen}" alt="Imagen del Producto">
                         </div>
                     </a>

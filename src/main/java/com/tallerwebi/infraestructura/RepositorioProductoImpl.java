@@ -62,10 +62,10 @@ public class RepositorioProductoImpl implements RepositorioProducto {
 
     @Override
     public Producto buscarProductoPorId(Integer id) {
-        return (Producto) this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT Producto.nombre FROM Producto WHERE Producto.idProducto IN (:id) ", Producto.class)
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT p FROM Producto p WHERE p.idProducto =:id ", Producto.class)
                 .setParameter("id", id)
-                .getResultList();
+                .getSingleResult();
     }
 
 

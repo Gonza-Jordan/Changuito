@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,16 +27,16 @@ public class ControladorProductoSeleccionado {
 
     @RequestMapping(path ="/producto_seleccionado", method = RequestMethod.GET)
 
-    public ModelAndView irAProductoSeleccionado(@RequestParam ("ids") Integer ids) {
+    public ModelAndView irAProductoSeleccionado(@RequestParam ("id") Integer id, HttpServletRequest request) {
 
         ModelMap model = new ModelMap();
 
-        List<Producto> comparacion = servicioBusqueda.buscarProductoACompararId(ids);
+        List<Producto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
 
         if (comparacion!= null){
             model.put("comparaciones", comparacion);
         }else {
-            model.put("error", "No hay promociones");
+            model.put("error", "No hay comaparaciones ");
         }
 
         return new ModelAndView("producto_seleccionado", model);
