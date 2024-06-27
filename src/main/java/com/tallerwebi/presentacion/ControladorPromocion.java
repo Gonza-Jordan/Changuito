@@ -28,7 +28,12 @@ public class ControladorPromocion {
         ModelMap model = new ModelMap();
 
         List<Promocion> promociones = servicioPromocion.buscarPromociones();
-        model.put("promociones", promociones);
+
+        if (promociones != null){
+            model.put("promociones", promociones);
+        }else {
+            model.put("error", "No hay promociones");
+        }
 
         return new ModelAndView("promociones", model);
     }

@@ -24,5 +24,5 @@ public interface ServicioBusqueda {
 
     List<String> formatearPrecios(List<String> filtrosPreciosAMostrar);
 
-
+    List<Marca> consultarMarcas(List<SupermercadoProducto> productosFiltrados);
 }

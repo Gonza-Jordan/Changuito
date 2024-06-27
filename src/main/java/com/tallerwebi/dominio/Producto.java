@@ -26,16 +26,21 @@ public class Producto {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<SupermercadoProducto> supermercados = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "idMarca", nullable = false)
+    private Marca marca;
+
     public Producto() {
     }
 
     //Constructor sin descuento
-    public Producto(String nombre, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen) {
+    public Producto(String nombre, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen, Marca marca) {
         this.nombre = nombre;
         this.codigoBarras = codigoBarras;
         this.categoria = categoria;
         this.subcategoria = subcategoria;
         this.urlImagen = urlImagen;
+        this.marca = marca;
     }
 
     public Set<SupermercadoProducto> getSupermercados() {
@@ -90,6 +95,13 @@ public class Producto {
         this.urlImagen = urlImagen;
     }
 
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
 
     public void setPrecioFormateado(String format) {
     }

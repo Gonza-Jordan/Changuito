@@ -31,7 +31,7 @@
                     <div class="product-info">
                         <div class="product-name" th:text="${promocion.producto.producto.nombre}"></div>
                         <div class="store-info">
-                            <div class="store-name" th:text="${promocion.producto.supermercado.nombre}"></div>
+                            <div class="store-name" th:text="${promocion.producto.producto.marca.nombre}"></div>
                             <div class="store-location" th:text="${promocion.producto.supermercado.ubicacion}"></div>
                             <div class="product-price">
                                     <span class="product-price-center">
@@ -94,7 +94,7 @@
                                 <div class="product-info">
                                     <div class="product-name" th:text="${producto.producto.nombre}"></div>
                                     <div class="store-info">
-                                        <div class="store-name" th:text="${producto.supermercado.nombre}"></div>
+                                        <div class="store-name" th:text="${producto.producto.marca.nombre}"></div>
                                         <div class="store-location" th:text="${producto.supermercado.ubicacion}"></div>
                                         <div class="product-price">
                                     <span class="product-price-center">

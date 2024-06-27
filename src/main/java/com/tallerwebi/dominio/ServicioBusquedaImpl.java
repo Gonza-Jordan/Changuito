@@ -139,7 +139,17 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
         return preciosFormateados;
     }
 
-
+    @Override
+    public List<Marca> consultarMarcas(List<SupermercadoProducto> productosFiltrados) {
+        List<Marca> marcas = new ArrayList<>();
+        for (SupermercadoProducto supermercadoProducto : productosFiltrados) {
+            Marca marca = supermercadoProducto.getProducto().getMarca();
+            if (!marcas.contains(marca)) {
+                marcas.add(marca);
+            }
+        }
+        return marcas;
+    }
 
     private double getPrecioConDescuento(SupermercadoProducto producto) {
         if (producto.getDescuento() != null) {
