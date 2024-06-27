@@ -35,9 +35,11 @@ public class ControladorProductoBuscadoTest {
     private List<String> precios;
     private List<String> descuentos;
     private List<String> supermercados;
+    private List<String> marcas;
     private Map<String, List<String>> filtros;
-
-    private Marca marca = new Marca("Marca");
+    private Marca marcaCocaCola;
+    private Marca marcaSprite;
+    private Marca marcaFanta;
 
 
     @BeforeEach
@@ -45,11 +47,15 @@ public class ControladorProductoBuscadoTest {
         this.servicioBusqueda = mock(ServicioBusqueda.class);
         this.controladorProductoBuscado = new ControladorProductoBuscado(this.servicioBusqueda);
 
-        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
-        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
-        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
+        this.marcaCocaCola = new Marca("Coca Cola");
+        this.marcaSprite = new Marca("Sprite");
+        this.marcaFanta = new Marca("Fanta");
 
-        this.supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+        this.productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaCocaCola);
+        this.otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaSprite);
+        this.otroProductoMockMas = new Producto("Fanta", "111111111", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaFanta);
+
+        this.supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "");
         this.otroSupermercadoMock = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
         this.supermercadoMock.setIdSupermercado(2);
         this.otroSupermercadoMock.setIdSupermercado(1);
@@ -74,6 +80,7 @@ public class ControladorProductoBuscadoTest {
         this.precios = new ArrayList<>();
         this.descuentos = new ArrayList<>();
         this.supermercados = new ArrayList<>();
+        this.marcas = new ArrayList<>();
         this.filtros = new HashMap<>();
 
         this.request = mock(HttpServletRequest.class);
@@ -180,9 +187,6 @@ public class ControladorProductoBuscadoTest {
     @Test
     public void queAlHacerClickEnElCheckboxDeSupermercadoCotoSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
         //Preparacion
-        supermercadoProductoMock.setSupermercado(otroSupermercadoMock);
-        supermercadoProductoMock.setProducto(productoMock);
-
         supermercados.add(otroSupermercadoMock.getIdSupermercado().toString());
         filtros.put("supermercado_id", supermercados);
 
@@ -198,6 +202,29 @@ public class ControladorProductoBuscadoTest {
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getSupermercado(), equalTo(supermercadoProductoMock.getSupermercado()));
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(1).getSupermercado(), equalTo(otroSupermercadoProductoMock.getSupermercado()));
+
+    }
+
+    @Test
+    public void queAlHacerClickEnElCheckboxDeMarcaCocaColaSeMuestrenLosProductosFiltradosDeLaSubcategoriaGaseosas() {
+        //Preparacion
+        List<SupermercadoProducto> otraSupermercadoProductoListMock = new ArrayList<>();
+        otraSupermercadoProductoListMock.add(supermercadoProductoMock);
+
+        marcas.add("1");
+        filtros.put("marca", marcas);
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1"))).thenReturn(otraSupermercadoProductoListMock);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, marcas, null, null , null, "1", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(1));
+        assertThat(mav.getModel().get("productos"), equalTo(otraSupermercadoProductoListMock));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(0).getProducto().getMarca(), equalTo(marcaCocaCola));
 
     }
 
@@ -362,6 +389,58 @@ public class ControladorProductoBuscadoTest {
     }
 
     @Test
+    public void queElFiltroMarcasMuestreLasdMarcasDeLosProductosDeLaSubcategoriaGaseosas() {
+        //Preparacion
+        List<Marca> marcasEsperadas = new ArrayList<>();
+        marcasEsperadas.add(marcaCocaCola);
+        marcasEsperadas.add(marcaSprite);
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
+        when(this.servicioBusqueda.consultarMarcas(supermercadoProductoListMock)).thenReturn(marcasEsperadas);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
+        assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
+        assertThat(mav.getModel().get("marcas"), equalTo(marcasEsperadas));
+
+    }
+
+    @Test
+    public void queElFiltroMarcasMuestreLasMarcasDeLosProductosDeLaSubcategoriaGaseosasAunSiSeSeleccionaLaMarcaCocaCola() {
+        //Preparacion
+        List<SupermercadoProducto> otraSupermercadoProductoListMock = new ArrayList<>();
+        otraSupermercadoProductoListMock.add(supermercadoProductoMock);
+
+        List<Marca> marcasEsperadas = new ArrayList<>();
+        marcasEsperadas.add(marcaCocaCola);
+        marcasEsperadas.add(marcaSprite);
+
+        marcas.add("1");
+        filtros.put("marca", marcas);
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(otraSupermercadoProductoListMock);
+        when(this.servicioBusqueda.consultarMarcas(supermercadoProductoListMock)).thenReturn(marcasEsperadas);
+
+        when(request.getSession().getAttribute("marcas")).thenReturn(marcasEsperadas);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, marcas, null, null , null, "1,2", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(1));
+        assertThat(mav.getModel().get("productos"), equalTo(otraSupermercadoProductoListMock));
+        assertThat(mav.getModel().get("marcas"), equalTo(marcasEsperadas));
+
+    }
+
+    @Test
     public void queElFiltroPreciosMuestreLosPreciosEntreRangosDeLosProductosDeLaSubcategoriaGaseosas() {
         //Preparacion
         List<String> preciosSinFormatear = new ArrayList<>();
@@ -491,6 +570,26 @@ public class ControladorProductoBuscadoTest {
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
         assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
         assertThat(mav.getModel().get("precios"), equalTo(preciosVacios));
+
+    }
+
+    @Test
+    public void siNoHayMarcasDeLosProductosDeLaSubcategoriaGaseosasSeDebeCargarVacioEnElModeloMarcasDeLaVista() {
+        //Preparacion
+        List<Marca> marcasVacias = new ArrayList<>();
+
+        ArgumentCaptor<Map<String, List<String>>> filtrosCaptor = ArgumentCaptor.forClass(Map.class);
+        when(this.servicioBusqueda.consultarProductosConFiltros(eq("Gaseosas"), filtrosCaptor.capture(), eq("1,2"))).thenReturn(supermercadoProductoListMock);
+        when(this.servicioBusqueda.consultarMarcas(supermercadoProductoListMock)).thenReturn(marcasVacias);
+
+        //Ejecucion
+        ModelAndView mav = this.controladorProductoBuscado.buscarProductos("Bebidas", "Gaseosas", null, null, null, null, null, null , null, "1,2", "", request);
+
+        //Verificacion
+        assertThat(mav.getViewName(), equalTo("productoBuscado"));
+        assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).size(), equalTo(2));
+        assertThat(mav.getModel().get("productos"), equalTo(supermercadoProductoListMock));
+        assertThat(mav.getModel().get("marcas"), equalTo(marcasVacias));
 
     }
 

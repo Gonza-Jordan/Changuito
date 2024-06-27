@@ -41,20 +41,26 @@ public class RepositorioSupermercadoProductoTest {
     private Supermercado supermercadoMock;
     private Supermercado supermercadoCoto;
     private Supermercado supermercadoCarrefour;
-    private Marca marca = new Marca("Marca");
+    private Marca marcaCocaCola;
+    private Marca marcaSprite;
 
     @BeforeEach
     public void init() {
         this.repositorioSupermercadoProducto = new RepositorioSupermercadoProductoImpl(this.sessionFactory);
         this.repositorioProducto = mock(RepositorioProducto.class);
         this.repositorioSupermercado = mock(RepositorioSupermercado.class);
-        this.sessionFactory.getCurrentSession().save(marca);
 
-        productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
-        otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marca);
-        supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+        this.marcaCocaCola = new Marca("Coca Cola");
+        this.marcaSprite = new Marca("Sprite");
+
+        this.sessionFactory.getCurrentSession().save(marcaCocaCola);
+        this.sessionFactory.getCurrentSession().save(marcaSprite);
+
+        productoMock = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaCocaCola);
+        otroProductoMock = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "", marcaSprite);
+        supermercadoMock = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "");
         supermercadoCoto = new Supermercado("Coto", "Avenida Brigadier Juan Manuel de Rosas 3990", "San Justo", "");
-        supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "https://example.com/logo_carrefour.png");
+        supermercadoCarrefour = new Supermercado("Carrefour", "Avenida Mosconi 2871", "San Justo", "");
 
         this.repositorioProducto.guardarProducto(productoMock);
         this.repositorioProducto.guardarProducto(otroProductoMock);
@@ -305,6 +311,33 @@ public class RepositorioSupermercadoProductoTest {
         //Verficacion
         assertThat(0, equalTo(productosEncontrados.size()));
         assertThat(productosEncontrados, empty());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedanFiltrarTodosLosProductosDeUnaSubcategoriaPorMarcaCocaCola() {
+        //Preparacion
+        this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoCoto, productoMock);
+        this.repositorioSupermercadoProducto.guardarSupermercadoProducto(supermercadoCarrefour, otroProductoMock);
+
+        List<String> marcas = new ArrayList<>();
+        marcas.add(marcaCocaCola.getIdMarca().toString());
+        Map<String, List<String>> filtros = new HashMap<>();
+        filtros.put("marca", marcas);
+
+        List<Integer> ids = new ArrayList<>();
+        ids.add(productoMock.getIdProducto());
+        ids.add(otroProductoMock.getIdProducto());
+
+        //Ejecucion
+        List<SupermercadoProducto> productosEncontrados = repositorioSupermercadoProducto.buscarConFiltros(Subcategoria.Gaseosas.toString(), filtros, ids);
+
+        //Verficacion
+        assertThat(1, equalTo(productosEncontrados.size()));
+        assertThat(productosEncontrados.get(0).getProducto(), equalTo(productoMock));
+        assertThat(productosEncontrados.get(0).getProducto().getMarca(), equalTo(marcaCocaCola));
+
     }
 }
 
