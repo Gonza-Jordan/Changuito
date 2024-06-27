@@ -38,8 +38,8 @@ public class ControladorCategoriaTest {
 		Categoria categoriaResultante = (Categoria) mav.getModel().get("categoria");
 
 		// verificacion
-		assertThat(viewName, equalToIgnoringCase("categoria")); // Vista correcta
-		assertThat(categoriaResultante, equalTo(categoria)); // Verificar la igualdad de objetos, no de cadenas
+		assertThat(viewName, equalToIgnoringCase("categoria"));
+		assertThat(categoriaResultante, equalTo(categoria));
 	}
 
 
@@ -54,6 +54,7 @@ public class ControladorCategoriaTest {
 		String icono = (String) mav.getModel().get("icono");
 
 		// verificacion
+		assertThat(mav.getViewName(), equalToIgnoringCase("categoria"));
 		assertThat(rutaDelIcono, equalTo(icono));
 	}
 
@@ -65,9 +66,11 @@ public class ControladorCategoriaTest {
 
 		// ejecucion
 		ModelAndView mav = this.controladorCategoria.irACategoria(categoria);
+		List<Subcategoria> subcategoriasObtenidas = (List<Subcategoria>) mav.getModel().get("subcategorias");
+
 
 		// verificacion
-		List<Subcategoria> subcategoriasObtenidas = (List<Subcategoria>) mav.getModel().get("subcategorias");
+		assertThat(mav.getViewName(), equalToIgnoringCase("categoria"));
 		assertThat(subcategoriasObtenidas, equalTo(subcategoriasEsperadas));
 	}
 	

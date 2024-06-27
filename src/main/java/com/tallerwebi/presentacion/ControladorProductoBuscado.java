@@ -84,6 +84,20 @@ public class ControladorProductoBuscado {
             productosFiltrados = servicioBusqueda.ordenarProductos(productosFiltrados, ordenar);
         }
 
+        if (marcas == null){
+            List<Marca> filtrosMarcasAMostrar = servicioBusqueda.consultarMarcas(productosFiltrados);
+            filtrosMarcasAMostrar.sort(Comparator.comparing(Marca::getNombre));
+            model.put("marcas", filtrosMarcasAMostrar);
+            HttpSession session = request.getSession();
+            session.removeAttribute("marcas");
+            session.setAttribute("marcas", filtrosMarcasAMostrar);
+
+        }else {
+            HttpSession session = request.getSession();
+            List<Marca> filtrosMarcasAMostrar = (List<Marca>) session.getAttribute("marcas");
+            model.put("marcas", filtrosMarcasAMostrar);
+        }
+
         if (supermercados == null){
             List<Supermercado> filtrosSupermercadosAMostrar = servicioBusqueda.consultarSupermercados(productosFiltrados);
             filtrosSupermercadosAMostrar.sort(Comparator.comparing(Supermercado::getNombre));

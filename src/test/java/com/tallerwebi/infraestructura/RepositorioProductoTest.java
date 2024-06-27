@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,17 +13,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.lessThan;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 @ExtendWith(SpringExtension.class)
@@ -33,21 +26,19 @@ public class RepositorioProductoTest {
 
     @Autowired
     private SessionFactory sessionFactory;
-
     private RepositorioProducto repositorioProducto;
-    private RepositorioSupermercado repositorioSupermercado;
+    private Marca marca = new Marca("Marca");
 
     @BeforeEach
     public void init() { this.repositorioProducto = new RepositorioProductoImpl(this.sessionFactory);
-        this.repositorioSupermercado = mock(RepositorioSupermercado.class);}
-
+    this.sessionFactory.getCurrentSession().save(marca);}
 
     @Test
     @Transactional
     @Rollback
     public void queSePuedaGuardarUnProducto(){
         //Preparacion
-        Producto productoAGuardar = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto productoAGuardar = new Producto("Coca Cola","123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
 
         //Ejecucion
         this.repositorioProducto.guardarProducto(productoAGuardar);
@@ -65,7 +56,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaBuscarUnProductoPorNombre(){
         //Preparacion
-        Producto productoGuardado = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto productoGuardado = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
         this.repositorioProducto.guardarProducto(productoGuardado);
 
         //Ejecucion
@@ -80,7 +71,7 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedaBuscarUnProductoPorSubcategoria(){
         //Preparacion
-        Producto productoGuardado = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
+        Producto productoGuardado = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
         this.repositorioProducto.guardarProducto(productoGuardado);
 
         //Ejecucion
@@ -95,9 +86,9 @@ public class RepositorioProductoTest {
     @Rollback
     public void queSePuedanBuscarTodosLosProductosDeUnaSubcategoria(){
         //Preparacion
-        Producto productoGaseosa = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg");
-        Producto otroProductoGaseosa = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg");
-        Producto productoArroz = new Producto("Arroz", "987654321", Categoria.Almacen, Subcategoria.Arroz, "img/producto/almacen/arroz.jpg");
+        Producto productoGaseosa = new Producto("Coca Cola", "123456789", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/coca_cola.jpg", marca);
+        Producto otroProductoGaseosa = new Producto("Sprite", "123123123", Categoria.Bebidas, Subcategoria.Gaseosas, "img/producto/bebidas/sprite.jpg", marca);
+        Producto productoArroz = new Producto("Arroz", "987654321", Categoria.Almacen, Subcategoria.Arroz, "img/producto/almacen/arroz.jpg", marca);
         this.repositorioProducto.guardarProducto(productoGaseosa);
         this.repositorioProducto.guardarProducto(otroProductoGaseosa);
         this.repositorioProducto.guardarProducto(productoArroz);
@@ -108,6 +99,5 @@ public class RepositorioProductoTest {
         //Verficacion
         assertThat(2, equalTo(productosEncontrados.size()));
     }
-
 
 }
