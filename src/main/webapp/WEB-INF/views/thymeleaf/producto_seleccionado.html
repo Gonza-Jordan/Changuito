@@ -24,16 +24,14 @@
     <div class="columna_derecha_producto">
         <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}"></h1>
         <ul class="product-features-producto-seleccionado">
-            <li th:text="Tipo de producto + ${producto.categoria}"></li>
+            <li th:text=" ${producto.categoria}">Tipo de producto </li>
             <li th:text="${producto.codigoBarras}">Contenido:</li>
-            <li>Envase: Botella</li>
+            <li th:text="${producto.marca}">Marca</li>
             <li>Origen: Argentina</li>
-            <li>Pack-unitario: Unitario</li>
-            <li>Sabor: Cola</li>
         </ul>
         <div class="store-info-producto-seleccionado">
             <img  alt="Logo del supermercado" class="store-logo-producto-seleccionado">
-            <p class="store-location-producto-seleccionado"th:text="${producto.supermercados.ubicacion}">Ubicación del supermercado</p>
+            <p class="store-location-producto-seleccionado" >Ubicación del supermercado</p>
         </div>
         <div class="product-price-producto-seleccionado">Precio regular: $1.280,82</div>
         <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>

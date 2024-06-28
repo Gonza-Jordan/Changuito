@@ -34,7 +34,7 @@ public class ControladorProductoSeleccionado {
         List<Producto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
 
         if (comparacion!= null){
-            model.put("comparaciones", comparacion);
+            model.put("productos", comparacion);
         }else {
             model.put("error", "No hay comaparaciones ");
         }

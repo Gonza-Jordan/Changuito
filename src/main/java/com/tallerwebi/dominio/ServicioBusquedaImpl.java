@@ -155,9 +155,7 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     public List<Producto> buscarProductoACompararId(Integer id) {
         List<Producto> productos = new ArrayList<>();
         Producto nombre =repositorioProducto.buscarProductoPorId(id);
-//        productos.add(nombre);
-        productos =repositorioProducto.buscarProductoPorNombre(nombre.getNombre());
-        return productos;
+        return  repositorioProducto.buscarProductoPorNombre(nombre.getNombre());
     }
 
 
