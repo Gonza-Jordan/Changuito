@@ -1,12 +1,5 @@
 -- noinspection SqlDialectInspectionForFile
 
---Usuarios
-INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena, admin, guardoCarrito)
-VALUES (null, 'Jose', 'Lopez', '15012456', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
-        'jlopez@gmail.com', 'abcd1234', false, false),
-       (null, 'German', 'Perez', '15031258', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
-        'gperez@gmail.com', 'abcd1234', true, false);
-
 --Supermercados
 INSERT INTO Supermercado (nombre, ubicacion, localidad, logo)
 VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo',
@@ -19,6 +12,22 @@ VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo',
         'https://exportargentina.org.ar/companyimages/15441142122096.jpg'),
        ('Chango Mas', 'Ruta 3 Km 29', 'Isidro Casanova',
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s');
+
+--Usuarios
+INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena, admin, guardoCarrito, idSupermercado)
+VALUES (null, 'Jose', 'Lopez', '15012456', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
+        'jlopez@gmail.com', 'abcd1234', false, false, null),
+       (null, 'Carrefour', 'Admin', '11111111', 'Avenida Mosconi 2871, San Justo',
+        'carrefour@gmail.com', '1234', true, false, 1),
+       (null, 'Coto', 'Admin', '22222222', 'Avenida Brigadier Juan Manuel de Rosas 3990, San Justo',
+        'coto@gmail.com', '1234', true, false, 2),
+       (null, 'Jumbo', 'Admin', '33333333', 'Boulevard Buenos Aires 1001, Lomas del Mirador',
+        'jumbo@gmail.com', '1234', true, false, 3),
+       (null, 'Dia', 'Admin', '44444444', 'Avenida Juan Manuel de Rosas 11000, González Catán',
+        'dia@gmail.com', '1234', true, false, 4),
+       (null, 'Chango Mas', 'Admin', '55555555', 'Ruta 3 Km 29, Isidro Casanova',
+        'changomas@gmail.com', '1234', true, false, 5);
+
 
 --Marcas
 INSERT INTO Marca (idMarca, nombre)

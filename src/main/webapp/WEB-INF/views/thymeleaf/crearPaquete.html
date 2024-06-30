@@ -50,6 +50,7 @@
               <div class="d-flex justify-content-center">
             <button id="btn-submit" class="add-button" type="submit">Crear Paquete</button>
         </div>
+        <img th:src="${supermercado.logo}" th:alt="${supermercado.nombre}" class="logoSuper">
         <p th:if="${error != null}" th:text="'>> ' + ${error}" class="error"></p>
         <p th:if="${exito != null}" th:text="'>> ' + ${exito}" class="exito"></p>
     </div>

@@ -52,6 +52,10 @@ public class Usuario {
     @Column()
     private Boolean guardoCarrito;
 
+    @ManyToOne
+    @JoinColumn(name = "idSupermercado")
+    private Supermercado supermercado;
+
     public Usuario() {
         this.admin=false;
         this.guardoCarrito=false;
@@ -148,5 +152,13 @@ public class Usuario {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public Supermercado getSupermercado() {
+        return supermercado;
+    }
+
+    public void setSupermercado(Supermercado supermercado) {
+        this.supermercado = supermercado;
     }
 }

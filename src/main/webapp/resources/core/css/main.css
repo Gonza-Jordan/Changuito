@@ -632,6 +632,9 @@ input[type="checkbox"] {
 .error {
     font-size: 2em;
     color: red;
+    width: 11em;
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 /* ******************************************* ESTILOS FOOTER ********************************************* */
@@ -1127,6 +1130,9 @@ footer a:hover {
 .exito {
     font-size: 2em;
     color: forestgreen;
+    width: 11em;
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 .contenedor-admin {
@@ -1164,7 +1170,7 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    margin-top: 10em;
+    justify-content: center;
 }
 
 .crearCombo label{
@@ -1258,6 +1264,11 @@ footer a:hover {
 
 .create-button:hover {
     background-color: #0056b3;
+}
+
+.logoSuper{
+    width: 200px;
+
 }
 
 
