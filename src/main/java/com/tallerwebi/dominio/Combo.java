@@ -16,6 +16,7 @@ public class Combo extends Promocion {
     private Integer cantidadVendida;
     private Integer cantidadCobrada;
 
+
     public Combo() {}
 
     public Combo(Double precioFinal, LocalDate fechaInicio, LocalDate fechaFin, SupermercadoProducto producto, int cantidadVendida, int cantidadCobrada) {
@@ -23,15 +24,6 @@ public class Combo extends Promocion {
         this.producto = producto;
         this.cantidadVendida = cantidadVendida;
         this.cantidadCobrada = cantidadCobrada;
-        this.setPrecioFinal(this.calcularPrecio());
-    }
-
-    @Override
-    public Double calcularPrecio() {
-        if (producto != null && producto.getPrecio() != null) {
-            return producto.getPrecio() * cantidadCobrada;
-        }
-        return 0.0;
     }
 
     public SupermercadoProducto getProducto() {

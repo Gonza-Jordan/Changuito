@@ -19,7 +19,7 @@
     <section class="categoriasContenedor">
         <h2>Categorías</h2>
         <div class="contenedorFlechas">
-            <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="carousel-btn prev" onclick="moveSlide(event, -1)">&#10094;</button>
             <div class="carousel-container">
                 <div class="carousel-item" th:each="categoria : ${categorias}">
                     <a th:href="@{/categoria(categoria=${categoria})}">
@@ -28,7 +28,7 @@
                     </a>
                 </div>
             </div>
-            <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+            <button class="carousel-btn next" onclick="moveSlide(event, 1)">&#10095;</button>
         </div>
     </section>
     <section class="frase">

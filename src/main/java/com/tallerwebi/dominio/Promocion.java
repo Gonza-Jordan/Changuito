@@ -58,7 +58,6 @@ public abstract class Promocion {
         this.fechaFin = fechaFin;
     }
 
-    public abstract Double calcularPrecio();
 }
 
 

@@ -305,47 +305,54 @@ html {
     transition: transform 0.2s;
 }
 
-        .mejoresMarcas {
-            text-align: center;
-            padding: 20px;
-        }
-        .mejoresMarcas h2 {
-            margin-bottom: 20px;
-        }
-        .filaMarca {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        .carta {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 15px;
-            width: 250px;
-            height: 150px;
-            background-color: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .carta a {
-            text-decoration: none;
-            color: inherit;
-        }
-        .info-marca {
-            text-align: center;
-        }
-        .contenedorMarca {
-            text-align: center;
-            padding: 20px;
-        }
-        .imagen-marca {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
+.mejoresMarcas {
+    text-align: center;
+    padding: 20px;
+}
+
+.mejoresMarcas h2 {
+    margin-bottom: 20px;
+}
+
+.filaMarca {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.carta {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    height: 150px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carta a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.info-marca {
+    text-align: center;
+}
+
+.contenedorMarca {
+    text-align: center;
+    padding: 20px;
+}
+
+.imagen-marca {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
 
 /* ****************************************************************************************************************** */
 
@@ -453,15 +460,15 @@ html {
     padding-right: 100px;
 }
 
-.ordenar{
+.ordenar {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
     align-items: end;
 }
 
-#ordenar{
-    width:50%;
+#ordenar {
+    width: 50%;
 }
 
 .containerProductoBuscado {
@@ -606,23 +613,23 @@ input[type="checkbox"] {
     margin-right: 5px;
 }
 
-.tachado{
+.tachado {
     text-decoration: line-through;
     color: red;
 }
 
-.descuento{
+.descuento {
     color: green;
     font-size: 1.5rem;
 }
 
-.product-price-center{
+.product-price-center {
     display: flex;
     align-items: center;
     gap: 0.6rem;
 }
 
-.error{
+.error {
     font-size: 2em;
     color: red;
 }
@@ -732,9 +739,10 @@ footer a:hover {
 #total-final a:hover {
     text-decoration: underline;
 }
+
 /* ******************************************* ESTILOS VISTA SUPERMERCADOS ********************************************* */
 
-.vistaSupermercados{
+.vistaSupermercados {
     width: 60%;
 }
 
@@ -762,7 +770,7 @@ footer a:hover {
     border-radius: 1em;
 }
 
-.boton-direccion{
+.boton-direccion {
     background-color: royalblue;
     font-size: 1em;
     padding: 0.5em;
@@ -787,7 +795,7 @@ footer a:hover {
     width: 30em;
 }
 
-.contenedorVistaSupermercados{
+.contenedorVistaSupermercados {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -802,7 +810,7 @@ footer a:hover {
     gap: 1em;
 }
 
-.contenedorFlechas-vertical button{
+.contenedorFlechas-vertical button {
     transform: rotate(90deg);
 }
 
@@ -818,7 +826,7 @@ footer a:hover {
     box-shadow: 0em 0em 1em #333333;
 }
 
-.carousel-item-vertical{
+.carousel-item-vertical {
     background-color: white;
     border-radius: 1em;
     width: 25rem;
@@ -1036,7 +1044,7 @@ footer a:hover {
 
 /* ******************************************* ESTILOS PROMOCIONES ********************************************* */
 
-.combo-datos{
+.combo-datos {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -1047,37 +1055,213 @@ footer a:hover {
     margin-right: 1em;
 }
 
-.x span{
+.x span {
     font-size: 5em;
     padding: 6px;
 }
 
-.x{
+.x {
     display: flex;
     align-items: center;
 }
 
-.x span:nth-child(2){
+.x span:nth-child(2) {
     font-size: 3em;
 }
 
-.paquete{
-        margin-left: 1em;
+.paquete {
+    margin-left: 1em;
 }
 
-.contenedor-paquetes{
+.contenedor-paquetes {
     width: 40%;
 }
 
-.titulo-promos{
+.titulo-promos {
     margin-bottom: 0.5em;
 }
 
-.nombre span{
+.nombre span {
     font-size: 4em;
 }
 
-.nombre{
+.nombre {
     margin-bottom: 1em;
 }
+
+
+/* ******************************************* ESTILOS ADMIN ********************************************* */
+.custom-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.custom-radio:checked {
+    background-color: #2196F3;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #000;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.custom-checkbox:checked {
+    background-color: #000;
+}
+
+.exito {
+    font-size: 2em;
+    color: forestgreen;
+}
+
+.contenedor-admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.contenedor-admin .product-card {
+    width: 38em;
+    height: 10em;
+}
+
+.comboForm {
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+}
+
+.contenedor-admin-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedorFlechas-horizontal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.crearCombo {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 10em;
+}
+
+.crearCombo label{
+    font-size: 1.7em;
+}
+
+.crearCombo h1{
+    font-size: 3em;
+}
+
+.combX {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.combX p {
+    font-size: 2em;
+}
+
+.combX input {
+    width: 1.7em;
+    font-size: 3em;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+.combX input[type="date"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.combX input[type="date"] {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.combX input[type="date"]:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+    outline: none;
+}
+
+.form-control{
+    font-size: 1.7em;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+
+.admin{
+    height: 38.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.admin h1{
+    font-size: 4em;
+}
+
+.create-button {
+    background-color: #007bff;
+}
+
+.create-button {
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 3em;
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    min-width: 10em;
+    text-align: center;
+}
+
+.create-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
 
