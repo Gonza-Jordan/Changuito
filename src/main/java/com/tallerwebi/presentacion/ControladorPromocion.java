@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,20 +24,49 @@ public class ControladorPromocion {
         this.servicioPromocion = servicioPromocion;
     }
 
+//    @RequestMapping(path = "/promociones", method = RequestMethod.GET)
+//    public ModelAndView irAPromociones() {
+//
+//        ModelMap model = new ModelMap();
+//
+//        List<Promocion> promociones = servicioPromocion.buscarPromociones();
+//
+//        if (promociones != null){
+//            model.put("promociones", promociones);
+//        }else {
+//            model.put("error", "No hay promociones");
+//        }
+//
+//        return new ModelAndView("promociones", model);
+//    }
+
     @RequestMapping(path = "/promociones", method = RequestMethod.GET)
     public ModelAndView irAPromociones() {
-
         ModelMap model = new ModelMap();
 
         List<Promocion> promociones = servicioPromocion.buscarPromociones();
 
-        if (promociones != null){
+        if (promociones != null) {
+           for (Promocion promocion : promociones) {
+                if (promocion instanceof Paquete) {
+                    Paquete paquete = (Paquete) promocion;
+                    paquete.setPrecioFinal(formatearPrecio(paquete.getPrecioFinal()));
+                }
+            }
+
             model.put("promociones", promociones);
-        }else {
+        } else {
             model.put("error", "No hay promociones");
         }
 
         return new ModelAndView("promociones", model);
+    }
+
+    private Double formatearPrecio(Double precio) {
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String precioFormateado = df.format(precio);
+        precioFormateado = precioFormateado.replace(",", ".");
+        return Double.parseDouble(precioFormateado);
     }
 }
 

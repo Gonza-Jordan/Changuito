@@ -28,19 +28,18 @@ public class Paquete extends Promocion {
         this.productos = productos;
         this.descuento = descuento;
         this.nombre = nombre;
-        this.setPrecioFinal(this.calcularPrecio());
     }
 
 
-    @Override
-    public Double calcularPrecio() {
-        Double totalPrecio = 0.0;
-        for (SupermercadoProducto producto : productos) {
-            totalPrecio += producto.getPrecio();
-        }
-        Double descuentoAplicado = totalPrecio * (descuento / 100);
-        return totalPrecio - descuentoAplicado;
-    }
+//    @Override
+//    public Double calcularPrecio() {
+//        Double totalPrecio = 0.0;
+//        for (SupermercadoProducto producto : productos) {
+//            totalPrecio += producto.getPrecio();
+//        }
+//        Double descuentoAplicado = totalPrecio * (descuento / 100);
+//        return totalPrecio - descuentoAplicado;
+//    }
 
 
     public List<SupermercadoProducto> getProductos() {

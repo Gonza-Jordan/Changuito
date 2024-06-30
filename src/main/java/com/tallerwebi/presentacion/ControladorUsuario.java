@@ -86,13 +86,15 @@ public class ControladorUsuario {
 
         Usuario usuario = servicioUsuario.validarContrasena(datosLogin.getEmail(), datosLogin.getContrasena());
 
-        if (usuario != null) {
+        if (usuario != null && !usuario.getAdmin()) {
             HttpSession misession = request.getSession(true);
             misession.setAttribute("usuario", usuario);
-
-
             return new ModelAndView("redirect:/home");
-        } else {
+        } else if (usuario != null && usuario.getAdmin()){
+            HttpSession misession = request.getSession(true);
+            misession.setAttribute("usuario", usuario);
+            return new ModelAndView("redirect:/administrador");
+        }else {
             redirectAttrs.addFlashAttribute("error", "Usuario o clave incorrecta");
         }
         return new ModelAndView("redirect:/login");
