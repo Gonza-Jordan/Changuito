@@ -19,6 +19,9 @@ public class Supermercado {
     @OneToMany(mappedBy = "supermercado", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<SupermercadoProducto> productos = new HashSet<>();
 
+    @OneToMany(mappedBy = "supermercado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Usuario> usuarios = new HashSet<>();
+
     public Supermercado() {
     }
 
@@ -74,5 +77,13 @@ public class Supermercado {
     }
 
     public void agregarSupermercadoProducto(SupermercadoProducto supermercadoProducto) {
+    }
+
+    public Set<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Set<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }

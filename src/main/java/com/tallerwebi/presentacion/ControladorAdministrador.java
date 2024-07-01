@@ -1,13 +1,11 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Combo;
-import com.tallerwebi.dominio.Paquete;
-import com.tallerwebi.dominio.ServicioAdministrador;
-import com.tallerwebi.dominio.SupermercadoProducto;
+import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.CantidadInvalidaException;
 import com.tallerwebi.dominio.excepcion.CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException;
 import com.tallerwebi.dominio.excepcion.FechaInvalidaException;
 import com.tallerwebi.dominio.excepcion.SinIdProductoException;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -36,17 +36,32 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(path = "/administrador", method = RequestMethod.GET)
-    public ModelAndView irAdministrador() {
+    public ModelAndView irAdministrador(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Supermercado supermercado = usuario.getSupermercado();
 
         ModelMap model = new ModelMap();
+
+        model.put("supermercado", supermercado);
 
         return new ModelAndView("administrador", model);
     }
 
+
+
     @RequestMapping(path = "/crearCombo", method = RequestMethod.GET)
-    public ModelAndView irACombo() {
-        Integer idSupermercado = 1;
+    public ModelAndView irACombo(HttpServletRequest request) {
+//        Integer idSupermercado = 1;
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
+        Supermercado supermercado = usuario.getSupermercado();
+
         ModelMap model = new ModelMap();
+
+        model.put("supermercado", supermercado);
 
         List<SupermercadoProducto> supermercadoProductoList = this.servicioAdministrador.buscarProductosDeUnSupermercado(idSupermercado);
 
@@ -68,9 +83,11 @@ public class ControladorAdministrador {
             @RequestParam("cantidadCobrada") Integer cantidadCobrada,
             @RequestParam(value = "productoId", required = false) Integer productoId,
             Model model,
-            RedirectAttributes redirectAttrs) {
+            RedirectAttributes redirectAttrs, HttpServletRequest request) {
 
-        Integer idSupermercado = 1;
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
 
         try {
             SupermercadoProducto supermercadoProducto = this.servicioAdministrador.buscarSupermercadoProducto(productoId, idSupermercado);
@@ -98,9 +115,16 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(path = "/crearPaquete", method = RequestMethod.GET)
-    public ModelAndView irAPaquete() {
-        Integer idSupermercado = 1;
+    public ModelAndView irAPaquete(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
+        Supermercado supermercado = usuario.getSupermercado();
+
         ModelMap model = new ModelMap();
+
+        model.put("supermercado", supermercado);
 
         List<SupermercadoProducto> supermercadoProductoList = this.servicioAdministrador.buscarProductosDeUnSupermercado(idSupermercado);
 
@@ -122,9 +146,11 @@ public class ControladorAdministrador {
             @RequestParam("nombre") String nombre,
             @RequestParam(value = "productoIds", required = false) List<Integer> productoIds,
             Model model,
-            RedirectAttributes redirectAttrs) {
+            RedirectAttributes redirectAttrs, HttpServletRequest request) {
 
-        Integer idSupermercado = 1;
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
 
         try {
             List<SupermercadoProducto> productos = this.servicioAdministrador.buscarProductosPorIds(productoIds, idSupermercado);
