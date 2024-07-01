@@ -1232,7 +1232,6 @@ footer a:hover {
 
 
 .admin{
-    height: 38.3em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1242,6 +1241,7 @@ footer a:hover {
 
 .admin h1{
     font-size: 4em;
+    margin-top: 1em;
 }
 
 .create-button {

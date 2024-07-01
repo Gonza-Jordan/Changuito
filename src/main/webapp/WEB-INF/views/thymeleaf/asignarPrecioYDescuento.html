@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Asignar precio y descuento</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+<body>
+<header th:include="header.html" class="cabecera"></header>
+<section th:include="buscador.html" class="buscador"></section>
+<br>
+<form th:action="@{/guardarPrecioYDescuento}" method="post" enctype="application/x-www-form-urlencoded" class="comboForm">
+    <div class="crearCombo">
+        <h1>Actualizar Producto:</h1>
+        <div class="row">
+            <div class="col-6">
+                <label for="precio">Precio:</label>
+                <input name="precio" id="precio" type="number" class="form-control mb-3" placeholder="5000" />
+            </div>
+        </div>
+        <div class="combX">
+            <div class="col-6">
+                <label for="descuento">Descuento: </label>
+                <input name="descuento" id="descuento" type="number" class="form-control mb-3" placeholder="15"
+                />
+            </div>
+            <p>%</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button id="btn-submit" class="add-button" type="submit">Asignar</button>
+        </div>
+        <img th:src="${supermercado.logo}" th:alt="${supermercado.nombre}" class="logoSuper">
+        <p th:if="${error != null}" th:text="'>> ' +  ${error}" class="error">
+        <p th:if="${exito != null}" th:text="'>> ' +  ${exito}" class="exito">
+    </div>
+    <div class="contenedor-admin">
+        <div class="contenedorFlechas-vertical">
+            <button class="carousel-btn prev" onclick="moveSlide(event, -1)">&#10094;</button>
+            <div class="carousel-item" th:each="supermercadoProducto : ${productos}">
+                <div class="contenedor-admin-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img th:src="${supermercadoProducto.producto.urlImagen}" alt="Imagen del Producto">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name" th:text="${supermercadoProducto.producto.nombre}"></div>
+                            <div class="product-price">
+                                <span class="product-price-center" th:if="${supermercadoProducto.descuento != null}">
+                                    <span class="tachado" th:text="'$' + ${supermercadoProducto.precio}"></span>
+                            <span class="descuento"
+                                  th:text="'$' + ${supermercadoProducto.descuento * supermercadoProducto.precio}"></span>
+                                </span>
+                                <span th:if="${supermercadoProducto.descuento == null}"
+                                      th:text="'$' + ${supermercadoProducto.precio}"></span>
+                            </div>
+                            <br>
+                            <div th:text="'Código: ' + ${supermercadoProducto.producto.codigoBarras}"></div>
+                        </div>
+                        <input type="radio" name="productoId" th:value="${supermercadoProducto.producto.idProducto}"
+                               class="custom-radio"/>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-btn next" onclick="moveSlide(event, 1)">&#10095;</button>
+        </div>
+    </div>
+</form>
+<footer th:include="footer.html"></footer>
+<script th:src="@{/js/carusel3.js}"></script>
+</body>
+</html>

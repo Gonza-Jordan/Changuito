@@ -12,4 +12,6 @@ public interface RepositorioAdministrador {
     List<SupermercadoProducto> obtenerProductosPorIds(List<Integer> productoIds, Integer idSupermercado);
 
     void guardarPaquete(Paquete paquete);
+
+    void actualizarPrecioYDescuento(SupermercadoProducto supermercadoProducto, Double precio, Double descuento);
 }

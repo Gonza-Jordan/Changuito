@@ -1,9 +1,6 @@
 package com.tallerwebi.dominio;
 
-import com.tallerwebi.dominio.excepcion.CantidadInvalidaException;
-import com.tallerwebi.dominio.excepcion.CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException;
-import com.tallerwebi.dominio.excepcion.FechaInvalidaException;
-import com.tallerwebi.dominio.excepcion.SinIdProductoException;
+import com.tallerwebi.dominio.excepcion.*;
 
 import java.util.List;
 
@@ -18,7 +15,9 @@ public interface ServicioAdministrador {
 
     List<SupermercadoProducto> buscarProductosPorIds(List<Integer> productoIds, Integer idSupermercado) throws SinIdProductoException;
 
-    Paquete crearPaquete(List<SupermercadoProducto> productos, String fechaInicio, String fechaFin, Double descuento, String nombre) throws FechaInvalidaException;
+    Paquete crearPaquete(List<SupermercadoProducto> productos, String fechaInicio, String fechaFin, Double descuento, String nombre) throws FechaInvalidaException, DescuentoInvalidoException;
 
     void guardarPaquete(Paquete paquete);
+
+    void actualizarPrecioYDescuento(SupermercadoProducto supermercadoProducto, Double precio, Double descuento) throws PrecioInvalidoException, DescuentoInvalidoException, SinPrecioNiDescuentoException;
 }
