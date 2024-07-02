@@ -1,9 +1,6 @@
 package com.tallerwebi.dominio;
 
-import com.tallerwebi.dominio.excepcion.CantidadInvalidaException;
-import com.tallerwebi.dominio.excepcion.CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException;
-import com.tallerwebi.dominio.excepcion.FechaInvalidaException;
-import com.tallerwebi.dominio.excepcion.SinIdProductoException;
+import com.tallerwebi.dominio.excepcion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,12 +73,16 @@ public class ServicioAdministradorImpl implements ServicioAdministrador{
     }
 
     @Override
-    public Paquete crearPaquete(List<SupermercadoProducto> productos, String fechaInicio, String fechaFin, Double descuento, String nombre) throws FechaInvalidaException {
+    public Paquete crearPaquete(List<SupermercadoProducto> productos, String fechaInicio, String fechaFin, Double descuento, String nombre) throws FechaInvalidaException, DescuentoInvalidoException {
         LocalDate fechaInicioDate = LocalDate.parse(fechaInicio);
         LocalDate fechaFinDate = LocalDate.parse(fechaFin);
 
         if (fechaFinDate.isBefore(fechaInicioDate) || fechaFinDate.isEqual(fechaInicioDate)) {
             throw new FechaInvalidaException();
+        }
+
+        if (descuento > 100.0 || descuento <= 0.0){
+            throw new DescuentoInvalidoException();
         }
 
         Double precioFinal = 0.0;
@@ -97,6 +98,20 @@ public class ServicioAdministradorImpl implements ServicioAdministrador{
     @Override
     public void guardarPaquete(Paquete paquete) {
         this.repositorioAdministrador.guardarPaquete(paquete);
+    }
+
+    @Override
+    public void actualizarPrecioYDescuento(SupermercadoProducto supermercadoProducto, Double precio, Double descuento) throws PrecioInvalidoException, DescuentoInvalidoException, SinPrecioNiDescuentoException {
+        if (precio != null  && precio <= 0){
+            throw new PrecioInvalidoException();
+        }
+        if (descuento != null && (descuento > 100.0 || descuento <= 0.0)){
+            throw new DescuentoInvalidoException();
+        }
+        if (precio == null && descuento == null){
+            throw new SinPrecioNiDescuentoException();
+        }
+        this.repositorioAdministrador.actualizarPrecioYDescuento(supermercadoProducto, precio, descuento);
     }
 
 }

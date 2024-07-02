@@ -1,10 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.*;
-import com.tallerwebi.dominio.excepcion.CantidadInvalidaException;
-import com.tallerwebi.dominio.excepcion.CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException;
-import com.tallerwebi.dominio.excepcion.FechaInvalidaException;
-import com.tallerwebi.dominio.excepcion.SinIdProductoException;
+import com.tallerwebi.dominio.excepcion.*;
 import net.bytebuddy.implementation.bind.annotation.Super;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,10 +47,9 @@ public class ControladorAdministrador {
     }
 
 
-
     @RequestMapping(path = "/crearCombo", method = RequestMethod.GET)
     public ModelAndView irACombo(HttpServletRequest request) {
-//        Integer idSupermercado = 1;
+
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
@@ -106,7 +102,7 @@ public class ControladorAdministrador {
             redirectAttrs.addFlashAttribute("error", "La fecha de fin no puede ser anterior o igual a la fecha de inicio");
             return "redirect:/crearCombo";
         } catch (Exception e) {
-            redirectAttrs.addFlashAttribute("error", "Ha ocurrido un error al crear el paquete");
+            redirectAttrs.addFlashAttribute("error", "Ha ocurrido un error al crear el combo");
             return "redirect:/crearPaquete";
         }
 
@@ -162,6 +158,9 @@ public class ControladorAdministrador {
         } catch (FechaInvalidaException e) {
             redirectAttrs.addFlashAttribute("error", "La fecha de fin no puede ser anterior o igual a la fecha de inicio");
             return "redirect:/crearPaquete";
+        } catch (DescuentoInvalidoException e) {
+            redirectAttrs.addFlashAttribute("error", "Descuento inválido");
+            return "redirect:/crearPaquete";
         } catch (Exception e) {
             redirectAttrs.addFlashAttribute("error", "Ha ocurrido un error al crear el paquete");
             return "redirect:/crearPaquete";
@@ -169,6 +168,63 @@ public class ControladorAdministrador {
 
         redirectAttrs.addFlashAttribute("exito", "Paquete creado exitosamente");
         return "redirect:/crearPaquete";
+    }
+
+    @RequestMapping(path = "/asignarPrecioYDescuento", method = RequestMethod.GET)
+    public ModelAndView irAAsignarPrecioYDescuento(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
+        Supermercado supermercado = usuario.getSupermercado();
+
+        ModelMap model = new ModelMap();
+
+        model.put("supermercado", supermercado);
+
+        List<SupermercadoProducto> supermercadoProductoList = this.servicioAdministrador.buscarProductosDeUnSupermercado(idSupermercado);
+
+        if (supermercadoProductoList != null) {
+            supermercadoProductoList.sort(Comparator.comparing(sp -> sp.getProducto().getNombre()));
+            model.put("productos", supermercadoProductoList);
+        } else {
+            model.put("error", "No hay productos en el supermercado");
+        }
+
+        return new ModelAndView("asignarPrecioYDescuento", model);
+    }
+
+    @RequestMapping(path = "/guardarPrecioYDescuento", method = RequestMethod.POST)
+    public String guardarPrecioYDescuento(
+            @RequestParam(value = "precio", required = false) Double precio,
+            @RequestParam(value = "descuento", required = false) Double descuento,
+            @RequestParam(value = "productoId", required = false) Integer productoId,
+            Model model,
+            RedirectAttributes redirectAttrs, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Integer idSupermercado = usuario.getSupermercado().getIdSupermercado();
+
+        try {
+            SupermercadoProducto supermercadoProducto = this.servicioAdministrador.buscarSupermercadoProducto(productoId, idSupermercado);
+            this.servicioAdministrador.actualizarPrecioYDescuento(supermercadoProducto, precio, descuento);
+
+        } catch (SinIdProductoException e) {
+            redirectAttrs.addFlashAttribute("error", "No se seleccionó ningún producto");
+            return "redirect:/asignarPrecioYDescuento";
+        } catch (PrecioInvalidoException e) {
+            redirectAttrs.addFlashAttribute("error", "El precio no puede ser menor a 0");
+            return "redirect:/asignarPrecioYDescuento";
+        } catch (DescuentoInvalidoException e) {
+            redirectAttrs.addFlashAttribute("error", "Descuento inválido");
+            return "redirect:/asignarPrecioYDescuento";
+        }catch (SinPrecioNiDescuentoException e) {
+            redirectAttrs.addFlashAttribute("error", "No se asignó precio ni descuento");
+            return "redirect:/asignarPrecioYDescuento";
+        }
+        redirectAttrs.addFlashAttribute("exito", "Producto actualizado exitosamente");
+        return "redirect:/asignarPrecioYDescuento";
     }
 
 }
