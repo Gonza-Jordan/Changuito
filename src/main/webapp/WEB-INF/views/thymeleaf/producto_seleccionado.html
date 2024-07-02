@@ -17,70 +17,49 @@
 <section th:include="buscador.html" class="buscador"></section>
 <br>
 <div class="contenedor_producto_seleccionado" th:if="${productos != null}">
-<div class="contenedor_producto_columnas" th:each="superProducto : ${productos}">
+<div class="contenedor_producto_columnas" th:list="${productos}">
     <div class="columna_izquierda_producto">
-        <img th:src="${superProducto.producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
+        <img th:src="${productos[0].producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
     </div>
     <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado" th:text="${superProducto.producto.nombre}"></h1>
+        <h1 class="product-title-producto-seleccionado" th:text="${productos[0].producto.nombre}"></h1>
         <ul class="product-features-producto-seleccionado">
-            <li th:text=" ${superProducto.producto.categoria}">Tipo de producto </li>
-            <li th:text="${superProducto.producto.subcategoria}">subcategoria:</li>
-            <li th:text="${superProducto.producto.marca}">Marca</li>
+            <li th:text=" ${productos[0].producto.categoria}">Tipo de producto </li>
+            <li th:text="${productos[0].producto.subcategoria}">subcategoria:</li>
+            <li th:text="${productos[0].producto.marca.nombre}">Marca</li>
             <li>Origen: Argentina</li>
         </ul>
         <div class="store-info-producto-seleccionado">
-            <img  alt="Logo del supermercado" class="store-logo-producto-seleccionado">
-            <p class="store-location-producto-seleccionado" >Ubicación del supermercado</p>
+            <img   alt="Logo del supermercado" class="store-logo-producto-seleccionado"  th:src="${productos[0].supermercado.logo}"
+                   th:alt="${productos[0].supermercado.nombre}" >
+            <p class="store-location-producto-seleccionado" th:text="${productos[0].supermercado.ubicacion}">Ubicación del supermercado</p>
         </div>
-        <div class="product-price-producto-seleccionado" th:text="${superProducto.precio}">Precio regular: </div>
-        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>
+        <div class="product-price-producto-seleccionado" th:text=" '$'+${productos[0].precio}">Precio regular: </div>
+        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado"  th:href="@{/agregarAlCarrito(idProducto=${productos[0].getProducto().getIdProducto()},idSupemercado=${productos[0].getSupermercado().getIdSupermercado()})}">Agregar</button></div>
 
     </div>
     <br>
 </div>
 </div>
 <div class="contenedor-cards">
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
+    <div class="card-producto"  th:each="superProducto,iterStart : ${productos}" th:if="${iterStart.index!=0}">
+        <img th:src="${superProducto.producto.urlImagen}" th:alt="${superProducto.producto.nombre}" class="imagen-producto-card">
+        <h3 class="nombre-producto-card" th:text="${superProducto.producto.nombre}"></h3>
+        <p class="precio-producto-card" th:text="'$'+ ${superProducto.precio}"></p>
+        <img th:src="${superProducto.supermercado.logo}" th:alt="${superProducto.supermercado.nombre}" class="store-logo-card">
+        <button class="boton-agregar-card" th:href="@{/agregarAlCarrito(idProducto=${superProducto.getProducto().getIdProducto()},idSupemercado=${superProducto.getSupermercado().getIdSupermercado()})}">Agregar</button>
     </div>
 
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
-    </div>
-
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
-    </div>
-
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
-    </div>
 </div>
 <hr class="divisoria">
 
 <div class="contenedor-ubicacion-mediospago">
     <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Ubicación</h2>
-        <div class="mapa">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1381.7315522169952!2d-58.44942423667233!3d-34.54519949633227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1716331773336!5m2!1ses-419!2sar" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+        <h2 class="titulo-producto-seleccionado">Reseñas</h2>
+
+<!--        <div class="mapa">-->
+<!--            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1381.7315522169952!2d-58.44942423667233!3d-34.54519949633227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1716331773336!5m2!1ses-419!2sar" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+<!--        </div>-->
     </div>
     <div class="columna-ubicacion-mediospago">
         <h2 class="titulo-producto-seleccionado">Medios de Pago</h2>
