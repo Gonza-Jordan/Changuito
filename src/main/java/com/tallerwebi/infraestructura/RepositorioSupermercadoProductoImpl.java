@@ -117,7 +117,16 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
 
     }
 
+    @Override
+    public List<SupermercadoProducto> buscarProducto(Integer idProducto) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT  sp.producto FROM SupermercadoProducto sp WHERE sp.producto.idProducto IN (:idProducto)", SupermercadoProducto.class)
+                .setParameter("idProducto", idProducto)
+                .getResultList();
 
+        
+
+    }
 
 
 }

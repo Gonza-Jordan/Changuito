@@ -152,10 +152,10 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     }
 
     @Override
-    public List<Producto> buscarProductoACompararId(Integer id) {
-        List<Producto> productos = new ArrayList<>();
-        Producto nombre =repositorioProducto.buscarProductoPorId(id);
-        return  repositorioProducto.buscarProductoPorNombre(nombre.getNombre());
+    public List<SupermercadoProducto> buscarProductoACompararId(Integer id) {
+        List<SupermercadoProducto> productos = new ArrayList<>();
+        return productos = repositorioSupermercadoProducto.buscarProducto(id);
+
     }
 
 

@@ -31,7 +31,7 @@ public class ControladorProductoSeleccionado {
 
         ModelMap model = new ModelMap();
 
-        List<Producto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
+        List<SupermercadoProducto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
 
         if (comparacion!= null){
             model.put("productos", comparacion);

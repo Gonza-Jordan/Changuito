@@ -17,23 +17,23 @@
 <section th:include="buscador.html" class="buscador"></section>
 <br>
 <div class="contenedor_producto_seleccionado" th:if="${productos != null}">
-<div class="contenedor_producto_columnas" th:each="producto : ${productos}">
+<div class="contenedor_producto_columnas" th:each="superProducto : ${productos}">
     <div class="columna_izquierda_producto">
-        <img th:src="${producto.getUrlImagen()}" alt="Imagen del producto" class="product-image-producto-seleccionado">
+        <img th:src="${superProducto.producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
     </div>
     <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}"></h1>
+        <h1 class="product-title-producto-seleccionado" th:text="${superProducto.producto.nombre}"></h1>
         <ul class="product-features-producto-seleccionado">
-            <li th:text=" ${producto.categoria}">Tipo de producto </li>
-            <li th:text="${producto.codigoBarras}">Contenido:</li>
-            <li th:text="${producto.marca}">Marca</li>
+            <li th:text=" ${superProducto.producto.categoria}">Tipo de producto </li>
+            <li th:text="${superProducto.producto.subcategoria}">subcategoria:</li>
+            <li th:text="${superProducto.producto.marca}">Marca</li>
             <li>Origen: Argentina</li>
         </ul>
         <div class="store-info-producto-seleccionado">
             <img  alt="Logo del supermercado" class="store-logo-producto-seleccionado">
             <p class="store-location-producto-seleccionado" >Ubicación del supermercado</p>
         </div>
-        <div class="product-price-producto-seleccionado">Precio regular: $1.280,82</div>
+        <div class="product-price-producto-seleccionado" th:text="${superProducto.precio}">Precio regular: </div>
         <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>
 
     </div>
