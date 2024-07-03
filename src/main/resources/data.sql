@@ -1,6 +1,6 @@
 -- noinspection SqlDialectInspectionForFile
 
---Supermercados
+-- Supermercados
 INSERT INTO Supermercado (nombre, ubicacion, localidad, logo)
 VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo',
         'https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/74.0.0/logo/logo___8ebc4231614a7b41a4258354ce76e1e1.svg'),
@@ -13,7 +13,7 @@ VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo',
        ('Chango Mas', 'Ruta 3 Km 29', 'Isidro Casanova',
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s');
 
---Usuarios
+-- Usuarios
 INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena, admin, guardoCarrito, idSupermercado)
 VALUES (null, 'Jose', 'Lopez', '15012456', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
         'jlopez@gmail.com', 'abcd1234', false, false, null),
@@ -29,7 +29,7 @@ VALUES (null, 'Jose', 'Lopez', '15012456', 'Florencio Varela 1903, San Justo, Pr
         'changomas@gmail.com', '1234', true, false, 5);
 
 
---Marcas
+-- Marcas
 INSERT INTO Marca (idMarca, nombre)
 VALUES
     (1 , 'Gallo'),
@@ -82,11 +82,11 @@ VALUES
     (40 , 'Yogurisimo'),
     (41 , 'Tregar');
 
---Productos
-    --Cat. Almacen
+-- Productos
+    -- Cat. Almacen
 INSERT INTO Producto (nombre, codigoBarras, categoria, subcategoria, urlImagen, idMarca)
 VALUES
-    --Cat. Almacen
+    -- Cat. Almacen
     ('Arroz Gallo Oro 1kg', '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 1),
     ('Arroz Dos Hermanos Largo Fino 1kg', '7790415010050', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/637989-1200-auto?v=637544430793970000&width=1200&height=auto&aspect=true', 2),
     ('Arroz Gallo Oro Largo 1kg', '11450502019', 'Almacen', 'Arroz', 'https://jumboargentina.vtexassets.com/arquivos/ids/803457-1200-auto?v=638379921950070000&width=1200&height=auto&aspect=true', 1),
@@ -116,7 +116,7 @@ VALUES
     ('Edulcorante Hileret Light', '7790409000624', 'Almacen', 'Endulzantes', 'https://d3340tyzmtlo4u.cloudfront.net/users/864/images/thumbnails/300/300/detailed/13/Hileret_Edulcorante_L%C3%ADquido_Sweet,_400_ml.webp', 19),
     ('Stevia Pure Via Liquido 80ml', '7790200000364', 'Almacen', 'Endulzantes', 'https://carrefourar.vtexassets.com/arquivos/ids/318095-800-auto?v=638180311874530000&width=800&height=auto&aspect=true', 20),
 
-    --Cat. Perfumeria
+    -- Cat. Perfumeria
     ('Shampoo Sedal Rizos Definidos 650ml', '13710375002', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/766775-1200-auto?v=638108302089300000&width=1200&height=auto&aspect=true', 21),
     ('Acondicionador Sedal Ceramidas 650ml', '13720863004', 'Perfumeria', 'Acondicionador', 'https://jumboargentina.vtexassets.com/arquivos/ids/787029-1200-auto?v=638240818051470000&width=1200&height=auto&aspect=true', 21),
     ('Desodorante Rexona Antibacterial 150ml', '13420110034', 'Perfumeria', 'Desodorantes', 'https://jumboargentina.vtexassets.com/arquivos/ids/802194-1200-auto?v=638375603688170000&width=1200&height=auto&aspect=true', 22),
@@ -125,7 +125,7 @@ VALUES
     ('Shampoo Pantene Pro-V 400ml', '13710406001', 'Perfumeria', 'Shampoo', 'https://jumboargentina.vtexassets.com/arquivos/ids/808320-1200-auto?v=638422365671900000&width=1200&height=auto&aspect=true', 25),
     ('Acondicionador Dove Reconstrucción Completa 400ml', '13720589005', 'Perfumeria', 'Acondicionador', 'https://jumboargentina.vtexassets.com/arquivos/ids/781237-1200-auto?v=638193299692670000&width=1200&height=auto&aspect=true', 23),
 
-    --Cat. Bebidas
+    -- Cat. Bebidas
     ('Agua Mineral Glaciar Sin Gas Bajo Sodio 1.5L', '12120102001', 'Bebidas', 'Agua', 'https://jumboargentina.vtexassets.com/arquivos/ids/545277-1200-auto?v=637014798216800000&width=1200&height=auto&aspect=true', 26),
     ('Gaseosa Coca-Cola Original 2.25L', '12110101009', 'Bebidas', 'Gaseosas', 'https://jumboargentina.vtexassets.com/arquivos/ids/782825-1200-auto?v=638206689776800000&width=1200&height=auto&aspect=true', 27),
     ('Jugo Cepita Fresh Naranja 1.5L', '12130595001', 'Bebidas', 'Jugos', 'https://jumboargentina.vtexassets.com/arquivos/ids/801011-1200-auto?v=638367069703130000&width=1200&height=auto&aspect=true', 28),
