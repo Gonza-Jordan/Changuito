@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class ControladorEmail {
 
@@ -13,11 +18,12 @@ public class ControladorEmail {
     private ServicioEmail servicioEmail;
 
     @GetMapping("/send-email")
-    public String sendEmail(@RequestParam String to, @RequestParam String subject, @RequestParam String body) {
+    public String sendEmail(@RequestParam String to) {
         try {
-            servicioEmail.sendSimpleMessage(to, subject, body);
+            Map<String, Object> variables = new HashMap<>();
+            servicioEmail.sendMimeMessageWithImage(to, "Tu changuito", "emailTemplate", variables);
             return "Email enviado exitosamente!";
-        } catch (Exception e) {
+        } catch (MessagingException | IOException e) {
             return "Error enviando email: " + e.getMessage();
         }
     }
