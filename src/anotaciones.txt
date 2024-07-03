@@ -1,0 +1,6 @@
+
+Prueba mails:
+http://localhost:8080/spring/send-email?to=gonzajordan11@gmail.com&subject=Prueba&body=Este%20es%20un%20correo%20de%20prueba
+
+pass:
+jlfcvuoocscjqwuo

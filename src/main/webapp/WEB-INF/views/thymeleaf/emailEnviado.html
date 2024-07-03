@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Email Enviado</title>
+    <title>Correo Enviado</title>
 </head>
 <body>
-<h1>Correo electrónico enviado con éxito</h1>
-<p>Tu correo ha sido enviado.</p>
+<h1 th:text="${message}"></h1>
+<a href="/spring/sendEmailForm">Enviar otro correo</a>
 </body>
 </html>
