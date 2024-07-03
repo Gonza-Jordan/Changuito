@@ -16,33 +16,33 @@
 <!--<section th:include="buscador.html" class="buscador"></section>-->
 <section th:include="buscador.html" class="buscador"></section>
 <br>
-<div class="contenedor_producto_seleccionado" th:if="${productos != null}">
-<div class="contenedor_producto_columnas" th:list="${productos}">
+<div class="contenedor_producto_seleccionado" th:if="${elegido != null}">
+<div class="contenedor_producto_columnas" th:object="${elegido}">
     <div class="columna_izquierda_producto">
-        <img th:src="${productos[0].producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
+        <img th:src="${elegido.producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
     </div>
     <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado" th:text="${productos[0].producto.nombre}"></h1>
+        <h1 class="product-title-producto-seleccionado" th:text="${elegido.producto.nombre}"></h1>
         <ul class="product-features-producto-seleccionado">
-            <li th:text=" ${productos[0].producto.categoria}">Tipo de producto </li>
-            <li th:text="${productos[0].producto.subcategoria}">subcategoria:</li>
-            <li th:text="${productos[0].producto.marca.nombre}">Marca</li>
+            <li th:text=" ${elegido.producto.categoria}">Tipo de producto </li>
+            <li th:text="${elegido.producto.subcategoria}">subcategoria:</li>
+            <li th:text="${elegido.producto.marca.nombre}">Marca</li>
             <li>Origen: Argentina</li>
         </ul>
         <div class="store-info-producto-seleccionado">
-            <img   alt="Logo del supermercado" class="store-logo-producto-seleccionado"  th:src="${productos[0].supermercado.logo}"
-                   th:alt="${productos[0].supermercado.nombre}" >
-            <p class="store-location-producto-seleccionado" th:text="${productos[0].supermercado.ubicacion}">Ubicación del supermercado</p>
+            <img   alt="Logo del supermercado" class="store-logo-producto-seleccionado"  th:src="${elegido.supermercado.logo}"
+                   th:alt="${elegido.supermercado.nombre}" >
+            <p class="store-location-producto-seleccionado" th:text="${elegido.supermercado.ubicacion}">Ubicación del supermercado</p>
         </div>
-        <div class="product-price-producto-seleccionado" th:text=" '$'+${productos[0].precio}">Precio regular: </div>
-        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado"  th:href="@{/agregarAlCarrito(idProducto=${productos[0].getProducto().getIdProducto()},idSupemercado=${productos[0].getSupermercado().getIdSupermercado()})}">Agregar</button></div>
+        <div class="product-price-producto-seleccionado" th:text=" '$'+${elegido.precio}">Precio regular: </div>
+        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado"  th:href="@{/agregarAlCarrito(idProducto=${elegido.getProducto().getIdProducto()},idSupemercado=${elegido.getSupermercado().getIdSupermercado()})}">Agregar</button></div>
 
     </div>
     <br>
 </div>
 </div>
 <div class="contenedor-cards">
-    <div class="card-producto"  th:each="superProducto,iterStart : ${productos}" th:if="${iterStart.index!=0}">
+    <div class="card-producto"  th:each="superProducto: ${productos}" th:if="${productos != null}">
         <img th:src="${superProducto.producto.urlImagen}" th:alt="${superProducto.producto.nombre}" class="imagen-producto-card">
         <h3 class="nombre-producto-card" th:text="${superProducto.producto.nombre}"></h3>
         <p class="precio-producto-card" th:text="'$'+ ${superProducto.precio}"></p>
@@ -55,14 +55,19 @@
 
 <div class="contenedor-ubicacion-mediospago">
     <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Reseñas</h2>
+        <h2 class="titulo-producto-seleccionado">Crear Reseña</h2>
+        <form th:action="@{/resenias}" method="post" th:object="${resenia}">
+            <input type="text" th:placeholder="ingrese su comentario">
+            <button class="boton-agregar-card" >Crear</button>
+        </form>
 
 <!--        <div class="mapa">-->
 <!--            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1381.7315522169952!2d-58.44942423667233!3d-34.54519949633227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1716331773336!5m2!1ses-419!2sar" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
 <!--        </div>-->
     </div>
+
     <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Medios de Pago</h2>
+        <h2 class="titulo-producto-seleccionado">Reseñas</h2>
         <div class="medios-pago">
             <ul>
                 <li>Tarjeta de crédito</li>

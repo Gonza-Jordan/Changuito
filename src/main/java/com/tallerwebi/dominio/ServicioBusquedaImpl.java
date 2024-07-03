@@ -158,6 +158,11 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
 
     }
 
+    @Override
+    public SupermercadoProducto buscarProductoIdElegido(Integer id, Integer idSupermercado) {
+        return repositorioSupermercadoProducto.buscarSupermercadoProducto(id, idSupermercado);
+    }
+
 
     private double getPrecioConDescuento(SupermercadoProducto producto) {
         if (producto.getDescuento() != null) {

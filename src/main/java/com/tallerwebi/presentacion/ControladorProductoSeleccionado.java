@@ -17,24 +17,28 @@ import java.util.List;
 public class ControladorProductoSeleccionado {
     private ServicioBusqueda servicioBusqueda;
 
+
     @Autowired
 
 
     public void ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
 
+
     }
 
     @RequestMapping(path ="/producto_seleccionado", method = RequestMethod.GET)
 
-    public ModelAndView irAProductoSeleccionado(@RequestParam ("id") Integer id, HttpServletRequest request) {
+    public ModelAndView irAProductoSeleccionado(@RequestParam("idSupermercado") Integer idSupermercado,
+            @RequestParam ("id") Integer id, HttpServletRequest request) {
 
         ModelMap model = new ModelMap();
 
         List<SupermercadoProducto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
-
+        SupermercadoProducto elegido = servicioBusqueda.buscarProductoIdElegido(id, idSupermercado);
         if (comparacion!= null){
             model.put("productos", comparacion);
+            model.put("elegido", elegido);
         }else {
             model.put("error", "No hay comaparaciones ");
         }
