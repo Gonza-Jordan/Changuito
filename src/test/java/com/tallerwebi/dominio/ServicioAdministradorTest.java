@@ -1,10 +1,15 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.dominio.excepcion.CantidadInvalidaException;
+import com.tallerwebi.dominio.excepcion.CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException;
+import com.tallerwebi.dominio.excepcion.FechaInvalidaException;
 import com.tallerwebi.dominio.excepcion.SinIdProductoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -107,6 +112,76 @@ public class ServicioAdministradorTest {
         //Ejecución y verificación
         assertThrows(SinIdProductoException.class, () -> {
             servicioAdministrador.buscarSupermercadoProducto(null, supermercadoMock.getIdSupermercado());
+        });
+    }
+
+    @Test
+    public void queSePuedaCrearUnCombo() throws CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException, CantidadInvalidaException, FechaInvalidaException {
+        //Preparacion
+        supermercadoProductoMock.setPrecio(1000.00);
+        String fechaInicio = "2023-01-01";
+        String fechaFin = "2023-12-31";
+        Integer cantidadVendida = 2;
+        Integer cantidadCobrada = 1;
+
+        //Ejecucion
+        Combo comboCreado = this.servicioAdministrador.crearCombo(supermercadoProductoMock, fechaInicio, fechaFin, cantidadVendida, cantidadCobrada);
+
+        //Verficacion
+        assertThat(comboCreado, notNullValue());
+        assertThat(comboCreado.getProducto().getProducto(), equalTo(productoMock));
+        assertThat(comboCreado.getProducto().getSupermercado(), equalTo(supermercadoMock));
+        assertThat(comboCreado.getCantidadVendida(), equalTo(2));
+        assertThat(comboCreado.getCantidadCobrada(), equalTo(1));
+
+    }
+
+
+    @Test
+    public void queAlCrearUnComboLanceLaExcepcionCantidadVendidaNoPuedeSerMenorOIgualALaCobradaException() {
+        //Preparacion
+        supermercadoProductoMock.setPrecio(1000.00);
+        String fechaInicio = "2023-01-01";
+        String fechaFin = "2023-12-31";
+        Integer cantidadVendida = 2;
+        Integer cantidadCobrada = 3;
+
+        //Ejecución y verificación
+        assertThrows(CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException.class, () -> {
+            servicioAdministrador.crearCombo(supermercadoProductoMock, fechaInicio, fechaFin, cantidadVendida, cantidadCobrada);
+        });
+    }
+
+    @Test
+    public void queAlCrearUnComboLanceLaExcepcionCantidadInvalidaException() {
+        //Preparacion
+        supermercadoProductoMock.setPrecio(1000.00);
+        String fechaInicio = "2023-01-01";
+        String fechaFin = "2023-12-31";
+        Integer cantidadVendida = -1;
+        Integer cantidadCobrada = 3;
+
+        //Ejecución y verificación
+        assertThrows(CantidadInvalidaException.class, () -> {
+            servicioAdministrador.crearCombo(supermercadoProductoMock, fechaInicio, fechaFin, cantidadVendida, cantidadCobrada);
+        });
+    }
+
+    @Test
+    public void queAlCrearUnComboLanceLaExcepcionFechaInvalidaException() {
+        //Preparacion
+        supermercadoProductoMock.setPrecio(1000.00);
+        String fechaInicio = "2023-12-01";
+        String fechaFin = "2023-11-30";
+        LocalDate fechaInicioDate = LocalDate.parse(fechaInicio);
+        LocalDate fechaFinDate = LocalDate.parse(fechaFin);
+
+        Integer cantidadVendida = 5;
+        Integer cantidadCobrada = 3;
+
+        //Ejecución y verificación
+        assertThrows(FechaInvalidaException.class, () -> {
+            servicioAdministrador.crearCombo(supermercadoProductoMock, fechaInicioDate.toString(), fechaFinDate.toString(), cantidadVendida, cantidadCobrada);
         });
     }
 
