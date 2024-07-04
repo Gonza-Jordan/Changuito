@@ -1,11 +1,115 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Email Template</title>
+    <title>Email de Promociones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .banner {
+            width: 100%;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333333;
+        }
+        p {
+            font-size: 16px;
+            color: #666666;
+        }
+        .promotions {
+            margin-top: 20px;
+        }
+        .promotion-item {
+            border-bottom: 1px solid #dddddd;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .promotion-item img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .promotion-details {
+            flex: 1;
+        }
+        .promotion-details h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #333333;
+        }
+        .promotion-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666666;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999999;
+        }
+    </style>
 </head>
 <body>
-<h1>Tu changuito</h1>
-<p>Este es tu changuito de compras:</p>
-<img src="cid:changuitoImage" alt="Changuito">
+<div class="container">
+    <div class="banner">
+        Tu Changuito. Gracias por elegirnos.
+    </div>
+    <h1>Promociones Especiales</h1>
+    <p>Estas son las promociones que tenemos para ti:</p>
+    <div class="promotions">
+        <div class="promotion-item">
+            <img src="cid:promo1" alt="Promo 1">
+            <div class="promotion-details">
+                <h2>2x1: Arroz Dos Hermanos Largo Fino 1kg</h2>
+                <p>Descripción: Dos Hermanos</p>
+                <p>Ubicación: Avenida Brigadier Juan Manuel de Rosas 3990</p>
+                <p>Desde: 2023-01-01</p>
+                <p>Hasta: 2023-12-31</p>
+            </div>
+        </div>
+        <div class="promotion-item">
+            <img src="cid:promo2" alt="Promo 2">
+            <div class="promotion-details">
+                <h2>2x1: Arroz Lucchetti Largo Fino 1kg</h2>
+                <p>Descripción: Lucchetti</p>
+                <p>Ubicación: Ruta 3 Km 29</p>
+                <p>Desde: 2024-01-01</p>
+                <p>Hasta: 2024-12-31</p>
+            </div>
+        </div>
+        <div class="promotion-item">
+            <img src="cid:promo3" alt="Promo 3">
+            <div class="promotion-details">
+                <h2>2x1: Gaseosa Coca-Cola Original 2.25L</h2>
+                <p>Descripción: Coca-Cola</p>
+                <p>Ubicación: Boulevard Buenos Aires 1001</p>
+                <p>Desde: 2024-01-01</p>
+                <p>Hasta: 2024-12-31</p>
+            </div>
+        </div>
+    </div>
+    <p>¡Aprovecha estas promociones antes de que se terminen!</p>
+    <div class="footer">
+        <p>&copy; 2024 Tu changuito. Todos los derechos reservados.</p>
+    </div>
+</div>
 </body>
 </html>
