@@ -161,7 +161,7 @@ public class ControladorEmailTest {
                         .param("attachment", "attachment1.txt,attachment2.txt"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Email enviado exitosamente!"));
-        
+
         verify(servicioEmail, times(1)).sendMimeMessageWithImage(eq("test@example.com"), eq("Tu changuito"), eq("emailTemplate"), anyMap());
     }
 
