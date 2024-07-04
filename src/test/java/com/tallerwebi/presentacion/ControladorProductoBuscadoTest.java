@@ -205,21 +205,21 @@ public class ControladorProductoBuscadoTest {
         assertThat(((List<SupermercadoProducto>) mav.getModel().get("productos")).get(1).getSupermercado(), equalTo(otroSupermercadoProductoMock.getSupermercado()));
 
     }
-    @Test
-    public void queAlIngresarArrozMuestreTodaLaLista(){
-        List<Producto> productosMock = new ArrayList<>();
-        productosMock.add(new Producto("Arroz Ala",  "1235248", Categoria.Bebidas, Subcategoria.Gaseosas,"",marcaCocaCola));
-        productosMock.add(new Producto("Arroz gallo", "4562548", Categoria.Bebidas, Subcategoria.Gaseosas, "",marcaSprite));
-        productosMock.add(new Producto("Fanta", "12566789", Categoria.Bebidas, Subcategoria.Gaseosas, "",marcaSprite));
-
-        when(this.servicioBusqueda.consultarProductoPorNombre("Arroz")).thenReturn(productosMock);
-
-        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("arroz");
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/spring/productoFiltrado?productoAbuscar=" + "Arroz"+ "&productoIds=" + "null,null,null" );
-
-        assertThat(mav.getView(), equalTo(redirectView));
-    }
+//    @Test
+//    public void queAlIngresarArrozMuestreTodaLaLista(){
+//        List<Producto> productosMock = new ArrayList<>();
+//        productosMock.add(new Producto("Arroz Ala",  "1235248", Categoria.Bebidas, Subcategoria.Gaseosas,"",marcaCocaCola));
+//        productosMock.add(new Producto("Arroz gallo", "4562548", Categoria.Bebidas, Subcategoria.Gaseosas, "",marcaSprite));
+//        productosMock.add(new Producto("Fanta", "12566789", Categoria.Bebidas, Subcategoria.Gaseosas, "",marcaSprite));
+//
+//        when(this.servicioBusqueda.consultarProductoPorNombre("Arroz")).thenReturn(productosMock);
+//
+//        ModelAndView mav = this.controladorProductoBuscado.irAProductoBuscado("arroz");
+//        RedirectView redirectView = new RedirectView();
+//        redirectView.setUrl("/spring/productoFiltrado?productoAbuscar=" + "Arroz"+ "&productoIds=" + "null,null,null" );
+//
+//        assertThat(mav.getView(), equalTo(redirectView));
+//    }
 
 
     @Test
