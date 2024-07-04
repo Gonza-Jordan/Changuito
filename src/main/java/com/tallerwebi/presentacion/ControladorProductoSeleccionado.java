@@ -16,6 +16,7 @@ import java.util.List;
 @Controller
 public class ControladorProductoSeleccionado {
     private ServicioBusqueda servicioBusqueda;
+//    private ServicioResenia servicioResenia;
 
 
     @Autowired
@@ -23,6 +24,7 @@ public class ControladorProductoSeleccionado {
 
     public  ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
+//        this.servicioResenia = servicioResenia;
 
     }
 
@@ -35,9 +37,11 @@ public class ControladorProductoSeleccionado {
 
         List<SupermercadoProducto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
         SupermercadoProducto elegido = servicioBusqueda.buscarProductoIdElegido(id, idSupermercado);
+//        List<Resenia> resenias = servicioResenia.obtenerResenias(id);
         if (comparacion!= null){
             model.put("productos", comparacion);
             model.put("elegido", elegido);
+//            model.put("resenias",resenias);
         }else {
             model.put("error", "No hay comaparaciones ");
         }

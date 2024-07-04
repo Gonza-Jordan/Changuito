@@ -1,34 +1,36 @@
-<div class="contenedor-ubicacion-mediospago">
-    <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Crear Reseña</h2>
-        <form th:action="{/crearResenia}" method="post" th:object="${resenia}">
-            <label for="idProducto">Nombre del usuario</label>
-            <p id="idProducto" th:field="*{idProducto}" th:value="@{elegido.producto.nombre}" th:text="@{elegido.producto.nombre}"></p>
-            <label for="descripcion">Descripcion</label>
-            <textarea id="descripcion" rows="4" cols="50" th:field="${resenia.descripcion}" placeholder="Ingrese su comentario "> </textarea>
-            <button  type="submit" class="boton-agregar-card" th:href=" @{/resenia(id=${elegido.producto.idProducto})}" >Crear</button>
-        </form>
-        <div class="columna-ubicacion-mediospago">
-            <h2 class="titulo-producto-seleccionado">Reseñas existentes</h2>
-            <ul>
-                <li th:each="resenia : ${resenias}">
-                    <p th:text="${resenia.idProductoReseña}"></p>
-                    <p th:text="${resenia.descripcion}"></p>
-                </li>
-            </ul>
-        </div>
+<!--<div class="contenedor-ubicacion-mediospago">-->
+<!--    <div class="columna-ubicacion-mediospago">-->
+<!--        <h2 class="titulo-producto-seleccionado">Crear Reseña</h2>-->
+<!--        <form th:action="" method="post" th:object="${resenia}">-->
+<!--            <label for="idProducto">Nombre del producto</label>-->
+<!--            <p id="idProducto" th:field="*{resenia.idProducto}" th:value="@{elegido.producto.idProducto}" th:text="@{elegido.producto.nombre}"></p>-->
+<!--            <label for="idSupermercado">Nombre del supermercado</label>-->
+<!--            <p id="idSupermercado" th:field="*{resenia.idSupermercado}" th:value="@{elegido.producto.idSupermercado}" th:text="${elegido.supermercado.nombre}" ></p>-->
+<!--            <label for="descripcion">Descripcion</label>-->
+<!--            <textarea id="descripcion" rows="4" cols="50" th:field="${resenia.descripcion}" placeholder="Ingrese su comentario "> </textarea>-->
+<!--            <button  type="submit" class="boton-agregar-card" th:href=" @{/crearResenia}" >Crear</button>-->
+<!--        </form>-->
+<!--        <div class="columna-ubicacion-mediospago">-->
+<!--            <h2 class="titulo-producto-seleccionado">Reseñas existentes</h2>-->
+<!--            <ul>-->
+<!--                <li th:each="resenia : ${resenias}">-->
+<!--                    <p th:text="${resenia.idProductoReseña}"></p>-->
+<!--                    <p th:text="${resenia.descripcion}"></p>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
 
-    </div>
+<!--    </div>-->
 
-    <!--    <div class="columna-ubicacion-mediospago">-->
-    <!--        <h2 class="titulo-producto-seleccionado">Reseñas</h2>-->
-    <!--        <div class="medios-pago">-->
-    <!--            <ul>-->
-    <!--                <li th:each="${resenia}">-->
+<!--    &lt;!&ndash;    <div class="columna-ubicacion-mediospago">&ndash;&gt;-->
+<!--    &lt;!&ndash;        <h2 class="titulo-producto-seleccionado">Reseñas</h2>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <div class="medios-pago">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <ul>&ndash;&gt;-->
+<!--    &lt;!&ndash;                <li th:each="${resenia}">&ndash;&gt;-->
 
-    <!--                </li>-->
+<!--    &lt;!&ndash;                </li>&ndash;&gt;-->
 
-    <!--            </ul>-->
-    <!--        </div>-->
-    <!--    </div>-->
-</div>
+<!--    &lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--</div>-->

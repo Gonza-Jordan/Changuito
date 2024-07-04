@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
-
+<body>
 <header th:include="header.html" class="cabecera"></header>
 <!--<section th:include="buscador.html" class="buscador"></section>-->
 <section th:include="buscador.html" class="buscador"></section>
@@ -51,10 +51,8 @@
     </div>
 
 </div>
-<hr class="divisoria" th:include="resenia.html">
-
-
-
+<hr >
+<!--<div class="divisoria" th:include="resenia.html"></div>-->
 <br>
 <footer th:include="footer.html"></footer>
 </body>
