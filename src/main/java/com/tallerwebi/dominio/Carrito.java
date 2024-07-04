@@ -1,6 +1,8 @@
 package com.tallerwebi.dominio;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,14 +21,28 @@ public class Carrito {
     @Column(nullable = false, unique = true)
     private Date fechaDeCreacion;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<SupermercadoProducto> supermercadoProducto;
+
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Promocion> promocion;
 
 
     public Carrito() {
         this.supermercadoProducto = new ArrayList<>();
+        this.promocion = new ArrayList<>();
 
         this.fechaDeCreacion = new Date();
+    }
+
+    public List<Promocion> getPromocion() {
+        return promocion;
+    }
+
+    public void setPromocion(List<Promocion> promocion) {
+        this.promocion = promocion;
     }
 
     public Long getId() {

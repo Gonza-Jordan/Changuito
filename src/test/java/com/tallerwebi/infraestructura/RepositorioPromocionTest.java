@@ -84,4 +84,25 @@ public class RepositorioPromocionTest {
         assertThat(promocionesObtenidas.get(0), is(instanceOf(Combo.class)));
         assertThat(promocionesObtenidas.get(1), is(instanceOf(Paquete.class)));
     }
+
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedanObtenerUnaPromocion() {
+        // Preparación
+        Promocion promocionCombo = new Combo();
+        Promocion promocionPaquete = new Paquete();
+        this.repositorioPromocion.guardarPromocion(promocionCombo);
+        this.repositorioPromocion.guardarPromocion(promocionPaquete);
+
+        // Ejecucion
+        Promocion promocionComboEncontrada = this.repositorioPromocion.buscarPromocion(promocionCombo.getIdPromocion());
+        Promocion promocionPaqueteEncontrada = this.repositorioPromocion.buscarPromocion(promocionPaquete.getIdPromocion());
+
+        // Verificación
+        assertThat(promocionCombo.getIdPromocion(), equalTo(promocionComboEncontrada.getIdPromocion()));
+        assertThat(promocionPaquete.getIdPromocion(), equalTo(promocionPaqueteEncontrada.getIdPromocion()));
+
+    }
 }

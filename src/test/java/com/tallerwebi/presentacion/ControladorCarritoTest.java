@@ -26,6 +26,9 @@ public class ControladorCarritoTest {
     private SupermercadoProducto supermercadoProductoMock;
     private Supermercado supermercadoMock;
     private Producto productoMock;
+    private Promocion promocionMock;
+    private TipoDePago tipoDePago;
+
 
     private DatosLogin datosLoginMock;
     private HttpServletRequest requestMock;
@@ -34,6 +37,8 @@ public class ControladorCarritoTest {
     private ServicioCarrito servicioCarritoMock;
     private ServicioPedido servicioPedidoMock;
     private ServicioSupermercadoProducto servicioSupermercadoProductoMock;
+    private ServicioPromocion servicioPromocionMock;
+
 
     @BeforeEach
     public void init() {
@@ -44,6 +49,9 @@ public class ControladorCarritoTest {
         supermercadoProductoMock = mock(SupermercadoProducto.class);
         supermercadoMock = mock(Supermercado.class);
         productoMock = mock(Producto.class);
+        promocionMock = mock(Promocion.class);
+        tipoDePago = mock(TipoDePago.class);
+
 
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
@@ -52,9 +60,11 @@ public class ControladorCarritoTest {
         servicioCarritoMock = mock(ServicioCarritoImpl.class);
         servicioPedidoMock = mock(ServicioPedidoImpl.class);
         servicioSupermercadoProductoMock = mock(ServicioSupermercadoProductoImpl.class);
+        servicioPromocionMock = mock(ServicioPromocionImpl.class);
+
 
         controladorUsuario = new ControladorUsuario(servicioUsuarioMock);
-        controladorCarrito = new ControladorCarrito(servicioCarritoMock, servicioUsuarioMock, servicioPedidoMock, servicioSupermercadoProductoMock);
+        controladorCarrito = new ControladorCarrito(servicioCarritoMock, servicioUsuarioMock, servicioPedidoMock, servicioSupermercadoProductoMock, servicioPromocionMock);
     }
 
     // Test para la pantalla de carrito
@@ -117,6 +127,17 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/login"));
     }
 
+    @Test
+    public void queAlAgregarPromocionRedirijaACarritoDeCompras() {
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+
+        ModelAndView modelAndView = controladorCarrito.agregarAlCarritoPromocion(promocionMock.getIdPromocion(), requestMock);
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("redirect:/carritoCompras"));
+    }
+
     // Test para limpiar carrito
     @Test
     public void queAlLimpiarCarritoRedirjaAHome() {
@@ -175,7 +196,7 @@ public class ControladorCarritoTest {
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
 
-        ModelAndView modelAndView = controladorCarrito.generarPedido(requestMock);
+        ModelAndView modelAndView = controladorCarrito.generarPedido(tipoDePago, requestMock);
         String viewName = modelAndView.getViewName();
 
         assertThat(viewName, equalToIgnoringCase("redirect:/mi-cuenta"));
@@ -190,7 +211,7 @@ public class ControladorCarritoTest {
         when(usuarioMock.getStampCarritoActivo()).thenReturn(date);
         when(servicioCarritoMock.consultarCarrito(date)).thenReturn(carritoMock);
 
-        controladorCarrito.generarPedido(requestMock);
+        controladorCarrito.generarPedido(tipoDePago, requestMock);
 
         verify(servicioPedidoMock, times(1)).registrar(any(Pedido.class));
         verify(servicioUsuarioMock, times(1)).modificar(usuarioMock);
