@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Paquete extends Promocion {
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "Paquete_supermercado_producto",
             joinColumns = @JoinColumn(name = "paquete_id"),

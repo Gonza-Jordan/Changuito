@@ -16,7 +16,7 @@ VALUES ('Carrefour', 'Avenida Mosconi 2871', 'San Justo',
 --Usuarios
 INSERT INTO Usuario(id, nombre, apellido, dni, direccion, email, contrasena, admin, guardoCarrito, idSupermercado)
 VALUES (null, 'Jose', 'Lopez', '15012456', 'Florencio Varela 1903, San Justo, Provincia de Buenos Aires',
-        'jlopez@gmail.com', 'abcd1234', false, false, null),
+        'jlopez@gmail.com', '1234', false, false, null),
        (null, 'Carrefour', 'Admin', '11111111', 'Avenida Mosconi 2871, San Justo',
         'carrefour@gmail.com', '1234', true, false, 1),
        (null, 'Coto', 'Admin', '22222222', 'Avenida Brigadier Juan Manuel de Rosas 3990, San Justo',

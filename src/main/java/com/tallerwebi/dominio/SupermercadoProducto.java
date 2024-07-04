@@ -27,6 +27,13 @@ public class SupermercadoProducto implements Serializable {
     public SupermercadoProducto() {
     }
 
+    public SupermercadoProducto(SupermercadoProducto other) {
+        this.precio = other.getPrecio();
+        this.descuento = other.getDescuento();
+        this.producto = other.getProducto();
+        this.supermercado = other.getSupermercado();
+    }
+
     public Producto getProducto() {
         return producto;
     }

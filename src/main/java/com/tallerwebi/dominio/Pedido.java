@@ -22,8 +22,30 @@ public class Pedido {
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private Carrito carrito;
 
+    @Column(nullable = false)
+    private TipoDePago tipoDePago;
+
+    @Column(nullable = false)
+    private Double total;
+
     public Pedido() {
         this.fechaDeCreacion = new Date();
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public TipoDePago getTipoDePago() {
+        return tipoDePago;
+    }
+
+    public void setTipoDePago(TipoDePago tipoDePago) {
+        this.tipoDePago = tipoDePago;
     }
 
     public Long getId() {

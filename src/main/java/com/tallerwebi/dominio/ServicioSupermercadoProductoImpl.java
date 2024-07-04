@@ -21,6 +21,16 @@ public class ServicioSupermercadoProductoImpl implements ServicioSupermercadoPro
         return repositorioSupermercadoProducto.buscarSupermercadoProducto(idProducto, idSupermercado);
     }
 
+    @Override
+    public void guardar(SupermercadoProducto supermercadoProducto) {
+        repositorioSupermercadoProducto.guardar(supermercadoProducto);
+    }
+
+    @Override
+    public void eliminar(SupermercadoProducto supermercadoProducto) {
+        repositorioSupermercadoProducto.eliminar(supermercadoProducto);
+    }
+
 
 
 }

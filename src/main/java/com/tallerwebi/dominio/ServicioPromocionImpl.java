@@ -13,8 +13,8 @@ public class ServicioPromocionImpl implements ServicioPromocion {
     private RepositorioPromocion repositorioPromocion;
 
     @Autowired
-    public ServicioPromocionImpl(RepositorioPromocion repositorioPromocion){
-       this.repositorioPromocion = repositorioPromocion;
+    public ServicioPromocionImpl(RepositorioPromocion repositorioPromocion) {
+        this.repositorioPromocion = repositorioPromocion;
     }
 
     @Override
@@ -22,4 +22,10 @@ public class ServicioPromocionImpl implements ServicioPromocion {
         return repositorioPromocion.obtenerPromociones();
     }
 
+
+    @Override
+    public Promocion buscarPromocion(Integer idPromocion) {
+        return repositorioPromocion.buscarPromocion(idPromocion);
+    }
 }
+
