@@ -77,6 +77,9 @@
 
             window.location.href = `${url.pathname}?${params.toString()}`;
         }
+
+
+
     </script>
 </head>
 <body>
@@ -184,7 +187,8 @@
     <div class="product-column">
         <div th:each="supermercadoProducto : ${productos}">
             <div class="product-card">
-                <a th:href="@{/producto_seleccionado/{id}(id=${supermercadoProducto.producto.idProducto})}">
+               <a th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado})}">
+
                     <div class="product-image">
                         <img th:src="${supermercadoProducto.producto.urlImagen}" alt="Imagen del Producto">
                     </div>
@@ -198,7 +202,7 @@
                     <span class="product-price-center" th:if="${supermercadoProducto.descuento != null}">
                         <span class="tachado" th:text="'$' + ${supermercadoProducto.precio}"></span>
                 <span class="descuento"
-                      th:text="'$' + ${supermercadoProducto.descuento * supermercadoProducto.precio}"></span>
+                      th:text="'$' + ${#numbers.formatDecimal(supermercadoProducto.descuento * supermercadoProducto.precio, 1, 2)}"></span>
                     </span>
                             <span th:if="${supermercadoProducto.descuento == null}"
                                   th:text="'$' + ${supermercadoProducto.precio}"></span>
@@ -210,22 +214,9 @@
                     </div>
                 </div>
                 <div class="buttons">
-                    <button class="compare-button">Comparar</button>
-<!--                    <form th:action="@{/agregarAlCarrito}" method="post">-->
-<!--                        <input type="hidden" name="nombre" th:value="${supermercadoProducto.producto.nombre}"/>-->
-<!--                        <input type="hidden" name="precio" th:value="${supermercadoProducto.precio}"/>-->
-<!--                        <input type="hidden" name="codigoBarras"-->
-<!--                               th:value="${supermercadoProducto.producto.codigoBarras}"/>-->
-<!--                        <input type="hidden" name="categoria" th:value="${supermercadoProducto.producto.categoria}"/>-->
-<!--                        <input type="hidden" name="subcategoria"-->
-<!--                               th:value="${supermercadoProducto.producto.subcategoria}"/>-->
-<!--                        &lt;!&ndash; Agrega el campo para urlImagen &ndash;&gt;-->
-<!--                        <input type="hidden" name="urlImagen" th:value="${supermercadoProducto.producto.urlImagen}"/>-->
-<!--                        <button type="submit" class="add-button">Agregar</button>-->
-<!--                    </form>-->
 
+                    <a class="compare-button" th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado})}">Comparar</a>
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
-
                 </div>
             </div>
             </a>
@@ -235,4 +226,5 @@
 </div>
 <footer th:include="footer.html"></footer>
 </body>
+
 </html>

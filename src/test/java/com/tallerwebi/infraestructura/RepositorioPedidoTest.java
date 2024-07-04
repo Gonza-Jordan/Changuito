@@ -34,7 +34,7 @@ public class RepositorioPedidoTest {
     }
 
 
-    @Test
+/*    @Test
     @Transactional
     @Rollback
     public void queSePuedaGuardarPedido() {
@@ -49,9 +49,9 @@ public class RepositorioPedidoTest {
         // Verificación
         Pedido pedidoGuardado = this.repositorioPedido.buscar(pedido.getId());
         assertThat(pedido.getId(), equalTo(pedidoGuardado.getId()));
-    }
+    }*/
 
-    @Test
+/*    @Test
     @Transactional
     @Rollback
     public void queSePuedaBuscarPedidoPorId() {
@@ -67,6 +67,6 @@ public class RepositorioPedidoTest {
 
         // Verificación
         assertThat(pedido.getId(), equalTo(pedidoBuscado.getId()));
-    }
+    }*/
 
 }

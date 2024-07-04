@@ -59,6 +59,16 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                 .setParameter("ids", ids)
                 .getResultList();
     }
+
+    @Override
+    public Producto buscarProductoPorId(Integer id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT p FROM Producto p WHERE p.idProducto =:id ", Producto.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+
 }
 
 

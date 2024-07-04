@@ -10,21 +10,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @Controller
 public class ControladorProductoSeleccionado {
     private ServicioBusqueda servicioBusqueda;
+//    private ServicioResenia servicioResenia;
+
 
     @Autowired
-    public void ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
+
+
+    public  ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
+//        this.servicioResenia = servicioResenia;
+
     }
 
     @RequestMapping(path ="/producto_seleccionado", method = RequestMethod.GET)
 
+    public ModelAndView irAProductoSeleccionado(@RequestParam("idSupermercado") Integer idSupermercado,
+            @RequestParam ("id") Integer id, HttpServletRequest request) {
 
-    public ModelAndView irAProductoSeleccionado(@RequestParam ("producto") String producto) {
         ModelMap model = new ModelMap();
 
-        return new ModelAndView("producto_seleccionado");
+        List<SupermercadoProducto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
+        SupermercadoProducto elegido = servicioBusqueda.buscarProductoIdElegido(id, idSupermercado);
+//        List<Resenia> resenias = servicioResenia.obtenerResenias(id);
+        if (comparacion!= null){
+            model.put("productos", comparacion);
+            model.put("elegido", elegido);
+//            model.put("resenias",resenias);
+        }else {
+            model.put("error", "No hay comaparaciones ");
+        }
+
+        return new ModelAndView("producto_seleccionado", model);
     }
 }

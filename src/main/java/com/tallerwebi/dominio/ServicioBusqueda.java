@@ -25,4 +25,10 @@ public interface ServicioBusqueda {
     List<String> formatearPrecios(List<String> filtrosPreciosAMostrar);
 
     List<Marca> consultarMarcas(List<SupermercadoProducto> productosFiltrados);
+
+    List<SupermercadoProducto> buscarProductoACompararId(Integer id);
+
+    SupermercadoProducto buscarProductoIdElegido(Integer id,Integer idSupermercado);
+//
+//    List<Resenia> buscarResenias(Integer idProducto);
 }

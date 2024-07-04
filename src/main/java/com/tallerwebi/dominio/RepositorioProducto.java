@@ -14,4 +14,8 @@ public interface RepositorioProducto {
     List<Producto> buscarProductoPorCategoria(Categoria categoria);
 
     List<Producto> buscarProductosPorIds(List<Integer> ids);
+
+    Producto buscarProductoPorId(Integer id);
+
+
 }

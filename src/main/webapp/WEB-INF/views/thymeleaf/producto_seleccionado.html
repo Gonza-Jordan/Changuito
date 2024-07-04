@@ -1,102 +1,58 @@
 <!DOCTYPE HTML>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Producto Buscado</title>
+    <title>Productos Comparados</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
-
+<body>
 <header th:include="header.html" class="cabecera"></header>
 <!--<section th:include="buscador.html" class="buscador"></section>-->
 <section th:include="buscador.html" class="buscador"></section>
 <br>
-<div class="contenedor_producto_seleccionado">
-<div class="contenedor_producto_columnas">
+<div class="contenedor_producto_seleccionado" th:if="${elegido != null}">
+<div class="contenedor_producto_columnas" th:object="${elegido}">
     <div class="columna_izquierda_producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Imagen del producto" class="product-image-producto-seleccionado">
+        <img th:src="${elegido.producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
     </div>
     <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado" th:text="${producto.nombre}></h1>
+        <h1 class="product-title-producto-seleccionado" th:text="${elegido.producto.nombre}"></h1>
         <ul class="product-features-producto-seleccionado">
-            <li th:text="Tipo de producto + ${producto.categoria}"></li>
-            <li th:text="${producto.codigoBarras}">Contenido:</li>
-            <li>Envase: Botella</li>
+            <li th:text=" ${elegido.producto.categoria}">Tipo de producto </li>
+            <li th:text="${elegido.producto.subcategoria}">subcategoria:</li>
+            <li th:text="${elegido.producto.marca.nombre}">Marca</li>
             <li>Origen: Argentina</li>
-            <li>Pack-unitario: Unitario</li>
-            <li>Sabor: Cola</li>
         </ul>
         <div class="store-info-producto-seleccionado">
-            <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-producto-seleccionado">
-            <p class="store-location-producto-seleccionado">Ubicación del supermercado</p>
+            <img   alt="Logo del supermercado" class="store-logo-producto-seleccionado"  th:src="${elegido.supermercado.logo}"
+                   th:alt="${elegido.supermercado.nombre}" >
+            <p class="store-location-producto-seleccionado" th:text="${elegido.supermercado.ubicacion}">Ubicación del supermercado</p>
         </div>
-        <div class="product-price-producto-seleccionado">Precio regular: $1.280,82</div>
-        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado">Agregar</button></div>
+        <div class="product-price-producto-seleccionado" th:text=" '$'+${elegido.precio}">Precio regular: </div>
+        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado"  th:href="@{/agregarAlCarrito(idProducto=${elegido.getProducto().getIdProducto()},idSupemercado=${elegido.getSupermercado().getIdSupermercado()})}">Agregar</button></div>
 
     </div>
     <br>
 </div>
 </div>
 <div class="contenedor-cards">
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
+    <div class="card-producto"  th:each="superProducto: ${productos}" th:if="${productos != null}">
+        <img th:src="${superProducto.producto.urlImagen}" th:alt="${superProducto.producto.nombre}" class="imagen-producto-card">
+        <h3 class="nombre-producto-card" th:text="${superProducto.producto.nombre}"></h3>
+        <p class="precio-producto-card" th:text="'$'+ ${superProducto.precio}"></p>
+        <img th:src="${superProducto.supermercado.logo}" th:alt="${superProducto.supermercado.nombre}" class="store-logo-card">
+        <button class="boton-agregar-card" th:href="@{/agregarAlCarrito(idProducto=${superProducto.getProducto().getIdProducto()},idSupemercado=${superProducto.getSupermercado().getIdSupermercado()})}">Agregar</button>
     </div>
 
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
-    </div>
-
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
-    </div>
-
-    <div class="card-producto">
-        <img src="https://jumboargentina.vtexassets.com/arquivos/ids/783070-1200-auto?v=638206690815300000&width=1200&height=auto&aspect=true" alt="Producto 1" class="imagen-producto-card">
-        <h3 class="nombre-producto-card">Gaseosa Coca-cola Sabor Original 2.25 L</h3>
-        <p class="precio-producto-card">$10.00</p>
-        <img src="https://argentinaahorra.com/_next/image?url=%2Fcarrefour_logo.svg&w=320&q=75" alt="Logo del supermercado" class="store-logo-card">
-        <button class="boton-agregar-card">Agregar</button>
-    </div>
 </div>
-<hr class="divisoria">
-
-<div class="contenedor-ubicacion-mediospago">
-    <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Ubicación</h2>
-        <div class="mapa">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1381.7315522169952!2d-58.44942423667233!3d-34.54519949633227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1716331773336!5m2!1ses-419!2sar" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-    <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Medios de Pago</h2>
-        <div class="medios-pago">
-            <ul>
-                <li>Tarjeta de crédito</li>
-                <li>Tarjeta de débito</li>
-                <li>Transferencia bancaria</li>
-                <li>Pago en efectivo</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
+<hr >
+<!--<div class="divisoria" th:include="resenia.html"></div>-->
 <br>
 <footer th:include="footer.html"></footer>
 </body>

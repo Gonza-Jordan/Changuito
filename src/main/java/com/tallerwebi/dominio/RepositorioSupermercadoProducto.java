@@ -17,4 +17,7 @@ public interface RepositorioSupermercadoProducto {
 
     SupermercadoProducto buscarSupermercadoProducto(Integer idProducto, Integer idSupermercado);
 
+    List<SupermercadoProducto> buscarProducto(Integer idProducto);
+
+
 }

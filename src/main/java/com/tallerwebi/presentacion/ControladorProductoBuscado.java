@@ -20,9 +20,11 @@ import java.util.*;
 @Controller
 public class ControladorProductoBuscado {
     private ServicioBusqueda servicioBusqueda;
+    private HttpSession session;
 
     @Autowired
     public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
+
         this.servicioBusqueda = servicioBusqueda;
     }
 
@@ -53,6 +55,7 @@ public class ControladorProductoBuscado {
 
         return new ModelAndView("productoBuscado", model);
     }
+
 
     @RequestMapping(path = "/productoFiltrado", method = RequestMethod.GET)
     public ModelAndView buscarProductos(
@@ -158,6 +161,37 @@ public class ControladorProductoBuscado {
 
         return new ModelAndView("productoBuscado", model);
     }
+
+//    // Método para agregar un producto a la lista de comparación
+//    @RequestMapping(path = "/agregarAComparacion", method = RequestMethod.GET)
+//    public ModelAndView agregarAComparacion(@RequestParam("idProducto") Integer idProducto) {
+//        List<Integer> compareList = (List<Integer>) session.getAttribute("compareList");
+//        if (compareList == null) {
+//            compareList = new ArrayList<>();
+//        }
+//      else {
+//            compareList.add(idProducto);
+//        }
+//        session.setAttribute("compareList", compareList);
+//        return new ModelAndView("productoBuscado"); // Redirige a la página actual
+//    }
+//
+//    // Método para redirigir a la página de comparación con los productos seleccionados
+//    @RequestMapping(path = "/verComparacion", method = RequestMethod.GET)
+//    public ModelAndView verComparacion() {
+//        ModelMap model = new ModelMap();
+//        List<Integer> compareList = (List<Integer>) session.getAttribute("compareList");
+//        if (compareList == null || compareList.isEmpty()) {
+//            return new ModelAndView("productoBuscado"); // Si no hay productos, redirige a la página actual o a donde necesites
+//        }
+//        List<Producto> productos = servicioBusqueda.consultarProductosPorIds(compareList);
+//        model.addAttribute("productos", productos);
+//
+//        RedirectView redirectView = new RedirectView();
+//        redirectView.setUrl("/spring/producto_seleccionado?ids=" +compareList.toString());
+//
+//        return new ModelAndView(redirectView,model); // Redirige a la vista de comparación
+//    }
 
 
 }
