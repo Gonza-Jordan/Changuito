@@ -56,16 +56,19 @@
 <div class="contenedor-ubicacion-mediospago">
     <div class="columna-ubicacion-mediospago">
         <h2 class="titulo-producto-seleccionado">Crear Reseña</h2>
-        <form th:action="@{/resenias}" method="post" th:object="${resenia}">
-            <textarea rows="4" cols="50" th:field="*{comentario}" placeholder="Ingrese su comentario "> </textarea>
-            <button  type="submit" class="boton-agregar-card" th:href="@{/}" >Crear</button>
+        <form th:action="{/crearResenia}" method="post" th:object="${resenia}">
+            <label for="idProducto">Nombre del usuario</label>
+            <p id="idProducto" th:field="*{idProducto}" th:value="@{elegido.producto.nombre}" th:text="@{elegido.producto.nombre}"></p>
+            <label for="descripcion">Descripcion</label>
+            <textarea id="descripcion" rows="4" cols="50" th:field="${resenia.descripcion}" placeholder="Ingrese su comentario "> </textarea>
+            <button  type="submit" class="boton-agregar-card" >Crear</button>
         </form>
         <div class="columna-ubicacion-mediospago">
             <h2 class="titulo-producto-seleccionado">Reseñas existentes</h2>
             <ul>
                 <li th:each="resenia : ${resenias}">
-                    <p th:text="${resenia.usuario.nombre} + ' - ' + ${resenia.fecha}"></p>
-                    <p th:text="${resenia.comentario}"></p>
+                    <p th:text="${resenia.idProductoReseña}"></p>
+                    <p th:text="${resenia.descripcion}"></p>
                 </li>
             </ul>
         </div>
@@ -74,17 +77,17 @@
 <!--        </div>-->
     </div>
 
-    <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Reseñas</h2>
-        <div class="medios-pago">
-            <ul>
-                <li th:each="${resenia}">
+<!--    <div class="columna-ubicacion-mediospago">-->
+<!--        <h2 class="titulo-producto-seleccionado">Reseñas</h2>-->
+<!--        <div class="medios-pago">-->
+<!--            <ul>-->
+<!--                <li th:each="${resenia}">-->
 
-                </li>
+<!--                </li>-->
 
-            </ul>
-        </div>
-    </div>
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 <br>
