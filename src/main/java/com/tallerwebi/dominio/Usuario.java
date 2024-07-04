@@ -117,7 +117,6 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-
     public void setAdmin(Boolean admin) {
         this.admin = admin;
     }

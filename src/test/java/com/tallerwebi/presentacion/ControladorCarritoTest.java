@@ -76,7 +76,14 @@ public class ControladorCarritoTest {
         ModelAndView modelAndView = controladorCarrito.verCarrito(requestMock);
         String viewName = modelAndView.getViewName();
 
+        Map<String, Object> model = modelAndView.getModel();
+        Boolean containsCarrito = model.containsKey("carrito");
+        Boolean containscantidadProductos = model.containsKey("cantidadProductos");
+
         assertThat(viewName, equalToIgnoringCase("carritoCompras"));
+
+        assertThat(String.valueOf(containsCarrito), true);
+        assertThat(String.valueOf(containscantidadProductos), true);
     }
 
     @Test
@@ -90,21 +97,24 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/login"));
     }
 
+
+    // Test para elminar producto de carrito
     @Test
-    public void queAlSolicitarLaPantallaDeCarritoMuestreCarrito() {
+    public void queAlEliminarProductoRedirijaACarritoDeCompras() {
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(servicioSupermercadoProductoMock.consultarSupermercadoProducto(productoMock.getIdProducto(), supermercadoMock.getIdSupermercado())).thenReturn(supermercadoProductoMock);
+        when(servicioCarritoMock.consultarCarrito(usuarioMock.getStampCarritoActivo())).thenReturn(carritoMock);
+        doNothing().when(this.servicioCarritoMock).modificar(carritoMock);
 
-        ModelAndView modelAndView = controladorCarrito.verCarrito(requestMock);
-        Map<String, Object> model = modelAndView.getModel();
-        Boolean containsCarrito = model.containsKey("carrito");
-        Boolean containscantidadProductos = model.containsKey("cantidadProductos");
+        ModelAndView modelAndView = controladorCarrito.eliminarDelCarrito(productoMock.getIdProducto(), supermercadoMock.getIdSupermercado(), requestMock);
+        String viewName = modelAndView.getViewName();
 
-        assertThat(String.valueOf(containsCarrito), true);
-        assertThat(String.valueOf(containscantidadProductos), true);
+        assertThat(viewName, equalToIgnoringCase("redirect:/carritoCompras"));
     }
 
-    // Test para agregar al carrito
+
+    // Test para agregar producto al carrito
     @Test
     public void queAlAgregarProductoRedirijaACarritoDeCompras() {
         when(requestMock.getSession()).thenReturn(sessionMock);
@@ -127,6 +137,8 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/login"));
     }
 
+
+    // Test para agregar promocion al carrito
     @Test
     public void queAlAgregarPromocionRedirijaACarritoDeCompras() {
         when(requestMock.getSession()).thenReturn(sessionMock);
@@ -137,6 +149,18 @@ public class ControladorCarritoTest {
 
         assertThat(viewName, equalToIgnoringCase("redirect:/carritoCompras"));
     }
+
+    @Test
+    public void queAlAgregarPromocionYNoEstaLogueadoRedirijaALogin() {
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(null);
+
+        ModelAndView modelAndView = controladorCarrito.agregarAlCarritoPromocion(promocionMock.getIdPromocion(), requestMock);
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("redirect:/login"));
+    }
+
 
     // Test para limpiar carrito
     @Test
@@ -150,6 +174,7 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/home"));
     }
 
+
     // Test para guardar carrito
     @Test
     public void queAlGuardarCarritoRedirjaAHome() {
@@ -161,6 +186,7 @@ public class ControladorCarritoTest {
 
         assertThat(viewName, equalToIgnoringCase("redirect:/home"));
     }
+
 
     // Test para reutilizar carrito
     @Test
@@ -178,6 +204,7 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/carritoCompras"));
     }
 
+
     // Test para eliminar carrito
     @Test
     public void queAlEliminarCarritoRedirjaAHome() {
@@ -190,11 +217,18 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/home"));
     }
 
+
     // Test para generar pedido
     @Test
     public void queAlGenerarPedidoRedirjaAMiCuenta() {
+        Date date = new Date();
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(usuarioMock.getStampCarritoActivo()).thenReturn(date);
+        when(servicioCarritoMock.consultarCarrito(date)).thenReturn(carritoMock);
+        doNothing().when(this.servicioPedidoMock).registrar(pedidoMock);
+        doNothing().when(this.servicioUsuarioMock).modificarPedidoCarrito(usuarioMock);
+        doNothing().when(this.servicioUsuarioMock).modificar(usuarioMock);
 
         ModelAndView modelAndView = controladorCarrito.generarPedido(tipoDePago, requestMock);
         String viewName = modelAndView.getViewName();
@@ -202,7 +236,8 @@ public class ControladorCarritoTest {
         assertThat(viewName, equalToIgnoringCase("redirect:/mi-cuenta"));
     }
 
-    // Test para verificar comportamiento al generar pedido
+
+    // Test para verificar comportamiento al generar pedido//
     @Test
     public void queAlGenerarPedidoCreeUnNuevoPedido() {
         Date date = new Date();
@@ -217,6 +252,37 @@ public class ControladorCarritoTest {
         verify(servicioUsuarioMock, times(1)).modificar(usuarioMock);
         verify(usuarioMock, times(1)).setStampCarritoActivo(null);
         verify(usuarioMock, times(1)).setGuardoCarrito(false);
+    }
+
+
+    // Test para verificar comportamiento al pagar
+    @Test
+    public void queAlSolicitarLaPantallaDeIrAPagarMuestreTipoDePago() {
+        ModelAndView modelAndView = controladorCarrito.irAPagar();
+        String viewName = modelAndView.getViewName();
+
+        assertThat(viewName, equalToIgnoringCase("tipoDePago"));
+    }
+
+    @Test
+    public void queAlSolicitarLaPantallaDePagarMuestrePago() {
+        Date date = new Date();
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(sessionMock.getAttribute("usuario")).thenReturn(usuarioMock);
+        when(usuarioMock.getStampCarritoActivo()).thenReturn(date);
+        when(servicioCarritoMock.consultarCarrito(date)).thenReturn(carritoMock);
+
+        ModelAndView modelAndView = controladorCarrito.pagar(tipoDePago, requestMock);
+        String viewName = modelAndView.getViewName();
+
+        Map<String, Object> model = modelAndView.getModel();
+        Boolean containsTipoPago = model.containsKey("tipoPago");
+        Boolean containsTotalPedido = model.containsKey("totalPedido");
+
+        assertThat(String.valueOf(containsTipoPago), true);
+        assertThat(String.valueOf(containsTotalPedido), true);
+        assertThat(viewName, equalToIgnoringCase("pago"));
+
     }
 
 }
