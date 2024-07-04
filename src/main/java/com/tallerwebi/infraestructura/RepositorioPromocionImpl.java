@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.Paquete;
 import com.tallerwebi.dominio.Promocion;
 import com.tallerwebi.dominio.RepositorioPromocion;
+import com.tallerwebi.dominio.SupermercadoProducto;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -37,4 +38,16 @@ public class RepositorioPromocionImpl implements RepositorioPromocion {
     public void guardarPromocion(Promocion promocion){
         this.sessionFactory.getCurrentSession().save(promocion);
     }
+
+    @Override
+    public Promocion buscarPromocion(Integer idPromocion){
+
+        String hql = "FROM Promocion WHERE idPromocion = :idPromocion";
+        javax.persistence.Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("idPromocion", idPromocion );
+        return (Promocion) query.getSingleResult();
+
+    }
+
+
 }

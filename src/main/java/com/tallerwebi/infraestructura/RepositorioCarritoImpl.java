@@ -67,6 +67,7 @@ public class RepositorioCarritoImpl implements RepositorioCarrito {
         Carrito carritoEncontrado = sessionFactory.getCurrentSession().find(Carrito.class, carrito.getId());
         if (carritoEncontrado != null) {
             carritoEncontrado.setSupermercadoProducto(carrito.getSupermercadoProducto());
+            carritoEncontrado.setPromocion(carrito.getPromocion());
 
             sessionFactory.getCurrentSession().merge(carritoEncontrado);
         }
@@ -82,6 +83,7 @@ public class RepositorioCarritoImpl implements RepositorioCarrito {
         }
 
     }
+
 
 
 

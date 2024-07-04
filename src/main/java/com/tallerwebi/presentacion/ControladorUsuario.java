@@ -57,12 +57,12 @@ public class ControladorUsuario {
         }
 
         Usuario usuario1=servicioUsuario.consultarUsuario(usuario.getEmail());
-        usuario1.getCarritos().removeIf(carrito -> carrito.getSupermercadoProducto().isEmpty());
+        usuario1.getCarritos().removeIf(carrito -> carrito.getSupermercadoProducto().isEmpty() && carrito.getPromocion().isEmpty());
 
         ModelMap model = new ModelMap();
         model.put("usuario", usuario1);
 
-        return new ModelAndView("mi-cuenta", model);
+        return new ModelAndView("miCuenta", model);
     }
 
 
@@ -71,8 +71,8 @@ public class ControladorUsuario {
         HttpSession misession = request.getSession();
 
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
-        usuario.setStampCarritoActivo(null);
-        servicioUsuario.modificar(usuario);
+        //usuario.setStampCarritoActivo(null);
+        //servicioUsuario.modificar(usuario);
 
         misession.removeAttribute("usuario");
 

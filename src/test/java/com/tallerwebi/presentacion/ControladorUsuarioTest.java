@@ -90,7 +90,7 @@ public class ControladorUsuarioTest {
 
         String viewName = modelAndView.getViewName();
 
-        assertThat(viewName, equalToIgnoringCase("mi-cuenta"));
+        assertThat(viewName, equalToIgnoringCase("miCuenta"));
     }
 
 
