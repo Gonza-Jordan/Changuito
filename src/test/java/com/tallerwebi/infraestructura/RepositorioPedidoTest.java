@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.config.HibernateConfig;
 import com.tallerwebi.dominio.Carrito;
 import com.tallerwebi.dominio.Pedido;
+import com.tallerwebi.dominio.TipoDePago;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,8 @@ public class RepositorioPedidoTest {
     public void queSePuedaGuardarPedido() {
         // Preparación
         Pedido pedido = new Pedido();
+        pedido.setTipoDePago(TipoDePago.SALDO);
+        pedido.setTotal(500.0);
 
         // Ejecucion
         this.repositorioPedido.guardar(pedido);
@@ -54,6 +57,9 @@ public class RepositorioPedidoTest {
     public void queSePuedaBuscarPedidoPorId() {
         // Preparación
         Pedido pedido = new Pedido();
+        pedido.setTipoDePago(TipoDePago.SALDO);
+        pedido.setTotal(500.0);
+
         this.repositorioPedido.guardar(pedido);
 
         // Ejecucion

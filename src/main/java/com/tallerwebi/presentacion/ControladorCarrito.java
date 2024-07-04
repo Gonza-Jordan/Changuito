@@ -99,23 +99,6 @@ public class ControladorCarrito {
     }
 
 
-    @RequestMapping(path = "/pruebaCarrito", method = RequestMethod.GET)
-    public ModelAndView pruebaCarrito(HttpServletRequest request) {
-
-
-        HttpSession misession = request.getSession();
-        Usuario usuario = (Usuario) misession.getAttribute("usuario");
-
-
-        Carrito carrito = servicioCarrito.consultarCarrito(usuario.getStampCarritoActivo());
-
-
-        ModelAndView modelAndView = new ModelAndView("prueba");
-        modelAndView.addObject("carrito", carrito);
-        return modelAndView;
-    }
-
-
     @RequestMapping(path = "/agregarAlCarrito", method = RequestMethod.GET)
     public ModelAndView agregarAlCarrito(
             @RequestParam("idProducto") Integer idProducto,
@@ -348,42 +331,8 @@ public class ControladorCarrito {
     }
 
 
-    @RequestMapping(path = "/generarPedido2", method = RequestMethod.POST)
-    public ModelAndView generarPedido2(HttpServletRequest request) {
-        HttpSession misession = request.getSession();
-        Usuario usuario = (Usuario) misession.getAttribute("usuario");
-
-        //Usuario usuario=servicioUsuario.consultarUsuario(usuario.getEmail());
-
-        Date stamp = usuario.getStampCarritoActivo();
-        Carrito carrito = servicioCarrito.consultarCarrito(stamp);
-
-        Pedido pedido = new Pedido();
-        pedido.setCarrito(carrito);
-        TipoDePago tipoPago=TipoDePago.CREDITO;
-        pedido.setTipoDePago(tipoPago);
-        servicioPedido.registrar(pedido);
-
-        usuario.getPedidos().add(pedido);
-        servicioUsuario.modificarPedidoCarrito(usuario);
-
-        //
-        usuario.setStampCarritoActivo(null);
-        servicioUsuario.modificar(usuario);
-
-        usuario.setGuardoCarrito(false);
-
-
-        misession.setAttribute("usuario", usuario);
-
-        return new ModelAndView("redirect:/mi-cuenta");
-
-    }
-
-
-    //
     @RequestMapping(path = "/irAPagar", method = RequestMethod.GET)
-    public ModelAndView irAPagar(HttpServletRequest request) {
+    public ModelAndView irAPagar() {
 
 
         return new ModelAndView("tipoDePago");
@@ -391,7 +340,6 @@ public class ControladorCarrito {
     }
 
 
-    //
     @RequestMapping(path = "/pagar", method = RequestMethod.POST)
     public ModelAndView pagar(@RequestParam("tipoPago") TipoDePago tipoPago, HttpServletRequest request) {
 

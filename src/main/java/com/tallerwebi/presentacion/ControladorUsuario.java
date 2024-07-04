@@ -40,7 +40,7 @@ public class ControladorUsuario {
 
         ModelMap model = new ModelMap();
 
-        Usuario usuario= new Usuario();
+        Usuario usuario = new Usuario();
         model.put("usuario", usuario);
         return new ModelAndView("nuevoUsuario", model);
     }
@@ -56,7 +56,7 @@ public class ControladorUsuario {
             return new ModelAndView("redirect:/login");
         }
 
-        Usuario usuario1=servicioUsuario.consultarUsuario(usuario.getEmail());
+        Usuario usuario1 = servicioUsuario.consultarUsuario(usuario.getEmail());
         usuario1.getCarritos().removeIf(carrito -> carrito.getSupermercadoProducto().isEmpty() && carrito.getPromocion().isEmpty());
 
         ModelMap model = new ModelMap();
@@ -69,11 +69,6 @@ public class ControladorUsuario {
     @RequestMapping(path = "/sign-out", method = RequestMethod.GET)
     public ModelAndView cerrarSession(HttpServletRequest request) {
         HttpSession misession = request.getSession();
-
-        Usuario usuario = (Usuario) misession.getAttribute("usuario");
-        //usuario.setStampCarritoActivo(null);
-        //servicioUsuario.modificar(usuario);
-
         misession.removeAttribute("usuario");
 
         return new ModelAndView("redirect:/home");
@@ -91,25 +86,21 @@ public class ControladorUsuario {
             HttpSession misession = request.getSession(true);
             misession.setAttribute("usuario", usuario);
             return new ModelAndView("redirect:/home");
-        } else if (usuario != null && usuario.getAdmin()){
+        } else if (usuario != null && usuario.getAdmin()) {
             HttpSession misession = request.getSession(true);
             misession.setAttribute("usuario", usuario);
             return new ModelAndView("redirect:/administrador");
-        }else {
+        } else {
             redirectAttrs.addFlashAttribute("error", "Usuario o clave incorrecta");
         }
         return new ModelAndView("redirect:/login");
 
     }
 
+
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttrs) {
-        System.out.println("Usuario received: " + usuario.getEmail());
 
-//        ModelMap model = new ModelMap();
-//        model.put("usuario", usuario);
-//
-//        return new ModelAndView("prueba", model);
         try {
             servicioUsuario.registrar(usuario);
         } catch (UsuarioExistente e) {
@@ -124,10 +115,10 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/login");
     }
 
+
     //AL MODIFICAR USARIO NO ME TRAE LOS CARRITOS Y LOS PEDIDOS (ModelAttribute("usuario") Usuario usuario YA EL USUARIO DEL MODEL NO ME LO TRAE)
     @RequestMapping(path = "/modificar", method = RequestMethod.POST)
     public ModelAndView modificar(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
-
 
         servicioUsuario.modificar(usuario);
 
@@ -138,6 +129,8 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/home");
     }
 
+
+    //
     @RequestMapping(path = "/pruebaUser", method = RequestMethod.GET)
     public ModelAndView pruebaUser(@RequestParam("email") String email, HttpServletRequest request) {
 
