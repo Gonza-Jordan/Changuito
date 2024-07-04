@@ -51,44 +51,9 @@
     </div>
 
 </div>
-<hr class="divisoria">
+<hr class="divisoria" th:include="resenia.html">
 
-<div class="contenedor-ubicacion-mediospago">
-    <div class="columna-ubicacion-mediospago">
-        <h2 class="titulo-producto-seleccionado">Crear Reseña</h2>
-        <form th:action="{/crearResenia}" method="post" th:object="${resenia}">
-            <label for="idProducto">Nombre del usuario</label>
-            <p id="idProducto" th:field="*{idProducto}" th:value="@{elegido.producto.nombre}" th:text="@{elegido.producto.nombre}"></p>
-            <label for="descripcion">Descripcion</label>
-            <textarea id="descripcion" rows="4" cols="50" th:field="${resenia.descripcion}" placeholder="Ingrese su comentario "> </textarea>
-            <button  type="submit" class="boton-agregar-card" >Crear</button>
-        </form>
-        <div class="columna-ubicacion-mediospago">
-            <h2 class="titulo-producto-seleccionado">Reseñas existentes</h2>
-            <ul>
-                <li th:each="resenia : ${resenias}">
-                    <p th:text="${resenia.idProductoReseña}"></p>
-                    <p th:text="${resenia.descripcion}"></p>
-                </li>
-            </ul>
-        </div>
-<!--        <div class="mapa">-->
-<!--            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1381.7315522169952!2d-58.44942423667233!3d-34.54519949633227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1716331773336!5m2!1ses-419!2sar" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
-<!--        </div>-->
-    </div>
 
-<!--    <div class="columna-ubicacion-mediospago">-->
-<!--        <h2 class="titulo-producto-seleccionado">Reseñas</h2>-->
-<!--        <div class="medios-pago">-->
-<!--            <ul>-->
-<!--                <li th:each="${resenia}">-->
-
-<!--                </li>-->
-
-<!--            </ul>-->
-<!--        </div>-->
-<!--    </div>-->
-</div>
 
 <br>
 <footer th:include="footer.html"></footer>

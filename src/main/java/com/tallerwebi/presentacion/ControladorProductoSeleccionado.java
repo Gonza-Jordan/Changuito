@@ -21,9 +21,8 @@ public class ControladorProductoSeleccionado {
     @Autowired
 
 
-    public void ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
+    public  ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
-
 
     }
 
