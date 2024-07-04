@@ -4,9 +4,11 @@ import com.tallerwebi.dominio.Producto;
 import com.tallerwebi.dominio.RepositorioResenia;
 import com.tallerwebi.dominio.Resenia;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("RepositorioResenia")
 public class RepositorioReseniaImpl implements RepositorioResenia {
 
     private final SessionFactory sessionFactory;

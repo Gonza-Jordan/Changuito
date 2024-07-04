@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service ("servicioResenia")
+@Service ("ServicioResenia")
 @Transactional
 public class ServicioReseniaImpl implements ServicioResenia {
 
