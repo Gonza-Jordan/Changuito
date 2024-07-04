@@ -5,4 +5,6 @@ import java.util.List;
 public interface ServicioPromocion {
 
     List<Promocion> buscarPromociones();
+
+    Promocion buscarPromocion(Integer idPromocion);
 }

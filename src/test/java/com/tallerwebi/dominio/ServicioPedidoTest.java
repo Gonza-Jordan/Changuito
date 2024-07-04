@@ -35,7 +35,7 @@ public class ServicioPedidoTest {
     }
 
     @Test
-    public void queSePuedaGuardarCarrito() {
+        public void queSePuedaGuardarPedido() {
         Pedido pedido = new Pedido();
         pedido.setId(1L);
 

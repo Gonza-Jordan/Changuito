@@ -30,6 +30,22 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
     }
 
     @Override
+    public void guardar(SupermercadoProducto supermercadoProducto) {
+        sessionFactory.getCurrentSession().save(supermercadoProducto);
+    }
+
+    @Override
+    public void eliminar(SupermercadoProducto supermercadoProducto) {
+
+        SupermercadoProducto supermercadoProductoEncontrado = sessionFactory.getCurrentSession().find(SupermercadoProducto.class, supermercadoProducto.getId());
+        if (supermercadoProductoEncontrado != null) {
+            sessionFactory.getCurrentSession().delete(supermercadoProductoEncontrado);
+        }
+
+    }
+
+
+    @Override
     public void asignarPrecioYDescuentoAUnSupermercadoProducto(SupermercadoProducto supermercadoProducto, Double precio, Double descuento) {
         if (precio != null){
             supermercadoProducto.setPrecio(precio);

@@ -55,19 +55,22 @@
                         <span th:text="'Hasta: ' + ${promocion.fechaFin}"></span>
                         <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
                         <div class="buttons">
-                            <form th:action="@{/agregarAlCarrito}" method="post">
-                                <input type="hidden" name="nombre" th:value="${promocion.producto.producto.nombre}"/>
-                                <input type="hidden" name="precio" th:value="${promocion.producto.precio}"/>
-                                <input type="hidden" name="codigoBarras"
-                                       th:value="${promocion.producto.producto.codigoBarras}"/>
-                                <input type="hidden" name="categoria"
-                                       th:value="${promocion.producto.producto.categoria}"/>
-                                <input type="hidden" name="subcategoria"
-                                       th:value="${promocion.producto.producto.subcategoria}"/>
-                                <input type="hidden" name="urlImagen"
-                                       th:value="${promocion.producto.producto.urlImagen}"/>
-                                <button type="submit" class="add-button">Agregar</button>
-                            </form>
+
+                            <a class="add-button" th:href="@{/agregarAlCarritoPromocion(idPromocion=${promocion.getIdPromocion()})}">Agregar</a>
+
+<!--                            <form th:action="@{/agregarAlCarrito}" method="post">-->
+<!--                                <input type="hidden" name="nombre" th:value="${promocion.producto.producto.nombre}"/>-->
+<!--                                <input type="hidden" name="precio" th:value="${promocion.producto.precio}"/>-->
+<!--                                <input type="hidden" name="codigoBarras"-->
+<!--                                       th:value="${promocion.producto.producto.codigoBarras}"/>-->
+<!--                                <input type="hidden" name="categoria"-->
+<!--                                       th:value="${promocion.producto.producto.categoria}"/>-->
+<!--                                <input type="hidden" name="subcategoria"-->
+<!--                                       th:value="${promocion.producto.producto.subcategoria}"/>-->
+<!--                                <input type="hidden" name="urlImagen"-->
+<!--                                       th:value="${promocion.producto.producto.urlImagen}"/>-->
+<!--                                <button type="submit" class="add-button">Agregar</button>-->
+<!--                            </form>-->
                         </div>
                     </div>
                 </div>
@@ -114,20 +117,22 @@
                             <span th:text="'Hasta: ' + ${promocion.fechaFin}"></span>
                             <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
                             <div class="buttons">
-                                <form th:action="@{/agregarAlCarrito}" method="post">
-                                    <input type="hidden" name="nombre"
-                                           th:value="${promocion.productos[0].producto.nombre}"/>
-                                    <input type="hidden" name="precio" th:value="${promocion.precioFinal}"/>
-                                    <input type="hidden" name="codigoBarras"
-                                           th:value="${promocion.productos[0].producto.codigoBarras}"/>
-                                    <input type="hidden" name="categoria"
-                                           th:value="${promocion.productos[0].producto.categoria}"/>
-                                    <input type="hidden" name="subcategoria"
-                                           th:value="${promocion.productos[0].producto.subcategoria}"/>
-                                    <input type="hidden" name="urlImagen"
-                                           th:value="${promocion.productos[0].producto.urlImagen}"/>
-                                    <button type="submit" class="add-button">Agregar</button>
-                                </form>
+                                <a class="add-button" th:href="@{/agregarAlCarritoPromocion(idPromocion=${promocion.getIdPromocion()})}">Agregar</a>
+
+<!--                                <form th:action="@{/agregarAlCarrito}" method="post">-->
+<!--                                    <input type="hidden" name="nombre"-->
+<!--                                           th:value="${promocion.productos[0].producto.nombre}"/>-->
+<!--                                    <input type="hidden" name="precio" th:value="${promocion.precioFinal}"/>-->
+<!--                                    <input type="hidden" name="codigoBarras"-->
+<!--                                           th:value="${promocion.productos[0].producto.codigoBarras}"/>-->
+<!--                                    <input type="hidden" name="categoria"-->
+<!--                                           th:value="${promocion.productos[0].producto.categoria}"/>-->
+<!--                                    <input type="hidden" name="subcategoria"-->
+<!--                                           th:value="${promocion.productos[0].producto.subcategoria}"/>-->
+<!--                                    <input type="hidden" name="urlImagen"-->
+<!--                                           th:value="${promocion.productos[0].producto.urlImagen}"/>-->
+<!--                                    <button type="submit" class="add-button">Agregar</button>-->
+<!--                                </form>-->
                             </div>
                         </div>
                     </div>

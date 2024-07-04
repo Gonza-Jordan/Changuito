@@ -5,6 +5,10 @@ import java.util.Map;
 
 public interface RepositorioSupermercadoProducto {
 
+    void guardar(SupermercadoProducto supermercadoProducto);
+
+    void eliminar(SupermercadoProducto supermercadoProducto);
+
     void guardarSupermercadoProducto(Supermercado supermercado, Producto producto);
 
     void asignarPrecioYDescuentoAUnSupermercadoProducto(SupermercadoProducto supermercadoProducto, Double precio, Double descuento);

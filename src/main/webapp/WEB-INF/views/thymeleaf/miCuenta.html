@@ -28,7 +28,6 @@
     <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
 
 
-
 </head>
 
 <body>
@@ -154,9 +153,24 @@
                         <p th:text="${supermercadoProducto.producto.getNombre()}"></p>
                     </div>
 
-                    <a class="btnLogin btn btn-sm btn-primary btn-block my-2" id="reutilizarCarrito" th:href="@{/reutilizarCarrito(id=${carrito.getId()})}">Usar carrito</a>
+                    <h7>Productos en promocion:</h7>
+                    <div th:each="promocion : ${carrito.getPromocion()}">
+                        <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}">
+                            <div th:each="supermercadoProducto : ${promocion.getProductos()}">
+                                <p th:text="${supermercadoProducto.producto.getNombre()}"></p>
+                            </div>
+                        </div>
 
-                    <a class="btnLogin btn btn-sm btn-primary btn-block my-2" id="eliminarCarrito" th:href="@{/eliminarCarrito(id=${carrito.getId()})}">Eliminar carrito</a>
+                        <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
+                            <p th:text="${promocion.getProducto().getProducto().getNombre()}"></p>
+                        </div>
+                    </div>
+
+                    <a class="btnLogin btn btn-sm btn-primary btn-block my-2" id="reutilizarCarrito"
+                       th:href="@{/reutilizarCarrito(id=${carrito.getId()})}">Usar carrito</a>
+
+                    <a class="btnLogin btn btn-sm btn-primary btn-block my-2" id="eliminarCarrito"
+                       th:href="@{/eliminarCarrito(id=${carrito.getId()})}">Eliminar carrito</a>
 
                 </div>
 
@@ -171,6 +185,9 @@
                     <h7>Fecha de creacion:</h7>
                     <p th:text="${pedido.getFechaDeCreacion()}"></p>
 
+                    <h7>Forma de pago:</h7>
+                    <p th:text="${pedido.getTipoDePago()}"></p>
+
                     <h7>Carrito:</h7>
                     <div>
                         <p th:text="${pedido.getCarrito().getFechaDeCreacion()}"></p>
@@ -180,6 +197,22 @@
                     <div th:each="supermercadoProducto : ${pedido.getCarrito().getSupermercadoProducto()}">
                         <p th:text="${supermercadoProducto.producto.getNombre()}"></p>
                     </div>
+
+                    <h7>Productos en promocion:</h7>
+                    <div th:each="promocion : ${pedido.getCarrito().getPromocion()}">
+                        <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}">
+                            <div th:each="supermercadoProducto : ${promocion.getProductos()}">
+                                <p th:text="${supermercadoProducto.producto.getNombre()}"></p>
+                            </div>
+                        </div>
+
+                        <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
+                            <p th:text="${promocion.getProducto().getProducto().getNombre()}"></p>
+                        </div>
+                    </div>
+
+                    <h7>Total:</h7>
+                    <p th:text="${pedido.getTotal()}"></p>
 
                 </div>
 
