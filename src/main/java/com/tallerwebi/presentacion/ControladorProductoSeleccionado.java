@@ -12,39 +12,49 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @Controller
 public class ControladorProductoSeleccionado {
     private ServicioBusqueda servicioBusqueda;
-//    private ServicioResenia servicioResenia;
-
 
     @Autowired
-
-
     public  ControladorProductoSeleccionado(ServicioBusqueda servicioBusqueda) {
         this.servicioBusqueda = servicioBusqueda;
-//        this.servicioResenia = servicioResenia;
-
     }
 
     @RequestMapping(path ="/producto_seleccionado", method = RequestMethod.GET)
 
     public ModelAndView irAProductoSeleccionado(@RequestParam("idSupermercado") Integer idSupermercado,
-            @RequestParam ("id") Integer id, HttpServletRequest request) {
+                                                @RequestParam("id") Integer id,
+                                                @RequestParam("subcategoria") Subcategoria subcategoria, HttpServletRequest request) {
 
         ModelMap model = new ModelMap();
 
-        List<SupermercadoProducto> comparacion = servicioBusqueda.buscarProductoACompararId(id);
+        List<SupermercadoProducto> comparacion = servicioBusqueda.buscarProductosDeLaMismaSubcategoria(subcategoria);
         SupermercadoProducto elegido = servicioBusqueda.buscarProductoIdElegido(id, idSupermercado);
-//        List<Resenia> resenias = servicioResenia.obtenerResenias(id);
+
+
         if (comparacion!= null){
-            model.put("productos", comparacion);
-            model.put("elegido", elegido);
-//            model.put("resenias",resenias);
+            comparacion.removeIf(producto ->
+                    producto.getProducto().getIdProducto().equals(elegido.getProducto().getIdProducto()) &&
+                            producto.getSupermercado().getIdSupermercado().equals(elegido.getSupermercado().getIdSupermercado())
+            );
+
+            List<SupermercadoProducto> productosOrdenados = servicioBusqueda.ordenarProductos(comparacion, "menor_a_mayor");
+
+            List<SupermercadoProducto> top5Productos = productosOrdenados.stream()
+                    .limit(5)
+                    .collect(Collectors.toList());
+
+            model.put("productos", top5Productos);
+
         }else {
-            model.put("error", "No hay comaparaciones ");
+            model.put("error", "No hay comparaciones ");
         }
+
+        model.put("elegido", elegido);
 
         return new ModelAndView("producto_seleccionado", model);
     }

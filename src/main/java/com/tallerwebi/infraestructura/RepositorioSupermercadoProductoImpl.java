@@ -134,10 +134,10 @@ public class RepositorioSupermercadoProductoImpl implements RepositorioSupermerc
     }
 
     @Override
-    public List<SupermercadoProducto> buscarProducto(Integer idProducto) {
+    public List<SupermercadoProducto> buscarProductosDeLaMismaSubcategoria(Subcategoria subcategoria) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM SupermercadoProducto  WHERE producto.idProducto = :idProducto", SupermercadoProducto.class)
-                .setParameter("idProducto", idProducto)
+                .createQuery("FROM SupermercadoProducto  WHERE producto.subcategoria = :subcategoria", SupermercadoProducto.class)
+                .setParameter("subcategoria", subcategoria)
                 .getResultList();
 
         

@@ -207,7 +207,9 @@ VALUES
     (4, 49, 12999, null),
     (5, 50, 1700, null),
     (1, 51, 2080, null),
-    (2, 1, 3500, null);
+    (2, 1, 3500, null),
+    (3, 1, 3800, 0.80),
+    (4, 2, 3000, null);
 
 INSERT INTO Promocion (precioFinal, fechaInicio, fechaFin)
 VALUES

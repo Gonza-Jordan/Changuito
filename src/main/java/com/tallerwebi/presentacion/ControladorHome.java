@@ -27,6 +27,12 @@ public class ControladorHome {
                 new Supermercado("Chango Mas", "Ruta 3 Km 29", "Isidro Casanova", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wcqaCozuqN3MpF3B0hPbLaRxBPXfJTX97HlZQ8hRaA&s")
         );
 
+        supermercados.get(0).setIdSupermercado(1);
+        supermercados.get(1).setIdSupermercado(2);
+        supermercados.get(2).setIdSupermercado(3);
+        supermercados.get(3).setIdSupermercado(4);
+        supermercados.get(4).setIdSupermercado(5);
+
         // Agregar los supermercados al modelo
         modelAndView.addObject("supermercados", supermercados);
 

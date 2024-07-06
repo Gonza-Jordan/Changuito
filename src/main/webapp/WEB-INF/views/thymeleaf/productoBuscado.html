@@ -77,9 +77,6 @@
 
             window.location.href = `${url.pathname}?${params.toString()}`;
         }
-
-
-
     </script>
 </head>
 <body>
@@ -109,19 +106,6 @@
 <div class="containerProductoBuscado">
     <form id="filtro" th:action="@{/filtrar}" th:method="get">
         <div class="filter-column">
-
-            <!--            <div class="filter-section">-->
-            <!--                <h2>Tipo</h2>-->
-            <!--                <label><input type="checkbox" name="tipo" value="Tipo1">Tipo 1</label>-->
-            <!--                <label><input type="checkbox" name="tipo" value="Tipo2">Tipo 2</label>-->
-            <!--                <label><input type="checkbox" name="tipo" value="Tipo3">Tipo 3</label>-->
-            <!--            </div>-->
-            <!--            <div class="filter-section">-->
-            <!--                <h2>Ubicación</h2>-->
-            <!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion1">Ubicación 1</label>-->
-            <!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion2">Ubicación 2</label>-->
-            <!--                <label><input type="checkbox" name="ubicacion" value="Ubicacion3">Ubicación 3</label>-->
-            <!--            </div>-->
             <div class="filter-section" th:if="${descuentos != null and !descuentos.isEmpty()}">
                 <h2>Descuento</h2>
                 <div th:each="descuento : ${descuentos}">
@@ -214,8 +198,7 @@
                     </div>
                 </div>
                 <div class="buttons">
-
-                    <a class="compare-button" th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado})}">Comparar</a>
+                    <a class="compare-button" th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado},subcategoria=${supermercadoProducto.producto.subcategoria})}">Comparar</a>
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
                 </div>
             </div>

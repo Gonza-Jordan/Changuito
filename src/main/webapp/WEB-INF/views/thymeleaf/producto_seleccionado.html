@@ -13,45 +13,68 @@
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
-<!--<section th:include="buscador.html" class="buscador"></section>-->
 <section th:include="buscador.html" class="buscador"></section>
 <br>
 <div class="contenedor_producto_seleccionado" th:if="${elegido != null}">
-<div class="contenedor_producto_columnas" th:object="${elegido}">
-    <div class="columna_izquierda_producto">
-        <img th:src="${elegido.producto.urlImagen}" alt="Imagen del producto" class="product-image-producto-seleccionado">
-    </div>
-    <div class="columna_derecha_producto">
-        <h1 class="product-title-producto-seleccionado" th:text="${elegido.producto.nombre}"></h1>
-        <ul class="product-features-producto-seleccionado">
-            <li th:text=" ${elegido.producto.categoria}">Tipo de producto </li>
-            <li th:text="${elegido.producto.subcategoria}">subcategoria:</li>
-            <li th:text="${elegido.producto.marca.nombre}">Marca</li>
-            <li>Origen: Argentina</li>
-        </ul>
-        <div class="store-info-producto-seleccionado">
-            <img   alt="Logo del supermercado" class="store-logo-producto-seleccionado"  th:src="${elegido.supermercado.logo}"
-                   th:alt="${elegido.supermercado.nombre}" >
-            <p class="store-location-producto-seleccionado" th:text="${elegido.supermercado.ubicacion}">Ubicación del supermercado</p>
+    <div class="contenedor_producto_columnas" th:object="${elegido}">
+        <div class="columna_izquierda_producto">
+            <img th:src="${elegido.producto.urlImagen}" alt="Imagen del producto"
+                 class="product-image-producto-seleccionado">
         </div>
-        <div class="product-price-producto-seleccionado" th:text=" '$'+${elegido.precio}">Precio regular: </div>
-        <div class="boton-conteiner"><button class="add-to-cart-btn-producto-seleccionado"  th:href="@{/agregarAlCarrito(idProducto=${elegido.getProducto().getIdProducto()},idSupemercado=${elegido.getSupermercado().getIdSupermercado()})}">Agregar</button></div>
-
+        <div class="columna_derecha_producto">
+            <h1 class="product-title-producto-seleccionado" th:text="${elegido.producto.nombre}"></h1>
+            <div class="div-producto">
+            <ul class="product-features-producto-seleccionado">
+                <li th:text="'Categoria: ' + ${elegido.producto.categoria}"></li>
+                <li th:text="'Subcategoria: ' + ${elegido.producto.subcategoria}"></li>
+                <li th:text="'Marca: ' + ${elegido.producto.marca.nombre}"></li>
+                <li>Origen: Argentina</li>
+            </ul>
+            <div class="store-info-producto-seleccionado">
+                <img alt="Logo del supermercado" class="store-logo-producto-seleccionado"
+                     th:src="${elegido.supermercado.logo}"
+                     th:alt="${elegido.supermercado.nombre}">
+            </div>
+            </div>
+            <div class="product-price">
+                    <span class="product-price-center" th:if="${elegido.descuento != null}">
+                        <span class="tachado" th:text="'$' + ${elegido.precio}"></span>
+                <span class="descuento"
+                      th:text="'$' + ${#numbers.formatDecimal(elegido.descuento * elegido.precio, 1, 2)}"></span>
+                    </span>
+                <span th:if="${elegido.descuento == null}"
+                      th:text="'$' + ${elegido.precio}"></span>
+            </div>
+            <div class="boton-conteiner">
+                <a class="add-button add-to-cart-btn-producto-seleccionado" th:href="@{/agregarAlCarrito(idProducto=${elegido.getProducto().getIdProducto()},idSupemercado=${elegido.getSupermercado().getIdSupermercado()})}">Agregar</a>
+            </div>
+        </div>
+        <br>
     </div>
-    <br>
-</div>
 </div>
 <div class="contenedor-cards">
-    <div class="card-producto"  th:each="superProducto: ${productos}" th:if="${productos != null}">
-        <img th:src="${superProducto.producto.urlImagen}" th:alt="${superProducto.producto.nombre}" class="imagen-producto-card">
-        <h3 class="nombre-producto-card" th:text="${superProducto.producto.nombre}"></h3>
-        <p class="precio-producto-card" th:text="'$'+ ${superProducto.precio}"></p>
-        <img th:src="${superProducto.supermercado.logo}" th:alt="${superProducto.supermercado.nombre}" class="store-logo-card">
-        <button class="boton-agregar-card" th:href="@{/agregarAlCarrito(idProducto=${superProducto.getProducto().getIdProducto()},idSupemercado=${superProducto.getSupermercado().getIdSupermercado()})}">Agregar</button>
+    <div class="card-producto" th:each="supermercadoProducto: ${productos}" th:if="${productos != null}">
+        <a th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado},subcategoria=${supermercadoProducto.producto.subcategoria})}">
+        <img th:src="${supermercadoProducto.producto.urlImagen}" th:alt="${supermercadoProducto.producto.nombre}"
+             class="imagen-producto-card">
+        </a>
+        <h3 class="nombre-producto-card" th:text="${supermercadoProducto.producto.nombre}"></h3>
+        <div class="product-price">
+        <span class="product-price-center-2" th:if="${supermercadoProducto.descuento != null}">
+                        <span class="tachado" th:text="'$' + ${supermercadoProducto.precio}"></span>
+                <span class="descuento"
+                      th:text="'$' + ${#numbers.formatDecimal(supermercadoProducto.descuento * supermercadoProducto.precio, 1, 2)}"></span>
+                    </span>
+            <span th:if="${supermercadoProducto.descuento == null}"
+                  th:text="'$' + ${supermercadoProducto.precio}"></span>
+        </div>
+        <div class="logo-agregar">
+            <img th:src="${supermercadoProducto.supermercado.logo}" th:alt="${supermercadoProducto.supermercado.nombre}"
+                 class="store-logo-card">
+            <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
+        </div>
     </div>
-
 </div>
-<hr >
 <!--<div class="divisoria" th:include="resenia.html"></div>-->
 <br>
 <footer th:include="footer.html"></footer>

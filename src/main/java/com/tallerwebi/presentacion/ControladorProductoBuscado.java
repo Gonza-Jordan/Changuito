@@ -24,7 +24,6 @@ public class ControladorProductoBuscado {
 
     @Autowired
     public ControladorProductoBuscado(ServicioBusqueda servicioBusqueda) {
-
         this.servicioBusqueda = servicioBusqueda;
     }
 

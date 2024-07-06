@@ -17,7 +17,7 @@ public interface RepositorioSupermercadoProducto {
 
     SupermercadoProducto buscarSupermercadoProducto(Integer idProducto, Integer idSupermercado);
 
-    List<SupermercadoProducto> buscarProducto(Integer idProducto);
+    List<SupermercadoProducto> buscarProductosDeLaMismaSubcategoria(Subcategoria subcategoria);
 
 
 }

@@ -32,14 +32,15 @@
         </div>
     </section>
     <section class="frase">
-<!--        <div class="peso"><img src="img/Precio.png" alt="$"></div>-->
-        <p>Analizamos diariamente los precios de los supermercados más grandes de Argentina para traerte los precios más baratos del mercado.</p>
+        <div class="peso"><img src="" alt="$"></div>
+        <p>Analizamos diariamente los precios de los supermercados más grandes de Argentina para traerte los precios más
+            baratos del mercado.</p>
     </section>
     <section class="supermercado">
         <h2>Supermercados relevados</h2>
         <div class="contenedorSupermercado">
             <div class="supermercado-item" th:each="supermercado : ${supermercados}">
-                <a th:href="@{/supermercado/${supermercado.id}}">
+                <a th:href="@{/productoFiltrado(productoAbuscar='',supermercado_id=${supermercado.idSupermercado})}">
                     <img th:src="${supermercado.logo}" th:alt="${supermercado.nombre}">
                 </a>
                 <div class="supermercado-info">

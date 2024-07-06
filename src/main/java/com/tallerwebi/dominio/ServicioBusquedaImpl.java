@@ -16,7 +16,6 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
 
     private RepositorioProducto repositorioProducto;
     private RepositorioSupermercadoProducto repositorioSupermercadoProducto;
-//    private RepositorioResenia repositorioResenia;
 
     @Autowired
     public ServicioBusquedaImpl(RepositorioProducto repositorioProducto, RepositorioSupermercadoProducto repositorioSupermercadoProducto) {
@@ -24,10 +23,6 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
         this.repositorioSupermercadoProducto = repositorioSupermercadoProducto;
 
     }
-
-//      public ServicioBusquedaImpl(RepositorioResenia repositorioResenia) {
-//        this.repositorioResenia = repositorioResenia;
-//    }
 
     @Override
     public List<Producto> consultarProductoPorNombre(String nombre) {
@@ -158,9 +153,8 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     }
 
     @Override
-    public List<SupermercadoProducto> buscarProductoACompararId(Integer id) {
-        List<SupermercadoProducto> productos = new ArrayList<>();
-        return productos = repositorioSupermercadoProducto.buscarProducto(id);
+    public List<SupermercadoProducto> buscarProductosDeLaMismaSubcategoria(Subcategoria subcategoria) {
+        return repositorioSupermercadoProducto.buscarProductosDeLaMismaSubcategoria(subcategoria);
 
     }
 
@@ -168,12 +162,6 @@ public class ServicioBusquedaImpl implements ServicioBusqueda {
     public SupermercadoProducto buscarProductoIdElegido(Integer id, Integer idSupermercado) {
         return repositorioSupermercadoProducto.buscarSupermercadoProducto(id, idSupermercado);
     }
-
-//    @Override
-//    public List<Resenia> buscarResenias(Integer idProducto) {
-//        return repositorioResenia.listarResenias(idProducto);
-//    }
-//
 
     private double getPrecioConDescuento(SupermercadoProducto producto) {
         if (producto.getDescuento() != null) {

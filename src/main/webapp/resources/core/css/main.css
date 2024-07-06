@@ -152,6 +152,7 @@ html {
     width: fit-content;
     margin: auto;
     margin-top: 2em;
+    margin-bottom: 2em;
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -217,7 +218,7 @@ html {
     height: 2em;
 }
 
-.frase {
+.frase{
     background-color: #99CE00;
     height: 20vh;
     font-size: 2em;
@@ -229,26 +230,25 @@ html {
     text-align: center;
     margin: 4em 0 2em 0;
     padding: 2em;
-    position: relative;
+    position:relative;
 }
 
-.frase p {
+.frase p{
     width: 40%;
     margin-top: 2em;
 }
 
-.peso {
-    background-color: transparent;
-    border: none;
+.peso{
+    background-color: white;
+    border: 10px solid #BDFF00;
+    border-radius: 50%;
     color: #BDFF00;
     font-size: 3em;
-    display: inline-block;
-    line-height: 1;
+    display: block;
     padding: 0.2em;
+    width: 111px;
     position: absolute;
-    bottom: 2.3em;
-    height: 5%;
-    weight: 5%;
+    bottom: 2em;
 }
 
 .supermercado {
@@ -579,6 +579,8 @@ html {
     margin-bottom: 5px;
     font-weight: bold;
     text-decoration: none;
+    min-width: 5em;
+    text-align: center;
 
 }
 
@@ -627,6 +629,13 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+}
+
+.product-price-center-2{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: center;
 }
 
 .error {
@@ -878,11 +887,10 @@ footer a:hover {
     flex: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .product-title-producto-seleccionado {
-    font-size: 24px;
+    font-size: 2em;
     color: #333;
     margin-bottom: 10px;
 }
@@ -904,10 +912,8 @@ footer a:hover {
 }
 
 .store-logo-producto-seleccionado {
-    width: 50px;
-    height: 50px;
+    width: 200px;
     margin-right: 10px;
-    border-radius: 50%;
 }
 
 .store-location-producto-seleccionado {
@@ -923,10 +929,14 @@ footer a:hover {
 }
 
 .boton-conteiner {
+    width: 40%;
+    margin-top: 2em;
+}
+
+.div-producto{
     display: flex;
-    justify-content: center;
+    gap: 2em;
     align-items: center;
-    height: 100%;
 }
 
 .add-to-cart-btn-producto-seleccionado {
@@ -935,8 +945,6 @@ footer a:hover {
     width: 65%;
     padding: 15px;
     font-size: 16px;
-    color: #fff;
-    background-color: #28a745;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -944,9 +952,6 @@ footer a:hover {
     transition: background-color 0.3s;
 }
 
-.add-to-cart-btn-producto-seleccionado:hover {
-    background-color: #218838;
-}
 
 .contenedor-cards {
     display: flex;
@@ -957,7 +962,7 @@ footer a:hover {
 }
 
 .card-producto {
-    flex: 0 1 23%;
+    flex: 0 1 18%;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 5px;
@@ -980,10 +985,15 @@ footer a:hover {
 }
 
 .store-logo-card {
-    max-width: 10%;
-    max-height: 10%;
+    max-width: 30%;
+    max-height: 20%;
     padding-right: 20px;
-    margin-bottom: -8px;
+}
+
+.logo-agregar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .boton-agregar-card {

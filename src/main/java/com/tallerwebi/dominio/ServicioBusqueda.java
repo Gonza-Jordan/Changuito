@@ -26,9 +26,8 @@ public interface ServicioBusqueda {
 
     List<Marca> consultarMarcas(List<SupermercadoProducto> productosFiltrados);
 
-    List<SupermercadoProducto> buscarProductoACompararId(Integer id);
+    List<SupermercadoProducto> buscarProductosDeLaMismaSubcategoria(Subcategoria subcategoria);
 
     SupermercadoProducto buscarProductoIdElegido(Integer id,Integer idSupermercado);
-//
-//    List<Resenia> buscarResenias(Integer idProducto);
+
 }
