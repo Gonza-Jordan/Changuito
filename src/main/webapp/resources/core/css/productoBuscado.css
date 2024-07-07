@@ -17,3 +17,59 @@
 .favorite-button:hover {
     background-color: #0056b3;
 }
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-info {
+    margin-top: 10px;
+}
+
+.product-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.store-info {
+    margin-top: 10px;
+}
+
+.store-name {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.store-location {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.product-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: green;
+}
+
+.product-price .tachado {
+    text-decoration: line-through;
+    color: red;
+}
+
+.product-price .descuento {
+    color: green;
+}
+
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
