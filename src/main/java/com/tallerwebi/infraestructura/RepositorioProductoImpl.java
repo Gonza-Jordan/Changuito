@@ -4,6 +4,8 @@ import com.tallerwebi.dominio.*;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -67,7 +69,24 @@ public class RepositorioProductoImpl implements RepositorioProducto {
                 .setParameter("id", id)
                 .getSingleResult();
     }
+    @Override
+    public Producto buscarPorId(Integer idProducto) {
+        String hql = "FROM Producto WHERE idProducto = :idProducto";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("idProducto", idProducto);
 
+        try {
+            return (Producto) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Producto> obtenerTodos() {
+        TypedQuery<Producto> query = sessionFactory.getCurrentSession().createQuery("from Producto", Producto.class);
+        return query.getResultList();
+    }
 
 }
 

@@ -35,7 +35,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         }
     }
 
-
     @Override
     public void registrar(Usuario usuario) throws UsuarioExistente {
         Usuario usuarioEncontrado = repositorioUsuario.buscar(usuario.getEmail());
@@ -45,16 +44,15 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         repositorioUsuario.guardar(usuario);
     }
 
-
     @Override
-    public void modificar(Usuario usuario){
+    public void modificar(Usuario usuario) {
         repositorioUsuario.modificar(usuario);
-    };
+    }
 
     @Override
-    public void modificarPedidoCarrito(Usuario usuario){
+    public void modificarPedidoCarrito(Usuario usuario) {
         repositorioUsuario.modificarPedidoCarrito(usuario);
-    };
+    }
 
     @Override
     public List<Carrito> eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito) {
@@ -62,4 +60,15 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return null;
     }
 
+    @Override
+    public void agregarAFavoritos(Usuario usuario, Producto producto) {
+        repositorioUsuario.agregarFavorito(usuario.getId(), producto);
+    }
+
+    @Override
+    public void eliminarDeFavoritos(Usuario usuario, Producto producto) {
+        Usuario usuarioActualizado = repositorioUsuario.buscarPorId(usuario.getId());
+        usuarioActualizado.getFavoritos().remove(producto);
+        repositorioUsuario.modificar(usuarioActualizado);
+    }
 }

@@ -132,9 +132,12 @@
                 <div class="buttons">
                     <a class="compare-button" th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado},subcategoria=${supermercadoProducto.producto.subcategoria})}">Comparar</a>
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
-                    <a class="favorite-button btn btn-sm btn-primary" th:href="@{/agregarAFavoritos(idProducto=${supermercadoProducto.getProducto().getIdProducto()})}">
-                        <i class="fa fa-heart"></i> Favoritos
-                    </a>
+                    <form th:action="@{/agregarAFavoritos}" method="post" style="display: inline;">
+                        <input type="hidden" name="idProducto" th:value="${supermercadoProducto.getProducto().getIdProducto()}" />
+                        <button type="submit" class="favorite-button btn btn-sm btn-primary">
+                            <i class="fa fa-heart"></i> Favoritos
+                        </button>
+                    </form>
                 </div>
             </div>
             </a>

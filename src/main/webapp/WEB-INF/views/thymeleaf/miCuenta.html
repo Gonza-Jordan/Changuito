@@ -79,11 +79,13 @@
 
         <div>
             <h4 class="section-title">Mis favoritos</h4>
-            <!--
-            <div th:each="favorito : ${usuario.getFavoritos()}" class="mt-4">
+            <div th:each="favorito : ${usuario.favoritos}" class="mt-4">
                 <p th:text="${favorito.nombre}"></p>
+                <form th:action="@{/eliminarDeFavoritos}" method="post" style="display: inline;">
+                    <input type="hidden" name="idProducto" th:value="${favorito.idProducto}" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
             </div>
-            -->
         </div>
 
         <div>
@@ -98,23 +100,23 @@
                         <th>Acciones</th>
                     </tr>
                     </thead>
-                    <tbody th:each="carrito : ${usuario.getCarritos()}">
+                    <tbody th:each="carrito : ${usuario.carritos}">
                     <tr>
-                        <td th:text="${carrito.getFechaDeCreacion()}"></td>
+                        <td th:text="${carrito.fechaDeCreacion}"></td>
                         <td>
                             <ul>
-                                <li th:each="supermercadoProducto : ${carrito.getSupermercadoProducto()}" th:text="${supermercadoProducto.producto.getNombre()}"></li>
+                                <li th:each="supermercadoProducto : ${carrito.supermercadoProducto}" th:text="${supermercadoProducto.producto.nombre}"></li>
                             </ul>
                         </td>
                         <td>
-                            <ul th:each="promocion : ${carrito.getPromocion()}">
-                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}" th:each="supermercadoProducto : ${promocion.getProductos()}" th:text="${supermercadoProducto.producto.getNombre()}"></li>
-                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}" th:text="${promocion.getProducto().getProducto().getNombre()}"></li>
+                            <ul th:each="promocion : ${carrito.promocion}">
+                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}" th:each="supermercadoProducto : ${promocion.productos}" th:text="${supermercadoProducto.producto.nombre}"></li>
+                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}" th:text="${promocion.producto.producto.nombre}"></li>
                             </ul>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-primary my-2" th:href="@{/reutilizarCarrito(id=${carrito.getId()})}">Usar carrito</a>
-                            <a class="btn btn-sm btn-danger my-2" th:href="@{/eliminarCarrito(id=${carrito.getId()})}">Eliminar carrito</a>
+                            <a class="btn btn-sm btn-primary my-2" th:href="@{/reutilizarCarrito(id=${carrito.id})}">Usar carrito</a>
+                            <a class="btn btn-sm btn-danger my-2" th:href="@{/eliminarCarrito(id=${carrito.id})}">Eliminar carrito</a>
                         </td>
                     </tr>
                     </tbody>
@@ -136,23 +138,23 @@
                         <th>Total</th>
                     </tr>
                     </thead>
-                    <tbody th:each="pedido : ${usuario.getPedidos()}">
+                    <tbody th:each="pedido : ${usuario.pedidos}">
                     <tr>
-                        <td th:text="${pedido.getFechaDeCreacion()}"></td>
-                        <td th:text="${pedido.getTipoDePago()}"></td>
-                        <td th:text="${pedido.getCarrito().getFechaDeCreacion()}"></td>
+                        <td th:text="${pedido.fechaDeCreacion}"></td>
+                        <td th:text="${pedido.tipoDePago}"></td>
+                        <td th:text="${pedido.carrito.fechaDeCreacion}"></td>
                         <td>
                             <ul>
-                                <li th:each="supermercadoProducto : ${pedido.getCarrito().getSupermercadoProducto()}" th:text="${supermercadoProducto.producto.getNombre()}"></li>
+                                <li th:each="supermercadoProducto : ${pedido.carrito.supermercadoProducto}" th:text="${supermercadoProducto.producto.nombre}"></li>
                             </ul>
                         </td>
                         <td>
-                            <ul th:each="promocion : ${pedido.getCarrito().getPromocion()}">
-                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}" th:each="supermercadoProducto : ${promocion.getProductos()}" th:text="${supermercadoProducto.producto.getNombre()}"></li>
-                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}" th:text="${promocion.getProducto().getProducto().getNombre()}"></li>
+                            <ul th:each="promocion : ${pedido.carrito.promocion}">
+                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Paquete)}" th:each="supermercadoProducto : ${promocion.productos}" th:text="${supermercadoProducto.producto.nombre}"></li>
+                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}" th:text="${promocion.producto.producto.nombre}"></li>
                             </ul>
                         </td>
-                        <td th:text="${pedido.getTotal()}"></td>
+                        <td th:text="${pedido.total}"></td>
                     </tr>
                     </tbody>
                 </table>

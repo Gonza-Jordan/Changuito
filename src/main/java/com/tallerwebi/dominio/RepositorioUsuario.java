@@ -14,6 +14,9 @@ public interface RepositorioUsuario {
 
     void eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito);
 
+    void agregarFavorito(Long usuarioId, Producto producto);
+    void eliminarFavorito(Long usuarioId, Producto producto);
+    Usuario buscarPorId(Long id);
 }
 
 

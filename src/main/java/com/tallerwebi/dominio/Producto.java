@@ -1,7 +1,6 @@
 package com.tallerwebi.dominio;
 
 import javax.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,8 +29,7 @@ public class Producto {
     @JoinColumn(name = "idMarca", nullable = false)
     private Marca marca;
 
-    public Producto() {
-    }
+    public Producto() {}
 
     //Constructor sin descuento
     public Producto(String nombre, String codigoBarras, Categoria categoria, Subcategoria subcategoria, String urlImagen, Marca marca) {
@@ -103,9 +101,7 @@ public class Producto {
         this.marca = marca;
     }
 
-    public void setPrecioFormateado(String format) {
-    }
+    public void setPrecioFormateado(String format) {}
 
-    public void agregarSupermercadoProducto(SupermercadoProducto supermercadoProducto) {
-    }
+    public void agregarSupermercadoProducto(SupermercadoProducto supermercadoProducto) {}
 }
