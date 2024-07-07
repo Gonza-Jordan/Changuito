@@ -9,75 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const selectOrdenar = document.getElementById('ordenar');
-
-            checkboxes.forEach(function (checkbox) {
-                checkbox.addEventListener('change', function () {
-                    updateUrlParams();
-                });
-            });
-
-            selectOrdenar.addEventListener('change', function () {
-                updateUrlParams();
-            });
-
-            const urlParams = new URLSearchParams(window.location.search);
-            checkboxes.forEach(function (checkbox) {
-                if (urlParams.has(checkbox.name)) {
-                    checkbox.checked = urlParams.get(checkbox.name).split(',').includes(checkbox.value);
-                }
-            });
-
-            if (urlParams.has(selectOrdenar.name)) {
-                selectOrdenar.value = urlParams.get(selectOrdenar.name);
-            }
-        });
-
-        function updateUrlParams() {
-            const url = new URL(window.location.href);
-            const params = new URLSearchParams(url.search);
-
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    if (!params.has(checkbox.name)) {
-                        params.append(checkbox.name, checkbox.value);
-                    } else {
-                        const existingValues = params.get(checkbox.name).split(',');
-                        if (!existingValues.includes(checkbox.value)) {
-                            existingValues.push(checkbox.value);
-                            params.set(checkbox.name, existingValues.join(','));
-                        }
-                    }
-                } else {
-                    if (params.has(checkbox.name)) {
-                        const existingValues = params.get(checkbox.name).split(',');
-                        const index = existingValues.indexOf(checkbox.value);
-                        if (index !== -1) {
-                            existingValues.splice(index, 1);
-                            if (existingValues.length > 0) {
-                                params.set(checkbox.name, existingValues.join(','));
-                            } else {
-                                params.delete(checkbox.name);
-                            }
-                        }
-                    }
-                }
-            });
-
-            const selectOrdenar = document.getElementById('ordenar');
-            if (selectOrdenar.value) {
-                params.set(selectOrdenar.name, selectOrdenar.value);
-            } else {
-                params.delete(selectOrdenar.name);
-            }
-
-            window.location.href = `${url.pathname}?${params.toString()}`;
-        }
-    </script>
+    <link rel="stylesheet" th:href="@{/css/productoBuscado.css}"/>
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
@@ -142,7 +74,7 @@
             <div class="filter-section" th:if="${supermercados == null || supermercados.isEmpty()}">
                 <h2>Supermercado</h2>
                 <div>
-                   Sin supermercados.
+                    Sin supermercados.
                 </div>
             </div>
             <div class="filter-section" th:if="${precios != null and !precios.isEmpty() and (precios[0] != precios[1])}">
@@ -171,7 +103,7 @@
     <div class="product-column">
         <div th:each="supermercadoProducto : ${productos}">
             <div class="product-card">
-               <a th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado})}">
+                <a th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado})}">
 
                     <div class="product-image">
                         <img th:src="${supermercadoProducto.producto.urlImagen}" alt="Imagen del Producto">
@@ -200,6 +132,9 @@
                 <div class="buttons">
                     <a class="compare-button" th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado},subcategoria=${supermercadoProducto.producto.subcategoria})}">Comparar</a>
                     <a class="add-button" th:href="@{/agregarAlCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Agregar</a>
+                    <a class="favorite-button btn btn-sm btn-primary" th:href="@{/agregarAFavoritos(idProducto=${supermercadoProducto.getProducto().getIdProducto()})}">
+                        <i class="fa fa-heart"></i> Favoritos
+                    </a>
                 </div>
             </div>
             </a>
@@ -208,6 +143,6 @@
     </div>
 </div>
 <footer th:include="footer.html"></footer>
+<script type="text/javascript" src="/spring/js/productoBuscado.js"></script>
 </body>
-
 </html>

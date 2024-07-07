@@ -150,7 +150,7 @@ VALUES
     ('Leche Descremada La Serenísima 1L', '21110301058', 'Lacteos', 'Leche', 'https://jumboargentina.vtexassets.com/arquivos/ids/760437-1200-auto?v=638049118084400000&width=1200&height=auto&aspect=true', 37),
     ('Manteca Tonadita 200g', '21270184001', 'Lacteos', 'Manteca', 'https://jumboargentina.vtexassets.com/arquivos/ids/176504-1200-auto?v=636383331571730000&width=1200&height=auto&aspect=true', 38),
     ('Queso Parmesano La Paulina 1Kg', '24450703003', 'Lacteos', 'Quesos', 'https://jumboargentina.vtexassets.com/arquivos/ids/596261-1200-auto?v=637315026086830000&width=1200&height=auto&aspect=true', 39),
-    ('Yogur Yogurisimo Natural 300g', '21220166004', 'Lacteos', 'Yogures', 'https://jumboargentina.vtexassets.com/arquivos/ids/790645-1200-auto?v=638277969692900000&width=1200&height=auto&aspect=true', 40),
+    ('Yogur Yogurisimo Natural 300g', '21220166004', 'Lacteos', 'Yogures', 'https://ardiaprod.vtexassets.com/arquivos/ids/303226-1200-auto?v=638551649684200000&width=1200&height=auto&aspect=true', 40),
     ('Crema Doble Tregar 350g', '21210150006', 'Lacteos', 'Crema', 'https://jumboargentina.vtexassets.com/arquivos/ids/774486-1200-auto?v=638150854086930000&width=1200&height=auto&aspect=true', 41);
 
 
