@@ -132,9 +132,9 @@ public class ControladorUsuario {
 
         if (usuario != null && producto != null) {
             servicioUsuario.eliminarDeFavoritos(usuario, producto);
-            session.setAttribute("usuario", servicioUsuario.consultarUsuario(usuario.getEmail())); // Actualizar la sesión
         }
 
         return new ModelAndView("redirect:/mi-cuenta");
     }
+
 }

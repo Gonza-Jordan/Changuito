@@ -125,7 +125,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public void eliminarFavorito(Long usuarioId, Producto producto) {
         Usuario usuario = buscarPorId(usuarioId);
         if (usuario != null) {
-            usuario.getFavoritos().remove(producto);
+            usuario.getFavoritos().removeIf(favorito -> favorito.getIdProducto().equals(producto.getIdProducto()));
             sessionFactory.getCurrentSession().saveOrUpdate(usuario);
         }
     }

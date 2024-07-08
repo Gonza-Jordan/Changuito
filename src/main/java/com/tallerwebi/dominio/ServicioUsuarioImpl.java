@@ -67,8 +67,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Override
     public void eliminarDeFavoritos(Usuario usuario, Producto producto) {
-        Usuario usuarioActualizado = repositorioUsuario.buscarPorId(usuario.getId());
-        usuarioActualizado.getFavoritos().remove(producto);
-        repositorioUsuario.modificar(usuarioActualizado);
+        repositorioUsuario.eliminarFavorito(usuario.getId(), producto);
     }
 }
