@@ -1,4 +1,3 @@
-/*
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.*;
@@ -64,7 +63,7 @@ public class ControladorCarritoTest {
         servicioPromocionMock = mock(ServicioPromocionImpl.class);
 
 
-        controladorUsuario = new ControladorUsuario(servicioUsuarioMock);
+        controladorUsuario = new ControladorUsuario(servicioUsuarioMock, mock(ServicioProducto.class)); // Adaptación del constructor
         controladorCarrito = new ControladorCarrito(servicioCarritoMock, servicioUsuarioMock, servicioPedidoMock, servicioSupermercadoProductoMock, servicioPromocionMock);
     }
 
@@ -287,4 +286,4 @@ public class ControladorCarritoTest {
     }
 
 }
-*/
+
