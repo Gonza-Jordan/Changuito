@@ -72,7 +72,6 @@ a {
     border: none !important;
 }
 
-        /* Custom styles for titles and form container */
         .main-title {
             text-align: center;
             font-weight: bold;
@@ -110,4 +109,32 @@ a {
 
         .table tbody tr:nth-child(odd) {
             background-color: #f2f2f2;
+        }
+
+body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+}
+
+.login {
+            background-image: url('https://static.vecteezy.com/system/resources/previews/026/952/136/non_2x/shopping-cart-filled-with-food-and-drinks-and-supermarket-shelves-in-the-background-grocery-shopping-concept-created-with-generative-ai-technology-free-photo.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .divForm {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 2em;
+            width: 100%;
+            max-width: 500px;
         }
