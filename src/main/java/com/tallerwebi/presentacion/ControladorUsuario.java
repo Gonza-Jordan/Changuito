@@ -19,32 +19,28 @@ import javax.servlet.http.HttpSession;
 public class ControladorUsuario {
 
     private ServicioUsuario servicioUsuario;
-
+    private ServicioProducto servicioProducto;
 
     @Autowired
-    public ControladorUsuario(ServicioUsuario servicioUsuario) {
+    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioProducto servicioProducto) {
         this.servicioUsuario = servicioUsuario;
+        this.servicioProducto = servicioProducto;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public ModelAndView irALogin() {
-
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
         return new ModelAndView("login", modelo);
     }
 
-
     @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
-
         ModelMap model = new ModelMap();
-
         Usuario usuario = new Usuario();
         model.put("usuario", usuario);
         return new ModelAndView("nuevoUsuario", model);
     }
-
 
     @RequestMapping(path = "/mi-cuenta", method = RequestMethod.GET)
     public ModelAndView irMiCuenta(HttpServletRequest request) {
@@ -52,7 +48,6 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
         if (usuario == null) {
-
             return new ModelAndView("redirect:/login");
         }
 
@@ -61,25 +56,21 @@ public class ControladorUsuario {
 
         ModelMap model = new ModelMap();
         model.put("usuario", usuario1);
+        misession.setAttribute("usuario", usuario1); // Actualizar la sesión con el usuario actualizado
 
         return new ModelAndView("miCuenta", model);
     }
-
 
     @RequestMapping(path = "/sign-out", method = RequestMethod.GET)
     public ModelAndView cerrarSession(HttpServletRequest request) {
         HttpSession misession = request.getSession();
         misession.removeAttribute("usuario");
-
         return new ModelAndView("redirect:/home");
     }
 
-
-    // FUNCIONES POST Y PUT
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request, RedirectAttributes redirectAttrs) {
         ModelMap model = new ModelMap();
-
         Usuario usuario = servicioUsuario.validarContrasena(datosLogin.getEmail(), datosLogin.getContrasena());
 
         if (usuario != null && !usuario.getAdmin()) {
@@ -94,19 +85,15 @@ public class ControladorUsuario {
             redirectAttrs.addFlashAttribute("error", "Usuario o clave incorrecta");
         }
         return new ModelAndView("redirect:/login");
-
     }
-
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttrs) {
-
         try {
             servicioUsuario.registrar(usuario);
         } catch (UsuarioExistente e) {
             redirectAttrs.addFlashAttribute("error", "El usuario ya existe");
             return new ModelAndView("redirect:/nuevo-usuario");
-
         } catch (Exception e) {
             redirectAttrs.addFlashAttribute("error", "Error al registrar el nuevo usuario");
             return new ModelAndView("redirect:/nuevo-usuario");
@@ -115,57 +102,39 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/login");
     }
 
-
-    //AL MODIFICAR USARIO NO ME TRAE LOS CARRITOS Y LOS PEDIDOS (ModelAttribute("usuario") Usuario usuario YA EL USUARIO DEL MODEL NO ME LO TRAE)
     @RequestMapping(path = "/modificar", method = RequestMethod.POST)
     public ModelAndView modificar(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
-
         servicioUsuario.modificar(usuario);
-
         HttpSession misession = request.getSession(true);
         misession.setAttribute("usuario", usuario);
-
-
         return new ModelAndView("redirect:/home");
     }
 
+    @RequestMapping(path = "/agregarAFavoritos", method = RequestMethod.POST)
+    public ModelAndView agregarAFavoritos(@RequestParam Integer idProducto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Producto producto = servicioProducto.consultarProductoPorId(idProducto);
 
-    //
-    @RequestMapping(path = "/pruebaUser", method = RequestMethod.GET)
-    public ModelAndView pruebaUser(@RequestParam("email") String email, HttpServletRequest request) {
-
-        ModelMap model = new ModelMap();
-        model.put("usuario", servicioUsuario.consultarUsuario(email));
-
-        return new ModelAndView("prueba", model);
-    }
-
-    @RequestMapping(path = "/pruebaUser2", method = RequestMethod.GET)
-    public ModelAndView pruebaUser2(HttpServletRequest request) {
-
-        HttpSession misession = request.getSession(true);
-        Usuario usuario = (Usuario) misession.getAttribute("usuario");
-
-
-        ModelMap model = new ModelMap();
-        model.put("usuario", usuario.getStampCarritoActivo().toString());
-
-        return new ModelAndView("prueba", model);
-    }
-
-    @RequestMapping(path = "/pruebaAdmin", method = RequestMethod.GET)
-    public ModelAndView admin(HttpServletRequest request) {
-
-        HttpSession misession = request.getSession();
-        Usuario usuario = (Usuario) misession.getAttribute("usuario");
-
-        if (!usuario.getAdmin()) {
-            return new ModelAndView("redirect:/home");
+        if (usuario != null && producto != null) {
+            servicioUsuario.agregarAFavoritos(usuario, producto);
+            session.setAttribute("usuario", servicioUsuario.consultarUsuario(usuario.getEmail())); // Actualizar la sesión
         }
 
         return new ModelAndView("redirect:/mi-cuenta");
-
     }
 
+    @RequestMapping(path = "/eliminarDeFavoritos", method = RequestMethod.POST)
+    public ModelAndView eliminarDeFavoritos(@RequestParam Integer idProducto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Producto producto = servicioProducto.consultarProductoPorId(idProducto);
+
+        if (usuario != null && producto != null) {
+            servicioUsuario.eliminarDeFavoritos(usuario, producto);
+        }
+
+        return new ModelAndView("redirect:/mi-cuenta");
+    }
 
 }
