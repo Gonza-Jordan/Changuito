@@ -3,14 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <title>Promociones</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" th:href="@{/css/productoBuscado.css}"/>
-
 </head>
 <body>
 <header th:include="header.html" class="cabecera"></header>
@@ -25,7 +22,6 @@
             <div th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
                 <div class="product-card">
                     <a th:href="@{/producto_seleccionado(id=${promocion.producto.producto.idProducto})}">
-
                         <div class="product-image">
                             <img th:src="${promocion.producto.producto.urlImagen}" alt="Imagen del Producto">
                         </div>
@@ -57,9 +53,12 @@
                         <span th:text="'Hasta: ' + ${promocion.fechaFin}"></span>
                         <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
                         <div class="buttons">
-                            <a class="favorite-button btn btn-sm btn-primary" th:href="@{/agregarAFavoritos(idProducto=${promocion.producto.producto.idProducto})}">
-                                <i class="fa fa-heart"></i> Favoritos
-                            </a>
+                            <form th:action="@{/agregarAFavoritos}" method="post">
+                                <input type="hidden" name="idProducto" th:value="${promocion.producto.producto.idProducto}"/>
+                                <button type="submit" class="favorite-button btn btn-sm btn-primary">
+                                    <i class="fa fa-heart"></i> Favoritos
+                                </button>
+                            </form>
                             <a class="add-button" th:href="@{/agregarAlCarritoPromocion(idPromocion=${promocion.getIdPromocion()})}">Agregar</a>
                         </div>
                     </div>
@@ -107,9 +106,12 @@
                             <span th:text="'Hasta: ' + ${promocion.fechaFin}"></span>
                             <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
                             <div class="buttons">
-                                <a class="favorite-button btn btn-sm btn-primary" th:href="@{/agregarAFavoritos(idProducto=${promocion.productos[0].producto.idProducto})}">
-                                    <i class="fa fa-heart"></i> Favoritos
-                                </a>
+                                <form th:action="@{/agregarAFavoritos}" method="post">
+                                    <input type="hidden" name="idProducto" th:value="${promocion.productos[0].producto.idProducto}"/>
+                                    <button type="submit" class="favorite-button btn btn-sm btn-primary">
+                                        <i class="fa fa-heart"></i> Favoritos
+                                    </button>
+                                </form>
                                 <a class="add-button" th:href="@{/agregarAlCarritoPromocion(idPromocion=${promocion.getIdPromocion()})}">Agregar</a>
                             </div>
                         </div>
