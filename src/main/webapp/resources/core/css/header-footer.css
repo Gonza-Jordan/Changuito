@@ -62,3 +62,31 @@ p{
     background-color: #333333;
     color: whitesmoke;
 }
+
+.btn-pago {
+    background-color: #28a745; /* Verde */
+    color: white;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-pago:hover {
+    background-color: #218838;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-pago a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-pago a:hover {
+    color: white;
+    text-decoration: none;
+}
