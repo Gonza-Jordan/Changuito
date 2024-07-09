@@ -2,6 +2,8 @@ package com.tallerwebi.dominio;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Combo extends Promocion {
@@ -15,7 +17,6 @@ public class Combo extends Promocion {
 
     private Integer cantidadVendida;
     private Integer cantidadCobrada;
-
 
     public Combo() {}
 

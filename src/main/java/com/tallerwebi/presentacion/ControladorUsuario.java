@@ -54,6 +54,23 @@ public class ControladorUsuario {
         Usuario usuario1 = servicioUsuario.consultarUsuario(usuario.getEmail());
         usuario1.getCarritos().removeIf(carrito -> carrito.getSupermercadoProducto().isEmpty() && carrito.getPromocion().isEmpty());
 
+        // Logging para depuración
+        usuario1.getCarritos().forEach(carrito -> {
+            System.out.println("Carrito fecha: " + carrito.getFechaDeCreacion());
+            carrito.getPromocion().forEach(promocion -> {
+                if (promocion instanceof Paquete) {
+                    System.out.println("Promoción Paquete: " + ((Paquete) promocion).getNombre());
+                    ((Paquete) promocion).getProductos().forEach(prod -> {
+                        System.out.println("Producto en paquete: " + prod.getProducto().getNombre());
+                    });
+                } else if (promocion instanceof Combo) {
+                    System.out.println("Promoción Combo: " + ((Combo) promocion).getProducto().getProducto().getNombre());
+                } else {
+                    System.out.println("Tipo de promoción desconocido: " + promocion.getClass().getName());
+                }
+            });
+        });
+
         ModelMap model = new ModelMap();
         model.put("usuario", usuario1);
         misession.setAttribute("usuario", usuario1); // Actualizar la sesión con el usuario actualizado
