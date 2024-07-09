@@ -1,9 +1,6 @@
 package com.tallerwebi.dominio;
 
-import com.tallerwebi.dominio.excepcion.CantidadInvalidaException;
-import com.tallerwebi.dominio.excepcion.CantidadVendidaNoPuedeSerMenorOIgualALaCobradaException;
-import com.tallerwebi.dominio.excepcion.FechaInvalidaException;
-import com.tallerwebi.dominio.excepcion.SinIdProductoException;
+import com.tallerwebi.dominio.excepcion.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -184,6 +181,102 @@ public class ServicioAdministradorTest {
             servicioAdministrador.crearCombo(supermercadoProductoMock, fechaInicioDate.toString(), fechaFinDate.toString(), cantidadVendida, cantidadCobrada);
         });
     }
+
+    @Test
+    public void queSePuedaCrearUnPaquete() throws FechaInvalidaException, DescuentoInvalidoException {
+        //Preparacion
+        supermercadoProductoMock.setPrecio(1000.00);
+        otroSupermercadoProductoMock.setPrecio(1500.00);
+        supermercadoProductoListMock.add(supermercadoProductoMock);
+        supermercadoProductoListMock.add(otroSupermercadoProductoMock);
+        String fechaInicio = "2023-11-01";
+        String fechaFin = "2023-12-01";
+        LocalDate fechaInicioDate = LocalDate.parse(fechaInicio);
+        LocalDate fechaFinDate = LocalDate.parse(fechaFin);
+        Double descuento = 20.0;
+        String nombre = "Paquete";
+
+        //Ejecucion
+        Paquete paqueteCreado = this.servicioAdministrador.crearPaquete(supermercadoProductoListMock, fechaInicioDate.toString(), fechaFinDate.toString(), descuento, nombre);
+
+        //Verficacion
+        assertThat(paqueteCreado, notNullValue());
+        assertThat(paqueteCreado.getProductos().get(0).getProducto(), equalTo(productoMock));
+        assertThat(paqueteCreado.getProductos().get(1).getProducto(), equalTo(otroProductoMock));
+        assertThat(paqueteCreado.getDescuento(), equalTo(20.0));
+        assertThat(paqueteCreado.getNombre(), equalTo("Paquete"));
+
+    }
+
+    @Test
+    public void queAlCrearUnPaqueteLanceLaExcepcionFechaInvalidaException() {
+        //Preparacion
+        String fechaInicio = "2023-12-01";
+        String fechaFin = "2023-11-30";
+        LocalDate fechaInicioDate = LocalDate.parse(fechaInicio);
+        LocalDate fechaFinDate = LocalDate.parse(fechaFin);
+        Double descuento = 20.0;
+        String nombre = "Paquete";
+
+        //Ejecución y verificación
+        assertThrows(FechaInvalidaException.class, () -> {
+            servicioAdministrador.crearPaquete(supermercadoProductoListMock, fechaInicioDate.toString(), fechaFinDate.toString(), descuento, nombre);
+        });
+    }
+
+    @Test
+    public void queAlCrearUnPaqueteLanceLaExcepcionDescuentoInvalidoException() {
+        //Preparacion
+        String fechaInicio = "2023-11-01";
+        String fechaFin = "2023-12-01";
+        LocalDate fechaInicioDate = LocalDate.parse(fechaInicio);
+        LocalDate fechaFinDate = LocalDate.parse(fechaFin);
+        Double descuento = 133.0;
+        String nombre = "Paquete";
+
+        //Ejecución y verificación
+        assertThrows(DescuentoInvalidoException.class, () -> {
+            servicioAdministrador.crearPaquete(supermercadoProductoListMock, fechaInicioDate.toString(), fechaFinDate.toString(), descuento, nombre);
+        });
+    }
+
+    @Test
+    public void queAlActualizarElPrecioDeUnProductoLanceLaExcepcionSinPrecioNiDescuentoException() {
+        //Ejecución y verificación
+        assertThrows(SinPrecioNiDescuentoException.class, () -> {
+            servicioAdministrador.actualizarPrecioYDescuento(supermercadoProductoMock, null, null);
+        });
+    }
+
+    @Test
+    public void queAlActualizarElPrecioDeUnProductoLanceLaExcepcionDescuentoInvalidoException() {
+        //Preparacion
+        Double precioNuevo = 1500.0;
+        Double descuentoNuevo = 188.0;
+
+        //Ejecución y verificación
+        assertThrows(DescuentoInvalidoException.class, () -> {
+            servicioAdministrador.actualizarPrecioYDescuento(supermercadoProductoMock, precioNuevo, descuentoNuevo);
+        });
+    }
+
+    @Test
+    public void queAlActualizarElPrecioDeUnProductoLanceLaExcepcionPrecioInvalidoException() {
+        //Preparacion
+        Double precioNuevo = -2000.0;
+        Double descuentoNuevo = 20.0;
+
+        //Ejecución y verificación
+        assertThrows(PrecioInvalidoException.class, () -> {
+            servicioAdministrador.actualizarPrecioYDescuento(supermercadoProductoMock, precioNuevo, descuentoNuevo);
+        });
+    }
+
+
+
+
+
+
 
 
 

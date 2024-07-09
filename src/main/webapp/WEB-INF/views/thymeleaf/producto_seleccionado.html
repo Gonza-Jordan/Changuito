@@ -65,7 +65,7 @@
                 <span class="descuento"
                       th:text="'$' + ${#numbers.formatDecimal(supermercadoProducto.descuento * supermercadoProducto.precio, 1, 2)}"></span>
                     </span>
-            <span th:if="${supermercadoProducto.descuento == null}"
+            <span class="precio" th:if="${supermercadoProducto.descuento == null}"
                   th:text="'$' + ${supermercadoProducto.precio}"></span>
         </div>
         <div class="logo-agregar">

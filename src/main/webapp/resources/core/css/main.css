@@ -219,7 +219,7 @@ html {
 
 .frase {
     background-color: #99CE00;
-    height: 20vh;
+    height: 25vh;
     font-size: 2em;
     color: white;
     display: flex;
@@ -233,8 +233,8 @@ html {
 }
 
 .frase p {
-    width: 40%;
-    margin-top: 4em; /* Ajustado para separar el texto de la imagen */
+    width: 65%;
+    margin-top: 3em;
 }
 
 .peso {

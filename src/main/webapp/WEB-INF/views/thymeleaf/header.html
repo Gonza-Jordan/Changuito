@@ -6,10 +6,8 @@
         <li th:if="${session.usuario != null and session.usuario.admin == true}" ><a th:href="@{/administrador}">Administrador</a></li>
         <li><a href="supermercados.html">Supermercados</a></li>
         <li><a href="promociones.html">Promociones</a></li>
-        <li th:if="${session.usuario == null}"><a th:href="@{/mi-cuenta}">Mi cuenta</a></li>
-        <li th:if="${session.usuario != null}" ><a th:href="@{/mi-cuenta}" th:text="${session.usuario['nombre']}"></a></li>
-
-
+        <li th:if="${session.usuario == null}"><a th:href="@{/mi-cuenta}" id="miCuenta">Mi cuenta</a></li>
+        <li th:if="${session.usuario != null}" ><a th:href="@{/mi-cuenta}" th:text="${session.usuario['nombre']}" id="miCuenta"></a></li>
         <li>
             <div class="contenedor-carrito-contador">
                 <a href="carritoCompras.html" id="carrito">
