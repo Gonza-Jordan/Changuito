@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -154,11 +158,7 @@ public class ControladorCarrito {
 
     @RequestMapping(path = "/agregarAlCarritoPromocion", method = RequestMethod.GET)
     public ModelAndView agregarAlCarritoPromocion(@RequestParam("idPromocion") Integer idPromocion, HttpServletRequest request) {
-
-        //
-        Promocion promocion;
-        promocion = this.servicioPromocion.buscarPromocion(idPromocion);
-
+        Promocion promocion = this.servicioPromocion.buscarPromocion(idPromocion);
 
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
@@ -167,32 +167,27 @@ public class ControladorCarrito {
             return new ModelAndView("redirect:/login");
         }
 
+        Carrito carrito;
         if (usuario.getStampCarritoActivo() == null) {
-            //
-            Carrito carrito1 = new Carrito();
-
-            carrito1.getPromocion().add(promocion);
-
-            usuario.setStampCarritoActivo(carrito1.getFechaDeCreacion());
-
-            servicioCarrito.registrar(carrito1);
+            carrito = new Carrito();
+            usuario.setStampCarritoActivo(carrito.getFechaDeCreacion());
+            servicioCarrito.registrar(carrito);
             servicioUsuario.modificar(usuario);
-
             misession.setAttribute("usuario", usuario);
-
-
         } else {
-            //
-            Carrito carrito1 = servicioCarrito.consultarCarrito(usuario.getStampCarritoActivo());
+            carrito = servicioCarrito.consultarCarrito(usuario.getStampCarritoActivo());
+        }
 
-            carrito1.getPromocion().add(promocion);
-
-            servicioCarrito.modificar(carrito1);
+        try {
+            servicioCarrito.agregarPromocionAlCarrito(carrito.getId(), promocion);
+        } catch (RuntimeException e) {
+            return new ModelAndView("redirect:/carritoCompras").addObject("error", e.getMessage());
         }
 
         return new ModelAndView("redirect:/carritoCompras");
-
     }
+
+
 
 
     @RequestMapping(path = "/limpiarCarrito", method = RequestMethod.GET)
@@ -219,35 +214,37 @@ public class ControladorCarrito {
         HttpSession misession = request.getSession();
         Usuario usuario = (Usuario) misession.getAttribute("usuario");
 
+        if (usuario == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
         Date stamp = usuario.getStampCarritoActivo();
         Carrito carrito = servicioCarrito.consultarCarrito(stamp);
 
+        // Verifica si el carrito ya existe para el usuario
+        if (usuario.getCarritos().stream().anyMatch(c -> c.getFechaDeCreacion().equals(carrito.getFechaDeCreacion()))) {
+            String mensaje = URLEncoder.encode("El carrito ya está guardado.", StandardCharsets.UTF_8);
+            return new ModelAndView("redirect:/carritoCompras?mensaje=" + mensaje);
+        }
+
+        // Guardar el carrito
         if (usuario.getGuardoCarrito()) {
-
-            Carrito carrito2 = new Carrito();
-            carrito2.setSupermercadoProducto(carrito.getSupermercadoProducto());
-            carrito2.setPromocion(carrito.getPromocion());
-
-            servicioCarrito.registrar(carrito2);
-
-            usuario.getCarritos().add(carrito2);
-            usuario.setStampCarritoActivo(carrito2.getFechaDeCreacion());
-
+            Carrito nuevoCarrito = new Carrito();
+            nuevoCarrito.setSupermercadoProducto(carrito.getSupermercadoProducto());
+            nuevoCarrito.setPromocion(carrito.getPromocion());
+            servicioCarrito.registrar(nuevoCarrito);
+            usuario.getCarritos().add(nuevoCarrito);
+            usuario.setStampCarritoActivo(nuevoCarrito.getFechaDeCreacion());
         } else {
             usuario.getCarritos().add(carrito);
             usuario.setGuardoCarrito(true);
         }
 
-
         servicioUsuario.modificar(usuario);
-        servicioUsuario.modificarPedidoCarrito(usuario);
-
         misession.setAttribute("usuario", usuario);
-
 
         return new ModelAndView("redirect:/home");
     }
-
 
     @RequestMapping(path = "/reutilizarCarrito", method = RequestMethod.GET)
     public ModelAndView reutilizarCarrito(

@@ -48,6 +48,17 @@ public class ServicioCarritoImpl implements ServicioCarrito {
         repositorioCarrito.eliminar(carrito);
     }
 
-
+    @Override
+    public void agregarPromocionAlCarrito(Long carritoId, Promocion promocion) {
+        Carrito carrito = repositorioCarrito.buscarPorId(carritoId);
+        boolean existe = carrito.getPromocion().stream()
+                .anyMatch(p -> p.getIdPromocion().equals(promocion.getIdPromocion()));
+        if (!existe) {
+            carrito.getPromocion().add(promocion);
+            repositorioCarrito.modificar(carrito);
+        } else {
+            throw new RuntimeException("La promoción ya existe en el carrito");
+        }
+    }
 
 }
