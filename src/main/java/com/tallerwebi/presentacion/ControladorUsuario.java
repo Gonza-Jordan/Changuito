@@ -78,7 +78,6 @@ public class ControladorUsuario {
         return new ModelAndView("miCuenta", model);
     }
 
-
     @RequestMapping(path = "/sign-out", method = RequestMethod.GET)
     public ModelAndView cerrarSession(HttpServletRequest request) {
         HttpSession misession = request.getSession();

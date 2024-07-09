@@ -90,7 +90,9 @@
                                         <li th:each="supermercadoProducto : ${promocion.productos}" th:text="${supermercadoProducto.producto.nombre}"></li>
                                     </ul>
                                     <!-- Para Combo -->
-                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}" th:text="${promocion.producto.producto.nombre}"></li>
+                                    <ul th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
+                                        <li th:text="${promocion.producto.producto.nombre}"></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </td>
@@ -136,7 +138,9 @@
                                         <li th:each="supermercadoProducto : ${promocion.productos}" th:text="${supermercadoProducto.producto.nombre}"></li>
                                     </ul>
                                     <!-- Para Combo -->
-                                <li th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}" th:text="${promocion.producto.producto.nombre}"></li>
+                                    <ul th:if="${promocion instanceof T(com.tallerwebi.dominio.Combo)}">
+                                        <li th:text="${promocion.producto.producto.nombre}"></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </td>
