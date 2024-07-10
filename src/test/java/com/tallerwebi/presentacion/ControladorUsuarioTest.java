@@ -1,9 +1,6 @@
-/*
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.ServicioUsuario;
-import com.tallerwebi.dominio.ServicioUsuarioImpl;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +27,8 @@ public class ControladorUsuarioTest {
     private HttpServletRequest requestMock;
     private HttpSession sessionMock;
     private ServicioUsuario servicioUsuarioMock;
+    private ServicioProducto servicioProductoMock;
+
 
     private RedirectAttributes redirectMock;
     private MockMvc mockMvc;
@@ -43,7 +42,8 @@ public class ControladorUsuarioTest {
         requestMock = mock(HttpServletRequest.class);
         sessionMock = mock(HttpSession.class);
         servicioUsuarioMock = mock(ServicioUsuarioImpl.class);
-        controladorUsuario = new ControladorUsuario(servicioUsuarioMock);
+        servicioProductoMock = mock(ServicioProductoImpl.class);
+        controladorUsuario = new ControladorUsuario(servicioUsuarioMock, servicioProductoMock);
 
         redirectMock = mock(RedirectAttributes.class);
         ;
@@ -232,4 +232,3 @@ public class ControladorUsuarioTest {
 
 
 }
-*/

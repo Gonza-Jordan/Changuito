@@ -8,6 +8,8 @@ public interface RepositorioUsuario {
 
     Usuario buscar(String email);
 
+    List<Usuario> buscarTodosLosUsuarios();
+
     void modificar(Usuario usuario);
 
     void modificarPedidoCarrito(Usuario usuario);

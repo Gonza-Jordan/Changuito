@@ -7,4 +7,7 @@ public interface ServicioPromocion {
     List<Promocion> buscarPromociones();
 
     Promocion buscarPromocion(Integer idPromocion);
-}
+
+    List<Promocion> obtenerPromocionesDeProducto(Producto producto);
+
+    }

@@ -9,4 +9,7 @@ public interface RepositorioPromocion {
     void guardarPromocion(Promocion promocion);
 
     Promocion buscarPromocion(Integer idPromocion);
-}
+
+    List<Promocion> obtenerPromocionesDeProducto(Producto producto);
+
+    }
