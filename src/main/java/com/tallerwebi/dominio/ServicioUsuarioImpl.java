@@ -61,8 +61,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public void agregarAFavoritos(Usuario usuario, Producto producto) {
-        repositorioUsuario.agregarFavorito(usuario.getId(), producto);
+    public void agregarAFavoritos(Usuario usuario, List<Producto> productos) {
+        for (Producto producto : productos) {
+            if (!usuario.getFavoritos().contains(producto)) {
+                usuario.getFavoritos().add(producto);
+            }
+        }
+        repositorioUsuario.modificar(usuario);
     }
 
     @Override

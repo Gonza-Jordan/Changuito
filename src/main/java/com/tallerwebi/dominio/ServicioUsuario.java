@@ -12,6 +12,8 @@ public interface ServicioUsuario {
     void modificar(Usuario usuario);
     void modificarPedidoCarrito(Usuario usuario);
     List<Carrito> eliminarCarritoDeUsuario(Usuario usuario, Carrito carrito);
-    void agregarAFavoritos(Usuario usuario, Producto producto);
+
+    void agregarAFavoritos(Usuario usuario, List<Producto> productos);
+
     void eliminarDeFavoritos(Usuario usuario, Producto producto);
 }
