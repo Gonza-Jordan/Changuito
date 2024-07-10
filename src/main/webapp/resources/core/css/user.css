@@ -63,12 +63,12 @@ a {
 }
 
 .linkRegistrar {
-    color: black;
+    color: blue;
 }
 
 .linkRegistrar:hover,
 .linkRegistrar:focus-visible {
-    color: gray;
+    color: red;
     border: none !important;
 }
 
