@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ControladorUsuario {
@@ -128,13 +130,19 @@ public class ControladorUsuario {
     }
 
     @RequestMapping(path = "/agregarAFavoritos", method = RequestMethod.POST)
-    public ModelAndView agregarAFavoritos(@RequestParam Integer idProducto, HttpServletRequest request) {
+    public ModelAndView agregarAFavoritos(@RequestParam("idProductos") List<Integer> idProductos, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Producto producto = servicioProducto.consultarProductoPorId(idProducto);
 
-        if (usuario != null && producto != null) {
-            servicioUsuario.agregarAFavoritos(usuario, producto);
+        if (usuario != null && idProductos != null) {
+            List<Producto> productos = new ArrayList<>();
+            for (Integer idProducto : idProductos) {
+                Producto producto = servicioProducto.consultarProductoPorId(idProducto);
+                if (producto != null) {
+                    productos.add(producto);
+                }
+            }
+            servicioUsuario.agregarAFavoritos(usuario, productos);
             session.setAttribute("usuario", servicioUsuario.consultarUsuario(usuario.getEmail())); // Actualizar la sesión
         }
 
