@@ -32,14 +32,12 @@
                             <div class="store-name" th:text="${promocion.producto.producto.marca.nombre}"></div>
                             <div class="store-location" th:text="${promocion.producto.supermercado.ubicacion}"></div>
                             <div class="product-price">
-                                    <span class="product-price-center">
-                                        <span class="tachado"
-                                              th:text="'$' + ${promocion.producto.precio} * ${promocion.cantidadVendida}"></span>
-                                    </span>
+                                <span class="product-price-center">
+                                    <span class="tachado" th:text="'$' + ${promocion.producto.precio} * ${promocion.cantidadVendida}"></span>
+                                </span>
                             </div>
                             <div class="store-logo">
-                                <img th:src="${promocion.producto.supermercado.logo}"
-                                     th:alt="${promocion.producto.supermercado.nombre}">
+                                <img th:src="${promocion.producto.supermercado.logo}" th:alt="${promocion.producto.supermercado.nombre}">
                             </div>
                         </div>
                     </div>
@@ -54,7 +52,7 @@
                         <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
                         <div class="buttons">
                             <form th:action="@{/agregarAFavoritos}" method="post">
-                                <input type="hidden" name="idProducto" th:value="${promocion.producto.producto.idProducto}"/>
+                                <input type="hidden" name="idProductos" th:value="${promocion.producto.producto.idProducto}"/>
                                 <button type="submit" class="favorite-button btn btn-sm btn-primary">
                                     <i class="fa fa-heart"></i> Favoritos
                                 </button>
@@ -89,13 +87,12 @@
                                         <div class="store-name" th:text="${producto.producto.marca.nombre}"></div>
                                         <div class="store-location" th:text="${producto.supermercado.ubicacion}"></div>
                                         <div class="product-price">
-                                    <span class="product-price-center">
-                                        <span class="tachado" th:text="'$' + ${producto.precio}"></span>
-                                    </span>
+                                            <span class="product-price-center">
+                                                <span class="tachado" th:text="'$' + ${producto.precio}"></span>
+                                            </span>
                                         </div>
                                         <div class="store-logo">
-                                            <img th:src="${producto.supermercado.logo}"
-                                                 th:alt="${producto.supermercado.nombre}">
+                                            <img th:src="${producto.supermercado.logo}" th:alt="${producto.supermercado.nombre}">
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +104,7 @@
                             <span class="descuento" th:text="'$' + ${promocion.precioFinal}"></span>
                             <div class="buttons">
                                 <form th:action="@{/agregarAFavoritos}" method="post">
-                                    <input type="hidden" name="idProducto" th:value="${promocion.productos[0].producto.idProducto}"/>
+                                    <input type="hidden" name="idProductos" th:each="producto : ${promocion.productos}" th:value="${producto.producto.idProducto}"/>
                                     <button type="submit" class="favorite-button btn btn-sm btn-primary">
                                         <i class="fa fa-heart"></i> Favoritos
                                     </button>
