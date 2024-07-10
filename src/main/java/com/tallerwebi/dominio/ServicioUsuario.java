@@ -7,6 +7,7 @@ import java.util.List;
 public interface ServicioUsuario {
 
     Usuario consultarUsuario(String email);
+    List<Usuario> consultarTodosLosUsuarios();
     void registrar(Usuario usuario) throws UsuarioExistente;
     Usuario validarContrasena(String email, String contrasena);
     void modificar(Usuario usuario);

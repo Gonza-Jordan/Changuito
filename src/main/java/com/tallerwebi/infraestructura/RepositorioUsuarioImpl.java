@@ -42,6 +42,19 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+    public List<Usuario> buscarTodosLosUsuarios() {
+        String hql = "FROM Usuario";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+
+        try {
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+
+    }
+
+    @Override
     public void modificarPedidoCarrito(Usuario usuario) {
         if (sessionFactory.getCurrentSession().contains(this.buscar(usuario.getEmail()))) {
             Usuario existingUsuario = sessionFactory.getCurrentSession().find(Usuario.class, this.buscar(usuario.getEmail()).getId());

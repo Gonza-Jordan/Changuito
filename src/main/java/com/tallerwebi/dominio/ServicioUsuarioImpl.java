@@ -25,6 +25,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
+    public List<Usuario> consultarTodosLosUsuarios() {
+        return repositorioUsuario.buscarTodosLosUsuarios();
+    }
+
+    @Override
     public Usuario validarContrasena(String email, String contrasena) {
         Usuario usuario = this.consultarUsuario(email);
 

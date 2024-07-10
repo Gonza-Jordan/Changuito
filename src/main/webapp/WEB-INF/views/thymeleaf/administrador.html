@@ -22,15 +22,18 @@
     <h1>Asignar Precio y Descuento</h1>
     <a class="create-button" href="asignarPrecioYDescuento.html">Asignar</a>
 
-    <form action="http://localhost:8080/spring/send-email" method="get">
-        <input type="hidden" name="to" value="tuchanguitocompras@gmail.com"/>
-        <button type="submit" class="create-button">Enviar Promociones</button>
-    </form>
+<!--    <form action="http://localhost:8080/spring/send-email" method="get">-->
+<!--        <input type="hidden" name="to" value="tuchanguitocompras@gmail.com"/>-->
+<!--        <button type="submit" class="create-button">Enviar Promociones</button>-->
+<!--    </form>-->
 
-    <form action="http://localhost:8080/spring/send-favorites-email" method="get">
-        <input type="hidden" name="to" value="tuchanguitocompras@gmail.com"/>
-        <button type="submit" class="create-button">Enviar Favoritos</button>
-    </form>
+<!--    <form action="http://localhost:8080/spring/send-favorites-email" method="get">-->
+<!--        <input type="hidden" name="to" value="tuchanguitocompras@gmail.com"/>-->
+<!--        <button type="submit" class="create-button">Enviar Favoritos</button>-->
+<!--    </form>-->
+
+    <a class="create-button" th:href="@{/send-email-carrito}">Enviar Promociones</a>
+
 
     <img th:src="${supermercado.logo}" th:alt="${supermercado.nombre}" class="logoSuper">
 </div>

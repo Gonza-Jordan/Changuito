@@ -1,14 +1,14 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Paquete;
-import com.tallerwebi.dominio.Promocion;
-import com.tallerwebi.dominio.RepositorioPromocion;
-import com.tallerwebi.dominio.SupermercadoProducto;
+import com.tallerwebi.dominio.*;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository("RepositorioPromocion")
 public class RepositorioPromocionImpl implements RepositorioPromocion {
@@ -22,7 +22,7 @@ public class RepositorioPromocionImpl implements RepositorioPromocion {
     @Override
     @Transactional
     public List<Promocion> obtenerPromociones() {
-        List<Promocion> promociones =  this.sessionFactory.getCurrentSession()
+        List<Promocion> promociones = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Promocion WHERE 1 = 1", Promocion.class)
                 .getResultList();
         for (Promocion promocion : promociones) {
@@ -35,16 +35,45 @@ public class RepositorioPromocionImpl implements RepositorioPromocion {
     }
 
     @Override
-    public void guardarPromocion(Promocion promocion){
+    public List<Promocion> obtenerPromocionesDeProducto(Producto producto) {
+
+        String hql = "FROM Promocion";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        List<Promocion> promociones = query.getResultList();
+
+        List<Promocion> promoConProductos = new ArrayList<>();
+        for (Promocion promocion : promociones) {
+            if (promocion instanceof Paquete) {
+                Paquete paquete = (Paquete) promocion;
+                List<SupermercadoProducto> supermercadosProductos = paquete.getProductos();
+                supermercadosProductos.forEach(supermercadoProducto -> {
+                    if (Objects.equals(supermercadoProducto.getProducto().getIdProducto(), producto.getIdProducto())) {
+                        promoConProductos.add(promocion);
+                    }
+                });
+            } else {
+                Combo combo = (Combo) promocion;
+                if (Objects.equals(combo.getProducto().getProducto().getIdProducto(), producto.getIdProducto())) {
+                    promoConProductos.add(promocion);
+                }
+
+            }
+        }
+
+        return promoConProductos;
+    }
+
+    @Override
+    public void guardarPromocion(Promocion promocion) {
         this.sessionFactory.getCurrentSession().save(promocion);
     }
 
     @Override
-    public Promocion buscarPromocion(Integer idPromocion){
+    public Promocion buscarPromocion(Integer idPromocion) {
 
         String hql = "FROM Promocion WHERE idPromocion = :idPromocion";
         javax.persistence.Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("idPromocion", idPromocion );
+        query.setParameter("idPromocion", idPromocion);
         return (Promocion) query.getSingleResult();
 
     }

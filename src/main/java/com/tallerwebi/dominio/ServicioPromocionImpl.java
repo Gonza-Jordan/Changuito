@@ -27,5 +27,12 @@ public class ServicioPromocionImpl implements ServicioPromocion {
     public Promocion buscarPromocion(Integer idPromocion) {
         return repositorioPromocion.buscarPromocion(idPromocion);
     }
+
+    @Override
+    public List<Promocion> obtenerPromocionesDeProducto(Producto producto) {
+        return repositorioPromocion.obtenerPromocionesDeProducto(producto);
+    }
+
+
 }
 
