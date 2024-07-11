@@ -123,10 +123,16 @@ public class ControladorUsuario {
 
     @RequestMapping(path = "/modificar", method = RequestMethod.POST)
     public ModelAndView modificar(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
-        servicioUsuario.modificar(usuario);
-        HttpSession misession = request.getSession(true);
-        misession.setAttribute("usuario", usuario);
-        return new ModelAndView("redirect:/home");
+        try {
+            servicioUsuario.modificar(usuario);
+            HttpSession misession = request.getSession(true);
+            misession.setAttribute("usuario", usuario);
+            return new ModelAndView("redirect:/mi-cuenta");
+        } catch (Exception e) {
+            ModelMap model = new ModelMap();
+            model.put("error", "Error al modificar el usuario: " + e.getMessage());
+            return new ModelAndView("miCuenta", model);
+        }
     }
 
     @RequestMapping(path = "/agregarAFavoritos", method = RequestMethod.POST)
