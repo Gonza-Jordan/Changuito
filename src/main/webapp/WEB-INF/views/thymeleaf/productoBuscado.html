@@ -101,12 +101,9 @@
     <div class="product-column">
         <div th:each="supermercadoProducto : ${productos}">
             <div class="product-card">
-                <a th:href="@{/producto_seleccionado(id=${supermercadoProducto.producto.idProducto},idSupermercado=${supermercadoProducto.supermercado.idSupermercado})}">
-
-                    <div class="product-image">
+                <div class="product-image">
                         <img th:src="${supermercadoProducto.producto.urlImagen}" alt="Imagen del Producto">
                     </div>
-                </a>
                 <div class="product-info">
                     <div class="product-name" th:text="${supermercadoProducto.producto.nombre}"></div>
                     <div class="store-info">

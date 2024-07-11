@@ -381,8 +381,7 @@ html {
 }
 
 .hero {
-    /*background-image: url("../img/hero-categoria.jpg");*/
-    background-color: darkslategrey;
+    background-image: url("../img/hero-home.jpg");
     height: 40vh;
     display: flex;
     align-items: center;
@@ -886,12 +885,12 @@ footer a:hover {
 }
 
 .product-image-producto-seleccionado {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
 }
 
 .columna_derecha_producto {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -962,10 +961,11 @@ footer a:hover {
 
 .contenedor-cards {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 10px;
     padding: 20px;
+    margin-top: 2em;
 }
 
 .card-producto {
@@ -1275,7 +1275,7 @@ footer a:hover {
     margin-bottom: 5px;
     font-weight: bold;
     text-decoration: none;
-    min-width: 10em;
+    min-width: 14em;
     text-align: center;
 }
 
