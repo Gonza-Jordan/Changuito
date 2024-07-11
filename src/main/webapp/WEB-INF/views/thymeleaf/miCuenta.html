@@ -39,6 +39,7 @@
                     <label for="email">Email</label>
                     <input th:field="*{email}" id="email" type="email" class="form-control mb-3" placeholder="Email" readonly required />
                 </div>
+                <input type="hidden" th:field="*{id}" />
                 <div>
                     <label for="contrasena">Contraseña</label>
                     <input th:field="*{contrasena}" id="contrasena" type="password" class="form-control mb-3" placeholder="Contraseña" required />
