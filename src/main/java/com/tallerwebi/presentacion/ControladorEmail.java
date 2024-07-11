@@ -49,8 +49,8 @@ public class ControladorEmail {
         }
     }
 
-    @GetMapping("/send-email-carrito")
-    public String sendEmailCarrito() {
+    @GetMapping("/send-email-favs")
+    public String sendEmailFavs() {
         try {
             Map<String, Object> variables = new HashMap<>();
 //            sql to email user
@@ -61,9 +61,33 @@ public class ControladorEmail {
 
                 if (!usuario.getAdmin()) {
 
-                    List<Promocion> promoUsuario = new ArrayList<>();
-                    usuario.getFavoritos().forEach(producto -> promoUsuario.addAll(servicioPromocion.obtenerPromocionesDeProducto(producto)));
+                    Integer cantidadDePromosRandom = 3;
 
+                    List<Promocion> promoUsuario = new ArrayList<>();
+                    for (Producto producto : usuario.getFavoritos()) {
+                        promoUsuario.addAll(servicioPromocion.obtenerPromocionesDeProducto(producto));
+                    }
+
+
+                    if (promoUsuario.isEmpty()) {
+
+                        List<Promocion> todasLasPromos = servicioPromocion.obtenerTodasLasPromociones();
+
+                        for (int i = 0; i < cantidadDePromosRandom; i++) {
+                            promoUsuario.add(todasLasPromos.get((int) (todasLasPromos.size() * Math.random())));
+                        }
+                    }
+
+
+                    if (promoUsuario.size() > 3) {
+
+                        List<Promocion> promosAux = new ArrayList<>();
+                        for (int i = 0; i < cantidadDePromosRandom; i++) {
+                            promosAux.add(promoUsuario.get((int) (promoUsuario.size() * Math.random())));
+                        }
+                        promoUsuario.clear();
+                        promoUsuario = promosAux;
+                    }
 
 
                     StringBuilder email = new StringBuilder();
@@ -155,7 +179,7 @@ public class ControladorEmail {
                     email.append("  <body>");
                     email.append("    <div class=\"container\">");
                     email.append("      <div class=\"banner\">");
-                    email.append("        <h5>Hola Jose, tenemos estas promociones para vos.</h5>");
+                    email.append("        <h5>Hola ").append(usuario.getNombre()).append(", tenemos estas promociones para vos.</h5>\n");
                     email.append("      </div>");
 
                     for (Promocion promo : promoUsuario) {
@@ -206,6 +230,132 @@ public class ControladorEmail {
                         }
                     }
 
+                    email.append("      <div class=\"footer\">");
+                    email.append("        <p>¡Aprovecha estas promociones antes de que se terminen!</p>");
+                    email.append("        <p>&copy; 2024 Tu changuito. Todos los derechos reservados.</p>");
+                    email.append("      </div>");
+                    email.append("    </div>");
+                    email.append("  </body>");
+                    email.append("</html>");
+
+                    String emailString = email.toString();
+
+                    servicioEmail.sendMimeMessageWithImage(usuario.getEmail(), "Tu changuito", emailString, variables);
+                }
+            }
+
+//            servicioEmail.sendMimeMessageWithImage(to, "Tu changuito", "emailTemplate", variables);
+            return "Email enviado exitosamente!";
+        } catch (MessagingException | IOException e) {
+            return "Error enviando email: " + e.getMessage();
+        }
+    }
+
+    @GetMapping("/send-email-carrito")
+    public String sendEmailCarrito() {
+        try {
+            Map<String, Object> variables = new HashMap<>();
+//            sql to email user
+
+            List<Usuario> usuariosEmail = servicioUsuario.consultarTodosLosUsuarios();
+
+
+            for (Usuario usuario : usuariosEmail) {
+
+                if (usuario.getStampCarritoActivo() != null) {
+
+
+                    StringBuilder email = new StringBuilder();
+                    email.append("<!DOCTYPE html>");
+                    email.append("<html lang=\"en\">");
+                    email.append("  <head>");
+                    email.append("    <meta charset=\"UTF-8\" />");
+                    email.append("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />");
+                    email.append("    <title>Tu changuito</title>");
+                    email.append("    <style>");
+                    email.append("      body {");
+                    email.append("        font-family: Arial, sans-serif;");
+                    email.append("        background-color: #f4f4f4;");
+                    email.append("        margin: 0;");
+                    email.append("        padding: 0;");
+                    email.append("      }");
+                    email.append("      .container {");
+                    email.append("        width: 100%;");
+                    email.append("        max-width: 600px;");
+                    email.append("        margin: 0 auto;");
+                    email.append("        background-color: #ffffff;");
+                    email.append("        padding: 20px;");
+                    email.append("        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);");
+                    email.append("      }");
+                    email.append("      .banner {");
+                    email.append("        width: 100%;");
+                    email.append("        text-align: center;");
+                    email.append("        background-color: #007bff;");
+                    email.append("        color: white;");
+                    email.append("        padding: 10px 0;");
+                    email.append("        font-size: 24px;");
+                    email.append("        margin-bottom: 20px;");
+                    email.append("      }");
+                    email.append("      h1 {");
+                    email.append("        color: #333333;");
+                    email.append("      }");
+                    email.append("      p {");
+                    email.append("        font-size: 16px;");
+                    email.append("        color: #666666;");
+                    email.append("      }");
+                    email.append("      .promotions {");
+                    email.append("        margin-top: 20px;");
+                    email.append("      }");
+                    email.append("      .promotion-item {");
+                    email.append("        border-bottom: 1px solid #dddddd;");
+                    email.append("        padding: 10px 10px;");
+                    email.append("        display: flex;");
+                    email.append("        align-items: center;");
+                    email.append("      }");
+                    email.append("      img {");
+                    email.append("        height: 10vh;");
+                    email.append("        margin-right: 20px;");
+                    email.append("      }");
+                    email.append("      .promotion-details {");
+                    email.append("        flex: 1;");
+                    email.append("      }");
+                    email.append("      .promotion-details h2 {");
+                    email.append("        margin: 0 0 10px;");
+                    email.append("        font-size: 18px;");
+                    email.append("        color: #333333;");
+                    email.append("      }");
+                    email.append("      .promotion-details p {");
+                    email.append("        margin: 5px 0;");
+                    email.append("        font-size: 14px;");
+                    email.append("        color: #666666;");
+                    email.append("      }");
+                    email.append("      .footer {");
+                    email.append("        text-align: center;");
+                    email.append("        margin-top: 20px;");
+                    email.append("        font-size: 12px;");
+                    email.append("        color: #999999;");
+                    email.append("      }");
+                    email.append("      .promotion-paquete-title {");
+                    email.append("        margin-bottom: 20px;");
+                    email.append("      }");
+                    email.append("      .promotion-paquete-producto {");
+                    email.append("        margin-bottom: 20px;");
+                    email.append("      }");
+                    email.append("      .promotion-paquete-item {");
+                    email.append("        border-bottom: 1px solid #dddddd;");
+                    email.append("        padding: 0 10px;");
+                    email.append("        align-items: center;");
+                    email.append("      }");
+                    email.append("      h5 {");
+                    email.append("        margin: 5px;");
+                    email.append("      }");
+                    email.append("    </style>");
+                    email.append("  </head>");
+                    email.append("  <body>");
+                    email.append("    <div class=\"container\">");
+                    email.append("      <div class=\"banner\">");
+                    email.append("        <h5>Hola ").append(usuario.getNombre()).append(", tenes un carrito esperandote.</h5>\n");
+                    email.append("      </div>");
                     email.append("      <div class=\"footer\">");
                     email.append("        <p>¡Aprovecha estas promociones antes de que se terminen!</p>");
                     email.append("        <p>&copy; 2024 Tu changuito. Todos los derechos reservados.</p>");

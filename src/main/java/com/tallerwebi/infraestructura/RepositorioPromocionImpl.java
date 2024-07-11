@@ -63,6 +63,17 @@ public class RepositorioPromocionImpl implements RepositorioPromocion {
         return promoConProductos;
     }
 
+
+    @Override
+    public List<Promocion> obtenerTodasLasPromociones() {
+
+        String hql = "FROM Promocion";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        List<Promocion> promociones = query.getResultList();
+
+        return promociones;
+    }
+
     @Override
     public void guardarPromocion(Promocion promocion) {
         this.sessionFactory.getCurrentSession().save(promocion);

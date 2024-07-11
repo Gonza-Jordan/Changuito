@@ -12,4 +12,7 @@ public interface RepositorioPromocion {
 
     List<Promocion> obtenerPromocionesDeProducto(Producto producto);
 
+    List<Promocion> obtenerTodasLasPromociones();
+
+
     }

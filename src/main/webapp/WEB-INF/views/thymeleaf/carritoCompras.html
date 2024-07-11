@@ -23,7 +23,6 @@
             <th>Foto</th>
             <th>Producto</th>
             <th>Precio Unitario</th>
-            <th>Cantidad</th>
             <th>Categoría</th>
             <th>Subcategoría</th>
             <th>Acciones</th>
@@ -42,15 +41,7 @@
             <td>
                 <span class="precio-unitario" th:text="${supermercadoProducto.precio}"></span>
             </td>
-            <td>
-                <select class="cantidad-select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </td>
+
             <td th:text="${supermercadoProducto.producto.categoria}"></td>
             <td th:text="${supermercadoProducto.producto.subcategoria}"></td>
             <td>
@@ -75,28 +66,14 @@
                 <td>
                     <span class="precio-unitario" th:text="${promocion.getPrecioFinal()}"></span>
                 </td>
-                <td>
-                    <select class="cantidad-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </td>
+
                 <td th:text="${promocion.getProducto().producto.categoria}"></td>
                 <td th:text="${promocion.getProducto().producto.subcategoria}"></td>
-                <!--            <td>-->
-                <!--                <form th:action="@{/eliminarDelCarrito}" method="post">-->
-                <!--                    <input type="hidden" name="codigoBarras" th:value="${supermercadoProducto.getId()}"/>-->
-                <!--                    <button type="submit">Eliminar</button>-->
-                <!--                </form>-->
-
-                <!--                <a class="add-button" th:href="@{/eliminarDelCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Eliminar</a>-->
-
-                <!--            </td>-->
-
                 <td>
+
+                    <a class="add-button"
+                       th:href="@{/eliminarDelCarritoPromo(idPromo=${promocion.getIdPromocion()})}">Eliminar</a>
+
                 </td>
 
                 <td>
@@ -125,15 +102,7 @@
                     <td>
                         <span class="precio-unitario" th:text="${promocion.getPrecioFinal()}"></span>
                     </td>
-                    <td>
-                        <select class="cantidad-select">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
+
                     <td>
                         <div th:each="supermercadoProducto, row : ${promocion.getProductos()}">
                             <p th:text="${supermercadoProducto.producto.categoria}"></p>
@@ -145,17 +114,11 @@
                         </div>
                     </td>
 
-                    <!--                    <td>-->
-                    <!--                        <form th:action="@{/eliminarDelCarrito}" method="post">-->
-                    <!--                            <input type="hidden" name="codigoBarras" th:value="${supermercadoProducto.getId()}"/>-->
-                    <!--                            <button type="submit">Eliminar</button>-->
-                    <!--                        </form>-->
-
-                    <!--                        <a class="add-button"-->
-                    <!--                           th:href="@{/eliminarDelCarrito(idProducto=${supermercadoProducto.getProducto().getIdProducto()},idSupemercado=${supermercadoProducto.getSupermercado().getIdSupermercado()})}">Eliminar</a>-->
-
-                    <!--                    </td>-->
                     <td>
+
+                        <a class="add-button"
+                           th:href="@{/eliminarDelCarritoPromo(idPromo=${promocion.getIdPromocion()})}">Eliminar</a>
+
                     </td>
 
 
@@ -170,7 +133,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="6"></td>
+            <td colspan="5"></td>
             <td style="text-align: right;">Total: $</td>
             <td id="total-final" colspan="2"></td>
         </tr>

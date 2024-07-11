@@ -32,7 +32,10 @@
 <!--        <button type="submit" class="create-button">Enviar Favoritos</button>-->
 <!--    </form>-->
 
-    <a class="create-button" th:href="@{/send-email-carrito}">Enviar Promociones</a>
+    <a class="create-button" th:href="@{/send-email-favs}">Enviar promociones</a>
+
+    <a class="create-button" th:href="@{/send-email-carrito}">Enviar recordatorio carrito</a>
+
 
 
     <img th:src="${supermercado.logo}" th:alt="${supermercado.nombre}" class="logoSuper">
