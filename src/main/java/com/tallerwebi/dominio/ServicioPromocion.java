@@ -10,4 +10,7 @@ public interface ServicioPromocion {
 
     List<Promocion> obtenerPromocionesDeProducto(Producto producto);
 
-    }
+    List<Promocion> obtenerTodasLasPromociones();
+
+
+}

@@ -33,6 +33,12 @@ public class ServicioPromocionImpl implements ServicioPromocion {
         return repositorioPromocion.obtenerPromocionesDeProducto(producto);
     }
 
+    @Override
+    public List<Promocion> obtenerTodasLasPromociones() {
+        return repositorioPromocion.obtenerTodasLasPromociones();
+    }
+
+
 
 }
 

@@ -103,6 +103,42 @@ public class ControladorCarrito {
     }
 
 
+    @RequestMapping(path = "/eliminarDelCarritoPromo", method = RequestMethod.GET)
+    public ModelAndView eliminarDelCarrito(@RequestParam("idPromo") Integer idPromo, HttpServletRequest request) {
+
+        //
+        Promocion promocion;
+        promocion = this.servicioPromocion.buscarPromocion(idPromo);
+
+
+        HttpSession misession = request.getSession();
+        Usuario usuario = (Usuario) misession.getAttribute("usuario");
+
+
+        if (usuario == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        //
+        Carrito carrito1 = servicioCarrito.consultarCarrito(usuario.getStampCarritoActivo());
+
+
+        List<Promocion> listpromocion = new ArrayList<>();
+        for (Promocion promocion1 : carrito1.getPromocion()) {
+            if (!promocion1.getIdPromocion().equals(promocion.getIdPromocion())) {
+                listpromocion.add(promocion1);
+            }
+        }
+
+
+        carrito1.setPromocion(listpromocion);
+        servicioCarrito.modificar(carrito1);
+
+        return new ModelAndView("redirect:/carritoCompras");
+
+    }
+
+
     @RequestMapping(path = "/agregarAlCarrito", method = RequestMethod.GET)
     public ModelAndView agregarAlCarrito(
             @RequestParam("idProducto") Integer idProducto,
@@ -186,8 +222,6 @@ public class ControladorCarrito {
 
         return new ModelAndView("redirect:/carritoCompras");
     }
-
-
 
 
     @RequestMapping(path = "/limpiarCarrito", method = RequestMethod.GET)
@@ -296,13 +330,13 @@ public class ControladorCarrito {
         Date stamp = usuario.getStampCarritoActivo();
         Carrito carrito = servicioCarrito.consultarCarrito(stamp);
 
-        Double totalPedido=0.0;
-        for(SupermercadoProducto superProdu:carrito.getSupermercadoProducto()){
-            totalPedido+=superProdu.getPrecio();
+        Double totalPedido = 0.0;
+        for (SupermercadoProducto superProdu : carrito.getSupermercadoProducto()) {
+            totalPedido += superProdu.getPrecio();
         }
 
-        for(Promocion promo:carrito.getPromocion()){
-            totalPedido+=promo.getPrecioFinal();
+        for (Promocion promo : carrito.getPromocion()) {
+            totalPedido += promo.getPrecioFinal();
         }
 
         Pedido pedido = new Pedido();
@@ -346,13 +380,13 @@ public class ControladorCarrito {
         Date stamp = usuario.getStampCarritoActivo();
         Carrito carrito = servicioCarrito.consultarCarrito(stamp);
 
-        Double totalPedido=0.0;
-        for(SupermercadoProducto superProdu:carrito.getSupermercadoProducto()){
-            totalPedido+=superProdu.getPrecio();
+        Double totalPedido = 0.0;
+        for (SupermercadoProducto superProdu : carrito.getSupermercadoProducto()) {
+            totalPedido += superProdu.getPrecio();
         }
 
-        for(Promocion promo:carrito.getPromocion()){
-            totalPedido+=promo.getPrecioFinal();
+        for (Promocion promo : carrito.getPromocion()) {
+            totalPedido += promo.getPrecioFinal();
         }
 
         ModelAndView modelAndView = new ModelAndView("pago");
