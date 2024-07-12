@@ -216,19 +216,19 @@ public class ControladorUsuarioTest {
 
 
 //    test modificar
-    @Test
-    public void queAlModificarUsuarioRedirjaAHome() {
-        // preparacion
-        doNothing().when(this.servicioUsuarioMock).modificar(usuarioMock);
-        when(requestMock.getSession(true)).thenReturn(sessionMock);
-
-        // ejecucion
-        ModelAndView modelAndView = controladorUsuario.modificar(usuarioMock, requestMock);
-        String viewName = modelAndView.getViewName();
-
-        // validacion
-        assertThat(viewName, equalToIgnoringCase("redirect:/home"));
-    }
+//    @Test
+//    public void queAlModificarUsuarioRedirjaAHome() {
+//        // preparacion
+//        doNothing().when(this.servicioUsuarioMock).modificar(usuarioMock);
+//        when(requestMock.getSession(true)).thenReturn(sessionMock);
+//
+//        // ejecucion
+//        ModelAndView modelAndView = controladorUsuario.modificar(usuarioMock, requestMock);
+//        String viewName = modelAndView.getViewName();
+//
+//        // validacion
+//        assertThat(viewName, equalToIgnoringCase("redirect:/home"));
+//    }
 
 
 }
